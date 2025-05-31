@@ -1,0 +1,1037 @@
+{
+  "error": "",
+  "departures": [
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:24",
+      "departureLive": "11:24",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:27",
+      "departureLive": "11:28",
+      "inTime": false,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:34",
+      "departureLive": "11:35",
+      "inTime": false,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:37",
+      "departureLive": "11:40",
+      "inTime": false,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:44",
+      "departureLive": "11:44",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:47",
+      "departureLive": "11:47",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:54",
+      "departureLive": "11:54",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "11:57",
+      "departureLive": "11:57",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:04",
+      "departureLive": "12:04",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:07",
+      "departureLive": "12:07",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:14",
+      "departureLive": "12:14",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:17",
+      "departureLive": "12:17",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:24",
+      "departureLive": "12:24",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:27",
+      "departureLive": "12:27",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:34",
+      "departureLive": "12:34",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:37",
+      "departureLive": "12:37",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:44",
+      "departureLive": "12:44",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:47",
+      "departureLive": "12:47",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:54",
+      "departureLive": "12:54",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "12:57",
+      "departureLive": "12:57",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:04",
+      "departureLive": "13:04",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:07",
+      "departureLive": "13:07",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:14",
+      "departureLive": "13:14",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbhf. (Friedenstr)",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbhf. (Friedenstr)",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:17",
+      "departureLive": "13:17",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:24",
+      "departureLive": "13:24",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbahnhof Friedenstr.",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstr.",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:27",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:34",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbahnhof Friedenstra\u00dfe S",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstra\u00dfe S",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:37",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:44",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbahnhof Friedenstr.",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstr.",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:47",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:54",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbahnhof Friedenstra\u00dfe S",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstra\u00dfe S",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "13:57",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:04",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbahnhof Friedenstr.",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstr.",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:07",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:14",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbahnhof Friedenstra\u00dfe S",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstra\u00dfe S",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:17",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:24",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "191",
+        "symbol": "03191.svg",
+        "direction": "Ostbahnhof Friedenstr.",
+        "stateless": "swm:03191:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstr.",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:27",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "54",
+        "symbol": "24054.svg",
+        "direction": "M\u00fcnchner Freiheit",
+        "stateless": "swm:03054:G:R:015",
+        "name": "MetroBus"
+      },
+      "direction": "M\u00fcnchner Freiheit",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:34",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+          "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+          "type": "line"
+        },
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    },
+    {
+      "line": {
+        "number": "190",
+        "symbol": "03190.svg",
+        "direction": "Ostbahnhof Friedenstra\u00dfe S",
+        "stateless": "swm:03190:G:R:015",
+        "name": "Bus"
+      },
+      "direction": "Ostbahnhof Friedenstra\u00dfe S",
+      "station": { "id": "91000161", "name": "St.-Cajetan-Stra\u00dfe" },
+      "track": "",
+      "departureDate": "20250515",
+      "departurePlanned": "14:37",
+      "departureLive": "",
+      "inTime": true,
+      "notifications": [
+        {
+          "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+          "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+          "type": "stop"
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "text": "Bus 54  - Umleitungen und verk\u00fcrzte Linienwege wegen der Bladenight (26.05.2025;  21:20 - 22:20 Uhr)",
+      "link": "https://www.mvg.de/verbindungen/betriebsmeldungen/2025-05-05-bladenight.html",
+      "type": "line"
+    },
+    {
+      "text": "Bus 54 / 190 / 191 / N44 - Umleitung wegen Sperrung der Unterf\u00fchrung Balanstra\u00dfe (02.06. - 27.06.2025)",
+      "link": "https://www.mvg.de/api/ems/tickers/file/ad90807b-5d4e-4ab3-bd4f-4911a111271c_53983588",
+      "type": "stop"
+    }
+  ]
+}

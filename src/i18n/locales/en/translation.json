@@ -1,0 +1,41 @@
+{
+  "appTitle": "Departure Monitor",
+  "toggleDarkMode": "Toggle dark mode",
+  "settings": "Settings",
+  "errorFetching": "Failed to fetch departures for {{stopName}}",
+  "unsupportedCity": "Unsupported city: {{city}}",
+  "errorFetchingWuerzburg": "Error fetching departures for Würzburg stop {{stopName}}",
+  "errorFetchingDepartures": "Error fetching departures for {{stopName}}",
+  "configModal": {
+    "title": "Settings",
+    "stopManagement": "Stop Management",
+    "globalSettings": "Global Settings"
+  },
+  "stopWidget": {
+    "configure": "Configure",
+    "refresh": "Refresh",
+    "loading": "Loading...",
+    "noDepartures": "No departures available"
+  },
+  "walkingTime": "Walking time: {{minutes}} min",
+  "line": "Line",
+  "destination": "Destination",
+  "departure": "Departure",
+  "delay": "Delay",
+  "language": "Language",
+  "german": "German",
+  "english": "English",
+  "close": "Close",
+  "globalSettings": {
+    "title": "Global Settings",
+    "darkMode": "Dark Mode",
+    "refreshInterval": "Refresh Interval (seconds)",
+    "refreshIntervalHelp": "Minimum 60 seconds (1 minute)",
+    "maxDepartures": "Maximum Departures Shown",
+    "maxDeparturesHelp": "Limit the number of departures displayed per stop"
+  },
+  "cities": {
+    "wue": "Wuerzburg",
+    "muc": "Munich"
+  }
+}

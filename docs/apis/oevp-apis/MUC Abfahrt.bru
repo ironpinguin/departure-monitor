@@ -1,0 +1,28 @@
+meta {
+  name: MUC Abfahrt
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://www.mvv-muenchen.de/?eID=departuresFinder&action=get_departures&stop_id={{stopID}}&requested_timestamp={{timestamp}}&lines
+  body: none
+  auth: inherit
+}
+
+params:query {
+  eID: departuresFinder
+  action: get_departures
+  stop_id: {{stopID}}
+  requested_timestamp: {{timestamp}}
+  lines: 
+}
+
+vars:pre-request {
+  timestamp: 
+  stopID: de:09162:161
+}
+
+script:pre-request {
+  bru.setVar("timestamp", Math.floor(Date.now() / 1000));
+}
