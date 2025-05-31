@@ -1,0 +1,2891 @@
+{
+  "version": "10.6.21.17",
+  "systemMessages": [],
+  "locations": [
+    {
+      "id": "de:09663:308",
+      "isGlobalId": true,
+      "name": "Würzburg, Philosophisches Institut",
+      "disassembledName": "Philosophisches Institut",
+      "coord": [
+        5590763,
+        1109455
+      ],
+      "type": "stop",
+      "matchQuality": 100000,
+      "isBest": true,
+      "parent": {
+        "id": "placeID:9663000:1",
+        "name": "Würzburg",
+        "type": "locality"
+      },
+      "assignedStops": [
+        {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "coord": [
+            5590763,
+            1109455
+          ],
+          "parent": {
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "productClasses": [
+            5
+          ],
+          "connectingMode": 100,
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      ],
+      "properties": {
+        "stopId": "3700308"
+      }
+    }
+  ],
+  "stopEvents": [
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:40:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:40:00Z",
+      "departureTimeEstimated": "2025-05-15T09:46:06Z",
+      "transportation": {
+        "id": "wvv:10214:E:H:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Busbahnhof - Hubland - Fachhochschule",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Technische Hochschule WÜ SW",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 64,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15260-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "EXTRA_STOPS",
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "EXTRA_STOP"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:41:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:41:00Z",
+      "departureTimeEstimated": "2025-05-15T09:45:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 39,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861740#14#71374"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:46:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:46:00Z",
+      "departureTimeEstimated": "2025-05-15T09:47:24Z",
+      "transportation": {
+        "id": "wvv:10014:E:R:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Gerbrunn - Würzburg Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 159,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3602053",
+          "name": "Gerbrunn Casteller Platz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861671#14#71339"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:47:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:47:00Z",
+      "departureTimeEstimated": "2025-05-15T09:48:36Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 3,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700056",
+          "name": "Würzburg Barbarossaplatz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "274437-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:48:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:48:00Z",
+      "departureTimeEstimated": "2025-05-15T09:48:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:R:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Universität Sportzentrum - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 97,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201369-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:53:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:53:00Z",
+      "departureTimeEstimated": "2025-05-15T09:54:12Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 61,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15349-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T09:57:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T09:57:00Z",
+      "departureTimeEstimated": "2025-05-15T10:02:36Z",
+      "transportation": {
+        "id": "wvv:10214:E:R:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Fachhochschule - Hubland - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 21,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700086",
+          "name": "Würzburg THWS",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201104-00704-1"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:00:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:00:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:H:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Busbahnhof - Hubland - Fachhochschule",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Technische Hochschule WÜ SW",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 65,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      }
+    },
+    {
+      "realtimeStatus": [
+        "EXTRA_STOPS",
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "EXTRA_STOP"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:01:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:01:00Z",
+      "departureTimeEstimated": "2025-05-15T10:01:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 42,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861344#14#71406"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:06:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:06:00Z",
+      "departureTimeEstimated": "2025-05-15T10:06:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:R:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Gerbrunn - Würzburg Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 161,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3602053",
+          "name": "Gerbrunn Casteller Platz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861741#14#71375"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:06:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:06:00Z",
+      "departureTimeEstimated": "2025-05-15T10:07:06Z",
+      "transportation": {
+        "id": "wvv:10029:E:R:24d",
+        "name": "Bus 29",
+        "disassembledName": "29",
+        "number": "29",
+        "description": "Hubland Campus Nord - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 100,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700248",
+          "name": "Würzburg Belvedere",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "57061-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:08:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:08:00Z",
+      "departureTimeEstimated": "2025-05-15T10:08:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:R:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Universität Sportzentrum - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 98,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201355-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:13:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:13:00Z",
+      "departureTimeEstimated": "2025-05-15T10:13:30Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 62,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15371-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:17:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:17:00Z",
+      "departureTimeEstimated": "2025-05-15T10:17:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:R:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Fachhochschule - Hubland - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 22,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700086",
+          "name": "Würzburg THWS",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201078-00704-1"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:20:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:20:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:H:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Busbahnhof - Hubland - Fachhochschule",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Technische Hochschule WÜ SW",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 66,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      }
+    },
+    {
+      "realtimeStatus": [
+        "EXTRA_STOPS",
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "EXTRA_STOP"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:21:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:21:00Z",
+      "departureTimeEstimated": "2025-05-15T10:21:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 44,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861651#14#71340"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:26:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:26:00Z",
+      "departureTimeEstimated": "2025-05-15T10:26:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:R:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Gerbrunn - Würzburg Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 164,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3602053",
+          "name": "Gerbrunn Casteller Platz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861345#14#71407"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:28:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:28:00Z",
+      "departureTimeEstimated": "2025-05-15T10:28:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:R:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Universität Sportzentrum - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 99,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201343-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:33:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:33:00Z",
+      "departureTimeEstimated": "2025-05-15T10:33:30Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 63,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15262-00704-1"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:36:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:36:00Z",
+      "transportation": {
+        "id": "wvv:10029:E:R:24d",
+        "name": "Bus 29",
+        "disassembledName": "29",
+        "number": "29",
+        "description": "Hubland Campus Nord - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 101,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700248",
+          "name": "Würzburg Belvedere",
+          "type": "stop"
+        }
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:37:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:37:00Z",
+      "departureTimeEstimated": "2025-05-15T10:37:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:R:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Fachhochschule - Hubland - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 23,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700086",
+          "name": "Würzburg THWS",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201093-00704-1"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:40:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:40:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:H:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Busbahnhof - Hubland - Fachhochschule",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Technische Hochschule WÜ SW",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 67,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      }
+    },
+    {
+      "realtimeStatus": [
+        "EXTRA_STOPS",
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "EXTRA_STOP"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:41:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:41:00Z",
+      "departureTimeEstimated": "2025-05-15T10:41:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 47,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32860942#14#71439"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:46:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:46:00Z",
+      "departureTimeEstimated": "2025-05-15T10:46:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:R:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Gerbrunn - Würzburg Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 166,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3602053",
+          "name": "Gerbrunn Casteller Platz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861643#14#71341"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:48:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:48:00Z",
+      "departureTimeEstimated": "2025-05-15T10:48:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:R:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Universität Sportzentrum - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 100,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201370-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:53:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:53:00Z",
+      "departureTimeEstimated": "2025-05-15T10:53:30Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 64,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15286-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T10:57:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T10:57:00Z",
+      "departureTimeEstimated": "2025-05-15T10:57:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:R:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Fachhochschule - Hubland - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 24,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700086",
+          "name": "Würzburg THWS",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201105-00704-1"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:00:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:00:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:H:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Busbahnhof - Hubland - Fachhochschule",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Technische Hochschule WÜ SW",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 68,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:01:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:01:00Z",
+      "departureTimeEstimated": "2025-05-15T11:01:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 50,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861019#14#71457"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:06:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:06:00Z",
+      "departureTimeEstimated": "2025-05-15T11:06:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:R:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Gerbrunn - Würzburg Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 168,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3602053",
+          "name": "Gerbrunn Casteller Platz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32860926#14#71440"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:06:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:06:00Z",
+      "departureTimeEstimated": "2025-05-15T11:06:00Z",
+      "transportation": {
+        "id": "wvv:10029:E:R:24d",
+        "name": "Bus 29",
+        "disassembledName": "29",
+        "number": "29",
+        "description": "Hubland Campus Nord - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 102,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700248",
+          "name": "Würzburg Belvedere",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "57063-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:08:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:08:00Z",
+      "departureTimeEstimated": "2025-05-15T11:08:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:R:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Universität Sportzentrum - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 101,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201356-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:13:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:13:00Z",
+      "departureTimeEstimated": "2025-05-15T11:13:30Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 65,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15321-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:17:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:17:00Z",
+      "departureTimeEstimated": "2025-05-15T11:17:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:R:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Fachhochschule - Hubland - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 25,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700086",
+          "name": "Würzburg THWS",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201079-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:20:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:20:00Z",
+      "departureTimeEstimated": "2025-05-15T11:20:00Z",
+      "transportation": {
+        "id": "wvv:10214:E:H:24d",
+        "name": "Bus 214",
+        "disassembledName": "214",
+        "number": "214",
+        "description": "Busbahnhof - Hubland - Fachhochschule",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Technische Hochschule WÜ SW",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 69,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15232-00704-1"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:21:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:21:00Z",
+      "departureTimeEstimated": "2025-05-15T11:21:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 52,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861645#14#71342"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:26:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:26:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:R:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Gerbrunn - Würzburg Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 171,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3602053",
+          "name": "Gerbrunn Casteller Platz",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861020#14#71458"
+      }
+    },
+    {
+      "realtimeStatus": [
+        "MONITORED"
+      ],
+      "isRealtimeControlled": true,
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:28:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:28:00Z",
+      "departureTimeEstimated": "2025-05-15T11:28:00Z",
+      "transportation": {
+        "id": "wvv:10014:E:H:24d",
+        "name": "Bus 14",
+        "disassembledName": "14",
+        "number": "14",
+        "description": "Würzburg Bahnhof - Gerbrunn",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "destination": {
+          "name": "Gerbrunn",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 121,
+          "lineDisplay": "LINE"
+        },
+        "origin": {
+          "id": "3700267",
+          "name": "Würzburg  Max-Planck-Straße",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "32861783#14#71378"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:11",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590757,
+          1109458
+        ],
+        "properties": {
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "11"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:28:00Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:28:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:R:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Universität Sportzentrum - Busbahnhof",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Busbahnhof",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 102,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "3700432",
+          "name": "Würzburg Universität Sportzentrum",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "201344-00704-1"
+      }
+    },
+    {
+      "location": {
+        "id": "de:09663:308:0:12",
+        "isGlobalId": true,
+        "name": "Wü Philosophisches Institut",
+        "type": "platform",
+        "coord": [
+          5590768,
+          1109454
+        ],
+        "properties": {
+          "realtimeStatus": [
+            "SCHEDULED_TIME_CHANGED"
+          ],
+          "stopId": "3700308",
+          "area": "0",
+          "platform": "12"
+        },
+        "parent": {
+          "id": "de:09663:308",
+          "isGlobalId": true,
+          "name": "Wü Philosophisches Institut",
+          "disassembledName": "Philosophisches Institut",
+          "type": "stop",
+          "parent": {
+            "id": "placeID:9663000:1",
+            "name": "Würzburg",
+            "type": "locality"
+          },
+          "properties": {
+            "stopId": "3700308"
+          }
+        }
+      },
+      "departureTimePlanned": "2025-05-15T11:33:30Z",
+      "departureTimeBaseTimetable": "2025-05-15T11:33:00Z",
+      "transportation": {
+        "id": "wvv:10114:e:H:24d",
+        "name": "Bus 114",
+        "disassembledName": "114",
+        "number": "114",
+        "description": "Busbahnhof - Universität Sportzentrum",
+        "product": {
+          "id": 1,
+          "class": 5,
+          "name": "Bus",
+          "iconId": 3
+        },
+        "operator": {
+          "id": "WSB",
+          "name": "Würzburger Straßenbahn GmbH"
+        },
+        "destination": {
+          "name": "Universität Sportzentrum",
+          "type": "stop"
+        },
+        "properties": {
+          "tripCode": 66,
+          "lineDisplay": "LINE",
+          "OperatorURL": "wvv.de/mobilitaet"
+        },
+        "origin": {
+          "id": "80029081",
+          "name": "Würzburg, Busbahnhof",
+          "type": "stop"
+        }
+      },
+      "properties": {
+        "AVMSTripID": "15186-00704-1"
+      }
+    }
+  ]
+}

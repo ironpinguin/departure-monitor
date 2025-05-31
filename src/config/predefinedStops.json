@@ -1,0 +1,17 @@
+{
+  "wue": [
+    { "id": "wue-1", "name": "Philosophisches Institut", "stopId": "de:09663:308", "walkingTimeMinutes": 5 },
+    { "id": "wue-2", "name": "Magdalene-Schoch-Straße", "stopId": "de:09663:246", "walkingTimeMinutes": 10 }
+  ],
+  "muc": [
+    { "id": "muc-1", "name": "St.-Cajetan-Straße", "stopId": "de:09162:161", "walkingTimeMinutes": 5 },
+    { "id": "muc-2", "name": "Auerfeldstraße", "stopId": "de:09162:139", "walkingTimeMinutes": 10 },
+    { "id": "muc-3", "name": "St.-Martin-Straße Ost", "stopId": "de:09162:1025", "walkingTimeMinutes": 10},
+    { "id": "muc-4", "name": "St.-Martin-Straße", "stopId": "de:09162:1100", "walkingTimeMinutes": 15},
+    { "id": "muc-5", "name": "Rosenheimer Platz", "stopId": "de:09162:4", "walkingTimeMinutes": 20},
+    { "id": "muc-6", "name": "Ostbahnhof", "stopId": "de:09162:5", "walkingTimeMinutes": 20},
+    { "id": "muc-7", "name": "Kustermannpark", "stopId": "de:09162:5", "walkingTimeMinutes": 10},
+    { "id": "muc-8", "name": "Laim", "stopId": "de:09162:9", "walkingTimeMinutes": 12},
+    { "id": "muc-9", "name": "Pronnerplatz", "stopId": "de:09162:1648", "walkingTimeMinutes": 7}
+  ]
+}

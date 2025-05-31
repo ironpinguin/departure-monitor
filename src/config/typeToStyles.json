@@ -1,0 +1,51 @@
+{
+  "muc": {
+    "lines": {
+      "12": {"background-color": "#96368b", "color": "#fff"},
+      "16": {"background-color": "#0065ae", "color": "#fff"},
+      "17": {"background-color": "#8b563e", "color": "#fff"},
+      "N17": {"background-color": "#8b563e", "color": "#fff"},
+      "18": {"background-color": "#13a538", "color": "#fff"},
+      "19": {"background-color": "#e30613", "color": "#fff"},
+      "N19": {"background-color": "#e30613", "color": "#fff"},
+      "20": {"background-color": "#16bae7", "color": "#000"},
+      "N20": {"background-color": "#16bae7", "color": "#000"},
+      "21": {"background-color": "#c79514", "color": "#000"},
+      "23": {"background-color": "#bccf00", "color": "#000"},
+      "25": {"background-color": "#f1919c", "color": "#000"},
+      "27": {"background-color": "#f7a600", "color": "#000"},
+      "N27": {"background-color": "#f7a600", "color": "#000"},
+      "U1": {"background-color": "#52822f", "color": "#fff"},
+      "U2": {"background-color": "#c20831", "color": "#fff"},
+      "U3": {"background-color": "#ec6726", "color": "#fff"},
+      "U4": {"background-color": "#00a984", "color": "#fff"},
+      "U5": {"background-color": "#bc7a00", "color": "#fff"},
+      "U6": {"background-color": "#0065ae", "color": "#fff"},
+      "U7": {"background-image": "muc/u7_background.svg", "color": "#fff", "background-repeat": "no-repeat", "background-position": "center center", "background-size": "cover"},
+      "S1": {"background-color": "#16bae7", "color": "#000"},
+      "S2": {"background-color": "#76b82a", "color": "#000"},
+      "S3": {"background-color": "#951b81", "color": "#fff"},
+      "S4": {"background-color": "#e30613", "color": "#fff"},
+      "S5": {"background-color": "#00527f", "color": "#fff"},
+      "S6": {"background-color": "#00975f", "color": "#fff"},
+      "S7": {"background-color": "#943126", "color": "#fff"},
+      "S8": {"background-color": "#000", "color": "#fc0"}
+    },
+    "groups": {
+      "ExpressBus": {"background-color": "#4d9380"},
+      "default": {"background-color": "#005366"},
+      "MetroBus": {"background-color": "#ec6726"},
+      "Regionalzug": {"background-color": "#36397f"}
+    }
+  },
+  "wue": {
+    "lines": {},
+    "groups": {
+      "default": {
+        "background-color": "rgb(0, 170, 228)",
+        "border-radius": "10px",
+        "padding": "5px 5px"
+      }
+    }
+  }
+}
