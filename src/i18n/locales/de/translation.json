@@ -6,10 +6,15 @@
   "unsupportedCity": "Nicht unterstützte Stadt: {{city}}",
   "errorFetchingWuerzburg": "Fehler beim Abrufen der Abfahrten für Würzburger Haltestelle {{stopName}}",
   "errorFetchingDepartures": "Fehler beim Abrufen der Abfahrten für {{stopName}}",
+  "yes": "Ja",
+  "no": "Nein",
   "configModal": {
     "title": "Einstellungen",
     "stopManagement": "Haltestellenverwaltung",
-    "globalSettings": "Globale Einstellungen"
+    "globalSettings": "Globale Einstellungen",
+    "noStops": "Keine Haltestellen konfiguriert. Klicken Sie auf \"Haltestelle hinzufügen\", um Ihre erste Haltestelle hinzuzufügen.",
+    "visible": "Sichtbar",
+    "walkingTime": "Gehzeit"
   },
   "stopWidget": {
     "configure": "Konfigurieren",
@@ -26,6 +31,7 @@
   "german": "Deutsch",
   "english": "Englisch",
   "close": "Schließen",
+  "city": "Stadt",
   "globalSettings": {
     "title": "Globale Einstellungen",
     "darkMode": "Dunkelmodus",
@@ -37,5 +43,17 @@
   "cities": {
     "wue": "Würzburg",
     "muc": "München"
+  },
+  "addEditStopDialog": {
+    "editStop": "Haltestelle bearbeiten",
+    "addNewStop": "Haltestelle hinzufügen",
+    "deleteStop": "Heltestelle entfernen",
+    "city": "Stadt",
+    "stop": "Haltestelle",
+    "walkingTime": "Gehzeit (Minuten)",
+    "position": "Position",
+    "visible": "Sichtbar",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
   }
 }

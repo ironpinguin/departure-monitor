@@ -14,6 +14,7 @@ import {
   InputLabel,
   Box
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import type { StopConfig } from '../models';
 import { getPredefinedStops } from '../utils/predefinedStops';
 
@@ -35,6 +36,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
   editingStop,
   existingStops
 }) => {
+  const { t } = useTranslation();
   const [city, setCity] = useState<'wue' | 'muc'>('muc');
   const [selectedStopId, setSelectedStopId] = useState('');
   const [walkingTimeMinutes, setWalkingTimeMinutes] = useState(5);
@@ -101,37 +103,41 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{editingStop ? 'Edit Stop' : 'Add New Stop'}</DialogTitle>
+      <DialogTitle>{editingStop ? t('addEditStopDialog.editStop') : t('addEditStopDialog.addNewStop')}</DialogTitle>
       <DialogContent>
         <Box sx={{ pt: 1 }}>
           <FormControl fullWidth margin="normal">
-            <InputLabel id="city-select-label">City</InputLabel>
+            <InputLabel id="city-select-label">{t('addEditStopDialog.city')}</InputLabel>
             <Select
               labelId="city-select-label"
               value={city}
-              label="City"
+              label={t('addEditStopDialog.city')}
               onChange={(e) => {
                 setCity(e.target.value as 'wue' | 'muc');
                 setSelectedStopId('');
               }}
             >
-              <MenuItem value="wue">Würzburg</MenuItem>
-              <MenuItem value="muc">Munich</MenuItem>
+              <MenuItem value="wue">{t('cities.wue')}</MenuItem>
+              <MenuItem value="muc">{t('cities.muc')}</MenuItem>
             </Select>
           </FormControl>
 
           <FormControl fullWidth margin="normal">
-            <InputLabel id="stop-select-label">Stop</InputLabel>
+            <InputLabel id="stop-select-label">{t('addEditStopDialog.stop')}</InputLabel>
             <Select
               labelId="stop-select-label"
               value={selectedStopId}
-              label="Stop"
+              label={t('addEditStopDialog.stop')}
               onChange={(e) => {
                 setSelectedStopId(e.target.value);
               }}
             >
+              {/*
+                Eindeutige Key-Strategie: Verwendet stop.id statt stop.stopId
+                um React Key-Duplikate zu vermeiden, da mehrere Stops dieselbe stopId haben können
+              */}
               {PREDEFINED_STOPS[city].map((stop) => (
-                <MenuItem key={stop.stopId} value={stop.stopId}>
+                <MenuItem key={stop.id} value={stop.stopId}>
                   {stop.name}
                 </MenuItem>
               ))}
@@ -140,7 +146,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
 
           <TextField
             margin="normal"
-            label="Walking Time (minutes)"
+            label={t('addEditStopDialog.walkingTime')}
             type="number"
             fullWidth
             value={walkingTimeMinutes}
@@ -155,7 +161,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
 
           <TextField
             margin="normal"
-            label="Position"
+            label={t('addEditStopDialog.position')}
             type="number"
             fullWidth
             value={position}
@@ -176,20 +182,20 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
                 color="primary"
               />
             }
-            label="Visible"
+            label={t('addEditStopDialog.visible')}
             sx={{ mt: 1 }}
           />
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>{t('addEditStopDialog.cancel')}</Button>
         <Button
           onClick={handleSave}
           variant="contained"
           color="primary"
           disabled={!selectedStopId}
         >
-          Save
+          {t('addEditStopDialog.save')}
         </Button>
       </DialogActions>
     </Dialog>

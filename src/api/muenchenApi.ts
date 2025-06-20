@@ -33,8 +33,10 @@ export async function fetchMuenchenDepartures(stopId: string): Promise<Departure
       }
     }
 
+    // Eindeutige ID-Generierung: Kombiniert Stadt-Präfix, Station, Linie, Zeit und Datum
+    // um Duplikate zu vermeiden, auch bei identischen Abfahrten zur selben Zeit
     return {
-      id: `${dep.station.id}-${dep.line.number}-${dep.departurePlanned}`,
+      id: `muc-${dep.station.id}-${dep.line.number}-${dep.departurePlanned}-${dep.departureDate}`,
       line: dep.line.number,
       direction: dep.direction,
       scheduledDeparture,

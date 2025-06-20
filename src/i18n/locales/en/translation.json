@@ -6,10 +6,15 @@
   "unsupportedCity": "Unsupported city: {{city}}",
   "errorFetchingWuerzburg": "Error fetching departures for Würzburg stop {{stopName}}",
   "errorFetchingDepartures": "Error fetching departures for {{stopName}}",
+  "yes": "Yes",
+  "no": "No",
   "configModal": {
     "title": "Settings",
     "stopManagement": "Stop Management",
-    "globalSettings": "Global Settings"
+    "globalSettings": "Global Settings",
+    "noStops": "No stops configured. Click \"Add Stop\" to add your first stop.",
+    "visible": "Visible",
+    "walkingTime": "Walking time"
   },
   "stopWidget": {
     "configure": "Configure",
@@ -26,6 +31,7 @@
   "german": "German",
   "english": "English",
   "close": "Close",
+  "city": "City",
   "globalSettings": {
     "title": "Global Settings",
     "darkMode": "Dark Mode",
@@ -37,5 +43,17 @@
   "cities": {
     "wue": "Wuerzburg",
     "muc": "Munich"
+  },
+  "addEditStopDialog": {
+    "editStop": "Edit Stop",
+    "addNewStop": "Add Stop",
+    "deleteStop": "Delete Stop",
+    "city": "City",
+    "stop": "Stop",
+    "walkingTime": "Walking Time (minutes)",
+    "position": "Position",
+    "visible": "Visible",
+    "cancel": "Cancel",
+    "save": "Save"
   }
 }

@@ -27,6 +27,8 @@ import type { Departure, StopConfig } from './models';
 import { fetchMuenchenDepartures } from './api/muenchenApi';
 import { fetchWuerzburgDepartures } from './api/wuerzburgApi';
 
+import './App.css';
+
 const App: React.FC = () => {
   const [configOpen, setConfigOpen] = useState(false);
   const [departuresMap, setDeparturesMap] = useState<Record<string, Departure[]>>({});

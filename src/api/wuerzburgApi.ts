@@ -43,8 +43,10 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
       const platform = event.location.properties?.platformName || event.location.properties?.platform || null;
       const transportType = event.transportation.product?.name || 'Unknown';
 
+      // Eindeutige ID-Generierung: Kombiniert Stadt-Präfix, Trip-ID und Zeitstempel
+      // um Duplikate zu vermeiden, auch bei identischen Trip-IDs zu verschiedenen Zeiten
       return {
-        id: event.properties?.AVMSTripID || event.transportation.id,
+        id: `wue-${event.properties?.AVMSTripID || event.transportation.id}-${scheduledDeparture.getTime()}`,
         line: event.transportation.name,
         direction: event.transportation.destination.name,
         scheduledDeparture,

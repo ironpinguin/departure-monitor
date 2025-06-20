@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Departure, StopConfig } from '../models';
 import StopConfigModal from './StopConfigModal';
+import TruncatedText from './TruncatedText';
 import type { CSSProperties } from '@mui/material';
 import {
   IconButton,
@@ -64,6 +65,9 @@ const StopWidget: React.FC<StopWidgetProps> = ({
         borderRadius: (city == 'wue') ? '10px' : undefined,
         display: 'inline-block',
         fontWeight: 'bold',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
         // Optional background image properties
         backgroundImage: lineStyle["background-image"]
           ? `url(../assets/muc/${lineStyle["background-image"]})`
@@ -80,7 +84,10 @@ const StopWidget: React.FC<StopWidgetProps> = ({
         padding: '2px 6px',
         borderRadius: groupStyle['border-radius'] ? groupStyle['border-radius'] : undefined,
         display: 'inline-block',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
       };
     }
 
@@ -92,7 +99,10 @@ const StopWidget: React.FC<StopWidgetProps> = ({
       padding: defaultStyle.padding ? defaultStyle.padding : '2px 6px',
       borderRadius: defaultStyle['border-radius'] ? defaultStyle['border-radius'] : '4px',
       display: 'inline-block',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
     };
   };
 
@@ -167,20 +177,24 @@ const StopWidget: React.FC<StopWidgetProps> = ({
             </tr>
           </thead>
           <tbody>
+            {/*
+              Robuste Key-Strategie: Kombiniert stopId, dep.id, scheduledDeparture timestamp und index
+              für garantiert eindeutige React Keys, auch bei mehreren Stops mit identischen Abfahrten
+            */}
             {limitedDepartures.map((dep, index) => (
-              <tr key={`${dep.id}_${index}`}>
-                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>
-                  <span style={getLineStyle(dep.line, stopConfig.city, dep.transportType)}>{dep.line}</span>
+              <tr key={`stop-${stopConfig.stopId}-dep-${dep.id}-${dep.scheduledDeparture.getTime()}-${index}`}>
+                <td className="line-number-cell" style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '15%', minWidth: '80px' }}>
+                  <span className="line-number" style={getLineStyle(dep.line, stopConfig.city, dep.transportType)}>{dep.line}</span>
                 </td>
-                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>
-                  {dep.direction}
+                <td className="direction-text-cell" style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, minWidth: '180px', maxWidth: '250px', width: '45%' }}>
+                  <TruncatedText text={dep.direction} maxLength={25} className="direction-text" />
                 </td>
-                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>
+                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '70px' }}>
                   {dep.actualDeparture
                     ? dep.actualDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     : dep.scheduledDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </td>
-                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>
+                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '60px' }}>
                   {dep.delayMinutes && dep.delayMinutes > 0 ? `+${dep.delayMinutes}m` : ''}
                 </td>
               </tr>

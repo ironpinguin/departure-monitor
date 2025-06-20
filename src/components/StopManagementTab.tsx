@@ -11,6 +11,7 @@ import {
   IconButton,
   Divider
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -30,6 +31,7 @@ const StopManagementTab: React.FC<StopManagementTabProps> = ({
   onUpdateStop,
   onRemoveStop
 }) => {
+  const { t } = useTranslation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingStop, setEditingStop] = useState<StopConfig | null>(null);
 
@@ -64,21 +66,21 @@ const StopManagementTab: React.FC<StopManagementTabProps> = ({
   return (
     <Box sx={{ p: 2 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6">Stop Management</Typography>
+        <Typography variant="h6">{t('configModal.stopManagement')}</Typography>
         <Button
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
           onClick={handleAddStop}
         >
-          Add Stop
+          {t('addEditStopDialog.addNewStop')}
         </Button>
       </Box>
 
       <List sx={{ width: '100%' }}>
         {sortedStops.length === 0 ? (
           <Typography variant="body2" sx={{ p: 2, textAlign: 'center' }}>
-            No stops configured. Click "Add Stop" to add your first stop.
+            {t('configModal.noStops')}
           </Typography>
         ) : (
           sortedStops.map((stop) => (
@@ -89,16 +91,16 @@ const StopManagementTab: React.FC<StopManagementTabProps> = ({
                     {stop.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    City: {stop.city.charAt(0).toUpperCase() + stop.city.slice(1)}
+                    {t('city')}: {t('cities.'+stop.city)}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Walking time: {stop.walkingTimeMinutes} min
+                    {t('configModal.walkingTime')}: {stop.walkingTimeMinutes} min
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Position: {stop.position}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Visible: {stop.visible ? 'Yes' : 'No'}
+                    {t('configModal.visible')}: {stop.visible ? t('yes') : t('no')}
                   </Typography>
                 </CardContent>
                 <Divider />

@@ -10,7 +10,7 @@
     { "id": "muc-4", "name": "St.-Martin-Straße", "stopId": "de:09162:1100", "walkingTimeMinutes": 15},
     { "id": "muc-5", "name": "Rosenheimer Platz", "stopId": "de:09162:4", "walkingTimeMinutes": 20},
     { "id": "muc-6", "name": "Ostbahnhof", "stopId": "de:09162:5", "walkingTimeMinutes": 20},
-    { "id": "muc-7", "name": "Kustermannpark", "stopId": "de:09162:5", "walkingTimeMinutes": 10},
+    { "id": "muc-7", "name": "Kustermannpark", "stopId": "de:09162:1025", "walkingTimeMinutes": 10},
     { "id": "muc-8", "name": "Laim", "stopId": "de:09162:9", "walkingTimeMinutes": 12},
     { "id": "muc-9", "name": "Pronnerplatz", "stopId": "de:09162:1648", "walkingTimeMinutes": 7}
   ]
