@@ -97,6 +97,16 @@ The application uses the public MVV API to retrieve real-time departure data for
 
 For Würzburg, the EFA API (Electronic Timetable Information) is used, which is accessed via a proxy.
 
+## Credits
+
+### Inspiration
+
+This project was inspired by [MMM-MVVWiesty](https://github.com/wiesty/MMM-MVVWiesty), a MagicMirror module for displaying MVV departure information. We appreciate the foundational work and ideas that helped shape this project.
+
+### Development
+
+This project was primarily developed with **RooCode**, an AI-powered LLM extension for VS Code (https://roocode.com/), which contributed at least 90% of the codebase, including the core architecture, API integrations, user interface, and overall functionality. RooCode is an intelligent coding assistant that helps developers write, refactor, and optimize code efficiently.
+
 ## Contributing
 
 Contributions to the project are welcome! Possible extensions could be:
