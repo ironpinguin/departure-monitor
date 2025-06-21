@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: departure-monitor
+  CONTAINER_PORT: 80
+  HOST_PORT: 8080
 
 jobs:
   build-and-push:
@@ -48,31 +50,8 @@ jobs:
             org.opencontainers.image.created=${{ github.event.repository.updated_at }}
             org.opencontainers.image.revision=${{ github.sha }}
 
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-          run_install: false
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Get PNPM store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup PNPM cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
       - name: Build and push Docker image
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -87,6 +66,7 @@ jobs:
             BUILDKIT_INLINE_CACHE=1
 
       - name: Generate build summary
+        if: steps.build.outcome == 'success'
         run: |
           echo "## 🚀 Release Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -100,57 +80,68 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Usage:**" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-          echo "docker run -p 8080:80 ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "docker run -p ${{ env.HOST_PORT }}:${{ env.CONTAINER_PORT }} ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
       - name: Update release with Docker info
+        if: steps.build.outcome == 'success'
         uses: actions/github-script@v7
         with:
+          retries: 3
+          retry-exempt-status-codes: 400,401,403,404,422
           script: |
-            const release = await github.rest.repos.getReleaseByTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: context.ref.replace('refs/tags/', '')
-            });
-            
-            const dockerInfo = `
+            try {
+              const release = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag: context.ref.replace('refs/tags/', '')
+              });
+              
+              const dockerInfo = `
 
-            ## 🐳 Docker Images
+              ## 🐳 Docker Images
 
-            This release is available as multi-platform Docker images:
+              This release is available as multi-platform Docker images:
 
-            **Pull the image:**
-            \`\`\`bash
-            docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
-            \`\`\`
+              **Pull the image:**
+              \`\`\`bash
+              docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+              \`\`\`
 
-            **Run the container:**
-            \`\`\`bash
-            docker run -p 8080:80 ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
-            \`\`\`
+              **Run the container:**
+              \`\`\`bash
+              docker run -p ${{ env.HOST_PORT }}:${{ env.CONTAINER_PORT }} ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+              \`\`\`
 
-            **Supported Platforms:**
-            - linux/amd64
-            - linux/arm64
+              **Supported Platforms:**
+              - linux/amd64
+              - linux/arm64
 
-            **Access the application:** http://localhost:8080
-            `;
+              **Access the application:** http://localhost:${{ env.HOST_PORT }}
+              `;
 
-            await github.rest.repos.updateRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              body: release.data.body + dockerInfo
-            });
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id,
+                body: release.data.body + dockerInfo
+              });
+              
+              console.log('Successfully updated release with Docker information');
+            } catch (error) {
+              console.error('Failed to update release:', error.message);
+              core.setFailed(`Failed to update release: ${error.message}`);
+            }
 
   security-scan:
     runs-on: ubuntu-latest
     needs: build-and-push
-    if: always()
+    if: needs.build-and-push.result == 'success'
     
     steps:
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        id: trivy-scan
+        uses: aquasecurity/trivy-action@0.24.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
           format: 'sarif'
@@ -158,6 +149,19 @@ jobs:
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: always() && steps.trivy-scan.outcome != 'skipped'
         with:
           sarif_file: 'trivy-results.sarif'
+
+      - name: Generate security scan summary
+        if: always() && steps.trivy-scan.outcome != 'skipped'
+        run: |
+          echo "## 🛡️ Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.trivy-scan.outcome }}" == "success" ]; then
+            echo "✅ Vulnerability scan completed successfully" >> $GITHUB_STEP_SUMMARY
+            echo "📊 Results uploaded to GitHub Security tab" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Vulnerability scan failed" >> $GITHUB_STEP_SUMMARY
+            echo "Please check the logs for more details" >> $GITHUB_STEP_SUMMARY
+          fi
