@@ -2,8 +2,11 @@ name: Container Registry CleanUp
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 1 * * *"
+    inputs:
+      dryrun:
+        description: 'Only dry-run'
+        required: true
+        type: boolean
   
 jobs:
   delete-untagged-images:
@@ -14,7 +17,7 @@ jobs:
     steps:
       - uses: dataaxiom/ghcr-cleanup-action@v1
         with:
-          dry-run: false
+          dry-run: ${{ inputs.dryrun }}
           delete-tags: sha256:*
           delete-untagged: true
           delete-ghost-images: true
