@@ -6,12 +6,8 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
   const baseUrl = '/wuerzburg-api';
   const url = `${baseUrl}/efa/XML_DM_REQUEST?commonMacro=dm&type_dm=any&name_dm=${stopId}&outputFormat=rapidJSON&mode=direct&useRealtime=1&includeCompleteStopSeq=1&depType=stopEvents&version=${VERSION}`;
 
-  console.log('Fetching Würzburg departures for stopId:', stopId);
-  console.log('Request URL:', url);
-  
   try {
     const response = await fetch(url);
-    console.log('Response status:', response.status, response.statusText);
     
     if (!response.ok) {
       const errorText = await response.text();
@@ -20,7 +16,6 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
     }
     
     const text = await response.text();
-    console.log('Response text length:', text.length);
     
     let data: WUEResponse;
     try {
@@ -58,7 +53,6 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
       };
     });
 
-    console.log('Successfully fetched departures:', departures.length);
     return departures;
   } catch (error) {
     console.error('Error fetching Würzburg departures:', error);
