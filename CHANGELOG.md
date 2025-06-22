@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 
 
 ### Changed
-- 
+- optimize API proxy configuration in nginx for docker image
 
 ### Deprecated
 - 
@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 - 
+
+## [1.0.1] - 2025-06-22
+
+### Changed
+- optimize API proxy configuration in nginx for docker image
 
 ## [1.0.0] - 2025-06-20
 
