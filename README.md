@@ -109,12 +109,25 @@ This project was primarily developed with **RooCode**, an AI-powered LLM extensi
 
 ## Contributing
 
-Contributions to the project are welcome! Possible extensions could be:
+We welcome contributions from the community! 🎉 This project offers many opportunities to contribute, whether you're interested in:
 
-- Support for additional cities and transport associations
-- Additional display options and filters
-- Accessibility improvements
-- Performance optimizations
+- 🐛 **Bug fixes** and improvements
+- ✨ **New features** like additional cities and transport associations
+- 📚 **Documentation** improvements
+- 🌍 **Translations** to new languages
+- 🎨 **UI/UX enhancements**
+- 🚀 **Performance optimizations**
+
+Please read our comprehensive [**Contributing Guide**](CONTRIBUTING.md) for detailed information on:
+- Development environment setup
+- Code style guidelines
+- Pull request process
+- Adding new cities and transport APIs
+- Translation workflow
+
+## Code of Conduct
+
+We are committed to providing a welcoming and inclusive community for everyone. Please read our [**Code of Conduct**](CODE_OF_CONDUCT.md) to understand the standards we expect from all community members.
 
 ## License
 
