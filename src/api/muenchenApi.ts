@@ -1,16 +1,37 @@
-import type { Departure, MUCResponse, MucDeparture } from '../models/index';
+import type { 
+  Departure, 
+  MUCResponse, 
+  MucDeparture, 
+  BasicStop, 
+  MUCStopResponse, 
+  Line, 
+  MUCLinesResponse, 
+  MUCStop, 
+  MUCLine 
+} from '../models/index';
+
+const BASE_URL = 'https://www.mvv-muenchen.de/';
 
 // The MVV API expects the `lines` parameter to be a base64-encoded JSON array
 // used to filter by specific lines. An empty array (base64 "W10=") means "no
 // filter" and returns all lines. The API rejects a missing or non-base64 value.
 const LINES_FILTER_ALL = 'W10='; // base64 of "[]"
 
-export async function fetchMuenchenDepartures(stopId: string): Promise<Departure[]> {
+function fetchDeparturesUrl(stopId: string): string {
   const timestamp = Math.floor(Date.now() / 1000);
-  const baseUrl = 'https://www.mvv-muenchen.de/';
-  const url = `${baseUrl}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines=${LINES_FILTER_ALL}`;
+  return `${BASE_URL}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines=${LINES_FILTER_ALL}`;
+}
 
-  const response = await fetch(url);
+function searchStopUrl(query: string): string {
+  return `${BASE_URL}?eID=stopFinder&query=${query}`;
+}
+
+function linesForStopUrl(stopId: string): string {
+  return `${BASE_URL}?eID=departuresFinder&action=available_lines&stop_id=${stopId}`;
+}
+
+export async function fetchMuenchenDepartures(stopId: string): Promise<Departure[]> {
+  const response = await fetch(fetchDeparturesUrl(stopId));
   if (!response.ok) {
     throw new Error(`Failed to fetch departures for stopId ${stopId}: ${response.statusText}`);
   }
@@ -54,4 +75,59 @@ export async function fetchMuenchenDepartures(stopId: string): Promise<Departure
   });
 
   return departures;
+}
+
+export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
+  const response = await fetch(searchStopUrl(query));
+  if (!response.ok) {
+    throw new Error(`Failed to search for stops with query ${query}: ${response.statusText}`);
+  }
+  const data: MUCStopResponse = await response.json();
+
+  if (!data.success) {
+    throw new Error(`API error: ${data.message}`);
+  }
+
+  const stops: BasicStop[] = (data.result.filter((stop: MUCStop) => (stop.anyType == 'stop'))).map((stop: MUCStop) => {
+    return {
+        id: stop.id,
+        name: stop.object,
+        city: 'muc',
+        longName: stop.name
+    }
+  });
+
+  return stops;
+}
+
+
+export async function linesForStop(stopId:string): Promise<Line[]> {
+  const response = await fetch(linesForStopUrl(stopId));
+  if (!response.ok) {
+    throw new Error(`Failed to fetch lines for stopId ${stopId}: ${response.statusText}`);
+  }
+
+  const data: MUCLinesResponse = await response.json();
+
+  if (data.error) {
+    throw new Error(`API error: ${data.error}`);
+  }
+
+  const lines: Line[] = data.lines.map((line: MUCLine) => {
+    /* TODO: Group Types
+     * Tram => Tram, NachtTram
+     * Bus => Bus, MetroBus, NachtBus, RegionalBus, ExpressBus
+     * S-Bahn => S-Bahn, SEV
+     * U-Bahn => U-Bahn
+    */
+    return {
+      name: line.number,
+      direction: line.direction,
+      type: line.name
+    }
+  });
+
+
+  return lines;
+
 }

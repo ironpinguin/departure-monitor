@@ -1,0 +1,1602 @@
+{
+  "serverInfo": {
+    "controllerVersion": "10.6.24.82",
+    "serverID": "DEF-EFA-BAY02-P",
+    "virtDir": "beg_web",
+    "serverTime": "2025-06-24T09:38:43",
+    "calcTime": 135.249,
+    "logRequestId": "0f8c09a4baf02adb"
+  },
+  "version": "10.6.21.17",
+  "lines": [
+    {
+      "id": "wvv:10006:e:H:25a",
+      "name": "Bus 6",
+      "disassembledName": "6",
+      "number": "6",
+      "description": "Stadtmitte - Frauenland - Gartenstadt Keesburg",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700173",
+        "name": "Gartenstadt Keesburg",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10009:E:H:25a",
+      "name": "Bus 9",
+      "disassembledName": "9",
+      "number": "9",
+      "description": "Residenz - Festung",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700377",
+        "name": "Kulturlinie Festung",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10011:E:H:25a",
+      "name": "Bus 11",
+      "disassembledName": "11",
+      "number": "11",
+      "description": "Würzburg Busbahnhof - Veitshöchheim",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3602130",
+        "name": "Veitshöchheim Birkental",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10012:e:H:25a",
+      "name": "Bus 12",
+      "disassembledName": "12",
+      "number": "12",
+      "description": "Hauptbahnhof -  Lindleinsmühle -  Versbach",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700073",
+        "name": "Versbach",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10013:E:H:25a",
+      "name": "Bus 13",
+      "disassembledName": "13",
+      "number": "13",
+      "description": "Würzburg Busbahnhof Unter- Oberdürrbach- Grombühl",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700209",
+        "name": "Grombühl üb Oberdürrbach",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10014:E:H:25a",
+      "name": "Bus 14",
+      "disassembledName": "14",
+      "number": "14",
+      "description": "Würzburg Bahnhof - Gerbrunn",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3602053",
+        "name": "Gerbrunn",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10016:e:H:25a",
+      "name": "Bus 16",
+      "disassembledName": "16",
+      "number": "16",
+      "description": "Stadtmitte - Frauenland - Heidingsfeld - Winterhäuser Straße",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700454",
+        "name": "Heidingsfeld",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10017:e:H:25a",
+      "name": "Bus 17",
+      "disassembledName": "17",
+      "number": "17",
+      "description": "Würzburg Sanderring - Höchberg Leibnizstraße",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3602049",
+        "name": "Höchberg",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10018:e:H:25a",
+      "name": "Bus 18",
+      "disassembledName": "18",
+      "number": "18",
+      "description": "Würzburg Hauptbahnhof - Hexenbruch - Höchberg Leibnizstraße",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3602077",
+        "name": "Höchberg",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10019:E:H:25a",
+      "name": "Bus 19",
+      "disassembledName": "19",
+      "number": "19",
+      "description": "Würzburg Busbahnhof - Güntersleben",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3602068",
+        "name": "Güntersleben Altenbergstraße",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10020:e:H:25a",
+      "name": "Bus 20",
+      "disassembledName": "20",
+      "number": "20",
+      "description": "Hauptbahnhof - Lengfeld",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700142",
+        "name": "Lengfeld",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10021:e:H:25a",
+      "name": "Bus 21",
+      "disassembledName": "21",
+      "number": "21",
+      "description": "Hauptbahnhof - Lindleinsmühle - Lengfeld",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700142",
+        "name": "Lengfeld",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10025:e:H:25a",
+      "name": "Bus 25",
+      "disassembledName": "25",
+      "number": "25",
+      "description": "Busbahnhof - Lindleinsmühle - Lengfeld/Gewerbegebiet Nord",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700203",
+        "name": "Ikea",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10026:e:H:25a",
+      "name": "Bus 26",
+      "disassembledName": "26",
+      "number": "26",
+      "description": "Busbahnhof - Wöllriederhof - Pilziggrund",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700065",
+        "name": "Briefz. üb. Pilziggrund",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10027:e:H:25a",
+      "name": "Bus 27",
+      "disassembledName": "27",
+      "number": "27",
+      "description": "Busbahnhof - Neuer Hafen - Dürrbachau",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700451",
+        "name": "Dürrbachau",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10028:e:H:25a",
+      "name": "Bus 28",
+      "disassembledName": "28",
+      "number": "28",
+      "description": "Busbahnhof - Mönchberg",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700182",
+        "name": "Mönchberg",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10029:E:H:25a",
+      "name": "Bus 29",
+      "disassembledName": "29",
+      "number": "29",
+      "description": "Busbahnhof - Campus Nord Hubland",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700248",
+        "name": "Hubland Campus Nord",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10093:e:R:25a",
+      "name": "Bus 93",
+      "disassembledName": "93",
+      "number": "93",
+      "description": "Oberdürrbach - Busbahnhof - Juiuspromenade",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700208",
+        "name": "Würzburg Juliuspromenade",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10097:e:H:25a",
+      "name": "Bus 97",
+      "disassembledName": "97",
+      "number": "97",
+      "description": "Würzburg Juliuspromenade - Würzburg Bürgerbräu",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700256",
+        "name": "Würzburg Bürgerbräu",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10114:e:H:25a",
+      "name": "Bus 114",
+      "disassembledName": "114",
+      "number": "114",
+      "description": "Busbahnhof - Universität Sportzentrum",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700432",
+        "name": "Universität Sportzentrum",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10214:E:H:25a",
+      "name": "Bus 214",
+      "disassembledName": "214",
+      "number": "214",
+      "description": "Busbahnhof - Hubland - Fachhochschule",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700086",
+        "name": "Technische Hochschule WÜ SW",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10422:e:H:25a",
+      "name": "Bus 422",
+      "disassembledName": "422",
+      "number": "422",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603137",
+        "name": "Giebelstadt von-Zobel-Schloß",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10430:e:H:25a",
+      "name": "Bus 430",
+      "disassembledName": "430",
+      "number": "430",
+      "description": "Würzburg Busbahnhof - Estenfeld - Kürnach",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603090",
+        "name": "Estenfeld Sieboldstraße",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10431:E:H:25a",
+      "name": "Bus 431",
+      "disassembledName": "431",
+      "number": "431",
+      "description": "Würzburg - Estenfeld - Kürnach - Mühlhausen",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603104",
+        "name": "Mühlhausen Höfersgasse",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10441:e:H:25a",
+      "name": "Bus 441",
+      "disassembledName": "441",
+      "number": "441",
+      "description": "Würzburg Busbahnhof - Obereisenheim",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3127620",
+        "name": "Wipfeld Nikolaus-Müller-Str.",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10445:e:H:25a",
+      "name": "Bus 445",
+      "disassembledName": "445",
+      "number": "445",
+      "description": "Würzburg Busbahnhof - Prosselsheim - Schwanfeld",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3604046",
+        "name": "Obereisenheim Mainfähre",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10450:E:H:25a",
+      "name": "Bus 450",
+      "disassembledName": "450",
+      "number": "450",
+      "description": "Würzburg Rimpar Maidbronn",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603330",
+        "name": "Rimpar Burggrumbacher Straße",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10452:E:H:25a",
+      "name": "Bus 452",
+      "disassembledName": "452",
+      "number": "452",
+      "description": "Würzburg - Arnstein",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3128441",
+        "name": "Neubessingen",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10461:e:H:25a",
+      "name": "Bus 461",
+      "disassembledName": "461",
+      "number": "461",
+      "description": "Würzburg Busbahnhof - Hausen -  Rieden",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603167",
+        "name": "Rieden Raiffeisenbank",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10471:e:H:25a",
+      "name": "Bus 471",
+      "disassembledName": "471",
+      "number": "471",
+      "description": "Würzburg  - Waldbüttelbrunn",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "Ditt",
+        "name": "Ditterich GmbH"
+      },
+      "destination": {
+        "id": "3603399",
+        "name": "Waldbüttelbrunn St-Burkard-Str",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "www.vvm-info.de"
+      }
+    },
+    {
+      "id": "wvv:10472:E:H:25a",
+      "name": "Bus 472",
+      "disassembledName": "472",
+      "number": "472",
+      "description": "Würzburg Helmstadt Böttigheim",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "Ditt",
+        "name": "Ditterich GmbH"
+      },
+      "destination": {
+        "id": "3604097",
+        "name": "Böttigheim Ort",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "www.vvm-info.de"
+      }
+    },
+    {
+      "id": "wvv:10491:e:H:25a",
+      "name": "Bus 491",
+      "disassembledName": "491",
+      "number": "491",
+      "description": "Würzburg Busbahnhof - Kist - Kleinrinderfeld",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3604082",
+        "name": "Kleinrinderfeld Dreifaltigkeit",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10492:e:H:25a",
+      "name": "Bus 492",
+      "disassembledName": "492",
+      "number": "492",
+      "description": "Würzburg Busbahnhof - Kist - Alterheim - Steinbach",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3604005",
+        "name": "Steinbach Brücke",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10521:e:H:25a",
+      "name": "Bus 521",
+      "disassembledName": "521",
+      "number": "521",
+      "description": "Würzburg Busbahnhof - Zell - Margetshöchheim - Erlabrunn - Leinach",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603237",
+        "name": "Leinach Zellinger Straße",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10522:e:H:25a",
+      "name": "Bus 522",
+      "disassembledName": "522",
+      "number": "522",
+      "description": "Würzburg Busbahnhof - Zell - Margetshöchheim -  Erlabrunn",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3602098",
+        "name": "Margetshöchheim Falkenstr.",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10551:E:H:25a",
+      "name": "Bus 551",
+      "disassembledName": "551",
+      "number": "551",
+      "description": "Würzburg - Randersacker - Gerbrunn",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603370",
+        "name": "Theilheim K.-Wallrapp-Str.",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10552:E:H:25a",
+      "name": "Bus 552",
+      "disassembledName": "552",
+      "number": "552",
+      "description": "Würzburg - Randersacker - Theilheim - Lindelbach",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603370",
+        "name": "Theilheim K.-Wallrapp-Str.",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10554:E:H:25a",
+      "name": "Bus 554",
+      "disassembledName": "554",
+      "number": "554",
+      "description": "Würzburg - Eibelstadt - Sommerhausen - Ochsenfurt - Frickenhausen",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603157",
+        "name": "Sommerhausen Reifensteinw.",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10555:E:H:25a",
+      "name": "Bus 555",
+      "disassembledName": "555",
+      "number": "555",
+      "description": "Würzburg - Eibelstadt - Sommerhausen - Ochsenfurt",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "80003089",
+        "name": "Ochsenfurt",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10560:e:H:25a",
+      "name": "Bus 560",
+      "disassembledName": "560",
+      "number": "560",
+      "description": "Würzburg Hauptbahnhof - Rottendorf",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3604128",
+        "name": "Rottendorf Outlet-Center",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10671:E:H:25a",
+      "name": "Bus 671",
+      "disassembledName": "671",
+      "number": "671",
+      "description": "Würzburg - Opferbaum - Arnstein",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3604032",
+        "name": "Opferbaum Ort",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "vrn:49850: :R:j25",
+      "name": "Bus 850",
+      "disassembledName": "850",
+      "number": "850",
+      "description": "Würzburg - Großrinderfeld - Tauberbischofsheim -  Königheim - Hardheim",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "code": "VGMT",
+        "id": "90",
+        "name": "VerkehrsGesellschaft Main-Tauber mbH (VGMT)"
+      },
+      "destination": {
+        "id": "6013021",
+        "name": "Tauberbischofsheim, ZOB",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2024/2025 (15.12.2024-13.12.2025)",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "globalId": "de:vrn:02850:"
+      }
+    },
+    {
+      "id": "vrn:49977: :H:j25",
+      "name": "Bus 977",
+      "disassembledName": "977",
+      "number": "977",
+      "description": "Würzburg - Wertheim - Miltenberg",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "code": "FR.BUS",
+        "id": "92",
+        "name": "Omnibusverkehr Franken GmbH"
+      },
+      "destination": {
+        "id": "6013401",
+        "name": "Wertheim, ZOB",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2024/2025 (15.12.2024-13.12.2025)",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "globalId": "de:vrn:02977:"
+      }
+    },
+    {
+      "id": "wvv:10044:E:H:25a",
+      "name": "Bus 4 SEV",
+      "disassembledName": "4 SEV",
+      "number": "4 SEV",
+      "description": "Sanderau - HBF - Zellerau",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700256",
+        "name": "Würzburg Bürgerbräu",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10055:E:R:25a",
+      "name": "Bus 5 SEV",
+      "disassembledName": "5 SEV",
+      "number": "5 SEV",
+      "description": "Rottenbauer",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700348",
+        "name": "Würzburg Sanderring",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10999:e:H:25a",
+      "name": "Bus E",
+      "disassembledName": "999",
+      "number": "E",
+      "description": "- E - Schulfahrten",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700103",
+        "name": "Würzburg Dallenbergbad",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "ddb:87T85: :H:j25",
+      "name": "Ersatzverkehr SEV",
+      "disassembledName": "SEV",
+      "number": "SEV",
+      "product": {
+        "id": 6,
+        "class": 0,
+        "name": "Ersatzverkehr",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "6013811",
+        "name": "Lauda, ZOB",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "grh:24053: :R:j25",
+      "name": "Bus 53",
+      "number": "53",
+      "product": {
+        "id": 1,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3603312",
+        "name": "Remlingen und weiter bis Marktheidenfeld",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "globalId": "de:nvm:ku|Bus|53:"
+      }
+    },
+    {
+      "id": "ovf:01574:7:H:j25",
+      "name": "Bus 305",
+      "disassembledName": "5747",
+      "number": "305",
+      "description": "Würzburg Busbahnhof-Volkach Eichfelder Straße",
+      "product": {
+        "id": 5,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "303",
+        "name": "Omnibusverkehr Franken GmbH             "
+      },
+      "destination": {
+        "id": "3129259",
+        "name": "Volkach",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "ovf:01574:8:H:j25",
+      "name": "Bus 308",
+      "disassembledName": "5748",
+      "number": "308",
+      "description": "Würzburg Busbahnhof-Nordheim (Main) Raiffeisenstraße",
+      "product": {
+        "id": 5,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3129299",
+        "name": "Nordheim",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "grh:24633: :R:j25",
+      "name": "Bus 633",
+      "number": "633",
+      "product": {
+        "id": 1,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "3129101",
+        "name": "Marktheidenfeld",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "globalId": "de:nvm:msp|Bus|633:"
+      }
+    },
+    {
+      "id": "ovf:01552:3:H:j25",
+      "name": "Bus 977",
+      "disassembledName": "5523",
+      "number": "977",
+      "description": "Wertheim, ZOB-Miltenberg, Bahnhof",
+      "product": {
+        "id": 5,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "6013401",
+        "name": "Wertheim Bhf",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "vrn:49989: :R:j25",
+      "name": "Bus 989",
+      "disassembledName": "989",
+      "number": "989",
+      "description": "Night-Life-Shuttle Würzburg - Bad Mergentheim - O´st/Niederstetten",
+      "product": {
+        "id": 18,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "code": "VGMT",
+        "id": "90",
+        "name": "VerkehrsGesellschaft Main-Tauber mbH (VGMT)"
+      },
+      "destination": {
+        "id": "6012005",
+        "name": "Bad Mergentheim, Bahnhof",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2024/2025 (15.12.2024-13.12.2025)",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "specialFares": "ROUTE_IN_TRANSPORT_AUTHORITY_AREA_NO_FARE_CALCULATION",
+        "lineDisplay": "LINE",
+        "globalId": "de:vrn:02989:"
+      }
+    },
+    {
+      "id": "vrn:49990: :R:j25",
+      "name": "Bus 990",
+      "disassembledName": "990",
+      "number": "990",
+      "description": "Night-Life-Shuttle Würzburg - Tauberbischofsheim - Külsheim",
+      "product": {
+        "id": 18,
+        "class": 6,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "code": "VGMT",
+        "id": "90",
+        "name": "VerkehrsGesellschaft Main-Tauber mbH (VGMT)"
+      },
+      "destination": {
+        "id": "6013021",
+        "name": "Tauberbischofsheim, ZOB",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Jahresfahrplan 2024/2025 (15.12.2024-13.12.2025)",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "specialFares": "ROUTE_IN_TRANSPORT_AUTHORITY_AREA_NO_FARE_CALCULATION",
+        "lineDisplay": "LINE",
+        "globalId": "de:vrn:02990:"
+      }
+    }
+  ]
+}
