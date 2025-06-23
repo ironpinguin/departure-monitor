@@ -1,3 +1,5 @@
+export type Cities = 'wue' | 'muc';
+
 export interface Departure {
   id: string;
   line: string;
@@ -28,7 +30,20 @@ export interface AppConfig {
   language: string;
 }
 
+export interface BasicStop {
+  id: string;
+  name: string;
+  city: Cities;
+  longName: string;
+}
+
+export interface Line {
+  name: string;
+  direction: string;
+  type: string;
+}
+
 export type { PredefinedStop, PredefinedStopsConfig } from './PredefinedStops';
-export type { MUCResponse, Departure as MucDeparture } from './MUCResponse';
+export type { MUCResponse, MUCStopResponse, Departure as MucDeparture, Line as MUCLine, MUCLinesResponse, MUCStop } from './MUCResponse';
 export type { WUEResponse } from './WUEResponse';
 export type { StylesConfig } from './StopStyles';

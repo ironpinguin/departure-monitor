@@ -15,6 +15,7 @@
       "25": {"background-color": "#f1919c", "color": "#000"},
       "27": {"background-color": "#f7a600", "color": "#000"},
       "N27": {"background-color": "#f7a600", "color": "#000"},
+      "31": {"background-color": "#fff", "color": "#000"},
       "U1": {"background-color": "#52822f", "color": "#fff"},
       "U2": {"background-color": "#c20831", "color": "#fff"},
       "U3": {"background-color": "#ec6726", "color": "#fff"},
