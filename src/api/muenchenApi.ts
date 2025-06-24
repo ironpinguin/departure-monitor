@@ -1,23 +1,33 @@
-import type { Departure, MUCResponse, MucDeparture, BasicStop, MUCStopResponse, Line, MUCLinesResponse, MUCStop, MUCLine } from '../models/index';
+import type { 
+  Departure, 
+  MUCResponse, 
+  MucDeparture, 
+  BasicStop, 
+  MUCStopResponse, 
+  Line, 
+  MUCLinesResponse, 
+  MUCStop, 
+  MUCLine 
+} from '../models/index';
 
-function getFetchDeparturesUrl(baseUrl: string, stopId: string): string {
+
+const BASE_URL = 'https://www.mvv-muenchen.de/';
+
+function fetchDeparturesUrl(stopId: string): string {
   const timestamp = Math.floor(Date.now() / 1000);
-  return `${baseUrl}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines`;
+  return `${BASE_URL}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines`;
 }
 
-function getStopFinderUrl(baseUrl: string, query: string): string {
-  return `${baseUrl}?eID=stopFinder&query=${query}`;
+function searchStopUrl(query: string): string {
+  return `${BASE_URL}?eID=stopFinder&query=${query}`;
 }
 
-function getLinesUrl(baseUrl: string, stopId: string): string {
-  return `${baseUrl}?eID=departuresFinder&action=available_lines&stop_id=${stopId}`;
+function linesForStopUrl(stopId: string): string {
+  return `${BASE_URL}?eID=departuresFinder&action=available_lines&stop_id=${stopId}`;
 }
 
 export async function fetchMuenchenDepartures(stopId: string): Promise<Departure[]> {
-  const baseUrl = 'https://www.mvv-muenchen.de/';
-  const url = getFetchDeparturesUrl(baseUrl, stopId);
-
-  const response = await fetch(url);
+  const response = await fetch(fetchDeparturesUrl(stopId));
   if (!response.ok) {
     throw new Error(`Failed to fetch departures for stopId ${stopId}: ${response.statusText}`);
   }
@@ -64,10 +74,7 @@ export async function fetchMuenchenDepartures(stopId: string): Promise<Departure
 }
 
 export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
-  const baseUrl = 'https://www.mvv-muenchen.de/';
-  const url= getStopFinderUrl(baseUrl, query);
-
-  const response = await fetch(url);
+  const response = await fetch(searchStopUrl(query));
   if (!response.ok) {
     throw new Error(`Failed to search for stops with query ${query}: ${response.statusText}`);
   }
@@ -79,7 +86,7 @@ export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
 
   const stops: BasicStop[] = (data.result.filter((stop: MUCStop) => (stop.anyType == 'stop'))).map((stop: MUCStop) => {
     return {
-        id: stop.ref.gid,
+        id: stop.id,
         name: stop.object,
         city: 'muc',
         longName: stop.name
@@ -91,10 +98,7 @@ export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
 
 
 export async function linesForStop(stopId:string): Promise<Line[]> {
-  const baseUrl = 'https://www.mvv-muenchen.de/';
-  const url = getLinesUrl(baseUrl, stopId);
-
-  const response = await fetch(url);
+  const response = await fetch(linesForStopUrl(stopId));
   if (!response.ok) {
     throw new Error(`Failed to fetch lines for stopId ${stopId}: ${response.statusText}`);
   }

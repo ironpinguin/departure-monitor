@@ -1,0 +1,5387 @@
+{
+  "serverInfo": {
+    "controllerVersion": "10.6.24.82",
+    "serverID": "DEF-EFA-BAY05-P",
+    "virtDir": "beg_web",
+    "serverTime": "2025-06-24T09:35:53",
+    "calcTime": 131.671,
+    "logRequestId": "2cab09dbc888102b"
+  },
+  "version": "10.6.21.17",
+  "systemMessages": [
+    {
+      "type": "error",
+      "module": "BROKER",
+      "code": -8011,
+      "text": ""
+    }
+  ],
+  "locations": [
+    {
+      "id": "de:09663:75",
+      "isGlobalId": true,
+      "name": "Würzburg, Busbahnhof",
+      "disassembledName": "Busbahnhof",
+      "coord": [
+        49.801078,
+        9.934298
+      ],
+      "type": "stop",
+      "matchQuality": 852,
+      "isBest": false,
+      "productClasses": [
+        0,
+        5,
+        6
+      ],
+      "parent": {
+        "id": "placeID:9663000:1",
+        "name": "Würzburg",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "80029081",
+        "mainLocality": "Würzburg"
+      }
+    },
+    {
+      "id": "de:09677:3968",
+      "isGlobalId": true,
+      "name": "Burgsinn",
+      "coord": [
+        50.150318,
+        9.656072
+      ],
+      "type": "stop",
+      "matchQuality": 716,
+      "isBest": false,
+      "productClasses": [
+        0,
+        6,
+        13
+      ],
+      "parent": {
+        "id": "placeID:9677122:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "80000900",
+        "mainLocality": "Burgsinn"
+      }
+    },
+    {
+      "id": "de:09679:2106",
+      "isGlobalId": true,
+      "name": "Randersacker, Bußbrunn",
+      "disassembledName": "Bußbrunn",
+      "coord": [
+        49.755158,
+        9.989185
+      ],
+      "type": "stop",
+      "matchQuality": 855,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9679175:1",
+        "name": "Randersacker",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3602106",
+        "mainLocality": "Randersacker"
+      }
+    },
+    {
+      "id": "de:09675:4414",
+      "isGlobalId": true,
+      "name": "Iphofen, Busbahnhof",
+      "disassembledName": "Busbahnhof",
+      "coord": [
+        49.696797,
+        10.255149
+      ],
+      "type": "stop",
+      "matchQuality": 852,
+      "isBest": false,
+      "productClasses": [
+        6,
+        13
+      ],
+      "parent": {
+        "id": "placeID:9675139:1",
+        "name": "Iphofen",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "80000973",
+        "mainLocality": "Iphofen"
+      }
+    },
+    {
+      "id": "de:09679:3",
+      "isGlobalId": true,
+      "name": "Winterhausen, Bürgerhaus",
+      "disassembledName": "Bürgerhaus",
+      "coord": [
+        49.706987,
+        10.013107
+      ],
+      "type": "stop",
+      "matchQuality": 848,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679206:1",
+        "name": "Winterhausen",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "80023362",
+        "mainLocality": "Winterhausen"
+      }
+    },
+    {
+      "id": "de:09677:28618",
+      "isGlobalId": true,
+      "name": "Burgsinn Altes Rathaus",
+      "coord": [
+        50.147272,
+        9.649227
+      ],
+      "type": "stop",
+      "matchQuality": 828,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9677122:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128618",
+        "mainLocality": "Burgsinn"
+      }
+    },
+    {
+      "id": "de:09671:99332",
+      "isGlobalId": true,
+      "name": "Heigenbrücken Busparkplatz",
+      "coord": [
+        50.026192,
+        9.376444
+      ],
+      "type": "stop",
+      "matchQuality": 827,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9671126:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3899332",
+        "mainLocality": "Heigenbrücken"
+      }
+    },
+    {
+      "id": "de:09561:11418",
+      "isGlobalId": true,
+      "name": "Obereichenbach, Buckhausstr.",
+      "disassembledName": "Buckhausstr.",
+      "coord": [
+        49.316415,
+        10.626198
+      ],
+      "type": "stop",
+      "matchQuality": 700,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9561000:35",
+        "name": "Obereichenbach",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3011418",
+        "mainLocality": "Ansbach"
+      }
+    },
+    {
+      "id": "de:09679:3231",
+      "isGlobalId": true,
+      "name": "Leinach (Kr WÜ), Burkardusstraße",
+      "disassembledName": "Burkardusstraße",
+      "coord": [
+        49.864108,
+        9.801177
+      ],
+      "type": "stop",
+      "matchQuality": 699,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9679200:1",
+        "name": "Leinach (Kr WÜ)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3603231",
+        "mainLocality": "Leinach (Kr WÜ)"
+      }
+    },
+    {
+      "id": "de:09677:28385",
+      "isGlobalId": true,
+      "name": "Büchold Schule",
+      "coord": [
+        50.009655,
+        9.950369
+      ],
+      "type": "stop",
+      "matchQuality": 697,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9677114:5",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128385",
+        "mainLocality": "Arnstein (Ufr)"
+      }
+    },
+    {
+      "id": "de:09679:2124",
+      "isGlobalId": true,
+      "name": "Reichenberg (Ufr), Burkardinerstraße",
+      "disassembledName": "Burkardinerstraße",
+      "coord": [
+        49.730057,
+        9.909675
+      ],
+      "type": "stop",
+      "matchQuality": 696,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9679176:1",
+        "name": "Reichenberg (Ufr)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3602124",
+        "mainLocality": "Reichenberg (Ufr)"
+      }
+    },
+    {
+      "id": "de:09677:28278",
+      "isGlobalId": true,
+      "name": "Bühler (Ufr), Bühler Ortsmitte",
+      "disassembledName": "Bühler Ortsmitte",
+      "coord": [
+        50.012801,
+        9.865784
+      ],
+      "type": "stop",
+      "matchQuality": 695,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9677127:3",
+        "name": "Bühler (Ufr)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128278",
+        "mainLocality": "Eußenheim"
+      }
+    },
+    {
+      "id": "de:09677:28171",
+      "isGlobalId": true,
+      "name": "Burgsinn Apotheke",
+      "coord": [
+        50.14771,
+        9.649784
+      ],
+      "type": "stop",
+      "matchQuality": 695,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9677122:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128171",
+        "mainLocality": "Burgsinn"
+      }
+    },
+    {
+      "id": "de:09679:3399",
+      "isGlobalId": true,
+      "name": "Waldbüttelbrunn, St.-Burkard-Straße",
+      "disassembledName": "St.-Burkard-Straße",
+      "coord": [
+        49.78897,
+        9.851985
+      ],
+      "type": "stop",
+      "matchQuality": 695,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9679205:1",
+        "name": "Waldbüttelbrunn",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3603399",
+        "mainLocality": "Waldbüttelbrunn"
+      }
+    },
+    {
+      "id": "de:09677:28178",
+      "isGlobalId": true,
+      "name": "Burgsinn Flurstr. (Siedlung)",
+      "coord": [
+        50.147215,
+        9.645157
+      ],
+      "type": "stop",
+      "matchQuality": 693,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9677122:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128178",
+        "mainLocality": "Burgsinn"
+      }
+    },
+    {
+      "id": "de:09679:3330",
+      "isGlobalId": true,
+      "name": "Rimpar, Burggrumbacher Straße",
+      "disassembledName": "Burggrumbacher Straße",
+      "coord": [
+        49.859754,
+        9.965667
+      ],
+      "type": "stop",
+      "matchQuality": 693,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9679180:1",
+        "name": "Rimpar",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3603330",
+        "mainLocality": "Rimpar"
+      }
+    },
+    {
+      "id": "de:09677:28379",
+      "isGlobalId": true,
+      "name": "Büchold Sassenstr.",
+      "coord": [
+        50.015531,
+        9.947925
+      ],
+      "type": "stop",
+      "matchQuality": 692,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9677114:5",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128379",
+        "mainLocality": "Arnstein (Ufr)"
+      }
+    },
+    {
+      "id": "de:09672:28265",
+      "isGlobalId": true,
+      "name": "Buchrasen, Gewerbegebiet  Buchrasen",
+      "disassembledName": "Gewerbegebiet  Buchrasen",
+      "coord": [
+        50.287664,
+        9.7901
+      ],
+      "type": "stop",
+      "matchQuality": 691,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9672138:6",
+        "name": "Buchrasen",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128265",
+        "mainLocality": "Oberleichtersbach"
+      }
+    },
+    {
+      "id": "de:09677:28172",
+      "isGlobalId": true,
+      "name": "Burgsinn Bahnhofstraße",
+      "coord": [
+        50.150674,
+        9.651841
+      ],
+      "type": "stop",
+      "matchQuality": 691,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9677122:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128172",
+        "mainLocality": "Burgsinn"
+      }
+    },
+    {
+      "id": "de:09677:4686",
+      "isGlobalId": true,
+      "name": "Burgsinn, Sinngrundhalle",
+      "coord": [
+        50.147192,
+        9.652577
+      ],
+      "type": "stop",
+      "matchQuality": 691,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9677122:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3104686",
+        "mainLocality": "Burgsinn"
+      }
+    },
+    {
+      "id": "de:09675:29342",
+      "isGlobalId": true,
+      "name": "Dornheim (Iphofen), Dornheim Schulbus Hst.",
+      "disassembledName": "Dornheim Schulbus Hst.",
+      "coord": [
+        49.653692,
+        10.32838
+      ],
+      "type": "stop",
+      "matchQuality": 691,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9675139:6",
+        "name": "Dornheim (Iphofen)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3129342",
+        "mainLocality": "Iphofen"
+      }
+    },
+    {
+      "id": "de:09677:29048",
+      "isGlobalId": true,
+      "name": "Wiesenfeld (Ufr), Wiesenfeld Büttnergasse",
+      "disassembledName": "Wiesenfeld Büttnergasse",
+      "coord": [
+        49.990854,
+        9.681288
+      ],
+      "type": "stop",
+      "matchQuality": 691,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9677148:12",
+        "name": "Wiesenfeld (Ufr)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3129048",
+        "mainLocality": "Karlstadt (Main)"
+      }
+    },
+    {
+      "id": "de:09677:28642",
+      "isGlobalId": true,
+      "name": "Sendelbach(Lohr a M), Sendelbach Zum Buchberg",
+      "disassembledName": "Sendelbach Zum Buchberg",
+      "coord": [
+        49.991137,
+        9.591869
+      ],
+      "type": "stop",
+      "matchQuality": 690,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9677155:9",
+        "name": "Sendelbach(Lohr a M)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3128642",
+        "mainLocality": "Lohr (Main)"
+      }
+    },
+    {
+      "id": "de:09675:27864",
+      "isGlobalId": true,
+      "name": "Kirchschönbach Schulbus-Hst.",
+      "coord": [
+        49.814058,
+        10.388307
+      ],
+      "type": "stop",
+      "matchQuality": 688,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9675158:8",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3127864",
+        "mainLocality": "Prichsenstadt"
+      }
+    },
+    {
+      "id": "de:09672:29699",
+      "isGlobalId": true,
+      "name": "Bad Brückenau Buchwaldstr. Abzw. AWO",
+      "coord": [
+        50.301712,
+        9.786687
+      ],
+      "type": "stop",
+      "matchQuality": 684,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9672113:1",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3129699",
+        "mainLocality": "Bad Brückenau"
+      }
+    },
+    {
+      "id": "de:09471:21191",
+      "isGlobalId": true,
+      "name": "Buch (Ebrach), Buch",
+      "disassembledName": "Buch",
+      "coord": [
+        49.82015,
+        10.485693
+      ],
+      "type": "stop",
+      "matchQuality": 592,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9471128:2",
+        "name": "Buch (Ebrach)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3021191",
+        "mainLocality": "Ebrach (Oberfr)"
+      }
+    },
+    {
+      "id": "de:09675:29690",
+      "isGlobalId": true,
+      "name": "Burggrub (Kr KT), Burggrub",
+      "disassembledName": "Burggrub",
+      "coord": [
+        49.782149,
+        10.523395
+      ],
+      "type": "stop",
+      "matchQuality": 577,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9675127:2",
+        "name": "Burggrub (Kr KT)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3129690",
+        "mainLocality": "Geiselwind"
+      }
+    },
+    {
+      "id": "de:09575:14466",
+      "isGlobalId": true,
+      "name": "Bullenheim, Rathaus",
+      "disassembledName": "Rathaus",
+      "coord": [
+        49.624174,
+        10.227248
+      ],
+      "type": "stop",
+      "matchQuality": 572,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9575134:2",
+        "name": "Bullenheim",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3014466",
+        "mainLocality": "Ippesheim (Mfr)"
+      }
+    },
+    {
+      "id": "de:09575:14789",
+      "isGlobalId": true,
+      "name": "Burgambach",
+      "coord": [
+        49.683093,
+        10.436438
+      ],
+      "type": "stop",
+      "matchQuality": 572,
+      "isBest": false,
+      "productClasses": [
+        6
+      ],
+      "parent": {
+        "id": "placeID:9575161:2",
+        "name": "",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3014789",
+        "mainLocality": "Scheinfeld"
+      }
+    },
+    {
+      "id": "de:09679:3188",
+      "isGlobalId": true,
+      "name": "Hettstadt, Burgleiten",
+      "disassembledName": "Burgleiten",
+      "coord": [
+        49.798242,
+        9.826419
+      ],
+      "type": "stop",
+      "matchQuality": 572,
+      "isBest": false,
+      "productClasses": [
+        5
+      ],
+      "parent": {
+        "id": "placeID:9679146:1",
+        "name": "Hettstadt",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "3603188",
+        "mainLocality": "Hettstadt"
+      }
+    },
+    {
+      "id": "de:08128:13415",
+      "isGlobalId": true,
+      "name": "Wertheim (TBB), Burg",
+      "disassembledName": "Burg",
+      "coord": [
+        49.759267,
+        9.520336
+      ],
+      "type": "stop",
+      "matchQuality": 592,
+      "isBest": false,
+      "productClasses": [
+        10
+      ],
+      "parent": {
+        "id": "placeID:8128131:25",
+        "name": "Wertheim (TBB)",
+        "type": "locality"
+      },
+      "properties": {
+        "stopId": "6013415",
+        "mainLocality": "Wertheim (TBB)"
+      }
+    },
+    {
+      "id": "streetID:1500000040::9679175:-1:Bußbrunn:Randersacker:Bußbrunn::Bußbrunn: 97236:ANY:DIVA_STREET:1111912:5596333:MRCV:BAY",
+      "name": "Randersacker, Bußbrunn",
+      "disassembledName": "Bußbrunn",
+      "coord": [
+        49.753336,
+        9.988475
+      ],
+      "streetName": "Bußbrunn",
+      "postCode": " 97236",
+      "type": "street",
+      "matchQuality": 855,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679175:-1",
+        "name": "Randersacker",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000031::9677175:-1:Buschenberghof:Retzstadt:Buschenberghof::Buschenberghof: 97282:ANY:DIVA_STREET:1100491:5568604:MRCV:BAY",
+      "name": "Retzstadt, Buschenberghof",
+      "disassembledName": "Buschenberghof",
+      "coord": [
+        49.914003,
+        9.885879
+      ],
+      "streetName": "Buschenberghof",
+      "postCode": " 97282",
+      "type": "street",
+      "matchQuality": 842,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677175:-1",
+        "name": "Retzstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000033::9679161:-1:Wilhelm-Busch-Weg:Margetshöchheim:Wilhelm-Busch-Weg::Wilhelm-Busch-Weg: 97276:ANY:DIVA_STREET:1097477:5581661:MRCV:BAY",
+      "name": "Margetshöchheim, Wilhelm-Busch-Weg",
+      "disassembledName": "Wilhelm-Busch-Weg",
+      "coord": [
+        49.838415,
+        9.858804
+      ],
+      "streetName": "Wilhelm-Busch-Weg",
+      "postCode": " 97276",
+      "type": "street",
+      "matchQuality": 832,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679161:-1",
+        "name": "Margetshöchheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000039::9678134:-1:Wilhelm-Busch-Weg:Gerolzhofen:Wilhelm-Busch-Weg::Wilhelm-Busch-Weg: 97447:ANY:DIVA_STREET:1152291:5571915:MRCV:BAY",
+      "name": "Gerolzhofen, Wilhelm-Busch-Weg",
+      "disassembledName": "Wilhelm-Busch-Weg",
+      "coord": [
+        49.894847,
+        10.351206
+      ],
+      "streetName": "Wilhelm-Busch-Weg",
+      "postCode": " 97447",
+      "type": "street",
+      "matchQuality": 832,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9678134:-1",
+        "name": "Gerolzhofen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000066::9672113:-1:Amand-von-Buseck-Straße:Bad Brückenau:Amand-von-Buseck-Straße::Amand-von-Buseck-Straße: 97769:ANY:DIVA_STREET:1085138:5501212:MRCV:BAY",
+      "name": "Bad Brückenau, Amand-von-Buseck-Straße",
+      "disassembledName": "Amand-von-Buseck-Straße",
+      "coord": [
+        50.302263,
+        9.747961
+      ],
+      "streetName": "Amand-von-Buseck-Straße",
+      "postCode": " 97769",
+      "type": "street",
+      "matchQuality": 828,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672113:-1",
+        "name": "Bad Brückenau",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000022::9679137:-1:Buchenweg:Geroldshausen (Ufr):Buchenweg::Buchenweg: 97256:ANY:DIVA_STREET:1100088:5609738:MRCV:BAY",
+      "name": "Geroldshausen (Ufr), Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.675473,
+        9.882259
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97256",
+      "type": "street",
+      "matchQuality": 713,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679137:-1",
+        "name": "Geroldshausen (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9677181:-1:Burggasse:Rothenfels (Unterfr):Burggasse::Burggasse: 97851:ANY:DIVA_STREET:1067710:5572468:MRCV:BAY",
+      "name": "Rothenfels (Unterfr), Burggasse",
+      "disassembledName": "Burggasse",
+      "coord": [
+        49.891646,
+        9.591402
+      ],
+      "streetName": "Burggasse",
+      "postCode": " 97851",
+      "type": "street",
+      "matchQuality": 713,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677181:-1",
+        "name": "Rothenfels (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000095::9679185:-1:Burggasse:Rottendorf (Kr WÜ):Burggasse::Burggasse: 97228:ANY:DIVA_STREET:1116305:5589509:MRCV:BAY",
+      "name": "Rottendorf (Kr WÜ), Burggasse",
+      "disassembledName": "Burggasse",
+      "coord": [
+        49.792925,
+        10.027938
+      ],
+      "streetName": "Burggasse",
+      "postCode": " 97228",
+      "type": "street",
+      "matchQuality": 712,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679185:-1",
+        "name": "Rottendorf (Kr WÜ)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000046::9679130:-1:Burggasse:Estenfeld:Burggasse::Burggasse: 97230:ANY:DIVA_STREET:1114168:5583371:MRCV:BAY",
+      "name": "Estenfeld, Burggasse",
+      "disassembledName": "Burggasse",
+      "coord": [
+        49.828507,
+        10.008741
+      ],
+      "streetName": "Burggasse",
+      "postCode": " 97230",
+      "type": "street",
+      "matchQuality": 712,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679130:-1",
+        "name": "Estenfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000009::9677189:-1:Burgsteig:Thüngen:Burgsteig::Burgsteig: 97289:ANY:DIVA_STREET:1096892:5564372:MRCV:BAY",
+      "name": "Thüngen, Burgsteig",
+      "disassembledName": "Burgsteig",
+      "coord": [
+        49.938477,
+        9.853548
+      ],
+      "streetName": "Burgsteig",
+      "postCode": " 97289",
+      "type": "street",
+      "matchQuality": 712,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677189:-1",
+        "name": "Thüngen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000003::9672113:-1:Buchrasen:Bad Brückenau:Buchrasen::Buchrasen: 97769:ANY:DIVA_STREET:1089920:5503154:MRCV:BAY",
+      "name": "Bad Brückenau, Buchrasen",
+      "disassembledName": "Buchrasen",
+      "coord": [
+        50.291119,
+        9.790918
+      ],
+      "streetName": "Buchrasen",
+      "postCode": " 97769",
+      "type": "street",
+      "matchQuality": 712,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672113:-1",
+        "name": "Bad Brückenau",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000022::9672166:-1:Buchgraben:Zeitlofs:Buchgraben::Buchgraben: 97799:ANY:DIVA_STREET:1076721:5508796:MRCV:BAY",
+      "name": "Zeitlofs, Buchgraben",
+      "disassembledName": "Buchgraben",
+      "coord": [
+        50.258727,
+        9.672349
+      ],
+      "streetName": "Buchgraben",
+      "postCode": " 97799",
+      "type": "street",
+      "matchQuality": 711,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672166:-1",
+        "name": "Zeitlofs",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000028::9677154:-1:Bugstraße:Triefenstein:Bugstraße::Bugstraße: 97855:ANY:DIVA_STREET:1071539:5589551:MRCV:BAY",
+      "name": "Triefenstein, Bugstraße",
+      "disassembledName": "Bugstraße",
+      "coord": [
+        49.792681,
+        9.625799
+      ],
+      "streetName": "Bugstraße",
+      "postCode": " 97855",
+      "type": "street",
+      "matchQuality": 710,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677154:-1",
+        "name": "Triefenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000017::9679180:-1:Burgstraße:Rimpar:Burgstraße::Burgstraße: 97222:ANY:DIVA_STREET:1108183:5579017:MRCV:BAY",
+      "name": "Rimpar, Burgstraße",
+      "disassembledName": "Burgstraße",
+      "coord": [
+        49.853731,
+        9.954977
+      ],
+      "streetName": "Burgstraße",
+      "postCode": " 97222",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679180:-1",
+        "name": "Rimpar",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000022::9677203:-1:Burgergasse:Zellingen:Burgergasse::Burgergasse: 97225:ANY:DIVA_STREET:1092921:5571403:MRCV:BAY",
+      "name": "Zellingen, Burgergasse",
+      "disassembledName": "Burgergasse",
+      "coord": [
+        49.897809,
+        9.817876
+      ],
+      "streetName": "Burgergasse",
+      "postCode": " 97225",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000017::9679165:-1:Burgstraße:Altertheim:Burgstraße::Burgstraße: 97237:ANY:DIVA_STREET:1086735:5601132:MRCV:BAY",
+      "name": "Altertheim, Burgstraße",
+      "disassembledName": "Burgstraße",
+      "coord": [
+        49.725475,
+        9.762307
+      ],
+      "streetName": "Burgstraße",
+      "postCode": " 97237",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679165:-1",
+        "name": "Altertheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000067::9675158:-1:Buttergasse:Prichsenstadt:Buttergasse::Buttergasse: 97357:ANY:DIVA_STREET:1149825:5582027:MRCV:BAY",
+      "name": "Prichsenstadt, Buttergasse",
+      "disassembledName": "Buttergasse",
+      "coord": [
+        49.836294,
+        10.329054
+      ],
+      "streetName": "Buttergasse",
+      "postCode": " 97357",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675158:-1",
+        "name": "Prichsenstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000060::9677148:-1:Burgstraße:Karlstadt (Main):Burgstraße::Burgstraße: 97753:ANY:DIVA_STREET:1086022:5557716:MRCV:BAY",
+      "name": "Karlstadt (Main), Burgstraße",
+      "disassembledName": "Burgstraße",
+      "coord": [
+        49.976945,
+        9.755902
+      ],
+      "streetName": "Burgstraße",
+      "postCode": " 97753",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677148:-1",
+        "name": "Karlstadt (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000022::9672138:-1:Buchstraße:Oberleichtersbach:Buchstraße::Buchstraße: 97789:ANY:DIVA_STREET:1090094:5504335:MRCV:BAY",
+      "name": "Oberleichtersbach, Buchstraße",
+      "disassembledName": "Buchstraße",
+      "coord": [
+        50.28434,
+        9.792481
+      ],
+      "streetName": "Buchstraße",
+      "postCode": " 97789",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672138:-1",
+        "name": "Oberleichtersbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000042::9677119:-1:Burgstraße:Birkenfeld (Kr MSP):Burgstraße::Burgstraße: 97834:ANY:DIVA_STREET:1079305:5577991:MRCV:BAY",
+      "name": "Birkenfeld (Kr MSP), Burgstraße",
+      "disassembledName": "Burgstraße",
+      "coord": [
+        49.859673,
+        9.695562
+      ],
+      "streetName": "Burgstraße",
+      "postCode": " 97834",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677119:-1",
+        "name": "Birkenfeld (Kr MSP)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9677170:-1:Buchstraße:Partenstein:Buchstraße::Buchstraße: 97846:ANY:DIVA_STREET:1060136:5548021:MRCV:BAY",
+      "name": "Partenstein, Buchstraße",
+      "disassembledName": "Buchstraße",
+      "coord": [
+        50.03292,
+        9.523364
+      ],
+      "streetName": "Buchstraße",
+      "postCode": " 97846",
+      "type": "street",
+      "matchQuality": 707,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677170:-1",
+        "name": "Partenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000074::9679147:-1:Burkardusweg:Höchberg:Burkardusweg::Burkardusweg: 97204:ANY:DIVA_STREET:1098718:5591439:MRCV:BAY",
+      "name": "Höchberg, Burkardusweg",
+      "disassembledName": "Burkardusweg",
+      "coord": [
+        49.781731,
+        9.869952
+      ],
+      "streetName": "Burkardusweg",
+      "postCode": " 97204",
+      "type": "street",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679147:-1",
+        "name": "Höchberg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000001::9679194:-1:Bühlstraße:Thüngersheim:Bühlstraße::Bühlstraße: 97291:ANY:DIVA_STREET:1095636:5573940:MRCV:BAY",
+      "name": "Thüngersheim, Bühlstraße",
+      "disassembledName": "Bühlstraße",
+      "coord": [
+        49.883127,
+        9.842266
+      ],
+      "streetName": "Bühlstraße",
+      "postCode": " 97291",
+      "type": "street",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679194:-1",
+        "name": "Thüngersheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000175::9678150:-1:Bürgergasse:Kolitzheim:Bürgergasse::Bürgergasse: 97509:ANY:DIVA_STREET:1139454:5567832:MRCV:BAY",
+      "name": "Kolitzheim, Bürgergasse",
+      "disassembledName": "Bürgergasse",
+      "coord": [
+        49.918469,
+        10.235889
+      ],
+      "streetName": "Bürgergasse",
+      "postCode": " 97509",
+      "type": "street",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9678150:-1",
+        "name": "Kolitzheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000250::9672127:-1:Burkardusweg:Hammelburg:Burkardusweg::Burkardusweg: 97762:ANY:DIVA_STREET:1101198:5532978:MRCV:BAY",
+      "name": "Hammelburg, Burkardusweg",
+      "disassembledName": "Burkardusweg",
+      "coord": [
+        50.119644,
+        9.89223
+      ],
+      "streetName": "Burkardusweg",
+      "postCode": " 97762",
+      "type": "street",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672127:-1",
+        "name": "Hammelburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000073::9672166:-1:Buchenfeldweg:Zeitlofs:Buchenfeldweg::Buchenfeldweg: 97799:ANY:DIVA_STREET:1086752:5513326:MRCV:BAY",
+      "name": "Zeitlofs, Buchenfeldweg",
+      "disassembledName": "Buchenfeldweg",
+      "coord": [
+        50.232704,
+        9.762459
+      ],
+      "streetName": "Buchenfeldweg",
+      "postCode": " 97799",
+      "type": "street",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672166:-1",
+        "name": "Zeitlofs",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000019::9677125:-1:Burkardusweg:Erlenbach b Markthei:Burkardusweg::Burkardusweg: 97837:ANY:DIVA_STREET:1071576:5584945:MRCV:BAY",
+      "name": "Erlenbach b Markthei, Burkardusweg",
+      "disassembledName": "Burkardusweg",
+      "coord": [
+        49.819385,
+        9.626131
+      ],
+      "streetName": "Burkardusweg",
+      "postCode": " 97837",
+      "type": "street",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677125:-1",
+        "name": "Erlenbach b Markthei",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000242::9561000:-1:Buchenstraße:Ansbach:Buchenstraße::Buchenstraße: 91522:ANY:DIVA_STREET:1179176:5673415:MRCV:BAY",
+      "name": "Ansbach, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.3039,
+        10.592718
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 91522",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000026::9679180:-1:Büttnergasse:Rimpar:Büttnergasse::Büttnergasse: 97222:ANY:DIVA_STREET:1108731:5578945:MRCV:BAY",
+      "name": "Rimpar, Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.854148,
+        9.9599
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97222",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679180:-1",
+        "name": "Rimpar",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000065::9677203:-1:Buchenstraße:Zellingen:Buchenstraße::Buchenstraße: 97225:ANY:DIVA_STREET:1091644:5571621:MRCV:BAY",
+      "name": "Zellingen, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.896548,
+        9.806405
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97225",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000017::9677203:-1:Büttnergasse:Zellingen:Büttnergasse::Büttnergasse: 97225:ANY:DIVA_STREET:1081948:5570562:MRCV:BAY",
+      "name": "Zellingen, Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.902676,
+        9.719304
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97225",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000063::9679185:-1:Buchenstraße:Rottendorf (Kr WÜ):Buchenstraße::Buchenstraße: 97228:ANY:DIVA_STREET:1115877:5588507:MRCV:BAY",
+      "name": "Rottendorf (Kr WÜ), Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.798735,
+        10.024094
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97228",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679185:-1",
+        "name": "Rottendorf (Kr WÜ)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000016::9679118:-1:Bucher Straße:Bieberehren:Bucher Straße::Bucher Straße: 97243:ANY:DIVA_STREET:1114392:5637592:MRCV:BAY",
+      "name": "Bieberehren, Bucher Straße",
+      "disassembledName": "Bucher Straße",
+      "coord": [
+        49.513284,
+        10.010754
+      ],
+      "streetName": "Bucher Straße",
+      "postCode": " 97243",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679118:-1",
+        "name": "Bieberehren",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000031::9679126:-1:Buchenstraße:Eisingen (Kr WÜ):Buchenstraße::Buchenstraße: 97249:ANY:DIVA_STREET:1095264:5595400:MRCV:BAY",
+      "name": "Eisingen (Kr WÜ), Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.75875,
+        9.838924
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97249",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679126:-1",
+        "name": "Eisingen (Kr WÜ)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000038::9679128:-1:Büttnergasse:Erlabrunn (Unterfr):Büttnergasse::Büttnergasse: 97250:ANY:DIVA_STREET:1095814:5577945:MRCV:BAY",
+      "name": "Erlabrunn (Unterfr), Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.859939,
+        9.843865
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97250",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679128:-1",
+        "name": "Erlabrunn (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000020::9679131:-1:Büttnergasse:Frickenhausen (Main):Büttnergasse::Büttnergasse: 97252:ANY:DIVA_STREET:1123443:5610641:MRCV:BAY",
+      "name": "Frickenhausen (Main), Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.670223,
+        10.09206
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97252",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679131:-1",
+        "name": "Frickenhausen (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000070::9679142:-1:Büttnergasse:Güntersleben:Büttnergasse::Büttnergasse: 97261:ANY:DIVA_STREET:1102730:5576290:MRCV:BAY",
+      "name": "Güntersleben, Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.869522,
+        9.905992
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97261",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679142:-1",
+        "name": "Güntersleben",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000034::9679146:-1:Bürgleinsweg:Hettstadt:Bürgleinsweg::Bürgleinsweg: 97265:ANY:DIVA_STREET:1093122:5588451:MRCV:BAY",
+      "name": "Hettstadt, Bürgleinsweg",
+      "disassembledName": "Bürgleinsweg",
+      "coord": [
+        49.79906,
+        9.819682
+      ],
+      "streetName": "Bürgleinsweg",
+      "postCode": " 97265",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679146:-1",
+        "name": "Hettstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000015::9679156:-1:Buchenstraße:Kürnach (Ufr):Buchenstraße::Buchenstraße: 97273:ANY:DIVA_STREET:1118760:5579858:MRCV:BAY",
+      "name": "Kürnach (Ufr), Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.84886,
+        10.049992
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97273",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679156:-1",
+        "name": "Kürnach (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000037::9675113:-1:Buchenstraße:Biebelried:Buchenstraße::Buchenstraße: 97318:ANY:DIVA_STREET:1123067:5594505:MRCV:BAY",
+      "name": "Biebelried, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.763944,
+        10.088683
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97318",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675113:-1",
+        "name": "Biebelried",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000005::9675146:-1:Büttnergasse:Mainstockheim:Büttnergasse::Büttnergasse: 97320:ANY:DIVA_STREET:1130083:5593048:MRCV:BAY",
+      "name": "Mainstockheim, Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.772397,
+        10.151708
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97320",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675146:-1",
+        "name": "Mainstockheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000005::9675156:-1:Buchenstraße:Obernbreit:Buchenstraße::Buchenstraße: 97342:ANY:DIVA_STREET:1132210:5613253:MRCV:BAY",
+      "name": "Obernbreit, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.655035,
+        10.170815
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97342",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675156:-1",
+        "name": "Obernbreit",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000031::9675167:-1:Buckwiesenweg:Seinsheim:Buckwiesenweg::Buckwiesenweg: 97342:ANY:DIVA_STREET:1137748:5615402:MRCV:BAY",
+      "name": "Seinsheim, Buckwiesenweg",
+      "disassembledName": "Buckwiesenweg",
+      "coord": [
+        49.642536,
+        10.220564
+      ],
+      "streetName": "Buckwiesenweg",
+      "postCode": " 97342",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675167:-1",
+        "name": "Seinsheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000026::9675144:-1:Büttnergasse:Mainbernheim:Büttnergasse::Büttnergasse: 97350:ANY:DIVA_STREET:1137366:5603514:MRCV:BAY",
+      "name": "Mainbernheim, Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.71164,
+        10.217133
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97350",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675144:-1",
+        "name": "Mainbernheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000113::9675178:-1:Buchenstraße:Wiesentheid:Buchenstraße::Buchenstraße: 97353:ANY:DIVA_STREET:1152150:5589894:MRCV:BAY",
+      "name": "Wiesentheid, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.790692,
+        10.34994
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97353",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675178:-1",
+        "name": "Wiesentheid",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000009::9675177:-1:Büttnergasse:Wiesenbronn:Büttnergasse::Büttnergasse: 97355:ANY:DIVA_STREET:1147219:5597650:MRCV:BAY",
+      "name": "Wiesenbronn, Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.745691,
+        10.305644
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97355",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675177:-1",
+        "name": "Wiesenbronn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000118::9678150:-1:Buchenstraße:Kolitzheim:Buchenstraße::Buchenstraße: 97509:ANY:DIVA_STREET:1138958:5563183:MRCV:BAY",
+      "name": "Kolitzheim, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.945351,
+        10.231434
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97509",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9678150:-1",
+        "name": "Kolitzheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000199::9677148:-1:Büttnergasse:Karlstadt (Main):Büttnergasse::Büttnergasse: 97753:ANY:DIVA_STREET:1077806:5555414:MRCV:BAY",
+      "name": "Karlstadt (Main), Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        49.990241,
+        9.682096
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97753",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677148:-1",
+        "name": "Karlstadt (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000132::9677155:-1:Buchenstraße:Lohr (Main):Buchenstraße::Buchenstraße: 97816:ANY:DIVA_STREET:1067548:5554847:MRCV:BAY",
+      "name": "Lohr (Main), Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.993516,
+        9.589947
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97816",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677155:-1",
+        "name": "Lohr (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000153::9677157:-1:Buchenstraße:Marktheidenfeld:Buchenstraße::Buchenstraße: 97828:ANY:DIVA_STREET:1065084:5579311:MRCV:BAY",
+      "name": "Marktheidenfeld, Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.852028,
+        9.567812
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97828",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677157:-1",
+        "name": "Marktheidenfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9677165:-1:Büttnergasse:Neuhütten (Unterfr):Büttnergasse::Büttnergasse: 97843:ANY:DIVA_STREET:1048792:5553154:MRCV:BAY",
+      "name": "Neuhütten (Unterfr), Büttnergasse",
+      "disassembledName": "Büttnergasse",
+      "coord": [
+        50.003292,
+        9.421459
+      ],
+      "streetName": "Büttnergasse",
+      "postCode": " 97843",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677165:-1",
+        "name": "Neuhütten (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000000::9677186:-1:Buchenstraße:Steinfeld (b Lohr):Buchenstraße::Buchenstraße: 97854:ANY:DIVA_STREET:1074564:5560350:MRCV:BAY",
+      "name": "Steinfeld (b Lohr), Buchenstraße",
+      "disassembledName": "Buchenstraße",
+      "coord": [
+        49.961725,
+        9.652973
+      ],
+      "streetName": "Buchenstraße",
+      "postCode": " 97854",
+      "type": "street",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677186:-1",
+        "name": "Steinfeld (b Lohr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000254::9561000:-1:Büttenstraße:Ansbach:Büttenstraße::Büttenstraße: 91522:ANY:DIVA_STREET:1176659:5673773:MRCV:BAY",
+      "name": "Ansbach, Büttenstraße",
+      "disassembledName": "Büttenstraße",
+      "coord": [
+        49.301803,
+        10.570108
+      ],
+      "streetName": "Büttenstraße",
+      "postCode": " 91522",
+      "type": "street",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000000::9679153:-1:Burkardstraße:Kirchheim (Unterfr):Burkardstraße::Burkardstraße: 97268:ANY:DIVA_STREET:1097394:5613263:MRCV:BAY",
+      "name": "Kirchheim (Unterfr), Burkardstraße",
+      "disassembledName": "Burkardstraße",
+      "coord": [
+        49.654977,
+        9.858058
+      ],
+      "streetName": "Burkardstraße",
+      "postCode": " 97268",
+      "type": "street",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679153:-1",
+        "name": "Kirchheim (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000200::9677148:-1:Bühler Straße:Karlstadt (Main):Bühler Straße::Bühler Straße: 97753:ANY:DIVA_STREET:1096502:5558379:MRCV:BAY",
+      "name": "Karlstadt (Main), Bühler Straße",
+      "disassembledName": "Bühler Straße",
+      "coord": [
+        49.973114,
+        9.850045
+      ],
+      "streetName": "Bühler Straße",
+      "postCode": " 97753",
+      "type": "street",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677148:-1",
+        "name": "Karlstadt (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000028::9677127:-1:Bühler Straße:Eußenheim:Bühler Straße::Bühler Straße: 97776:ANY:DIVA_STREET:1098054:5551528:MRCV:BAY",
+      "name": "Eußenheim, Bühler Straße",
+      "disassembledName": "Bühler Straße",
+      "coord": [
+        50.01268,
+        9.863987
+      ],
+      "streetName": "Bühler Straße",
+      "postCode": " 97776",
+      "type": "street",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677127:-1",
+        "name": "Eußenheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000081::9677154:-1:Burkardusplatz:Triefenstein:Burkardusplatz::Burkardusplatz: 97855:ANY:DIVA_STREET:1071125:5589546:MRCV:BAY",
+      "name": "Triefenstein, Burkardusplatz",
+      "disassembledName": "Burkardusplatz",
+      "coord": [
+        49.79271,
+        9.62208
+      ],
+      "streetName": "Burkardusplatz",
+      "postCode": " 97855",
+      "type": "street",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677154:-1",
+        "name": "Triefenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000024::9561000:-1:Buckhausstraße:Ansbach:Buckhausstraße::Buckhausstraße: 91522:ANY:DIVA_STREET:1182676:5671553:MRCV:BAY",
+      "name": "Ansbach, Buckhausstraße",
+      "disassembledName": "Buckhausstraße",
+      "coord": [
+        49.314805,
+        10.624159
+      ],
+      "streetName": "Buckhausstraße",
+      "postCode": " 91522",
+      "type": "street",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000056::9679143:-1:Büttnerstraße:Hausen bei Würzburg:Büttnerstraße::Büttnerstraße: 97262:ANY:DIVA_STREET:1114263:5569098:MRCV:BAY",
+      "name": "Hausen bei Würzburg, Büttnerstraße",
+      "disassembledName": "Büttnerstraße",
+      "coord": [
+        49.911145,
+        10.009595
+      ],
+      "streetName": "Büttnerstraße",
+      "postCode": " 97262",
+      "type": "street",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679143:-1",
+        "name": "Hausen bei Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000071::9679144:-1:Buchwaldstraße:Helmstadt (Unterfr):Buchwaldstraße::Buchwaldstraße: 97264:ANY:DIVA_STREET:1076313:5594751:MRCV:BAY",
+      "name": "Helmstadt (Unterfr), Buchwaldstraße",
+      "disassembledName": "Buchwaldstraße",
+      "coord": [
+        49.762516,
+        9.668684
+      ],
+      "streetName": "Buchwaldstraße",
+      "postCode": " 97264",
+      "type": "street",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679144:-1",
+        "name": "Helmstadt (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000015::9672113:-1:Buchwaldstraße:Bad Brückenau:Buchwaldstraße::Buchwaldstraße: 97769:ANY:DIVA_STREET:1089400:5501113:MRCV:BAY",
+      "name": "Bad Brückenau, Buchwaldstraße",
+      "disassembledName": "Buchwaldstraße",
+      "coord": [
+        50.302831,
+        9.786247
+      ],
+      "streetName": "Buchwaldstraße",
+      "postCode": " 97769",
+      "type": "street",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672113:-1",
+        "name": "Bad Brückenau",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000078::9677154:-1:Büttnerstraße:Triefenstein:Büttnerstraße::Büttnerstraße: 97855:ANY:DIVA_STREET:1069309:5586614:MRCV:BAY",
+      "name": "Triefenstein, Büttnerstraße",
+      "disassembledName": "Büttnerstraße",
+      "coord": [
+        49.80971,
+        9.605766
+      ],
+      "streetName": "Büttnerstraße",
+      "postCode": " 97855",
+      "type": "street",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677154:-1",
+        "name": "Triefenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000016::9679200:-1:Burkardusstraße:Leinach (Kr WÜ):Burkardusstraße::Burkardusstraße: 97274:ANY:DIVA_STREET:1091358:5577696:MRCV:BAY",
+      "name": "Leinach (Kr WÜ), Burkardusstraße",
+      "disassembledName": "Burkardusstraße",
+      "coord": [
+        49.861381,
+        9.803836
+      ],
+      "streetName": "Burkardusstraße",
+      "postCode": " 97274",
+      "type": "street",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679200:-1",
+        "name": "Leinach (Kr WÜ)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000040::9675169:-1:Burgunderstraße:Sommerach:Burgunderstraße::Burgunderstraße: 97334:ANY:DIVA_STREET:1136516:5583463:MRCV:BAY",
+      "name": "Sommerach, Burgunderstraße",
+      "disassembledName": "Burgunderstraße",
+      "coord": [
+        49.827973,
+        10.209497
+      ],
+      "streetName": "Burgunderstraße",
+      "postCode": " 97334",
+      "type": "street",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675169:-1",
+        "name": "Sommerach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9677116:-1:Buttertalstraße:Aura im Sinngrund:Buttertalstraße::Buttertalstraße: 97773:ANY:DIVA_STREET:1065627:5523625:MRCV:BAY",
+      "name": "Aura im Sinngrund, Buttertalstraße",
+      "disassembledName": "Buttertalstraße",
+      "coord": [
+        50.173486,
+        9.57269
+      ],
+      "streetName": "Buttertalstraße",
+      "postCode": " 97773",
+      "type": "street",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677116:-1",
+        "name": "Aura im Sinngrund",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000076::9677155:-1:Buchentalstraße:Lohr (Main):Buchentalstraße::Buchentalstraße: 97816:ANY:DIVA_STREET:1069340:5553005:MRCV:BAY",
+      "name": "Lohr (Main), Buchentalstraße",
+      "disassembledName": "Buchentalstraße",
+      "coord": [
+        50.004152,
+        9.606045
+      ],
+      "streetName": "Buchentalstraße",
+      "postCode": " 97816",
+      "type": "street",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677155:-1",
+        "name": "Lohr (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000026::9677154:-1:Burkardusstraße:Triefenstein:Burkardusstraße::Burkardusstraße: 97855:ANY:DIVA_STREET:1071104:5589666:MRCV:BAY",
+      "name": "Triefenstein, Burkardusstraße",
+      "disassembledName": "Burkardusstraße",
+      "coord": [
+        49.792014,
+        9.621891
+      ],
+      "streetName": "Burkardusstraße",
+      "postCode": " 97855",
+      "type": "street",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677154:-1",
+        "name": "Triefenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000009::9677142:-1:Am Burkardstuhl:Himmelstadt:Am Burkardstuhl::Am Burkardstuhl: 97267:ANY:DIVA_STREET:1090811:5565993:MRCV:BAY",
+      "name": "Himmelstadt, Am Burkardstuhl",
+      "disassembledName": "Am Burkardstuhl",
+      "coord": [
+        49.929104,
+        9.798922
+      ],
+      "streetName": "Am Burkardstuhl",
+      "postCode": " 97267",
+      "type": "street",
+      "matchQuality": 697,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677142:-1",
+        "name": "Himmelstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000068::9677114:-1:Bücholder Straße:Arnstein (Ufr):Bücholder Straße::Bücholder Straße: 97450:ANY:DIVA_STREET:1107891:5557374:MRCV:BAY",
+      "name": "Arnstein (Ufr), Bücholder Straße",
+      "disassembledName": "Bücholder Straße",
+      "coord": [
+        49.97892,
+        9.952354
+      ],
+      "streetName": "Bücholder Straße",
+      "postCode": " 97450",
+      "type": "street",
+      "matchQuality": 697,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677114:-1",
+        "name": "Arnstein (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000116::9677131:-1:Bürgermeisterweg:Gemünden (Main):Bürgermeisterweg::Bürgermeisterweg: 97737:ANY:DIVA_STREET:1075193:5543915:MRCV:BAY",
+      "name": "Gemünden (Main), Bürgermeisterweg",
+      "disassembledName": "Bürgermeisterweg",
+      "coord": [
+        50.056607,
+        9.658623
+      ],
+      "streetName": "Bürgermeisterweg",
+      "postCode": " 97737",
+      "type": "street",
+      "matchQuality": 697,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677131:-1",
+        "name": "Gemünden (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000002::9677133:-1:Burgsinner Straße:Gräfendorf (Unterfr):Burgsinner Straße::Burgsinner Straße: 97782:ANY:DIVA_STREET:1083835:5532617:MRCV:BAY",
+      "name": "Gräfendorf (Unterfr), Burgsinner Straße",
+      "disassembledName": "Burgsinner Straße",
+      "coord": [
+        50.121724,
+        9.736255
+      ],
+      "streetName": "Burgsinner Straße",
+      "postCode": " 97782",
+      "type": "street",
+      "matchQuality": 697,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677133:-1",
+        "name": "Gräfendorf (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000041::9677177:-1:Burgsinner Straße:Rieneck:Burgsinner Straße::Burgsinner Straße: 97794:ANY:DIVA_STREET:1073778:5536536:MRCV:BAY",
+      "name": "Rieneck, Burgsinner Straße",
+      "disassembledName": "Burgsinner Straße",
+      "coord": [
+        50.099146,
+        9.645912
+      ],
+      "streetName": "Burgsinner Straße",
+      "postCode": " 97794",
+      "type": "street",
+      "matchQuality": 697,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677177:-1",
+        "name": "Rieneck",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000004::9679176:-1:Burkardinerstraße:Reichenberg (Ufr):Burkardinerstraße::Burkardinerstraße: 97234:ANY:DIVA_STREET:1102958:5600265:MRCV:BAY",
+      "name": "Reichenberg (Ufr), Burkardinerstraße",
+      "disassembledName": "Burkardinerstraße",
+      "coord": [
+        49.73051,
+        9.90804
+      ],
+      "streetName": "Burkardinerstraße",
+      "postCode": " 97234",
+      "type": "street",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679176:-1",
+        "name": "Reichenberg (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000027::9679122:-1:Büttharder Straße:Bütthard:Büttharder Straße::Büttharder Straße: 97244:ANY:DIVA_STREET:1096203:5628918:MRCV:BAY",
+      "name": "Bütthard, Büttharder Straße",
+      "disassembledName": "Büttharder Straße",
+      "coord": [
+        49.563849,
+        9.847359
+      ],
+      "streetName": "Büttharder Straße",
+      "postCode": " 97244",
+      "type": "street",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000029::9675141:-1:Alte Burgstraße:Kitzingen:Alte Burgstraße::Alte Burgstraße: 97318:ANY:DIVA_STREET:1131322:5598668:MRCV:BAY",
+      "name": "Kitzingen, Alte Burgstraße",
+      "disassembledName": "Alte Burgstraße",
+      "coord": [
+        49.739782,
+        10.162838
+      ],
+      "streetName": "Alte Burgstraße",
+      "postCode": " 97318",
+      "type": "street",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675141:-1",
+        "name": "Kitzingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000002::9675141:-1:Buchbrunner Straße:Kitzingen:Buchbrunner Straße::Buchbrunner Straße: 97318:ANY:DIVA_STREET:1129953:5598239:MRCV:BAY",
+      "name": "Kitzingen, Buchbrunner Straße",
+      "disassembledName": "Buchbrunner Straße",
+      "coord": [
+        49.742272,
+        10.150541
+      ],
+      "streetName": "Buchbrunner Straße",
+      "postCode": " 97318",
+      "type": "street",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675141:-1",
+        "name": "Kitzingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000134::9677148:-1:Buchenhöllstraße:Karlstadt (Main):Buchenhöllstraße::Buchenhöllstraße: 97753:ANY:DIVA_STREET:1094851:5563631:MRCV:BAY",
+      "name": "Karlstadt (Main), Buchenhöllstraße",
+      "disassembledName": "Buchenhöllstraße",
+      "coord": [
+        49.942761,
+        9.835214
+      ],
+      "streetName": "Buchenhöllstraße",
+      "postCode": " 97753",
+      "type": "street",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677148:-1",
+        "name": "Karlstadt (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000030::9679118:-1:Burgerrother Straße:Bieberehren:Burgerrother Straße::Burgerrother Straße: 97243:ANY:DIVA_STREET:1117314:5637119:MRCV:BAY",
+      "name": "Bieberehren, Burgerrother Straße",
+      "disassembledName": "Burgerrother Straße",
+      "coord": [
+        49.516043,
+        10.037002
+      ],
+      "streetName": "Burgerrother Straße",
+      "postCode": " 97243",
+      "type": "street",
+      "matchQuality": 695,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679118:-1",
+        "name": "Bieberehren",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9679122:-1:St.-Burkard-Straße:Bütthard:St.-Burkard-Straße::St.-Burkard-Straße: 97244:ANY:DIVA_STREET:1103058:5621615:MRCV:BAY",
+      "name": "Bütthard, St.-Burkard-Straße",
+      "disassembledName": "St.-Burkard-Straße",
+      "coord": [
+        49.606381,
+        9.908939
+      ],
+      "streetName": "St.-Burkard-Straße",
+      "postCode": " 97244",
+      "type": "street",
+      "matchQuality": 695,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000037::9679205:-1:St.-Burkard-Straße:Waldbüttelbrunn:St.-Burkard-Straße::St.-Burkard-Straße: 97297:ANY:DIVA_STREET:1096669:5590204:MRCV:BAY",
+      "name": "Waldbüttelbrunn, St.-Burkard-Straße",
+      "disassembledName": "St.-Burkard-Straße",
+      "coord": [
+        49.788894,
+        9.851545
+      ],
+      "streetName": "St.-Burkard-Straße",
+      "postCode": " 97297",
+      "type": "street",
+      "matchQuality": 695,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679205:-1",
+        "name": "Waldbüttelbrunn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000049::9675127:-1:Burghaslacher Straße:Geiselwind:Burghaslacher Straße::Burghaslacher Straße: 96160:ANY:DIVA_STREET:1172204:5593999:MRCV:BAY",
+      "name": "Geiselwind, Burghaslacher Straße",
+      "disassembledName": "Burghaslacher Straße",
+      "coord": [
+        49.76688,
+        10.530088
+      ],
+      "streetName": "Burghaslacher Straße",
+      "postCode": " 96160",
+      "type": "street",
+      "matchQuality": 694,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675127:-1",
+        "name": "Geiselwind",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000029::9679165:-1:Obere Bühlstraße:Altertheim:Obere Bühlstraße::Obere Bühlstraße: 97237:ANY:DIVA_STREET:1084240:5601156:MRCV:BAY",
+      "name": "Altertheim, Obere Bühlstraße",
+      "disassembledName": "Obere Bühlstraße",
+      "coord": [
+        49.725336,
+        9.739894
+      ],
+      "streetName": "Obere Bühlstraße",
+      "postCode": " 97237",
+      "type": "street",
+      "matchQuality": 694,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679165:-1",
+        "name": "Altertheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000031::9679122:-1:Alte Bundesstraße:Bütthard:Alte Bundesstraße::Alte Bundesstraße: 97244:ANY:DIVA_STREET:1104490:5624909:MRCV:BAY",
+      "name": "Bütthard, Alte Bundesstraße",
+      "disassembledName": "Alte Bundesstraße",
+      "coord": [
+        49.587202,
+        9.921802
+      ],
+      "streetName": "Alte Bundesstraße",
+      "postCode": " 97244",
+      "type": "street",
+      "matchQuality": 694,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000037::9679147:-1:Eduard-Buchner-Straße:Höchberg:Eduard-Buchner-Straße::Eduard-Buchner-Straße: 97204:ANY:DIVA_STREET:1100026:5590760:MRCV:BAY",
+      "name": "Höchberg, Eduard-Buchner-Straße",
+      "disassembledName": "Eduard-Buchner-Straße",
+      "coord": [
+        49.78567,
+        9.881702
+      ],
+      "streetName": "Eduard-Buchner-Straße",
+      "postCode": " 97204",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679147:-1",
+        "name": "Höchberg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000076::9679180:-1:Burggrumbacher Straße:Rimpar:Burggrumbacher Straße::Burggrumbacher Straße: 97222:ANY:DIVA_STREET:1109368:5578044:MRCV:BAY",
+      "name": "Rimpar, Burggrumbacher Straße",
+      "disassembledName": "Burggrumbacher Straße",
+      "coord": [
+        49.859366,
+        9.965622
+      ],
+      "streetName": "Burggrumbacher Straße",
+      "postCode": " 97222",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679180:-1",
+        "name": "Rimpar",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000030::9679165:-1:Untere Bühlstraße:Altertheim:Untere Bühlstraße::Untere Bühlstraße: 97237:ANY:DIVA_STREET:1084215:5601245:MRCV:BAY",
+      "name": "Altertheim, Untere Bühlstraße",
+      "disassembledName": "Untere Bühlstraße",
+      "coord": [
+        49.724819,
+        9.739669
+      ],
+      "streetName": "Untere Bühlstraße",
+      "postCode": " 97237",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679165:-1",
+        "name": "Altertheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000023::9679161:-1:Georg-Büchner-Straße:Margetshöchheim:Georg-Büchner-Straße::Georg-Büchner-Straße: 97276:ANY:DIVA_STREET:1097467:5581050:MRCV:BAY",
+      "name": "Margetshöchheim, Georg-Büchner-Straße",
+      "disassembledName": "Georg-Büchner-Straße",
+      "coord": [
+        49.841954,
+        9.858714
+      ],
+      "streetName": "Georg-Büchner-Straße",
+      "postCode": " 97276",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679161:-1",
+        "name": "Margetshöchheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000012::9679201:-1:Burggrumbacher Straße:Unterpleichfeld:Burggrumbacher Straße::Burggrumbacher Straße: 97294:ANY:DIVA_STREET:1117895:5576503:MRCV:BAY",
+      "name": "Unterpleichfeld, Burggrumbacher Straße",
+      "disassembledName": "Burggrumbacher Straße",
+      "coord": [
+        49.868289,
+        10.042222
+      ],
+      "streetName": "Burggrumbacher Straße",
+      "postCode": " 97294",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679201:-1",
+        "name": "Unterpleichfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000143::9677157:-1:Eugen-Büttner-Straße:Marktheidenfeld:Eugen-Büttner-Straße::Eugen-Büttner-Straße: 97828:ANY:DIVA_STREET:1069377:5582463:MRCV:BAY",
+      "name": "Marktheidenfeld, Eugen-Büttner-Straße",
+      "disassembledName": "Eugen-Büttner-Straße",
+      "coord": [
+        49.833768,
+        9.606377
+      ],
+      "streetName": "Eugen-Büttner-Straße",
+      "postCode": " 97828",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677157:-1",
+        "name": "Marktheidenfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000003::9677172:-1:Bürgermeisterstraße:Rechtenbach (b Lohr):Bürgermeisterstraße::Bürgermeisterstraße: 97848:ANY:DIVA_STREET:1057896:5556365:MRCV:BAY",
+      "name": "Rechtenbach (b Lohr), Bürgermeisterstraße",
+      "disassembledName": "Bürgermeisterstraße",
+      "coord": [
+        49.984749,
+        9.503241
+      ],
+      "streetName": "Bürgermeisterstraße",
+      "postCode": " 97848",
+      "type": "street",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677172:-1",
+        "name": "Rechtenbach (b Lohr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000130::9675178:-1:Pfarrer-Büttner-Straße:Wiesentheid:Pfarrer-Büttner-Straße::Pfarrer-Büttner-Straße: 97353:ANY:DIVA_STREET:1150392:5589610:MRCV:BAY",
+      "name": "Wiesentheid, Pfarrer-Büttner-Straße",
+      "disassembledName": "Pfarrer-Büttner-Straße",
+      "coord": [
+        49.792339,
+        10.334147
+      ],
+      "streetName": "Pfarrer-Büttner-Straße",
+      "postCode": " 97353",
+      "type": "street",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675178:-1",
+        "name": "Wiesentheid",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000061::9575161:-1:Dr.-Josef-Bulitta-Straße:Scheinfeld:Dr.-Josef-Bulitta-Straße::Dr.-Josef-Bulitta-Straße: 91443:ANY:DIVA_STREET:1165377:5612002:MRCV:BAY",
+      "name": "Scheinfeld, Dr.-Josef-Bulitta-Straße",
+      "disassembledName": "Dr.-Josef-Bulitta-Straße",
+      "coord": [
+        49.66231,
+        10.46876
+      ],
+      "streetName": "Dr.-Josef-Bulitta-Straße",
+      "postCode": " 91443",
+      "type": "street",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9575161:-1",
+        "name": "Scheinfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000081::9677203:-1:Bürgermeister-Rhein-Straße:Zellingen:Bürgermeister-Rhein-Straße::Bürgermeister-Rhein-Straße: 97225:ANY:DIVA_STREET:1093330:5572055:MRCV:BAY",
+      "name": "Zellingen, Bürgermeister-Rhein-Straße",
+      "disassembledName": "Bürgermeister-Rhein-Straße",
+      "coord": [
+        49.894036,
+        9.82155
+      ],
+      "streetName": "Bürgermeister-Rhein-Straße",
+      "postCode": " 97225",
+      "type": "street",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000030::9679185:-1:Bürgermeister-Albert-Straße:Rottendorf (Kr WÜ):Bürgermeister-Albert-Straße::Bürgermeister-Albert-Straße: 97228:ANY:DIVA_STREET:1115263:5590342:MRCV:BAY",
+      "name": "Rottendorf (Kr WÜ), Bürgermeister-Albert-Straße",
+      "disassembledName": "Bürgermeister-Albert-Straße",
+      "coord": [
+        49.788094,
+        10.018578
+      ],
+      "streetName": "Bürgermeister-Albert-Straße",
+      "postCode": " 97228",
+      "type": "street",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679185:-1",
+        "name": "Rottendorf (Kr WÜ)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000107::9675174:-1:Bürgermeister-Erhard-Straße:Volkach:Bürgermeister-Erhard-Straße::Bürgermeister-Erhard-Straße: 97332:ANY:DIVA_STREET:1141844:5575525:MRCV:BAY",
+      "name": "Volkach, Bürgermeister-Erhard-Straße",
+      "disassembledName": "Bürgermeister-Erhard-Straße",
+      "coord": [
+        49.873951,
+        10.257359
+      ],
+      "streetName": "Bürgermeister-Erhard-Straße",
+      "postCode": " 97332",
+      "type": "street",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675174:-1",
+        "name": "Volkach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000058::9677151:-1:Bürgermeister-Fröber-Weg:Kreuzwertheim:Bürgermeister-Fröber-Weg::Bürgermeister-Fröber-Weg: 97892:ANY:DIVA_STREET:1059784:5594388:MRCV:BAY",
+      "name": "Kreuzwertheim, Bürgermeister-Fröber-Weg",
+      "disassembledName": "Bürgermeister-Fröber-Weg",
+      "coord": [
+        49.764623,
+        9.520202
+      ],
+      "streetName": "Bürgermeister-Fröber-Weg",
+      "postCode": " 97892",
+      "type": "street",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677151:-1",
+        "name": "Kreuzwertheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000024::9679147:-1:Bürgermeister-Seubert-Straße:Höchberg:Bürgermeister-Seubert-Straße::Bürgermeister-Seubert-Straße: 97204:ANY:DIVA_STREET:1098695:5591727:MRCV:BAY",
+      "name": "Höchberg, Bürgermeister-Seubert-Straße",
+      "disassembledName": "Bürgermeister-Seubert-Straße",
+      "coord": [
+        49.780061,
+        9.869745
+      ],
+      "streetName": "Bürgermeister-Seubert-Straße",
+      "postCode": " 97204",
+      "type": "street",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679147:-1",
+        "name": "Höchberg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000104::9677203:-1:Bürgermeister-Endrich-Straße:Zellingen:Bürgermeister-Endrich-Straße::Bürgermeister-Endrich-Straße: 97225:ANY:DIVA_STREET:1093324:5571656:MRCV:BAY",
+      "name": "Zellingen, Bürgermeister-Endrich-Straße",
+      "disassembledName": "Bürgermeister-Endrich-Straße",
+      "coord": [
+        49.896345,
+        9.821497
+      ],
+      "streetName": "Bürgermeister-Endrich-Straße",
+      "postCode": " 97225",
+      "type": "street",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000110::9675117:-1:Bürgermeister-Knötgen-Straße:Dettelbach:Bürgermeister-Knötgen-Straße::Bürgermeister-Knötgen-Straße: 97337:ANY:DIVA_STREET:1132283:5586916:MRCV:BAY",
+      "name": "Dettelbach, Bürgermeister-Knötgen-Straße",
+      "disassembledName": "Bürgermeister-Knötgen-Straße",
+      "coord": [
+        49.80796,
+        10.171471
+      ],
+      "streetName": "Bürgermeister-Knötgen-Straße",
+      "postCode": " 97337",
+      "type": "street",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675117:-1",
+        "name": "Dettelbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000013::9675161:-1:Bürgermeister-Deppisch-Straße:Rödelsee:Bürgermeister-Deppisch-Straße::Bürgermeister-Deppisch-Straße: 97348:ANY:DIVA_STREET:1140429:5600110:MRCV:BAY",
+      "name": "Rödelsee, Bürgermeister-Deppisch-Straße",
+      "disassembledName": "Bürgermeister-Deppisch-Straße",
+      "coord": [
+        49.73141,
+        10.244648
+      ],
+      "streetName": "Bürgermeister-Deppisch-Straße",
+      "postCode": " 97348",
+      "type": "street",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675161:-1",
+        "name": "Rödelsee",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000080::9678134:-1:Bürgermeister-Weigand-Straße:Gerolzhofen:Bürgermeister-Weigand-Straße::Bürgermeister-Weigand-Straße: 97447:ANY:DIVA_STREET:1151666:5570916:MRCV:BAY",
+      "name": "Gerolzhofen, Bürgermeister-Weigand-Straße",
+      "disassembledName": "Bürgermeister-Weigand-Straße",
+      "coord": [
+        49.900627,
+        10.345592
+      ],
+      "streetName": "Bürgermeister-Weigand-Straße",
+      "postCode": " 97447",
+      "type": "street",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9678134:-1",
+        "name": "Gerolzhofen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000055::9677170:-1:Bürgermeister-Mützel-Straße:Partenstein:Bürgermeister-Mützel-Straße::Bürgermeister-Mützel-Straße: 97846:ANY:DIVA_STREET:1059849:5547240:MRCV:BAY",
+      "name": "Partenstein, Bürgermeister-Mützel-Straße",
+      "disassembledName": "Bürgermeister-Mützel-Straße",
+      "coord": [
+        50.037427,
+        9.520786
+      ],
+      "streetName": "Bürgermeister-Mützel-Straße",
+      "postCode": " 97846",
+      "type": "street",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677170:-1",
+        "name": "Partenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9677203:-1:Bürgermeister-Josef-Günter-Straße:Zellingen:Bürgermeister-Josef-Günter-Straße::Bürgermeister-Josef-Günter-Straße: 97225:ANY:DIVA_STREET:1092136:5571550:MRCV:BAY",
+      "name": "Zellingen, Bürgermeister-Josef-Günter-Straße",
+      "disassembledName": "Bürgermeister-Josef-Günter-Straße",
+      "coord": [
+        49.896959,
+        9.810825
+      ],
+      "streetName": "Bürgermeister-Josef-Günter-Straße",
+      "postCode": " 97225",
+      "type": "street",
+      "matchQuality": 685,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000039::9675170:-1:Buck:Sulzfeld (Main):Buck::Buck: 97320:ANY:DIVA_STREET:1127711:5604166:MRCV:BAY",
+      "name": "Sulzfeld (Main), Buck",
+      "disassembledName": "Buck",
+      "coord": [
+        49.707853,
+        10.1304
+      ],
+      "streetName": "Buck",
+      "postCode": " 97320",
+      "type": "street",
+      "matchQuality": 596,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675170:-1",
+        "name": "Sulzfeld (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000011::9471128:-1:Buch:Ebrach (Oberfr):Buch::Buch: 96157:ANY:DIVA_STREET:1167273:5584752:MRCV:BAY",
+      "name": "Ebrach (Oberfr), Buch",
+      "disassembledName": "Buch",
+      "coord": [
+        49.820503,
+        10.485792
+      ],
+      "streetName": "Buch",
+      "postCode": " 96157",
+      "type": "street",
+      "matchQuality": 592,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9471128:-1",
+        "name": "Ebrach (Oberfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000040::9679134:-1:Burgweg:Gaukönigshofen:Burgweg::Burgweg: 97253:ANY:DIVA_STREET:1113033:5615652:MRCV:BAY",
+      "name": "Gaukönigshofen, Burgweg",
+      "disassembledName": "Burgweg",
+      "coord": [
+        49.641082,
+        9.998546
+      ],
+      "streetName": "Burgweg",
+      "postCode": " 97253",
+      "type": "street",
+      "matchQuality": 581,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679134:-1",
+        "name": "Gaukönigshofen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000033::9675170:-1:Burgweg:Sulzfeld (Main):Burgweg::Burgweg: 97320:ANY:DIVA_STREET:1127766:5603732:MRCV:BAY",
+      "name": "Sulzfeld (Main), Burgweg",
+      "disassembledName": "Burgweg",
+      "coord": [
+        49.710374,
+        10.130894
+      ],
+      "streetName": "Burgweg",
+      "postCode": " 97320",
+      "type": "street",
+      "matchQuality": 581,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675170:-1",
+        "name": "Sulzfeld (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000030::9678164:-1:Burgweg:Oberschwarzach (Ufr):Burgweg::Burgweg: 97516:ANY:DIVA_STREET:1158816:5577498:MRCV:BAY",
+      "name": "Oberschwarzach (Ufr), Burgweg",
+      "disassembledName": "Burgweg",
+      "coord": [
+        49.862528,
+        10.409821
+      ],
+      "streetName": "Burgweg",
+      "postCode": " 97516",
+      "type": "street",
+      "matchQuality": 581,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9678164:-1",
+        "name": "Oberschwarzach (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000023::9675127:-1:Burggrub:Geiselwind:Burggrub::Burggrub: 96160:ANY:DIVA_STREET:1171461:5591325:MRCV:BAY",
+      "name": "Geiselwind, Burggrub",
+      "disassembledName": "Burggrub",
+      "coord": [
+        49.782393,
+        10.523413
+      ],
+      "streetName": "Burggrub",
+      "postCode": " 96160",
+      "type": "street",
+      "matchQuality": 577,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675127:-1",
+        "name": "Geiselwind",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9679167:-1:Bühlweg:Eisenheim (Ufr):Bühlweg::Bühlweg: 97247:ANY:DIVA_STREET:1133195:5572256:MRCV:BAY",
+      "name": "Eisenheim (Ufr), Bühlweg",
+      "disassembledName": "Bühlweg",
+      "coord": [
+        49.892873,
+        10.179664
+      ],
+      "streetName": "Bühlweg",
+      "postCode": " 97247",
+      "type": "street",
+      "matchQuality": 577,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679167:-1",
+        "name": "Eisenheim (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000057::9679114:-1:Burgweg:Aub (Kr Würzburg):Burgweg::Burgweg: 97239:ANY:DIVA_STREET:1120235:5631299:MRCV:BAY",
+      "name": "Aub (Kr Würzburg), Burgweg",
+      "disassembledName": "Burgweg",
+      "coord": [
+        49.549974,
+        10.063242
+      ],
+      "streetName": "Burgweg",
+      "postCode": " 97239",
+      "type": "street",
+      "matchQuality": 576,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679114:-1",
+        "name": "Aub (Kr Würzburg)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000098::9675174:-1:Buchhof:Volkach:Buchhof::Buchhof: 97332:ANY:DIVA_STREET:1140492:5574229:MRCV:BAY",
+      "name": "Volkach, Buchhof",
+      "disassembledName": "Buchhof",
+      "coord": [
+        49.881454,
+        10.245214
+      ],
+      "streetName": "Buchhof",
+      "postCode": " 97332",
+      "type": "street",
+      "matchQuality": 576,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675174:-1",
+        "name": "Volkach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000074::9675144:-1:Buchweg:Mainbernheim:Buchweg::Buchweg: 97350:ANY:DIVA_STREET:1135971:5606046:MRCV:BAY",
+      "name": "Mainbernheim, Buchweg",
+      "disassembledName": "Buchweg",
+      "coord": [
+        49.69693,
+        10.204601
+      ],
+      "streetName": "Buchweg",
+      "postCode": " 97350",
+      "type": "street",
+      "matchQuality": 576,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675144:-1",
+        "name": "Mainbernheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000156::9677131:-1:Burgweg:Gemünden (Main):Burgweg::Burgweg: 97737:ANY:DIVA_STREET:1079169:5544205:MRCV:BAY",
+      "name": "Gemünden (Main), Burgweg",
+      "disassembledName": "Burgweg",
+      "coord": [
+        50.054935,
+        9.69434
+      ],
+      "streetName": "Burgweg",
+      "postCode": " 97737",
+      "type": "street",
+      "matchQuality": 576,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677131:-1",
+        "name": "Gemünden (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000009::9677128:-1:Buchweg:Fellen (Ufr):Buchweg::Buchweg: 97778:ANY:DIVA_STREET:1063020:5529203:MRCV:BAY",
+      "name": "Fellen (Ufr), Buchweg",
+      "disassembledName": "Buchweg",
+      "coord": [
+        50.141383,
+        9.549271
+      ],
+      "streetName": "Buchweg",
+      "postCode": " 97778",
+      "type": "street",
+      "matchQuality": 576,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677128:-1",
+        "name": "Fellen (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000055::9676136:-1:Buchenweg:Leidersbach:Buchenweg::Buchenweg: 63849:ANY:DIVA_STREET:1028115:5571153:MRCV:BAY",
+      "name": "Leidersbach, Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.899256,
+        9.235714
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 63849",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9676136:-1",
+        "name": "Leidersbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000020::9679142:-1:Buchenweg:Güntersleben:Buchenweg::Buchenweg: 97261:ANY:DIVA_STREET:1103205:5575842:MRCV:BAY",
+      "name": "Güntersleben, Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.872116,
+        9.910259
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97261",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679142:-1",
+        "name": "Güntersleben",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000022::9677142:-1:Buchenweg:Himmelstadt:Buchenweg::Buchenweg: 97267:ANY:DIVA_STREET:1089867:5566944:MRCV:BAY",
+      "name": "Himmelstadt, Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.923605,
+        9.790442
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97267",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677142:-1",
+        "name": "Himmelstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000040::9679155:-1:Buchenweg:Kleinrinderfeld:Buchenweg::Buchenweg: 97271:ANY:DIVA_STREET:1095966:5604618:MRCV:BAY",
+      "name": "Kleinrinderfeld, Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.705227,
+        9.84523
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97271",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679155:-1",
+        "name": "Kleinrinderfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000018::9677175:-1:Am Buch:Retzstadt:Am Buch::Am Buch: 97282:ANY:DIVA_STREET:1098593:5569320:MRCV:BAY",
+      "name": "Retzstadt, Am Buch",
+      "disassembledName": "Am Buch",
+      "coord": [
+        49.909861,
+        9.868829
+      ],
+      "streetName": "Am Buch",
+      "postCode": " 97282",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677175:-1",
+        "name": "Retzstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000017::9677175:-1:Buchhöhe:Retzstadt:Buchhöhe::Buchhöhe: 97282:ANY:DIVA_STREET:1098610:5569417:MRCV:BAY",
+      "name": "Retzstadt, Buchhöhe",
+      "disassembledName": "Buchhöhe",
+      "coord": [
+        49.9093,
+        9.868982
+      ],
+      "streetName": "Buchhöhe",
+      "postCode": " 97282",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677175:-1",
+        "name": "Retzstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000032::9675161:-1:Am Buck:Rödelsee:Am Buck::Am Buck: 97348:ANY:DIVA_STREET:1140778:5600415:MRCV:BAY",
+      "name": "Rödelsee, Am Buck",
+      "disassembledName": "Am Buck",
+      "coord": [
+        49.729639,
+        10.247783
+      ],
+      "streetName": "Am Buck",
+      "postCode": " 97348",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675161:-1",
+        "name": "Rödelsee",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000051::9672161:-1:Am Buch:Wartmannsroth:Am Buch::Am Buch: 97797:ANY:DIVA_STREET:1084062:5520306:MRCV:BAY",
+      "name": "Wartmannsroth, Am Buch",
+      "disassembledName": "Am Buch",
+      "coord": [
+        50.192578,
+        9.738295
+      ],
+      "streetName": "Am Buch",
+      "postCode": " 97797",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672161:-1",
+        "name": "Wartmannsroth",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000016::9677126:-1:Buchenweg:Esselbach:Buchenweg::Buchenweg: 97839:ANY:DIVA_STREET:1061325:5580012:MRCV:BAY",
+      "name": "Esselbach, Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.847967,
+        9.534045
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97839",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677126:-1",
+        "name": "Esselbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000013::9677193:-1:Buchenweg:Urspringen(Spessart):Buchenweg::Buchenweg: 97857:ANY:DIVA_STREET:1075949:5570649:MRCV:BAY",
+      "name": "Urspringen(Spessart), Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        49.902172,
+        9.665414
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97857",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677193:-1",
+        "name": "Urspringen(Spessart)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000031::9677200:-1:Buchenweg:Wiesthal (Ufr):Buchenweg::Buchenweg: 97859:ANY:DIVA_STREET:1049824:5549155:MRCV:BAY",
+      "name": "Wiesthal (Ufr), Buchenweg",
+      "disassembledName": "Buchenweg",
+      "coord": [
+        50.026376,
+        9.430729
+      ],
+      "streetName": "Buchenweg",
+      "postCode": " 97859",
+      "type": "street",
+      "matchQuality": 575,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677200:-1",
+        "name": "Wiesthal (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000168::9672127:-1:Bündweg:Hammelburg:Bündweg::Bündweg: 97762:ANY:DIVA_STREET:1099780:5528426:MRCV:BAY",
+      "name": "Hammelburg, Bündweg",
+      "disassembledName": "Bündweg",
+      "coord": [
+        50.145856,
+        9.879492
+      ],
+      "streetName": "Bündweg",
+      "postCode": " 97762",
+      "type": "street",
+      "matchQuality": 573,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672127:-1",
+        "name": "Hammelburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000042::9677133:-1:Buchfeld:Gräfendorf (Unterfr):Buchfeld::Buchfeld: 97782:ANY:DIVA_STREET:1083715:5532492:MRCV:BAY",
+      "name": "Gräfendorf (Unterfr), Buchfeld",
+      "disassembledName": "Buchfeld",
+      "coord": [
+        50.122444,
+        9.735177
+      ],
+      "streetName": "Buchfeld",
+      "postCode": " 97782",
+      "type": "street",
+      "matchQuality": 573,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677133:-1",
+        "name": "Gräfendorf (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000011::9575161:-1:Burgambach:Scheinfeld:Burgambach::Burgambach: 91443:ANY:DIVA_STREET:1161707:5608183:MRCV:BAY",
+      "name": "Scheinfeld, Burgambach",
+      "disassembledName": "Burgambach",
+      "coord": [
+        49.684511,
+        10.435792
+      ],
+      "streetName": "Burgambach",
+      "postCode": " 91443",
+      "type": "street",
+      "matchQuality": 572,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9575161:-1",
+        "name": "Scheinfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000021::9679138:-1:Buchenhain:Giebelstadt:Buchenhain::Buchenhain: 97232:ANY:DIVA_STREET:1106907:5613985:MRCV:BAY",
+      "name": "Giebelstadt, Buchenhain",
+      "disassembledName": "Buchenhain",
+      "coord": [
+        49.650778,
+        9.943515
+      ],
+      "streetName": "Buchenhain",
+      "postCode": " 97232",
+      "type": "street",
+      "matchQuality": 572,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679138:-1",
+        "name": "Giebelstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "streetID:1500000030::9679122:-1:Am Bühl:Bütthard:Am Bühl::Am Bühl: 97244:ANY:DIVA_STREET:1095936:5629461:MRCV:BAY",
+      "name": "Bütthard, Am Bühl",
+      "disassembledName": "Am Bühl",
+      "coord": [
+        49.560685,
+        9.844961
+      ],
+      "streetName": "Am Bühl",
+      "postCode": " 97244",
+      "type": "street",
+      "matchQuality": 572,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40792819:9679147:-1:Butlers:Höchberg:Butlers:ANY:POI:1098087:5593731:MRCV:BAY",
+      "name": "Butlers",
+      "coord": [
+        49.768435,
+        9.864283
+      ],
+      "type": "poi",
+      "matchQuality": 865,
+      "isBest": true,
+      "parent": {
+        "id": "placeID:9679147:-1",
+        "name": "Höchberg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40825042:9663000:-1:Butlers:Würzburg:Butlers:ANY:POI:1105538:5589295:MRCV:BAY",
+      "name": "Butlers",
+      "coord": [
+        49.794166,
+        9.931217
+      ],
+      "type": "poi",
+      "matchQuality": 865,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40755357:9663000:-1:Bullmanns:Würzburg:Bullmanns:ANY:POI:1105634:5589786:MRCV:BAY",
+      "name": "Bullmanns",
+      "coord": [
+        49.791318,
+        9.932079
+      ],
+      "type": "poi",
+      "matchQuality": 855,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40220412:9677129:-1:Bürgerhaus:Frammersbach:Bürgerhaus:ANY:POI:1054298:5542634:MRCV:BAY",
+      "name": "Bürgerhaus",
+      "coord": [
+        50.063995,
+        9.47092
+      ],
+      "type": "poi",
+      "matchQuality": 848,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677129:-1",
+        "name": "Frammersbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40436665:9672127:-1:Bürgerhaus:Hammelburg:Bürgerhaus:ANY:POI:1101018:5533824:MRCV:BAY",
+      "name": "Bürgerhaus",
+      "coord": [
+        50.114771,
+        9.890613
+      ],
+      "type": "poi",
+      "matchQuality": 848,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672127:-1",
+        "name": "Hammelburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40669183:9679170:-1:Bürgerhaus:Ochsenfurt (Ufr):Bürgerhaus:ANY:POI:1117885:5612864:MRCV:BAY",
+      "name": "Bürgerhaus",
+      "coord": [
+        49.657298,
+        10.042132
+      ],
+      "type": "poi",
+      "matchQuality": 848,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679170:-1",
+        "name": "Ochsenfurt (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40804375:9561000:-1:Ruff's Burger:Ansbach:Ruff's Burger:ANY:POI:1176809:5673856:MRCV:BAY",
+      "name": "Ruff's Burger",
+      "coord": [
+        49.301316,
+        10.571455
+      ],
+      "type": "poi",
+      "matchQuality": 837,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40532098:9677181:-1:Burg Rothenfels:Rothenfels (Unterfr):Burg Rothenfels:ANY:POI:1067516:5572420:MRCV:BAY",
+      "name": "Burg Rothenfels",
+      "coord": [
+        49.891924,
+        9.589659
+      ],
+      "type": "poi",
+      "matchQuality": 837,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677181:-1",
+        "name": "Rothenfels (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40911752:9677186:-1:Burk's Nudeln:Steinfeld (b Lohr):Burk's Nudeln:ANY:POI:1076139:5561652:MRCV:BAY",
+      "name": "Burk's Nudeln",
+      "coord": [
+        49.954201,
+        9.667121
+      ],
+      "type": "poi",
+      "matchQuality": 837,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677186:-1",
+        "name": "Steinfeld (b Lohr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40227907:9677114:-1:Schloss Büchold:Arnstein (Ufr):Schloss Büchold:ANY:POI:1107711:5551745:MRCV:BAY",
+      "name": "Schloss Büchold",
+      "coord": [
+        50.011427,
+        9.950737
+      ],
+      "type": "poi",
+      "matchQuality": 836,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677114:-1",
+        "name": "Arnstein (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40777023:9663000:-1:St. Burkardushaus:Würzburg:St. Burkardushaus:ANY:POI:1105679:5589520:MRCV:BAY",
+      "name": "St. Burkardushaus",
+      "coord": [
+        49.792861,
+        9.932483
+      ],
+      "type": "poi",
+      "matchQuality": 836,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40624011:9679130:-1:Utes heiße Bude:Estenfeld:Utes heiße Bude:ANY:POI:1113081:5583405:MRCV:BAY",
+      "name": "Utes heiße Bude",
+      "coord": [
+        49.82831,
+        9.998977
+      ],
+      "type": "poi",
+      "matchQuality": 834,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679130:-1",
+        "name": "Estenfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40548152:9677189:-1:Burgsinner Schloss:Thüngen:Burgsinner Schloss:ANY:POI:1097303:5563727:MRCV:BAY",
+      "name": "Burgsinner Schloss",
+      "coord": [
+        49.942206,
+        9.857241
+      ],
+      "type": "poi",
+      "matchQuality": 834,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677189:-1",
+        "name": "Thüngen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40034295:9677203:-1:Haus der Bürger:Zellingen:Haus der Bürger:ANY:POI:1081670:5570755:MRCV:BAY",
+      "name": "Haus der Bürger",
+      "coord": [
+        49.901559,
+        9.716807
+      ],
+      "type": "poi",
+      "matchQuality": 834,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40000856:9663000:-1:St.Burkardus-Haus:Würzburg:St.Burkardus-Haus:ANY:POI:1105614:5589560:MRCV:BAY",
+      "name": "St.Burkardus-Haus",
+      "coord": [
+        49.792629,
+        9.9319
+      ],
+      "type": "poi",
+      "matchQuality": 832,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40492317:9677126:-1:Bürgerhaus Esselbach:Esselbach:Bürgerhaus Esselbach:ANY:POI:1060827:5579261:MRCV:BAY",
+      "name": "Bürgerhaus Esselbach",
+      "coord": [
+        49.852317,
+        9.529571
+      ],
+      "type": "poi",
+      "matchQuality": 831,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677126:-1",
+        "name": "Esselbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40704522:9677127:-1:Burgruine Schönarts (Alte Burg):Eußenheim:Burgruine Schönarts (Alte Burg):ANY:POI:1092974:5560112:MRCV:BAY",
+      "name": "Burgruine Schönarts (Alte Burg)",
+      "coord": [
+        49.963101,
+        9.818352
+      ],
+      "type": "poi",
+      "matchQuality": 831,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677127:-1",
+        "name": "Eußenheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40834895:9677181:-1:DJH Burg Rothenfels:Rothenfels (Unterfr):DJH Burg Rothenfels:ANY:POI:1067499:5572339:MRCV:BAY",
+      "name": "DJH Burg Rothenfels",
+      "coord": [
+        49.892393,
+        9.589507
+      ],
+      "type": "poi",
+      "matchQuality": 831,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677181:-1",
+        "name": "Rothenfels (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40196469:9679205:-1:Bürgerhaus Roßbrunn:Waldbüttelbrunn:Bürgerhaus Roßbrunn:ANY:POI:1086516:5589437:MRCV:BAY",
+      "name": "Bürgerhaus Roßbrunn",
+      "coord": [
+        49.793342,
+        9.760339
+      ],
+      "type": "poi",
+      "matchQuality": 831,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679205:-1",
+        "name": "Waldbüttelbrunn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40907454:9561000:-1:Hotel Bürger-Palais:Ansbach:Hotel Bürger-Palais:ANY:POI:1177203:5673787:MRCV:BAY",
+      "name": "Hotel Bürger-Palais",
+      "coord": [
+        49.301721,
+        10.574994
+      ],
+      "type": "poi",
+      "matchQuality": 830,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40446725:9679205:-1:Rats- und Bürgersaal:Waldbüttelbrunn:Rats- und Bürgersaal:ANY:POI:1095469:5590579:MRCV:BAY",
+      "name": "Rats- und Bürgersaal",
+      "coord": [
+        49.786719,
+        9.840765
+      ],
+      "type": "poi",
+      "matchQuality": 830,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679205:-1",
+        "name": "Waldbüttelbrunn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40907452:9561000:-1:Aura Bubble Tea & Snacks:Ansbach:Aura Bubble Tea & Snacks:ANY:POI:1176848:5673486:MRCV:BAY",
+      "name": "Aura Bubble Tea & Snacks",
+      "coord": [
+        49.303484,
+        10.571805
+      ],
+      "type": "poi",
+      "matchQuality": 828,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40907453:9561000:-1:Café im Bürger Palais:Ansbach:Café im Bürger Palais:ANY:POI:1177205:5673794:MRCV:BAY",
+      "name": "Café im Bürger Palais",
+      "coord": [
+        49.30168,
+        10.575012
+      ],
+      "type": "poi",
+      "matchQuality": 828,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40770155:9679142:-1:Bücherei im Lagerhaus:Güntersleben:Bücherei im Lagerhaus:ANY:POI:1102872:5576330:MRCV:BAY",
+      "name": "Bücherei im Lagerhaus",
+      "coord": [
+        49.869291,
+        9.907268
+      ],
+      "type": "poi",
+      "matchQuality": 828,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679142:-1",
+        "name": "Güntersleben",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40794178:9675179:-1:Rabensteins Burggasthaus:Willanzheim:Rabensteins Burggasthaus:ANY:POI:1141905:5614332:MRCV:BAY",
+      "name": "Rabensteins Burggasthaus",
+      "coord": [
+        49.64876,
+        10.257907
+      ],
+      "type": "poi",
+      "matchQuality": 828,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675179:-1",
+        "name": "Willanzheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40564029:9675156:-1:fundus Bistro und Bühne:Obernbreit:fundus Bistro und Bühne:ANY:POI:1131383:5612831:MRCV:BAY",
+      "name": "fundus Bistro und Bühne",
+      "coord": [
+        49.657489,
+        10.163386
+      ],
+      "type": "poi",
+      "matchQuality": 827,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675156:-1",
+        "name": "Obernbreit",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40718231:9679185:-1:Bücherei im Wasserschloss:Rottendorf (Kr WÜ):Bücherei im Wasserschloss:ANY:POI:1116236:5589540:MRCV:BAY",
+      "name": "Bücherei im Wasserschloss",
+      "coord": [
+        49.792745,
+        10.027319
+      ],
+      "type": "poi",
+      "matchQuality": 827,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679185:-1",
+        "name": "Rottendorf (Kr WÜ)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40225045:9679122:-1:St. Burkard und Bonifatius:Bütthard:St. Burkard und Bonifatius:ANY:POI:1102910:5621611:MRCV:BAY",
+      "name": "St. Burkard und Bonifatius",
+      "coord": [
+        49.606404,
+        9.907609
+      ],
+      "type": "poi",
+      "matchQuality": 826,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40052062:9663000:-1:Ibis Budget Würzburg Ost:Würzburg:Ibis Budget Würzburg Ost:ANY:POI:1113364:5589069:MRCV:BAY",
+      "name": "Ibis Budget Würzburg Ost",
+      "coord": [
+        49.795476,
+        10.001519
+      ],
+      "type": "poi",
+      "matchQuality": 826,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40693862:9561000:-1:Restaurant im Bürger Palais:Ansbach:Restaurant im Bürger Palais:ANY:POI:1177211:5673788:MRCV:BAY",
+      "name": "Restaurant im Bürger Palais",
+      "coord": [
+        49.301715,
+        10.575066
+      ],
+      "type": "poi",
+      "matchQuality": 825,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40544702:9663000:-1:Bella's Bistro und Burger:Würzburg:Bella's Bistro und Burger:ANY:POI:1102001:5588679:MRCV:BAY",
+      "name": "Bella's Bistro und Burger",
+      "coord": [
+        49.797738,
+        9.899443
+      ],
+      "type": "poi",
+      "matchQuality": 825,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40939971:9663000:-1:Haus des Bürgers - Car-Sharing:Würzburg:Haus des Bürgers - Car-Sharing:ANY:POI:1109247:5584832:MRCV:BAY",
+      "name": "Haus des Bürgers - Car-Sharing",
+      "coord": [
+        49.82004,
+        9.964535
+      ],
+      "type": "poi",
+      "matchQuality": 823,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40152801:9675142:-1:Sande am Tannenbusch bei Kleinlangheim:Kleinlangheim:Sande am Tannenbusch bei Kleinlangheim:ANY:POI:1142390:5592585:MRCV:BAY",
+      "name": "Sande am Tannenbusch bei Kleinlangheim",
+      "coord": [
+        49.775084,
+        10.262264
+      ],
+      "type": "poi",
+      "matchQuality": 821,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675142:-1",
+        "name": "Kleinlangheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40112792:9663000:-1:ehemaliges Bürogebäude der Raiffeisen Kraftfutterwerke Süd GmbH:Würzburg:ehemaliges Bürogebäude der Raiffeisen Kraftfutterwerke Süd GmbH:ANY:POI:1099779:5587232:MRCV:BAY",
+      "name": "ehemaliges Bürogebäude der Raiffeisen Kraftfutterwerke Süd GmbH",
+      "coord": [
+        49.806128,
+        9.879483
+      ],
+      "type": "poi",
+      "matchQuality": 817,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40866876:9663000:-1:Autobahn GmbH des Bundes - Niederlassung Nordbayern - Außenstelle Würzburg:Würzburg:Autobahn GmbH des Bundes - Niederlassung Nordbayern - Außenstelle Würzburg:ANY:POI:1105264:5591102:MRCV:BAY",
+      "name": "Autobahn GmbH des Bundes - Niederlassung Nordbayern - Außenstelle Würzburg",
+      "coord": [
+        49.783686,
+        9.928755
+      ],
+      "type": "poi",
+      "matchQuality": 816,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40805603:9675141:-1:Bambus:Kitzingen:Bambus:ANY:POI:1131007:5599263:MRCV:BAY",
+      "name": "Bambus",
+      "coord": [
+        49.736327,
+        10.160009
+      ],
+      "type": "poi",
+      "matchQuality": 725,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675141:-1",
+        "name": "Kitzingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40557755:9663000:-1:Omnibus:Würzburg:Omnibus:ANY:POI:1105884:5588928:MRCV:BAY",
+      "name": "Omnibus",
+      "coord": [
+        49.796294,
+        9.934325
+      ],
+      "type": "poi",
+      "matchQuality": 720,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40780980:9677155:-1:Bundschuh:Lohr (Main):Bundschuh:ANY:POI:1065593:5555001:MRCV:BAY",
+      "name": "Bundschuh",
+      "coord": [
+        49.992627,
+        9.572385
+      ],
+      "type": "poi",
+      "matchQuality": 712,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677155:-1",
+        "name": "Lohr (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40936476:9677148:-1:Asia Bui:Karlstadt (Main):Asia Bui:ANY:POI:1087310:5560295:MRCV:BAY",
+      "name": "Asia Bui",
+      "coord": [
+        49.962043,
+        9.767472
+      ],
+      "type": "poi",
+      "matchQuality": 710,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677148:-1",
+        "name": "Karlstadt (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40082469:9677181:-1:Burgkapelle:Rothenfels (Unterfr):Burgkapelle:ANY:POI:1067521:5572380:MRCV:BAY",
+      "name": "Burgkapelle",
+      "coord": [
+        49.892156,
+        9.589704
+      ],
+      "type": "poi",
+      "matchQuality": 709,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677181:-1",
+        "name": "Rothenfels (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40420557:9677114:-1:St. Jakobus:Arnstein (Ufr):St. Jakobus:ANY:POI:1114114:5562197:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        49.951051,
+        10.008256
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677114:-1",
+        "name": "Arnstein (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40368884:9675117:-1:St. Jakobus:Dettelbach:St. Jakobus:ANY:POI:1122788:5588829:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        49.796868,
+        10.086176
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675117:-1",
+        "name": "Dettelbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40235964:9675127:-1:St. Burkard:Geiselwind:St. Burkard:ANY:POI:1165666:5592944:MRCV:BAY",
+      "name": "St. Burkard",
+      "coord": [
+        49.773001,
+        10.471356
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675127:-1",
+        "name": "Geiselwind",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40174515:9677142:-1:St. Jakobus:Himmelstadt:St. Jakobus:ANY:POI:1091012:5566890:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        49.923917,
+        9.800728
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677142:-1",
+        "name": "Himmelstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40397811:9676136:-1:St. Jakobus:Leidersbach:St. Jakobus:ANY:POI:1026179:5570856:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        49.900975,
+        9.218323
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9676136:-1",
+        "name": "Leidersbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40085864:9677155:-1:St. Jakobus:Lohr (Main):St. Jakobus:ANY:POI:1068702:5560075:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        49.963315,
+        9.600313
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677155:-1",
+        "name": "Lohr (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40365085:9677159:-1:St. Jakobus:Mittelsinn:St. Jakobus:ANY:POI:1070407:5520256:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        50.192866,
+        9.61563
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677159:-1",
+        "name": "Mittelsinn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40407369:9679170:-1:St. Burkard:Ochsenfurt (Ufr):St. Burkard:ANY:POI:1118128:5610940:MRCV:BAY",
+      "name": "St. Burkard",
+      "coord": [
+        49.668485,
+        10.044315
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679170:-1",
+        "name": "Ochsenfurt (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40227320:9677154:-1:St Burkard:Triefenstein:St Burkard:ANY:POI:1071027:5589554:MRCV:BAY",
+      "name": "St Burkard",
+      "coord": [
+        49.792664,
+        9.621199
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677154:-1",
+        "name": "Triefenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40228455:9677154:-1:St. Jakobus:Triefenstein:St. Jakobus:ANY:POI:1069093:5586530:MRCV:BAY",
+      "name": "St. Jakobus",
+      "coord": [
+        49.810197,
+        9.603826
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677154:-1",
+        "name": "Triefenstein",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40076252:9663000:-1:St. Burkard:Würzburg:St. Burkard:ANY:POI:1104833:5589998:MRCV:BAY",
+      "name": "St. Burkard",
+      "coord": [
+        49.790089,
+        9.924884
+      ],
+      "type": "poi",
+      "matchQuality": 705,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40346273:9677122:-1:SG Burgsinn:Burgsinn:SG Burgsinn:ANY:POI:1074761:5528090:MRCV:BAY",
+      "name": "SG Burgsinn",
+      "coord": [
+        50.14779,
+        9.654742
+      ],
+      "type": "poi",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677122:-1",
+        "name": "Burgsinn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40291903:9678134:-1:Bürgerspital:Gerolzhofen:Bürgerspital:ANY:POI:1152126:5571000:MRCV:BAY",
+      "name": "Bürgerspital",
+      "coord": [
+        49.900141,
+        10.349724
+      ],
+      "type": "poi",
+      "matchQuality": 703,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9678134:-1",
+        "name": "Gerolzhofen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40561433:9679202:-1:Büttnerstuben:Veitshöchheim:Büttnerstuben:ANY:POI:1098732:5582989:MRCV:BAY",
+      "name": "Büttnerstuben",
+      "coord": [
+        49.83072,
+        9.870077
+      ],
+      "type": "poi",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679202:-1",
+        "name": "Veitshöchheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40338681:9677114:-1:Burg Arnstein:Arnstein (Ufr):Burg Arnstein:ANY:POI:1109879:5557490:MRCV:BAY",
+      "name": "Burg Arnstein",
+      "coord": [
+        49.97825,
+        9.970213
+      ],
+      "type": "poi",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677114:-1",
+        "name": "Arnstein (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40143413:9675114:-1:TSV Buchbrunn:Buchbrunn (Ufr):TSV Buchbrunn:ANY:POI:1128978:5595664:MRCV:BAY",
+      "name": "TSV Buchbrunn",
+      "coord": [
+        49.757218,
+        10.141782
+      ],
+      "type": "poi",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675114:-1",
+        "name": "Buchbrunn (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40430041:9675150:-1:Buchardiskirche:Martinsheim:Buchardiskirche:ANY:POI:1129684:5618649:MRCV:BAY",
+      "name": "Buchardiskirche",
+      "coord": [
+        49.623644,
+        10.148124
+      ],
+      "type": "poi",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675150:-1",
+        "name": "Martinsheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40255535:9663000:-1:Sankt Jakobus (Heide 12):Würzburg:Sankt Jakobus (Heide 12):ANY:POI:1109035:5584411:MRCV:BAY",
+      "name": "Sankt Jakobus (Heide 12)",
+      "coord": [
+        49.82248,
+        9.962631
+      ],
+      "type": "poi",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40356932:9663000:-1:Sankt Jakobus (Heide 13):Würzburg:Sankt Jakobus (Heide 13):ANY:POI:1108992:5584468:MRCV:BAY",
+      "name": "Sankt Jakobus (Heide 13)",
+      "coord": [
+        49.822149,
+        9.962245
+      ],
+      "type": "poi",
+      "matchQuality": 700,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40751290:9677181:-1:Burggasthof Roth:Rothenfels (Unterfr):Burggasthof Roth:ANY:POI:1067033:5572201:MRCV:BAY",
+      "name": "Burggasthof Roth",
+      "coord": [
+        49.893192,
+        9.585321
+      ],
+      "type": "poi",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677181:-1",
+        "name": "Rothenfels (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40107314:9663000:-1:Glaskeil Büro:Würzburg:Glaskeil Büro:ANY:POI:1108353:5588722:MRCV:BAY",
+      "name": "Glaskeil Büro",
+      "coord": [
+        49.797488,
+        9.956504
+      ],
+      "type": "poi",
+      "matchQuality": 699,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40632034:9663000:-1:Burse Würzburg:Würzburg:Burse Würzburg:ANY:POI:1105847:5590713:MRCV:BAY",
+      "name": "Burse Würzburg",
+      "coord": [
+        49.785942,
+        9.933993
+      ],
+      "type": "poi",
+      "matchQuality": 697,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40089145:9677122:-1:Freibad Burgsinn:Burgsinn:Freibad Burgsinn:ANY:POI:1074779:5528319:MRCV:BAY",
+      "name": "Freibad Burgsinn",
+      "coord": [
+        50.146472,
+        9.654904
+      ],
+      "type": "poi",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677122:-1",
+        "name": "Burgsinn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40845457:9679182:-1:Burg Schönstein:Röttingen (Unterfr):Burg Schönstein:ANY:POI:1108625:5633461:MRCV:BAY",
+      "name": "Burg Schönstein",
+      "coord": [
+        49.537372,
+        9.958948
+      ],
+      "type": "poi",
+      "matchQuality": 696,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679182:-1",
+        "name": "Röttingen (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40481969:9677131:-1:Burg Adolphsbühl:Gemünden (Main):Burg Adolphsbühl:ANY:POI:1084006:5547830:MRCV:BAY",
+      "name": "Burg Adolphsbühl",
+      "coord": [
+        50.034022,
+        9.737792
+      ],
+      "type": "poi",
+      "matchQuality": 695,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677131:-1",
+        "name": "Gemünden (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40377858:9675141:-1:Globus Tankstelle:Kitzingen:Globus Tankstelle:ANY:POI:1130632:5601246:MRCV:BAY",
+      "name": "Globus Tankstelle",
+      "coord": [
+        49.724813,
+        10.15664
+      ],
+      "type": "poi",
+      "matchQuality": 695,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675141:-1",
+        "name": "Kitzingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40873566:9679182:-1:Burg Brattenstein:Röttingen (Unterfr):Burg Brattenstein:ANY:POI:1109360:5638428:MRCV:BAY",
+      "name": "Burg Brattenstein",
+      "coord": [
+        49.508408,
+        9.96555
+      ],
+      "type": "poi",
+      "matchQuality": 695,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679182:-1",
+        "name": "Röttingen (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40775486:9677114:-1:Sportheim Büchold:Arnstein (Ufr):Sportheim Büchold:ANY:POI:1107902:5551438:MRCV:BAY",
+      "name": "Sportheim Büchold",
+      "coord": [
+        50.013199,
+        9.952453
+      ],
+      "type": "poi",
+      "matchQuality": 694,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677114:-1",
+        "name": "Arnstein (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40325474:9675147:-1:Buchbinderei Stahl:Marktbreit:Buchbinderei Stahl:ANY:POI:1130760:5611602:MRCV:BAY",
+      "name": "Buchbinderei Stahl",
+      "coord": [
+        49.664636,
+        10.15779
+      ],
+      "type": "poi",
+      "matchQuality": 694,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675147:-1",
+        "name": "Marktbreit",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40400942:9561000:-1:Eckert Presse & Buch:Ansbach:Eckert Presse & Buch:ANY:POI:1177531:5674317:MRCV:BAY",
+      "name": "Eckert Presse & Buch",
+      "coord": [
+        49.298616,
+        10.577941
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40103611:9561000:-1:Kaiser Bürotechnik:Ansbach:Kaiser Bürotechnik:ANY:POI:1181232:5675368:MRCV:BAY",
+      "name": "Kaiser Bürotechnik",
+      "coord": [
+        49.292459,
+        10.611188
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40252995:9675117:-1:Budapest Restaurant:Dettelbach:Budapest Restaurant:ANY:POI:1131443:5587700:MRCV:BAY",
+      "name": "Budapest Restaurant",
+      "coord": [
+        49.803414,
+        10.163925
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675117:-1",
+        "name": "Dettelbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40476020:9677131:-1:Keltenburg Burgstall:Gemünden (Main):Keltenburg Burgstall:ANY:POI:1080413:5543951:MRCV:BAY",
+      "name": "Keltenburg Burgstall",
+      "coord": [
+        50.0564,
+        9.705515
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677131:-1",
+        "name": "Gemünden (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40806345:9679146:-1:Burgstall Hettstadt:Hettstadt:Burgstall Hettstadt:ANY:POI:1092782:5589936:MRCV:BAY",
+      "name": "Burgstall Hettstadt",
+      "coord": [
+        49.790449,
+        9.816628
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679146:-1",
+        "name": "Hettstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40244397:9675148:-1:Burgruine Speckfeld:Markt Einersheim:Burgruine Speckfeld:ANY:POI:1149091:5605755:MRCV:BAY",
+      "name": "Burgruine Speckfeld",
+      "coord": [
+        49.698621,
+        10.32246
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675148:-1",
+        "name": "Markt Einersheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40952589:9679180:-1:Katholische Bücherei:Rimpar:Katholische Bücherei:ANY:POI:1110476:5580046:MRCV:BAY",
+      "name": "Katholische Bücherei",
+      "coord": [
+        49.847771,
+        9.975576
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679180:-1",
+        "name": "Rimpar",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40260708:9675174:-1:Bürgerspital Volkach:Volkach:Bürgerspital Volkach:ANY:POI:1138719:5576895:MRCV:BAY",
+      "name": "Bürgerspital Volkach",
+      "coord": [
+        49.866019,
+        10.229287
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675174:-1",
+        "name": "Volkach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40309115:9663000:-1:Bürgerspital-Kirche:Würzburg:Bürgerspital-Kirche:ANY:POI:1105962:5588951:MRCV:BAY",
+      "name": "Bürgerspital-Kirche",
+      "coord": [
+        49.796161,
+        9.935026
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40494143:9663000:-1:Werkstatt und Büro:Würzburg:Werkstatt und Büro:ANY:POI:1100449:5588155:MRCV:BAY",
+      "name": "Werkstatt und Büro",
+      "coord": [
+        49.800776,
+        9.885502
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40343574:9679122:-1:Raiffeisenbank Bütthard:Bütthard:Raiffeisenbank Bütthard:ANY:POI:1099672:5622596:MRCV:BAY",
+      "name": "Raiffeisenbank Bütthard",
+      "coord": [
+        49.60067,
+        9.878522
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40138454:9675131:-1:Pfarrkirche St. Jakobus:Großlangheim:Pfarrkirche St. Jakobus:ANY:POI:1139960:5595934:MRCV:BAY",
+      "name": "Pfarrkirche St. Jakobus",
+      "coord": [
+        49.755651,
+        10.240435
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675131:-1",
+        "name": "Großlangheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40263806:9575144:-1:Pfarrkirche St. Jakobus:Markt Bibart:Pfarrkirche St. Jakobus:ANY:POI:1157846:5611973:MRCV:BAY",
+      "name": "Pfarrkirche St. Jakobus",
+      "coord": [
+        49.662479,
+        10.401108
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9575144:-1",
+        "name": "Markt Bibart",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40831151:9679182:-1:Röttinger Bürgerstube:Röttingen (Unterfr):Röttinger Bürgerstube:ANY:POI:1109737:5638230:MRCV:BAY",
+      "name": "Röttinger Bürgerstube",
+      "coord": [
+        49.509563,
+        9.968937
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679182:-1",
+        "name": "Röttingen (Unterfr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40959564:9675174:-1:Volkacher Bücherschrank:Volkach:Volkacher Bücherschrank:ANY:POI:1138671:5576998:MRCV:BAY",
+      "name": "Volkacher Bücherschrank",
+      "coord": [
+        49.865423,
+        10.228856
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675174:-1",
+        "name": "",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40645703:9663000:-1:Bürgerspital Weinstuben:Würzburg:Bürgerspital Weinstuben:ANY:POI:1105980:5589026:MRCV:BAY",
+      "name": "Bürgerspital Weinstuben",
+      "coord": [
+        49.795726,
+        9.935187
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40893356:9677203:-1:Butterfly Café & Bistro:Zellingen:Butterfly Café & Bistro:ANY:POI:1093145:5571059:MRCV:BAY",
+      "name": "Butterfly Café & Bistro",
+      "coord": [
+        49.8998,
+        9.819889
+      ],
+      "type": "poi",
+      "matchQuality": 691,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677203:-1",
+        "name": "Zellingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40897682:9561000:-1:Bund Naturschutz Ansbach:Ansbach:Bund Naturschutz Ansbach:ANY:POI:1177062:5673527:MRCV:BAY",
+      "name": "Bund Naturschutz Ansbach",
+      "coord": [
+        49.303244,
+        10.573728
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40493849:9677131:-1:St. Jakobus der Ältere:Gemünden (Main):St. Jakobus der Ältere:ANY:POI:1085188:5541026:MRCV:BAY",
+      "name": "St. Jakobus der Ältere",
+      "coord": [
+        50.073267,
+        9.74841
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677131:-1",
+        "name": "Gemünden (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40132518:9677135:-1:St. Jakobus der Ältere:Hafenlohr:St. Jakobus der Ältere:ANY:POI:1068900:5576261:MRCV:BAY",
+      "name": "St. Jakobus der Ältere",
+      "coord": [
+        49.86969,
+        9.602092
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677135:-1",
+        "name": "Hafenlohr",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40219458:9677148:-1:Burglichtspiele Karlstadt:Karlstadt (Main):Burglichtspiele Karlstadt:ANY:POI:1086325:5560734:MRCV:BAY",
+      "name": "Burglichtspiele Karlstadt",
+      "coord": [
+        49.959506,
+        9.758624
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677148:-1",
+        "name": "Karlstadt (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40467682:9677169:-1:St. Jakobus der Ältere:Obersinn:St. Jakobus der Ältere:ANY:POI:1070481:5517373:MRCV:BAY",
+      "name": "St. Jakobus der Ältere",
+      "coord": [
+        50.209443,
+        9.616294
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677169:-1",
+        "name": "Obersinn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40758858:9679170:-1:Burgstall Kleinochsenfurt:Ochsenfurt (Ufr):Burgstall Kleinochsenfurt:ANY:POI:1118917:5608424:MRCV:BAY",
+      "name": "Burgstall Kleinochsenfurt",
+      "coord": [
+        49.683111,
+        10.051402
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679170:-1",
+        "name": "Ochsenfurt (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40464788:9675158:-1:Kindergarten St. jakobus:Prichsenstadt:Kindergarten St. jakobus:ANY:POI:1156602:5586092:MRCV:BAY",
+      "name": "Kindergarten St. jakobus",
+      "coord": [
+        49.812736,
+        10.389933
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675158:-1",
+        "name": "Prichsenstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40047874:9677177:-1:Sportplatz Burg Rieneck:Rieneck:Sportplatz Burg Rieneck:ANY:POI:1073571:5537142:MRCV:BAY",
+      "name": "Sportplatz Burg Rieneck",
+      "coord": [
+        50.095654,
+        9.644052
+      ],
+      "type": "poi",
+      "matchQuality": 690,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677177:-1",
+        "name": "Rieneck",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40020713:9679122:-1:Fußballplatz SV Bütthard:Bütthard:Fußballplatz SV Bütthard:ANY:POI:1100058:5623525:MRCV:BAY",
+      "name": "Fußballplatz SV Bütthard",
+      "coord": [
+        49.595261,
+        9.881989
+      ],
+      "type": "poi",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40897725:9675141:-1:Bund Naturschutz Kitzingen:Kitzingen:Bund Naturschutz Kitzingen:ANY:POI:1131225:5599076:MRCV:BAY",
+      "name": "Bund Naturschutz Kitzingen",
+      "coord": [
+        49.737413,
+        10.161967
+      ],
+      "type": "poi",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675141:-1",
+        "name": "Kitzingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40501337:9663000:-1:Grünanlage „Burkarder See“:Würzburg:Grünanlage „Burkarder See“:ANY:POI:1104788:5590245:MRCV:BAY",
+      "name": "Grünanlage „Burkarder See“",
+      "coord": [
+        49.788656,
+        9.924479
+      ],
+      "type": "poi",
+      "matchQuality": 689,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40521806:9677122:-1:Freibad Burgsinn Stellplätze:Burgsinn:Freibad Burgsinn Stellplätze:ANY:POI:1074692:5528552:MRCV:BAY",
+      "name": "Freibad Burgsinn Stellplätze",
+      "coord": [
+        50.145131,
+        9.654122
+      ],
+      "type": "poi",
+      "matchQuality": 687,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677122:-1",
+        "name": "Burgsinn",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40057230:9677129:-1:MSG Büchelsbergflieger e.V.:Frammersbach:MSG Büchelsbergflieger e.V.:ANY:POI:1046657:5542190:MRCV:BAY",
+      "name": "MSG Büchelsbergflieger e.V.",
+      "coord": [
+        50.066555,
+        9.40228
+      ],
+      "type": "poi",
+      "matchQuality": 687,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677129:-1",
+        "name": "Frammersbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40447978:9679146:-1:Spielplatz am Bürgleinsgraben:Hettstadt:Spielplatz am Bürgleinsgraben:ANY:POI:1093087:5588400:MRCV:BAY",
+      "name": "Spielplatz am Bürgleinsgraben",
+      "coord": [
+        49.799356,
+        9.819368
+      ],
+      "type": "poi",
+      "matchQuality": 687,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679146:-1",
+        "name": "Hettstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40897721:9672113:-1:Bund Naturschutz Bad Kissingen:Bad Brückenau:Bund Naturschutz Bad Kissingen:ANY:POI:1089903:5499867:MRCV:BAY",
+      "name": "Bund Naturschutz Bad Kissingen",
+      "coord": [
+        50.30998,
+        9.790765
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672113:-1",
+        "name": "Bad Brückenau",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40327320:9672113:-1:Reisemobilstellplatz Buchwaldstraße:Bad Brückenau:Reisemobilstellplatz Buchwaldstraße:ANY:POI:1089370:5500436:MRCV:BAY",
+      "name": "Reisemobilstellplatz Buchwaldstraße",
+      "coord": [
+        50.306716,
+        9.785977
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9672113:-1",
+        "name": "Bad Brückenau",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40262450:9675113:-1:Grund- und Mittelschule Buchbrunn (Grundschule Kaltensondheim):Biebelried:Grund- und Mittelschule Buchbrunn (Grundschule Kaltensondheim):ANY:POI:1123452:5600093:MRCV:BAY",
+      "name": "Grund- und Mittelschule Buchbrunn (Grundschule Kaltensondheim)",
+      "coord": [
+        49.731508,
+        10.092141
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675113:-1",
+        "name": "Biebelried",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40457093:9675114:-1:Grund- u. Mittelschule Buchbrunn (Schulhaus Buchbrunn):Buchbrunn (Ufr):Grund- u. Mittelschule Buchbrunn (Schulhaus Buchbrunn):ANY:POI:1128856:5595292:MRCV:BAY",
+      "name": "Grund- u. Mittelschule Buchbrunn (Schulhaus Buchbrunn)",
+      "coord": [
+        49.759377,
+        10.140686
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675114:-1",
+        "name": "Buchbrunn (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40575856:9675141:-1:Kilian's Bäck im Globus / KT:Kitzingen:Kilian's Bäck im Globus / KT:ANY:POI:1130668:5601137:MRCV:BAY",
+      "name": "Kilian's Bäck im Globus / KT",
+      "coord": [
+        49.725446,
+        10.156963
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675141:-1",
+        "name": "Kitzingen",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40454260:9675146:-1:Grund- u. Mittelschule Buchbrunn (Schulhaus Mainstockheim):Mainstockheim:Grund- u. Mittelschule Buchbrunn (Schulhaus Mainstockheim):ANY:POI:1129748:5593226:MRCV:BAY",
+      "name": "Grund- u. Mittelschule Buchbrunn (Schulhaus Mainstockheim)",
+      "coord": [
+        49.771365,
+        10.148699
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675146:-1",
+        "name": "Mainstockheim",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40897722:9677157:-1:Bund Naturschutz Main-Spessart:Marktheidenfeld:Bund Naturschutz Main-Spessart:ANY:POI:1068532:5581639:MRCV:BAY",
+      "name": "Bund Naturschutz Main-Spessart",
+      "coord": [
+        49.838542,
+        9.598786
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677157:-1",
+        "name": "Marktheidenfeld",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40861383:9677177:-1:Katholische Öffentliche Bücherei:Rieneck:Katholische Öffentliche Bücherei:ANY:POI:1074052:5537557:MRCV:BAY",
+      "name": "Katholische Öffentliche Bücherei",
+      "coord": [
+        50.093263,
+        9.648373
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677177:-1",
+        "name": "Rieneck",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40967671:9663000:-1:Katholische öffentliche Bücherei:Würzburg:Katholische öffentliche Bücherei:ANY:POI:1104465:5583842:MRCV:BAY",
+      "name": "Katholische öffentliche Bücherei",
+      "coord": [
+        49.825777,
+        9.921578
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40264375:9663000:-1:Steinbachtal-Burkarder-Grundschule:Würzburg:Steinbachtal-Burkarder-Grundschule:ANY:POI:1105202:5592708:MRCV:BAY",
+      "name": "Steinbachtal-Burkarder-Grundschule",
+      "coord": [
+        49.77437,
+        9.928198
+      ],
+      "type": "poi",
+      "matchQuality": 686,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40276356:9663000:-1:Büro 71a, Neitzel und Klose GbR:Würzburg:Büro 71a, Neitzel und Klose GbR:ANY:POI:1105124:5589869:MRCV:BAY",
+      "name": "Büro 71a, Neitzel und Klose GbR",
+      "coord": [
+        49.790837,
+        9.927498
+      ],
+      "type": "poi",
+      "matchQuality": 685,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40320899:9677131:-1:Burgruine und Klosterruine Schönrain:Gemünden (Main):Burgruine und Klosterruine Schönrain:ANY:POI:1075001:5548419:MRCV:BAY",
+      "name": "Burgruine und Klosterruine Schönrain",
+      "coord": [
+        50.030624,
+        9.656898
+      ],
+      "type": "poi",
+      "matchQuality": 684,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9677131:-1",
+        "name": "Gemünden (Main)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40448010:9679146:-1:Bund Naturschutz, Ortsverband Hettstadt:Hettstadt:Bund Naturschutz, Ortsverband Hettstadt:ANY:POI:1091744:5587635:MRCV:BAY",
+      "name": "Bund Naturschutz, Ortsverband Hettstadt",
+      "coord": [
+        49.803791,
+        9.807303
+      ],
+      "type": "poi",
+      "matchQuality": 684,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679146:-1",
+        "name": "Hettstadt",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40230966:9679180:-1:Katholische Öffentliche Bücherei Rimpar:Rimpar:Katholische Öffentliche Bücherei Rimpar:ANY:POI:1108419:5578869:MRCV:BAY",
+      "name": "Katholische Öffentliche Bücherei Rimpar",
+      "coord": [
+        49.854588,
+        9.957097
+      ],
+      "type": "poi",
+      "matchQuality": 684,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679180:-1",
+        "name": "Rimpar",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40403312:9675169:-1:Katholische öffentliche Bücherei Sommerach:Sommerach:Katholische öffentliche Bücherei Sommerach:ANY:POI:1135882:5583204:MRCV:BAY",
+      "name": "Katholische öffentliche Bücherei Sommerach",
+      "coord": [
+        49.829474,
+        10.203802
+      ],
+      "type": "poi",
+      "matchQuality": 684,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675169:-1",
+        "name": "Sommerach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40329401:9663000:-1:Buergerspital-Margret-Krick-Wohnstift:Würzburg:Buergerspital-Margret-Krick-Wohnstift:ANY:POI:1105791:5591354:MRCV:BAY",
+      "name": "Buergerspital-Margret-Krick-Wohnstift",
+      "coord": [
+        49.782224,
+        9.93349
+      ],
+      "type": "poi",
+      "matchQuality": 684,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40897726:9575153:-1:Bund Naturschutz Neustadt/Aisch-Bad Windsheim:Neustadt (Aisch):Bund Naturschutz Neustadt/Aisch-Bad Windsheim:ANY:POI:1181114:5625932:MRCV:BAY",
+      "name": "Bund Naturschutz Neustadt/Aisch-Bad Windsheim",
+      "coord": [
+        49.581244,
+        10.610128
+      ],
+      "type": "poi",
+      "matchQuality": 683,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9575153:-1",
+        "name": "Neustadt (Aisch)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40004271:9663000:-1:Deutsche Bundesbank Filiale Würzburg - HV Bayern:Würzburg:Deutsche Bundesbank Filiale Würzburg - HV Bayern:ANY:POI:1108056:5589084:MRCV:BAY",
+      "name": "Deutsche Bundesbank Filiale Würzburg - HV Bayern",
+      "coord": [
+        49.795389,
+        9.953836
+      ],
+      "type": "poi",
+      "matchQuality": 683,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40113325:9663000:-1:Shell Tanklager Würzburg / Büro und Werkstatt:Würzburg:Shell Tanklager Würzburg / Büro und Werkstatt:ANY:POI:1099540:5586868:MRCV:BAY",
+      "name": "Shell Tanklager Würzburg / Büro und Werkstatt",
+      "coord": [
+        49.808238,
+        9.877336
+      ],
+      "type": "poi",
+      "matchQuality": 683,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40494062:9663000:-1:Grabstätte der Stiftung Bürgerspital Zum Hl. Geist:Würzburg:Grabstätte der Stiftung Bürgerspital Zum Hl. Geist:ANY:POI:1107613:5589211:MRCV:BAY",
+      "name": "Grabstätte der Stiftung Bürgerspital Zum Hl. Geist",
+      "coord": [
+        49.794653,
+        9.949857
+      ],
+      "type": "poi",
+      "matchQuality": 682,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40413451:9675174:-1:Hairdesign, Ingeneur Büro Stephan Dinkel, Versicherungskammer Bayern:Volkach:Hairdesign, Ingeneur Büro Stephan Dinkel, Versicherungskammer Bayern:ANY:POI:1139095:5578792:MRCV:BAY",
+      "name": "Hairdesign, Ingeneur Büro Stephan Dinkel, Versicherungskammer Bayern",
+      "coord": [
+        49.855034,
+        10.232664
+      ],
+      "type": "poi",
+      "matchQuality": 681,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675174:-1",
+        "name": "Volkach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40902669:9676136:-1:Burger:Leidersbach:Burger:ANY:POI:1027047:5570778:MRCV:BAY",
+      "name": "Burger",
+      "coord": [
+        49.901426,
+        9.22612
+      ],
+      "type": "poi",
+      "matchQuality": 585,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9676136:-1",
+        "name": "Leidersbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40112255:9663000:-1:Büro (Nördliche Hafenstraße 12):Würzburg:Büro (Nördliche Hafenstraße 12):ANY:POI:1100524:5588173:MRCV:BAY",
+      "name": "Büro (Nördliche Hafenstraße 12)",
+      "coord": [
+        49.800672,
+        9.886175
+      ],
+      "type": "poi",
+      "matchQuality": 585,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9663000:-1",
+        "name": "Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40827201:9679143:-1:BurgerZ:Hausen bei Würzburg:BurgerZ:ANY:POI:1113339:5568987:MRCV:BAY",
+      "name": "BurgerZ",
+      "coord": [
+        49.911788,
+        10.001294
+      ],
+      "type": "poi",
+      "matchQuality": 581,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679143:-1",
+        "name": "Hausen bei Würzburg",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40392460:9561000:-1:Bürgeramt:Ansbach:Bürgeramt:ANY:POI:1177681:5673448:MRCV:BAY",
+      "name": "Bürgeramt",
+      "coord": [
+        49.303706,
+        10.579288
+      ],
+      "type": "poi",
+      "matchQuality": 572,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9561000:-1",
+        "name": "Ansbach",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40412540:9675114:-1:Rathaus:Buchbrunn (Ufr):Rathaus:ANY:POI:1128203:5595291:MRCV:BAY",
+      "name": "Rathaus",
+      "coord": [
+        49.759383,
+        10.13482
+      ],
+      "type": "poi",
+      "matchQuality": 572,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9675114:-1",
+        "name": "Buchbrunn (Ufr)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40343631:9679122:-1:Rathaus:Bütthard:Rathaus:ANY:POI:1099795:5622675:MRCV:BAY",
+      "name": "Rathaus",
+      "coord": [
+        49.60021,
+        9.879627
+      ],
+      "type": "poi",
+      "matchQuality": 572,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:9679122:-1",
+        "name": "Bütthard",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40106094:8128131:-1:Burgrestaurant:Wertheim (TBB):Burgrestaurant:ANY:POI:1059708:5595387:MRCV:BAY",
+      "name": "Burgrestaurant",
+      "coord": [
+        49.758826,
+        9.519519
+      ],
+      "type": "poi",
+      "matchQuality": 702,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:8128131:-1",
+        "name": "Wertheim (TBB)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40853524:8128131:-1:Die Burgermeisterei:Wertheim (TBB):Die Burgermeisterei:ANY:POI:1059479:5595554:MRCV:BAY",
+      "name": "Die Burgermeisterei",
+      "coord": [
+        49.757857,
+        9.517462
+      ],
+      "type": "poi",
+      "matchQuality": 693,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:8128131:-1",
+        "name": "Wertheim (TBB)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40291303:8128131:-1:Bürgerservice-Zentrum:Wertheim (TBB):Bürgerservice-Zentrum:ANY:POI:1059530:5595245:MRCV:BAY",
+      "name": "Bürgerservice-Zentrum",
+      "coord": [
+        49.75965,
+        9.51792
+      ],
+      "type": "poi",
+      "matchQuality": 692,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:8128131:-1",
+        "name": "Wertheim (TBB)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40522010:8128131:-1:Bürgerspital Wertheim:Wertheim (TBB):Bürgerspital Wertheim:ANY:POI:1057313:5594982:MRCV:BAY",
+      "name": "Bürgerspital Wertheim",
+      "coord": [
+        49.761176,
+        9.498004
+      ],
+      "type": "poi",
+      "matchQuality": 692,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:8128131:-1",
+        "name": "Wertheim (TBB)",
+        "type": "locality"
+      }
+    },
+    {
+      "id": "poiID:40849547:8128131:-1:Main Style Bundschuh Mode:Wertheim (TBB):Main Style Bundschuh Mode:ANY:POI:1059372:5595192:MRCV:BAY",
+      "name": "Main Style Bundschuh Mode",
+      "coord": [
+        49.759957,
+        9.516501
+      ],
+      "type": "poi",
+      "matchQuality": 688,
+      "isBest": false,
+      "parent": {
+        "id": "placeID:8128131:-1",
+        "name": "Wertheim (TBB)",
+        "type": "locality"
+      }
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "error": "",
+  "lines": [
+    {
+      "number": "S1",
+      "symbol": "92MD1.svg",
+      "direction": "Leuchtenbergring",
+      "stateless": "ddb:92M01: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S1",
+      "symbol": "92MD1.svg",
+      "direction": "Freising",
+      "stateless": "ddb:92M01: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S2",
+      "symbol": "92M02.svg",
+      "direction": "Erding",
+      "stateless": "ddb:92M02: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S2",
+      "symbol": "92M02.svg",
+      "direction": "Altomünster",
+      "stateless": "ddb:92M02: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S3",
+      "symbol": "92M03.svg",
+      "direction": "Holzkirchen",
+      "stateless": "ddb:92M03: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S3",
+      "symbol": "92M03.svg",
+      "direction": "Mammendorf",
+      "stateless": "ddb:92M03: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S4",
+      "symbol": "92M04.svg",
+      "direction": "Haar",
+      "stateless": "ddb:92M04: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S4",
+      "symbol": "92M04.svg",
+      "direction": "Pasing",
+      "stateless": "ddb:92M04: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S5",
+      "symbol": "92M05.svg",
+      "direction": "Aying",
+      "stateless": "ddb:92M05: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S5",
+      "symbol": "92M05.svg",
+      "direction": "Germering, Germering-Unterpfaffenhofen",
+      "stateless": "ddb:92M05: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S6",
+      "symbol": "92M06.svg",
+      "direction": "Grafing-Bahnhof",
+      "stateless": "ddb:92M06: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S6",
+      "symbol": "92M06.svg",
+      "direction": "Tutzing",
+      "stateless": "ddb:92M06: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S8",
+      "symbol": "92M08.svg",
+      "direction": "Flughafen München",
+      "stateless": "ddb:92M08: :H:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "S8",
+      "symbol": "92M08.svg",
+      "direction": "Herrsching",
+      "stateless": "ddb:92M08: :R:j25",
+      "name": "S-Bahn"
+    },
+    {
+      "number": "U1",
+      "symbol": "010U1.svg",
+      "direction": "Mangfallplatz",
+      "stateless": "swm:010U1:G:H:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U1",
+      "symbol": "010U1.svg",
+      "direction": "Olympia-Einkaufszentrum",
+      "stateless": "swm:010U1:G:R:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U2",
+      "symbol": "010U2.svg",
+      "direction": "Messestadt Ost",
+      "stateless": "swm:010U2:G:H:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U2",
+      "symbol": "010U2.svg",
+      "direction": "Feldmoching",
+      "stateless": "swm:010U2:G:R:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U4",
+      "symbol": "010U4.svg",
+      "direction": "Arabellapark",
+      "stateless": "swm:010U4:G:H:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U4",
+      "symbol": "010U4.svg",
+      "direction": "Theresienwiese",
+      "stateless": "swm:010U4:G:R:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U5",
+      "symbol": "010U5.svg",
+      "direction": "Neuperlach Süd",
+      "stateless": "swm:010U5:G:H:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U5",
+      "symbol": "010U5.svg",
+      "direction": "Laimer Platz",
+      "stateless": "swm:010U5:G:R:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U7",
+      "symbol": "010U7.svg",
+      "direction": "Sendlinger Tor",
+      "stateless": "swm:010U7:G:H:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "U7",
+      "symbol": "010U7.svg",
+      "direction": "Olympia-Einkaufszentrum",
+      "stateless": "swm:010U7:G:R:015",
+      "name": "U-Bahn"
+    },
+    {
+      "number": "16",
+      "symbol": "02016.svg",
+      "direction": "Sendlinger Tor",
+      "stateless": "swm:02016:G:H:015",
+      "name": "Tram"
+    },
+    {
+      "number": "16",
+      "symbol": "02016.svg",
+      "direction": "Romanplatz",
+      "stateless": "swm:02016:G:R:015",
+      "name": "Tram"
+    },
+    {
+      "number": "17",
+      "symbol": "02017.svg",
+      "direction": "St. Emmeram",
+      "stateless": "swm:02017:G:H:015",
+      "name": "Tram"
+    },
+    {
+      "number": "17",
+      "symbol": "02017.svg",
+      "direction": "Amalienburgstraße",
+      "stateless": "swm:02017:G:R:015",
+      "name": "Tram"
+    },
+    {
+      "number": "20",
+      "symbol": "02020.svg",
+      "direction": "Karlsplatz (Stachus)",
+      "stateless": "swm:02020:G:H:015",
+      "name": "Tram"
+    },
+    {
+      "number": "20",
+      "symbol": "02020.svg",
+      "direction": "Moosach",
+      "stateless": "swm:02020:G:R:015",
+      "name": "Tram"
+    },
+    {
+      "number": "21",
+      "symbol": "02031.svg",
+      "direction": "St.-Veit-Straße",
+      "stateless": "swm:02021:G:H:015",
+      "name": "Tram"
+    },
+    {
+      "number": "21",
+      "symbol": "02031.svg",
+      "direction": "Westfriedhof",
+      "stateless": "swm:02021:G:R:015",
+      "name": "Tram"
+    },
+    {
+      "number": "23",
+      "symbol": "22023.svg",
+      "direction": "Münchner Freiheit",
+      "stateless": "swm:02023:G:H:015",
+      "name": "Tram"
+    },
+    {
+      "number": "N17",
+      "symbol": "32N17.svg",
+      "direction": "Effnerplatz",
+      "stateless": "swm:32917:G:H:015",
+      "name": "NachtTram"
+    },
+    {
+      "number": "N17",
+      "symbol": "32N17.svg",
+      "direction": "Amalienburgstraße",
+      "stateless": "swm:32917:G:R:015",
+      "name": "NachtTram"
+    },
+    {
+      "number": "N20",
+      "symbol": "32N20.svg",
+      "direction": "Moosach",
+      "stateless": "swm:32920:G:R:015",
+      "name": "NachtTram"
+    },
+    {
+      "number": "N27",
+      "symbol": "32N27.svg",
+      "direction": "Großhesseloher Brücke",
+      "stateless": "swm:32927:G:H:015",
+      "name": "NachtTram"
+    },
+    {
+      "number": "N27",
+      "symbol": "32N27.svg",
+      "direction": "Hochschule München",
+      "stateless": "swm:32927:G:R:015",
+      "name": "NachtTram"
+    }
+  ],
+  "icons": []
+}
