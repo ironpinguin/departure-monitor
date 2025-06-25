@@ -135,6 +135,10 @@ const App: React.FC = () => {
     setStops(stops.map((s) => (s.id === updatedConfig.id ? updatedConfig : s)));
   };
 
+  const openConfigModal = useCallback(() => {
+    setConfigOpen(true);
+  }, []);
+
   // Initialize departures and set up refresh interval
   useEffect(() => {
     refreshAllDepartures();
@@ -305,7 +309,7 @@ const App: React.FC = () => {
           role="main"
           aria-label={t('appTitle')}
         >
-          <Dashboard>
+          <Dashboard onOpenConfig={openConfigModal}>
             {stops
               .filter(stop => stop.visible)
               .sort((a, b) => a.position - b.position)

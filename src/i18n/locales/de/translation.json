@@ -24,6 +24,9 @@
     "visible": "Sichtbar",
     "walkingTime": "Gehzeit"
   },
+  "dashboard": {
+    "addStopsButton": "Haltestellen hinzufügen"
+  },
   "stopWidget": {
     "configure": "Konfigurieren",
     "refresh": "Aktualisieren",
@@ -55,6 +58,9 @@
   "english": "Englisch",
   "close": "Schließen",
   "city": "Stadt",
+  "dashboard": {
+    "addStopsButton": "Haltestellen hinzufügen"
+  },
   "globalSettings": {
     "title": "Globale Einstellungen",
     "darkMode": "Dunkelmodus",

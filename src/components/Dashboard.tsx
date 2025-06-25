@@ -1,11 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@mui/material';
 
 interface DashboardProps {
   children?: React.ReactNode;
+  onOpenConfig?: () => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ children }) => {
+const Dashboard: React.FC<DashboardProps> = ({ children, onOpenConfig }) => {
   const { t } = useTranslation();
   
   return (
@@ -33,16 +35,26 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
           aria-live="polite"
           style={{
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
             height: '100%',
             fontSize: '1.2rem',
             color: 'var(--text-secondary)',
-            textAlign: 'center'
+            textAlign: 'center',
+            gap: '1.5rem'
           }}
         >
-          {t('configModal.noStops')}
+          <div>{t('configModal.noStops')}</div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => onOpenConfig?.()}
+            aria-label={t('dashboard.addStopsButton')}
+          >
+            {t('dashboard.addStopsButton')}
+          </Button>
         </div>
       ) : (
         children
