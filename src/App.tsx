@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -14,11 +14,14 @@ import {
   Switch,
   Select,
   MenuItem,
-  FormControl
+  FormControl,
+  Tooltip
 } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 import Dashboard from './components/Dashboard';
 import StopWidget from './components/StopWidget';
 import ConfigModal from './components/ConfigModal';
@@ -34,8 +37,12 @@ const App: React.FC = () => {
   const [departuresMap, setDeparturesMap] = useState<Record<string, Departure[]>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
   const [error, setError] = useState<string | null>(null);
+  const [autoRefreshPaused, setAutoRefreshPaused] = useState(false);
+  const [lastUpdateTime, setLastUpdateTime] = useState<Date | null>(null);
   
   const { t, i18n } = useTranslation();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const liveRegionRef = useRef<HTMLDivElement>(null);
   
   const stops = useConfigStore((state) => state.stops);
   const refreshIntervalSeconds = useConfigStore((state) => state.refreshIntervalSeconds);
@@ -86,13 +93,35 @@ const App: React.FC = () => {
     }
   }, [t]);
 
+  const announceUpdate = useCallback((message: string) => {
+    if (liveRegionRef.current) {
+      liveRegionRef.current.textContent = message;
+      // Clear after a delay to avoid cluttering screen reader
+      setTimeout(() => {
+        if (liveRegionRef.current) {
+          liveRegionRef.current.textContent = '';
+        }
+      }, 1000);
+    }
+  }, []);
+
   const refreshAllDepartures = useCallback(() => {
+    if (autoRefreshPaused) return;
+    
     stops.forEach(stop => {
       if (stop.visible) {
         fetchDepartures(stop);
       }
     });
-  }, [stops, fetchDepartures]);
+    
+    setLastUpdateTime(new Date());
+    announceUpdate(t('dataUpdated'));
+  }, [stops, fetchDepartures, autoRefreshPaused, announceUpdate, t]);
+
+  const toggleAutoRefresh = useCallback(() => {
+    setAutoRefreshPaused(!autoRefreshPaused);
+    announceUpdate(autoRefreshPaused ? t('autoRefreshEnabled') : t('autoRefreshDisabled'));
+  }, [autoRefreshPaused, announceUpdate, t]);
 
   const handleRefresh = (stopId: string) => {
     const stop = stops.find(s => s.id === stopId);
@@ -110,12 +139,43 @@ const App: React.FC = () => {
   useEffect(() => {
     refreshAllDepartures();
     
-    const intervalId = setInterval(() => {
-      refreshAllDepartures();
+    // Clear existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    
+    // Set up new interval
+    intervalRef.current = setInterval(() => {
+      if (!autoRefreshPaused) {
+        refreshAllDepartures();
+      }
     }, refreshIntervalSeconds * 1000);
     
-    return () => clearInterval(intervalId);
-  }, [refreshIntervalSeconds, refreshAllDepartures]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [refreshIntervalSeconds, refreshAllDepartures, autoRefreshPaused]);
+
+  // Keyboard event handlers
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Escape key to close config modal
+      if (event.key === 'Escape' && configOpen) {
+        setConfigOpen(false);
+      }
+      
+      // Space to toggle auto-refresh when not in input fields
+      if (event.key === ' ' && event.target === document.body) {
+        event.preventDefault();
+        toggleAutoRefresh();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [configOpen, toggleAutoRefresh]);
 
   // Create light and dark themes
   const theme = useMemo(
@@ -128,17 +188,32 @@ const App: React.FC = () => {
     [darkMode]
   );
   
-  // Change language effect
+  // Change language effect and update HTML lang attribute
   useEffect(() => {
     i18n.changeLanguage(language);
-  }, [language, i18n]
-  );
+    // Update HTML lang attribute for screen readers
+    document.documentElement.lang = language;
+  }, [language, i18n]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      
+      {/* Skip to content link */}
+      <a href="#main-content" className="skip-link">
+        {t('skipToContent')}
+      </a>
+      
+      {/* Live region for announcements */}
+      <div
+        ref={liveRegionRef}
+        aria-live="polite"
+        aria-atomic="true"
+        className="live-region"
+      />
+      
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        <AppBar position="static">
+        <AppBar position="static" role="banner">
           <Toolbar>
             {/* Language selector */}
             <FormControl size="small" sx={{ mr: 2, minWidth: 80 }}>
@@ -148,6 +223,7 @@ const App: React.FC = () => {
                   setLanguage(e.target.value);
                 }}
                 sx={{ color: 'white', '& .MuiSelect-icon': { color: 'white' } }}
+                aria-label={t('language')}
               >
                 <MenuItem value="en">{t('english')}</MenuItem>
                 <MenuItem value="de">{t('german')}</MenuItem>
@@ -155,17 +231,40 @@ const App: React.FC = () => {
             </FormControl>
             
             {/* Dark mode toggle */}
-            <Switch
-              checked={darkMode}
-              onChange={() => setDarkMode(!darkMode)}
-              color="default"
-              inputProps={{ 'aria-label': t('toggleDarkMode') }}
-            />
+            <Tooltip title={t('toggleDarkMode')}>
+              <Switch
+                checked={darkMode}
+                onChange={() => setDarkMode(!darkMode)}
+                color="default"
+                inputProps={{ 'aria-label': t('toggleDarkMode') }}
+              />
+            </Tooltip>
+            
+            {/* Auto-refresh controls */}
+            <div className="auto-refresh-controls">
+              <Tooltip title={autoRefreshPaused ? t('playAutoRefresh') : t('pauseAutoRefresh')}>
+                <IconButton
+                  color="inherit"
+                  onClick={toggleAutoRefresh}
+                  aria-label={autoRefreshPaused ? t('playAutoRefresh') : t('pauseAutoRefresh')}
+                  size="small"
+                >
+                  {autoRefreshPaused ? <PlayArrowIcon /> : <PauseIcon />}
+                </IconButton>
+              </Tooltip>
+              <span
+                className="auto-refresh-status"
+                aria-live="polite"
+                role="status"
+              >
+                {autoRefreshPaused ? t('autoRefreshDisabled') : t('autoRefreshEnabled')}
+              </span>
+            </div>
             
             {/* Centered title */}
             <Typography
               variant="h6"
-              component="div"
+              component="h1"
               sx={{
                 mx: 'auto'  // This adds auto margins on both sides, centering the title
               }}
@@ -174,25 +273,38 @@ const App: React.FC = () => {
             </Typography>
             
             {/* Settings icon */}
-            <IconButton
-              color="inherit"
-              onClick={() => setConfigOpen(true)}
-              aria-label={t('settings')}
-            >
-              <SettingsIcon />
-            </IconButton>
+            <Tooltip title={t('settings')}>
+              <IconButton
+                color="inherit"
+                onClick={() => setConfigOpen(true)}
+                aria-label={t('settings')}
+                aria-describedby="settings-help"
+              >
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+            <span id="settings-help" className="sr-only">
+              {t('escapeToClose')}
+            </span>
           </Toolbar>
         </AppBar>
         
-        <Container maxWidth={false} sx={{
-          flexGrow: 1,
-          p: 0,
-          m: 0,
-          width: '100%',
-          height: '100%',
-          overflow: 'auto',
-          boxSizing: 'border-box'
-        }}>
+        <Container
+          maxWidth={false}
+          component="main"
+          id="main-content"
+          sx={{
+            flexGrow: 1,
+            p: 0,
+            m: 0,
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            boxSizing: 'border-box'
+          }}
+          role="main"
+          aria-label={t('appTitle')}
+        >
           <Dashboard>
             {stops
               .filter(stop => stop.visible)

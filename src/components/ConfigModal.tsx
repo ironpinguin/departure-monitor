@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -48,6 +48,16 @@ const ConfigModal: React.FC<ConfigModalProps> = ({
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
+    // Announce tab change to screen readers
+    const tabName = newValue === 0 ? t('configModal.globalSettings') : t('configModal.stopManagement');
+    // Small delay to let screen reader process the tab change
+    setTimeout(() => {
+      const announcement = `${tabName} ${t('configModal.title')}`;
+      const liveRegion = document.querySelector('.live-region');
+      if (liveRegion) {
+        liveRegion.textContent = announcement;
+      }
+    }, 100);
   };
 
   const handleClose = () => {
@@ -56,21 +66,99 @@ const ConfigModal: React.FC<ConfigModalProps> = ({
     setTabIndex(0);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      handleClose();
+      return;
+    }
+    
+    // Focus trap implementation
+    if (event.key === 'Tab') {
+      const focusableElements = event.currentTarget.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0] as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      if (event.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }
+  };
+
+  // Focus management
+  useEffect(() => {
+    if (open) {
+      // Focus the first focusable element when modal opens
+      setTimeout(() => {
+        const firstTab = document.querySelector('#tab-0') as HTMLElement;
+        if (firstTab) {
+          firstTab.focus();
+        }
+      }, 100);
+    }
+  }, [open]);
+
   return (
-    <Dialog 
-      open={open} 
-      onClose={handleClose} 
-      maxWidth="md" 
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      onKeyDown={handleKeyDown}
+      maxWidth="md"
       fullWidth
       aria-labelledby="config-dialog-title"
+      aria-describedby="config-dialog-description"
+      aria-modal="true"
+      role="dialog"
     >
-      <DialogTitle id="config-dialog-title">{t('configModal.title')}</DialogTitle>
+      <DialogTitle id="config-dialog-title">
+        {t('configModal.title')}
+      </DialogTitle>
+      
+      <div id="config-dialog-description" className="sr-only">
+        {t('escapeToClose')}. {t('keyboardShortcuts')}.
+      </div>
       
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={tabIndex} onChange={handleTabChange} aria-label="configuration tabs">
-          <Tab label={t('configModal.globalSettings')} id="tab-0" aria-controls="tabpanel-0" />
-          <Tab label={t('configModal.stopManagement')} id="tab-1" aria-controls="tabpanel-1" />
+        <Tabs
+          value={tabIndex}
+          onChange={handleTabChange}
+          aria-label={t('configModal.title')}
+          variant="fullWidth"
+        >
+          <Tab
+            label={t('configModal.globalSettings')}
+            id="tab-0"
+            aria-controls="tabpanel-0"
+            aria-selected={tabIndex === 0}
+            aria-describedby="tab-0-desc"
+          />
+          <Tab
+            label={t('configModal.stopManagement')}
+            id="tab-1"
+            aria-controls="tabpanel-1"
+            aria-selected={tabIndex === 1}
+            aria-describedby="tab-1-desc"
+          />
         </Tabs>
+        
+        {/* Hidden descriptions for tabs */}
+        <div id="tab-0-desc" className="sr-only">
+          {t('globalSettings.title')}
+        </div>
+        <div id="tab-1-desc" className="sr-only">
+          {t('configModal.stopManagement')}
+        </div>
       </Box>
       
       <DialogContent dividers>
@@ -79,6 +167,8 @@ const ConfigModal: React.FC<ConfigModalProps> = ({
           hidden={tabIndex !== 0}
           id="tabpanel-0"
           aria-labelledby="tab-0"
+          aria-describedby="tab-0-desc"
+          tabIndex={tabIndex === 0 ? 0 : -1}
         >
           {tabIndex === 0 && (
             <GlobalSettingsTab
@@ -97,6 +187,8 @@ const ConfigModal: React.FC<ConfigModalProps> = ({
           hidden={tabIndex !== 1}
           id="tabpanel-1"
           aria-labelledby="tab-1"
+          aria-describedby="tab-1-desc"
+          tabIndex={tabIndex === 1 ? 0 : -1}
         >
           {tabIndex === 1 && (
             <StopManagementTab
@@ -110,7 +202,15 @@ const ConfigModal: React.FC<ConfigModalProps> = ({
       </DialogContent>
       
       <DialogActions>
-        <Button onClick={handleClose}>{t('close')}</Button>
+        <Button
+          onClick={handleClose}
+          aria-describedby="close-button-desc"
+        >
+          {t('close')}
+        </Button>
+        <div id="close-button-desc" className="sr-only">
+          {t('escapeToClose')}
+        </div>
       </DialogActions>
     </Dialog>
   );

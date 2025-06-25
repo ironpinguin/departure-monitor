@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 800 800" enable-background="new 0 0 800 800" xml:space="preserve" width="800px" height="800px">
+	 viewBox="0 0 800 800" enable-background="new 0 0 800 800" xml:space="preserve" width="800px" height="800px" role="img" aria-labelledby="bus-title bus-desc">
+<title id="bus-title">Bus-Symbol</title>
+<desc id="bus-desc">Rundes grünes Icon mit weißem "BUS" Text für Buslinien im öffentlichen Nahverkehr</desc>
 <g>
 	<path fill="#00586A" d="M800.005,400.004c0-220.589-179.437-400-400.006-400C179.421,0.004,0,179.416,0,400.004
 		c0,220.563,179.421,400.001,399.999,400.001C620.568,800.005,800.005,620.567,800.005,400.004"/>
