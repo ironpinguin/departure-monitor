@@ -9,6 +9,8 @@ env:
   IMAGE_NAME: departure-monitor
   CONTAINER_PORT: 80
   HOST_PORT: 8080
+  NODE_VERSION: '22'
+  PNPM_VERSION: 10.12.4
 
 jobs:
   build-and-push:
@@ -133,6 +135,180 @@ jobs:
               console.error('Failed to update release:', error.message);
               core.setFailed(`Failed to update release: ${error.message}`);
             }
+
+  create-release-artifacts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm run build
+
+      - name: Create release archives
+        id: create-archives
+        run: |
+          node scripts/create-archives.js
+          
+          # Extract version from package.json
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          # Set archive paths
+          echo "zip-path=releases/departure-monitor-v$VERSION.zip" >> $GITHUB_OUTPUT
+          echo "tar-path=releases/departure-monitor-v$VERSION.tar.gz" >> $GITHUB_OUTPUT
+
+      - name: Upload release assets
+        uses: actions/github-script@v7
+        with:
+          retries: 3
+          retry-exempt-status-codes: 400,401,403,404,422
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            try {
+              // Get the release
+              const release = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag: context.ref.replace('refs/tags/', '')
+              });
+              
+              const version = '${{ steps.create-archives.outputs.version }}';
+              const zipPath = '${{ steps.create-archives.outputs.zip-path }}';
+              const tarPath = '${{ steps.create-archives.outputs.tar-path }}';
+              
+              // Upload ZIP archive
+              console.log('Uploading ZIP archive...');
+              const zipData = fs.readFileSync(zipPath);
+              await github.rest.repos.uploadReleaseAsset({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id,
+                name: `departure-monitor-v${version}.zip`,
+                data: zipData,
+                headers: {
+                  'content-type': 'application/zip',
+                  'content-length': zipData.length
+                }
+              });
+              console.log('✅ ZIP archive uploaded successfully');
+              
+              // Upload TAR.GZ archive
+              console.log('Uploading TAR.GZ archive...');
+              const tarData = fs.readFileSync(tarPath);
+              await github.rest.repos.uploadReleaseAsset({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id,
+                name: `departure-monitor-v${version}.tar.gz`,
+                data: tarData,
+                headers: {
+                  'content-type': 'application/gzip',
+                  'content-length': tarData.length
+                }
+              });
+              console.log('✅ TAR.GZ archive uploaded successfully');
+              
+            } catch (error) {
+              console.error('Failed to upload release assets:', error.message);
+              core.setFailed(`Failed to upload release assets: ${error.message}`);
+            }
+
+      - name: Update release with artifact info
+        uses: actions/github-script@v7
+        with:
+          retries: 3
+          retry-exempt-status-codes: 400,401,403,404,422
+          script: |
+            try {
+              const release = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag: context.ref.replace('refs/tags/', '')
+              });
+              
+              const version = '${{ steps.create-archives.outputs.version }}';
+              const artifactInfo = `
+
+              ## 📦 Release Artifacts
+
+              This release includes pre-built application archives ready for deployment:
+
+              **Available Downloads:**
+              - 📁 **ZIP Archive**: \`departure-monitor-v${version}.zip\`
+              - 📁 **TAR.GZ Archive**: \`departure-monitor-v${version}.tar.gz\`
+
+              **Quick Start:**
+              1. Download one of the archives above
+              2. Extract the archive to your desired location
+              3. Serve the \`departure-monitor\` folder with any web server
+
+              **Example with Python:**
+              \`\`\`bash
+              # Extract the archive
+              unzip departure-monitor-v${version}.zip
+              # or: tar -xzf departure-monitor-v${version}.tar.gz
+
+              # Serve with Python
+              cd departure-monitor
+              python3 -m http.server 8080
+              \`\`\`
+
+              **Example with nginx:**
+              \`\`\`bash
+              # Extract to web root
+              sudo unzip departure-monitor-v${version}.zip -d /var/www/html/
+              # Access via: http://your-server/departure-monitor
+              \`\`\`
+              `;
+
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id,
+                body: release.data.body + artifactInfo
+              });
+              
+              console.log('Successfully updated release with artifact information');
+            } catch (error) {
+              console.error('Failed to update release:', error.message);
+              core.setFailed(`Failed to update release: ${error.message}`);
+            }
+
+      - name: Generate artifact summary
+        run: |
+          echo "## 📦 Release Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** \`v${{ steps.create-archives.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Available Downloads:**" >> $GITHUB_STEP_SUMMARY
+          echo "- 📁 \`departure-monitor-v${{ steps.create-archives.outputs.version }}.zip\` - ZIP Archive" >> $GITHUB_STEP_SUMMARY
+          echo "- 📁 \`departure-monitor-v${{ steps.create-archives.outputs.version }}.tar.gz\` - TAR.GZ Archive" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Installation:**" >> $GITHUB_STEP_SUMMARY
+          echo "1. Download one of the archives above" >> $GITHUB_STEP_SUMMARY
+          echo "2. Extract the archive" >> $GITHUB_STEP_SUMMARY
+          echo "3. Serve the \`departure-monitor\` folder with a web server" >> $GITHUB_STEP_SUMMARY
 
   security-scan:
     runs-on: ubuntu-latest
