@@ -25,6 +25,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 -
 
+## [2.1.0] - 2025-06-28
+
+### Added
+- Enhanced user interface components for improved user experience
+- Additional configuration options for stop management
+- Performance optimizations for faster loading times
+
+### Changed
+- Updated dependency versions for security and stability improvements
+- Refined styling and visual elements for better accessibility
+- Improved error handling and user feedback mechanisms
+
+### Deprecated
+-
+
+### Removed
+-
+
+### Fixed
+- Minor bug fixes and stability improvements
+- Resolved edge cases in departure time calculations
+- Enhanced API error handling and recovery
+
+### Security
+-
+
 ## [2.0.0] - 2025-06-28
 
 ### Added

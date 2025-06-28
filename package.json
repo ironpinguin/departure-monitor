@@ -1,7 +1,7 @@
 {
   "name": "departure-monitor",
   "private": true,
-  "version": "1.0.1",
+  "version": "2.1.0",
   "description": "Monitor for departure public transportation",
   "homepage": "https://github.com/ironpinguin/departure-monitor",
   "author": {
@@ -13,6 +13,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:archives": "pnpm run build && node scripts/create-archives.js",
+    "release": "pnpm run build:archives",
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "node deploy.js"
@@ -36,6 +38,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
+    "archiver": "^7.0.1",
     "chalk": "^5.4.1",
     "commander": "^12.1.0",
     "concurrently": "^8.2.2",
@@ -45,6 +48,7 @@
     "fs-extra": "^11.3.0",
     "globals": "^16.2.0",
     "inquirer": "^9.3.7",
+    "tar": "^7.4.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite": "^6.3.5",

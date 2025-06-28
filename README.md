@@ -72,6 +72,20 @@ This application was developed with modern web technologies:
 
 3. Open in browser: `http://localhost:8080`
 
+### Web Server Deployment
+
+For production deployments using web servers with reverse proxy capabilities, we provide comprehensive installation guides:
+
+- **[Nginx Installation Guide](docs/installation/nginx-installation.md)** - Complete setup instructions for deploying with Nginx, including SPA routing configuration, API proxying, and static asset caching
+- **[Apache Installation Guide](docs/installation/apache-installation.md)** - Detailed deployment guide for Apache HTTP Server with mod_rewrite, mod_proxy, and caching configuration
+
+Both guides include:
+- Step-by-step installation procedures
+- Complete configuration examples
+- Security considerations
+- Firewall setup instructions
+- Troubleshooting tips
+
 ## Configuration
 
 ### Adding or Editing Stops
