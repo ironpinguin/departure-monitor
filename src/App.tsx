@@ -55,6 +55,14 @@ const App: React.FC = () => {
   const setMaxDeparturesShown = useConfigStore((state) => state.setMaxDeparturesShown);
   const setLanguage = useConfigStore((state) => state.setLanguage);
 
+
+  useEffect(() => {
+   const updateTime = lastUpdateTime;
+   if (updateTime) {
+    console.log(`Init --- Last update time: ${updateTime.toLocaleTimeString()}`);
+   }
+  }, [lastUpdateTime]);
+  
   const fetchDepartures = useCallback(async (stop: StopConfig) => {
     if (!stop.visible) return;
     
@@ -227,7 +235,7 @@ const App: React.FC = () => {
                   setLanguage(e.target.value);
                 }}
                 sx={{ color: 'white', '& .MuiSelect-icon': { color: 'white' } }}
-                aria-label={t('language')}
+                SelectDisplayProps={{ 'aria-label': t('selectLanguage') }}
               >
                 <MenuItem value="en">{t('english')}</MenuItem>
                 <MenuItem value="de">{t('german')}</MenuItem>

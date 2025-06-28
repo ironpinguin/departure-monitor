@@ -24,9 +24,6 @@
     "visible": "Sichtbar",
     "walkingTime": "Gehzeit"
   },
-  "dashboard": {
-    "addStopsButton": "Haltestellen hinzufügen"
-  },
   "stopWidget": {
     "configure": "Konfigurieren",
     "refresh": "Aktualisieren",
@@ -54,6 +51,7 @@
   "departure": "Abfahrt",
   "delay": "Verspätung",
   "language": "Sprache",
+  "selectLanguage": "Sprache auswählen",
   "german": "Deutsch",
   "english": "Englisch",
   "close": "Schließen",

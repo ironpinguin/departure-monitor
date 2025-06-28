@@ -24,9 +24,6 @@
     "visible": "Visible",
     "walkingTime": "Walking time"
   },
-  "dashboard": {
-    "addStopsButton": "Add Stops"
-  },
   "stopWidget": {
     "configure": "Configure",
     "refresh": "Refresh",
@@ -54,6 +51,7 @@
   "departure": "Departure",
   "delay": "Delay",
   "language": "Language",
+  "selectLanguage": "Select Language",
   "german": "German",
   "english": "English",
   "close": "Close",

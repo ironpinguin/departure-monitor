@@ -182,7 +182,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
         color: theme.palette.text.primary
       }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'center' }}>
-        <h3 style={{ margin: 0 }}>{stopConfig.name}</h3>
+        <h2 style={{ margin: 0 }}>{stopConfig.name}</h2>
         <div style={{ display: 'flex' }}>
           <IconButton
             size="small"
