@@ -8,22 +8,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- 
+-
 
 ### Changed
-- optimize API proxy configuration in nginx for docker image
+-
 
 ### Deprecated
-- 
+-
 
 ### Removed
-- 
+-
 
 ### Fixed
-- 
+-
 
 ### Security
-- 
+-
+
+## [2.0.0] - 2025-06-28
+
+### Added
+- **WCAG 2.1 AA Compliance Implementation** - Complete accessibility implementation for improved usability
+- Automatic color contrast validation with 4.5:1 minimum contrast ratio
+- Complete keyboard navigation and intelligent focus management
+- SVG icons with ARIA labels and detailed descriptions for screen readers
+- Skip-to-content links for improved navigation
+- Modal focus trapping for better user guidance
+- Auto-refresh user controls with ARIA live regions for real-time updates
+- Comprehensive accessibility documentation with 5 detailed guides
+- "Add Stops" button in empty dashboard state for improved UX
+- Responsive design support for viewports from 320px to 2560px
+- @types/node for improved Node.js type support
+
+### Changed
+- **Package Manager Migration** - Complete migration from npm to pnpm for better performance
+- Language selector with improved screen reader support
+- Heading hierarchy corrected (h3 → h2) for better semantic structure
+- Dependency updates: eslint, typescript-eslint and other development dependencies
+
+### Improved
+- Screen reader compatibility for all interactive elements
+- User experience through direct access to configuration in empty dashboard state
+- Docker ignore patterns for optimized container builds
+- Git ignore configuration for pnpm cache
+
+### Technical
+- Complete WCAG 2.1 AA compliance implementation
+- Extended accessibility testing infrastructure
+- Improved build and deployment processes
+- Migration to pnpm package manager
 
 ## [1.0.1] - 2025-06-22
 
