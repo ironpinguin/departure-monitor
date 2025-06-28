@@ -34,6 +34,10 @@
   }
 }
 
+h2 {
+  font-size: larger;
+}
+
 .card {
   padding: 2em;
 }

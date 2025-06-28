@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import type { Departure, StopConfig } from '../models';
 import StopConfigModal from './StopConfigModal';
 import TruncatedText from './TruncatedText';
-import type { CSSProperties } from '@mui/material';
 import {
   IconButton,
   useTheme
@@ -10,9 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { getTypeToStyles } from '../utils/typeToStyles';
-
-const typeToStyles = getTypeToStyles();
+import { getLineStyle } from '../utils/typeToStyles';
 
 interface StopWidgetProps {
   stopConfig: StopConfig;
@@ -32,8 +29,16 @@ const StopWidget: React.FC<StopWidgetProps> = ({
   maxDeparturesShown
 }) => {
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
+  const tableRef = useRef<HTMLTableElement>(null);
   const theme = useTheme();
   const { t } = useTranslation();
+
+  // Generate unique IDs for table headers
+  const tableId = `departure-table-${stopConfig.stopId}`;
+  const lineHeaderId = `${tableId}-line-header`;
+  const destHeaderId = `${tableId}-destination-header`;
+  const depHeaderId = `${tableId}-departure-header`;
+  const delayHeaderId = `${tableId}-delay-header`;
 
   const handleOpenConfigModal = () => {
     setIsConfigModalOpen(true);
@@ -53,57 +58,100 @@ const StopWidget: React.FC<StopWidgetProps> = ({
     setIsConfigModalOpen(false);
   };
 
-  // Function to get the style for a line
-  const getLineStyle = (line: string, city: 'muc' | 'wue', groupType: string): CSSProperties => {
-    // Check if we have a specific style for this line in muc.lines
-    if (typeToStyles[city].lines[line]) {
-      const lineStyle = typeToStyles[city].lines[line];
-      return {
-        backgroundColor: lineStyle["background-color"] ? lineStyle["background-color"] : undefined,
-        color: lineStyle.color ? lineStyle.color : undefined,
-        padding: '5px 5px',
-        borderRadius: (city == 'wue') ? '10px' : undefined,
-        display: 'inline-block',
-        fontWeight: 'bold',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        // Optional background image properties
-        backgroundImage: lineStyle["background-image"]
-          ? `url(../assets/muc/${lineStyle["background-image"]})`
-          : undefined,
-        backgroundRepeat: lineStyle["background-repeat"] || undefined,
-        backgroundPosition: lineStyle["background-position"] || undefined,
-        backgroundSize: lineStyle["background-size"] || undefined
-      };
-    } else if (typeToStyles[city].groups[groupType]) {
-      const groupStyle = typeToStyles[city].groups[groupType];
-      return {
-                backgroundColor: groupStyle["background-color"] ? groupStyle["background-color"] : undefined,
-        color: groupStyle.color ? groupStyle.color : undefined,
-        padding: '2px 6px',
-        borderRadius: groupStyle['border-radius'] ? groupStyle['border-radius'] : undefined,
-        display: 'inline-block',
-        fontWeight: 'bold',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
-      };
+  // Keyboard navigation for table cells
+  const handleCellKeyDown = useCallback((event: React.KeyboardEvent, rowIndex: number, colIndex: number) => {
+    if (!tableRef.current) return;
+    
+    const rows = tableRef.current.querySelectorAll('tbody tr');
+    const totalRows = rows.length;
+    const totalCols = 4; // line, destination, departure, delay
+    
+    let newRow = rowIndex;
+    let newCol = colIndex;
+    
+    switch (event.key) {
+      case 'ArrowUp':
+        event.preventDefault();
+        newRow = Math.max(0, rowIndex - 1);
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        newRow = Math.min(totalRows - 1, rowIndex + 1);
+        break;
+      case 'ArrowLeft':
+        event.preventDefault();
+        newCol = Math.max(0, colIndex - 1);
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+        newCol = Math.min(totalCols - 1, colIndex + 1);
+        break;
+      case 'Home':
+        event.preventDefault();
+        newCol = 0;
+        break;
+      case 'End':
+        event.preventDefault();
+        newCol = totalCols - 1;
+        break;
+      default:
+        return;
     }
+    
+    // Focus the new cell
+    const targetRow = rows[newRow] as HTMLTableRowElement;
+    const targetCell = targetRow?.cells[newCol] as HTMLTableCellElement;
+    if (targetCell) {
+      targetCell.focus();
+    }
+  }, []);
 
-    // Default style if no specific style is found
-    const defaultStyle = typeToStyles[city].groups.default;
-    return {
-      backgroundColor: defaultStyle["background-color"] ? defaultStyle["background-color"] : undefined,
-      color: '#fff', // White text on colored background
-      padding: defaultStyle.padding ? defaultStyle.padding : '2px 6px',
-      borderRadius: defaultStyle['border-radius'] ? defaultStyle['border-radius'] : '4px',
-      display: 'inline-block',
-      fontWeight: 'bold',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
-    };
+  // Function to get accessible time description
+  const getTimeDescription = (departure: Departure): string => {
+    const actualTime = departure.actualDeparture;
+    const scheduledTime = departure.scheduledDeparture;
+    const delay = departure.delayMinutes;
+    
+    if (actualTime && delay && delay > 0) {
+      return t('stopWidget.departureWithDelay', {
+        actualTime: actualTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        scheduledTime: scheduledTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        delay: delay
+      });
+    }
+    
+    const time = actualTime || scheduledTime;
+    return t('stopWidget.departureTime', {
+      time: time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    });
+  };
+
+  // Function to get delay description
+  const getDelayDescription = (delayMinutes: number | null | undefined): string => {
+    if (!delayMinutes || delayMinutes <= 0) {
+      return t('stopWidget.onTime');
+    }
+    return t('stopWidget.delayed', { minutes: delayMinutes });
+  };
+
+  // Function to get transport type accessibility description
+  const getTransportTypeDescription = (transportType: string): string => {
+    const typeKey = transportType.toLowerCase();
+    const transportTypeKeys = ['bus', 'tram', 'sbahn', 'ubahn', 'regionalBahn'];
+    
+    if (transportTypeKeys.includes(typeKey)) {
+      return t(`transportTypes.${typeKey}`);
+    }
+    return t('transportTypes.default');
+  };
+
+  // Function to get line accessibility description with transport type
+  const getLineAccessibilityLabel = (line: string, transportType: string): string => {
+    const transportTypeDesc = getTransportTypeDescription(transportType);
+    return t('stopWidget.lineNumber', {
+      line: line,
+      transportType: transportTypeDesc
+    });
   };
 
   // Filter departures based on walking time
@@ -134,7 +182,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
         color: theme.palette.text.primary
       }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'center' }}>
-        <h3 style={{ margin: 0 }}>{stopConfig.name}</h3>
+        <h2 style={{ margin: 0 }}>{stopConfig.name}</h2>
         <div style={{ display: 'flex' }}>
           <IconButton
             size="small"
@@ -163,17 +211,64 @@ const StopWidget: React.FC<StopWidgetProps> = ({
       </div>
       <div>{t('walkingTime', { minutes: stopConfig.walkingTimeMinutes })}</div>
       {isLoading ? (
-        <div style={{ padding: '1rem', textAlign: 'center' }}>{t('stopWidget.loading')}</div>
+        <div
+          style={{ padding: '1rem', textAlign: 'center' }}
+          aria-live="polite"
+          aria-busy="true"
+          role="status"
+        >
+          {t('stopWidget.loading')}
+        </div>
       ) : filteredDepartures.length === 0 ? (
-       <div style={{ padding: '1rem', textAlign: 'center' }}>{t('stopWidget.noDepartures')}</div>
+       <div
+         style={{ padding: '1rem', textAlign: 'center' }}
+         aria-live="polite"
+         role="status"
+       >
+         {t('stopWidget.noDepartures')}
+       </div>
      ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
+        <table
+          ref={tableRef}
+          id={tableId}
+          style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}
+          aria-label={t('stopWidget.departureTableLabel', { stopName: stopConfig.name })}
+          role="table"
+        >
           <thead>
-            <tr>
-              <th style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>{t('line')}</th>
-              <th style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>{t('destination')}</th>
-              <th style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>{t('departure')}</th>
-              <th style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}>{t('delay')}</th>
+            <tr role="row">
+              <th
+                id={lineHeaderId}
+                scope="col"
+                style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}
+                role="columnheader"
+              >
+                {t('line')}
+              </th>
+              <th
+                id={destHeaderId}
+                scope="col"
+                style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}
+                role="columnheader"
+              >
+                {t('destination')}
+              </th>
+              <th
+                id={depHeaderId}
+                scope="col"
+                style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}
+                role="columnheader"
+              >
+                {t('departure')}
+              </th>
+              <th
+                id={delayHeaderId}
+                scope="col"
+                style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}
+                role="columnheader"
+              >
+                {t('delay')}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -182,19 +277,61 @@ const StopWidget: React.FC<StopWidgetProps> = ({
               für garantiert eindeutige React Keys, auch bei mehreren Stops mit identischen Abfahrten
             */}
             {limitedDepartures.map((dep, index) => (
-              <tr key={`stop-${stopConfig.stopId}-dep-${dep.id}-${dep.scheduledDeparture.getTime()}-${index}`}>
-                <td className="line-number-cell" style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '15%', minWidth: '80px' }}>
-                  <span className="line-number" style={getLineStyle(dep.line, stopConfig.city, dep.transportType)}>{dep.line}</span>
+              <tr
+                key={`stop-${stopConfig.stopId}-dep-${dep.id}-${dep.scheduledDeparture.getTime()}-${index}`}
+                role="row"
+              >
+                <td
+                  className="line-number-cell"
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '15%', minWidth: '80px' }}
+                  headers={lineHeaderId}
+                  role="gridcell"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleCellKeyDown(e, index, 0)}
+                  aria-label={getLineAccessibilityLabel(dep.line, dep.transportType)}
+                >
+                  <span
+                    className="line-number"
+                    style={getLineStyle(dep.line, stopConfig.city, dep.transportType)}
+                    title={t('stopWidget.lineNumber', { line: dep.line, transportType: dep.transportType })}
+                  >
+                    {dep.line}
+                  </span>
                 </td>
-                <td className="direction-text-cell" style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, minWidth: '180px', maxWidth: '250px', width: '45%' }}>
+                <td
+                  className="direction-text-cell"
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, minWidth: '180px', maxWidth: '250px', width: '45%' }}
+                  headers={destHeaderId}
+                  role="gridcell"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleCellKeyDown(e, index, 1)}
+                  aria-label={t('stopWidget.destination', { direction: dep.direction })}
+                  title={dep.direction}
+                >
                   <TruncatedText text={dep.direction} maxLength={25} className="direction-text" />
                 </td>
-                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '70px' }}>
+                <td
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '70px' }}
+                  headers={depHeaderId}
+                  role="gridcell"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleCellKeyDown(e, index, 2)}
+                  aria-label={getTimeDescription(dep)}
+                  title={getTimeDescription(dep)}
+                >
                   {dep.actualDeparture
                     ? dep.actualDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     : dep.scheduledDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </td>
-                <td style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '60px' }}>
+                <td
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '60px' }}
+                  headers={delayHeaderId}
+                  role="gridcell"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleCellKeyDown(e, index, 3)}
+                  aria-label={getDelayDescription(dep.delayMinutes)}
+                  title={getDelayDescription(dep.delayMinutes)}
+                >
                   {dep.delayMinutes && dep.delayMinutes > 0 ? `+${dep.delayMinutes}m` : ''}
                 </td>
               </tr>

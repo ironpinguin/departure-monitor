@@ -59,9 +59,98 @@ button {
 button:hover {
   border-color: #646cff;
 }
+/* Enhanced focus styles for accessibility */
 button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:focus-visible,
+.MuiButton-root:focus-visible,
+.MuiIconButton-root:focus-visible,
+.MuiTab-root:focus-visible,
+.MuiSwitch-root:focus-visible,
+.MuiSelect-root:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast focus for dark mode */
+@media (prefers-color-scheme: dark) {
+  button:focus,
+  button:focus-visible,
+  .MuiButton-root:focus-visible,
+  .MuiIconButton-root:focus-visible,
+  .MuiTab-root:focus-visible,
+  .MuiSwitch-root:focus-visible,
+  .MuiSelect-root:focus-visible {
+    outline: 3px solid #66b3ff;
+  }
+}
+
+/* Skip link styles */
+.skip-link {
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 6px;
+  outline: 3px solid #66b3ff;
+  outline-offset: 2px;
+}
+
+/* Auto-refresh controls */
+.auto-refresh-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 16px;
+}
+
+.auto-refresh-status {
+  font-size: 0.875rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+/* Ensure interactive elements meet minimum touch target size */
+.MuiIconButton-root {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.MuiTab-root {
+  min-height: 48px;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Live region for announcements */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 @media (prefers-color-scheme: light) {

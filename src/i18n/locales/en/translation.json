@@ -8,6 +8,14 @@
   "errorFetchingDepartures": "Error fetching departures for {{stopName}}",
   "yes": "Yes",
   "no": "No",
+  "skipToContent": "Skip to main content",
+  "autoRefreshEnabled": "Auto-refresh enabled",
+  "autoRefreshDisabled": "Auto-refresh disabled",
+  "pauseAutoRefresh": "Pause auto-refresh",
+  "playAutoRefresh": "Resume auto-refresh",
+  "dataUpdated": "Data has been updated",
+  "keyboardShortcuts": "Keyboard shortcuts",
+  "escapeToClose": "Press Escape to close",
   "configModal": {
     "title": "Settings",
     "stopManagement": "Stop Management",
@@ -20,7 +28,22 @@
     "configure": "Configure",
     "refresh": "Refresh",
     "loading": "Loading...",
-    "noDepartures": "No departures available"
+    "noDepartures": "No departures available",
+    "departureTableLabel": "Departure table for stop {{stopName}}",
+    "lineNumber": "Line {{line}}, transport type {{transportType}}",
+    "destination": "Direction {{direction}}",
+    "departureWithDelay": "Departure at {{actualTime}}, scheduled {{scheduledTime}}, {{delay}} minutes delay",
+    "departureTime": "Departure at {{time}}",
+    "onTime": "On time",
+    "delayed": "{{minutes}} minutes delay"
+  },
+  "transportTypes": {
+    "bus": "Bus",
+    "tram": "Tram",
+    "sbahn": "S-Bahn",
+    "ubahn": "U-Bahn",
+    "regionalBahn": "Regional Train",
+    "default": "Public Transport"
   },
   "walkingTime": "Walking time: {{minutes}} min",
   "line": "Line",
@@ -28,10 +51,14 @@
   "departure": "Departure",
   "delay": "Delay",
   "language": "Language",
+  "selectLanguage": "Select Language",
   "german": "German",
   "english": "English",
   "close": "Close",
   "city": "City",
+  "dashboard": {
+    "addStopsButton": "Add Stops"
+  },
   "globalSettings": {
     "title": "Global Settings",
     "darkMode": "Dark Mode",

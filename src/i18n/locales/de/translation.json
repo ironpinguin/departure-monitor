@@ -8,6 +8,14 @@
   "errorFetchingDepartures": "Fehler beim Abrufen der Abfahrten für {{stopName}}",
   "yes": "Ja",
   "no": "Nein",
+  "skipToContent": "Zum Hauptinhalt springen",
+  "autoRefreshEnabled": "Auto-Aktualisierung aktiviert",
+  "autoRefreshDisabled": "Auto-Aktualisierung deaktiviert",
+  "pauseAutoRefresh": "Auto-Aktualisierung pausieren",
+  "playAutoRefresh": "Auto-Aktualisierung fortsetzen",
+  "dataUpdated": "Daten wurden aktualisiert",
+  "keyboardShortcuts": "Tastaturkürzel",
+  "escapeToClose": "Drücken Sie Escape zum Schließen",
   "configModal": {
     "title": "Einstellungen",
     "stopManagement": "Haltestellenverwaltung",
@@ -20,7 +28,22 @@
     "configure": "Konfigurieren",
     "refresh": "Aktualisieren",
     "loading": "Lädt...",
-    "noDepartures": "Keine Abfahrten verfügbar"
+    "noDepartures": "Keine Abfahrten verfügbar",
+    "departureTableLabel": "Abfahrtstabelle für Haltestelle {{stopName}}",
+    "lineNumber": "Linie {{line}}, Verkehrsmittel {{transportType}}",
+    "destination": "Fahrtrichtung {{direction}}",
+    "departureWithDelay": "Abfahrt um {{actualTime}}, geplant {{scheduledTime}}, {{delay}} Minuten Verspätung",
+    "departureTime": "Abfahrt um {{time}}",
+    "onTime": "Pünktlich",
+    "delayed": "{{minutes}} Minuten Verspätung"
+  },
+  "transportTypes": {
+    "bus": "Bus",
+    "tram": "Straßenbahn",
+    "sbahn": "S-Bahn",
+    "ubahn": "U-Bahn",
+    "regionalBahn": "Regionalbahn",
+    "default": "Öffentliches Verkehrsmittel"
   },
   "walkingTime": "Gehzeit: {{minutes}} Min",
   "line": "Linie",
@@ -28,10 +51,14 @@
   "departure": "Abfahrt",
   "delay": "Verspätung",
   "language": "Sprache",
+  "selectLanguage": "Sprache auswählen",
   "german": "Deutsch",
   "english": "Englisch",
   "close": "Schließen",
   "city": "Stadt",
+  "dashboard": {
+    "addStopsButton": "Haltestellen hinzufügen"
+  },
   "globalSettings": {
     "title": "Globale Einstellungen",
     "darkMode": "Dunkelmodus",
