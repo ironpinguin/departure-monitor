@@ -1,7 +1,7 @@
 {
   "name": "departure-monitor",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Monitor for departure public transportation",
   "homepage": "https://github.com/ironpinguin/departure-monitor",
   "author": {
