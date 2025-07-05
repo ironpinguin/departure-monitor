@@ -82,5 +82,131 @@
     "visible": "Visible",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "export": {
+    "title": "Export Configuration",
+    "description": "Export your current configuration as a JSON file for backup or transfer to other devices.",
+    "button": {
+      "text": "Export Configuration",
+      "exporting": "Exporting...",
+      "tooltip": "Export configuration as JSON file"
+    },
+    "success": {
+      "message": "Configuration exported successfully"
+    },
+    "error": {
+      "message": "Export failed",
+      "unknown": "Unknown export error"
+    },
+    "validation": {
+      "failed": "Export validation failed"
+    },
+    "details": {
+      "filename": "Filename",
+      "size": "Size",
+      "stops": "Stops",
+      "timestamp": "Timestamp"
+    }
+  },
+  "import": {
+    "title": "Import Configuration",
+    "description": "Import an exported configuration file to adopt your settings and stops.",
+    "button": "Import Configuration",
+    "button_aria_label": "Select configuration file for import",
+    "uploading": "Uploading...",
+    "drop_file": "Drop file here",
+    "drag_drop_hint": "Or drag a .json file here",
+    "unsupported": "File upload is not supported in this browser",
+    "error": {
+      "message": "Import failed"
+    },
+    "success": {
+      "message": "Configuration imported successfully"
+    },
+    "dialog": {
+      "title": "Import Configuration",
+      "step_preview": "Preview",
+      "step_options": "Options",
+      "step_confirm": "Confirm",
+      "validation_errors": "Validation Errors",
+      "validation_warnings": "Warnings",
+      "confirm_title": "Confirm Import",
+      "confirm_message": "Are you sure you want to import this configuration?",
+      "stops_to_import": "Stops to import",
+      "merge_strategy": "Merge strategy",
+      "backup_creation": "Create backup",
+      "importing": "Importing...",
+      "import": "Import"
+    },
+    "preview": {
+      "title": "Import Preview",
+      "stops_count": "{{count}} Stop",
+      "stops_count_plural": "{{count}} Stops",
+      "conflicts_count": "{{count}} Conflict",
+      "conflicts_count_plural": "{{count}} Conflicts",
+      "schema_version": "Schema Version",
+      "language": "Language",
+      "export_date": "Export Date",
+      "source": "Source",
+      "estimated_changes": "Estimated Changes",
+      "stops_added": "Added",
+      "stops_updated": "Updated",
+      "stops_removed": "Removed",
+      "settings_changed": "Settings",
+      "global_settings": "Global Settings",
+      "conflicts": "Conflicts",
+      "stops": "Stops",
+      "showing_of": "Showing {{shown}} of {{total}}",
+      "visible": "Visible",
+      "hidden": "Hidden",
+      "suggested_resolution": "Suggested Resolution"
+    },
+    "options": {
+      "title": "Import Options",
+      "merge_strategy": "Merge Strategy",
+      "merge": "Merge",
+      "merge_description": "Add new stops, update existing ones",
+      "replace": "Replace",
+      "replace_description": "Replace all existing stops with imported ones",
+      "import_global_settings": "Import global settings",
+      "import_global_settings_description": "Apply language, refresh interval and other global settings",
+      "create_backup": "Create backup",
+      "create_backup_description": "Save current configuration before import",
+      "advanced_options": "Advanced Options",
+      "advanced_title": "Advanced Settings",
+      "import_only_visible": "Import only visible stops",
+      "import_only_visible_description": "Ignore hidden stops from import file",
+      "preserve_positions": "Preserve positions",
+      "preserve_positions_description": "Keep current stop order",
+      "validate_before_import": "Validate before import",
+      "validate_before_import_description": "Check file for errors before executing import",
+      "summary": "Summary",
+      "strategy": "Strategy",
+      "global_settings": "Global Settings",
+      "backup": "Backup",
+      "only_visible": "Only visible",
+      "validate": "Validation"
+    },
+    "conflicts": {
+      "stop_exists": "Stop already exists",
+      "position_conflict": "Position conflict",
+      "setting_conflict": "Setting conflict"
+    }
+  },
+  "common": {
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "settings": {
+    "dark_mode": "Dark Mode",
+    "language": "Language",
+    "refresh_interval": "Refresh Interval",
+    "max_departures": "Max Departures"
   }
 }

@@ -82,5 +82,131 @@
     "visible": "Sichtbar",
     "cancel": "Abbrechen",
     "save": "Speichern"
+  },
+  "export": {
+    "title": "Konfiguration exportieren",
+    "description": "Exportieren Sie Ihre aktuelle Konfiguration als JSON-Datei zum Backup oder zur Übertragung auf andere Geräte.",
+    "button": {
+      "text": "Konfiguration exportieren",
+      "exporting": "Exportiere...",
+      "tooltip": "Konfiguration als JSON-Datei exportieren"
+    },
+    "success": {
+      "message": "Konfiguration erfolgreich exportiert"
+    },
+    "error": {
+      "message": "Export fehlgeschlagen",
+      "unknown": "Unbekannter Export-Fehler"
+    },
+    "validation": {
+      "failed": "Export-Validierung fehlgeschlagen"
+    },
+    "details": {
+      "filename": "Dateiname",
+      "size": "Größe",
+      "stops": "Haltestellen",
+      "timestamp": "Zeitstempel"
+    }
+  },
+  "import": {
+    "title": "Konfiguration importieren",
+    "description": "Importieren Sie eine exportierte Konfigurationsdatei, um Ihre Einstellungen und Stops zu übernehmen.",
+    "button": "Konfiguration importieren",
+    "button_aria_label": "Konfigurationsdatei zum Import auswählen",
+    "uploading": "Lade hoch...",
+    "drop_file": "Datei hier ablegen",
+    "drag_drop_hint": "Oder ziehen Sie eine .json-Datei hierher",
+    "unsupported": "Datei-Upload wird in diesem Browser nicht unterstützt",
+    "error": {
+      "message": "Import fehlgeschlagen"
+    },
+    "success": {
+      "message": "Konfiguration erfolgreich importiert"
+    },
+    "dialog": {
+      "title": "Konfiguration importieren",
+      "step_preview": "Vorschau",
+      "step_options": "Optionen",
+      "step_confirm": "Bestätigen",
+      "validation_errors": "Validierungsfehler",
+      "validation_warnings": "Warnungen",
+      "confirm_title": "Import bestätigen",
+      "confirm_message": "Sind Sie sicher, dass Sie diese Konfiguration importieren möchten?",
+      "stops_to_import": "Zu importierende Stops",
+      "merge_strategy": "Merge-Strategie",
+      "backup_creation": "Backup erstellen",
+      "importing": "Importiere...",
+      "import": "Importieren"
+    },
+    "preview": {
+      "title": "Import-Vorschau",
+      "stops_count": "{{count}} Stop",
+      "stops_count_plural": "{{count}} Stops",
+      "conflicts_count": "{{count}} Konflikt",
+      "conflicts_count_plural": "{{count}} Konflikte",
+      "schema_version": "Schema-Version",
+      "language": "Sprache",
+      "export_date": "Export-Datum",
+      "source": "Quelle",
+      "estimated_changes": "Geschätzte Änderungen",
+      "stops_added": "Hinzugefügt",
+      "stops_updated": "Aktualisiert",
+      "stops_removed": "Entfernt",
+      "settings_changed": "Einstellungen",
+      "global_settings": "Globale Einstellungen",
+      "conflicts": "Konflikte",
+      "stops": "Stops",
+      "showing_of": "{{shown}} von {{total}} angezeigt",
+      "visible": "Sichtbar",
+      "hidden": "Versteckt",
+      "suggested_resolution": "Vorgeschlagene Lösung"
+    },
+    "options": {
+      "title": "Import-Optionen",
+      "merge_strategy": "Merge-Strategie",
+      "merge": "Zusammenführen",
+      "merge_description": "Neue Stops hinzufügen, bestehende aktualisieren",
+      "replace": "Ersetzen",
+      "replace_description": "Alle bestehenden Stops durch importierte ersetzen",
+      "import_global_settings": "Globale Einstellungen importieren",
+      "import_global_settings_description": "Sprache, Aktualisierungsintervall und andere globale Einstellungen übernehmen",
+      "create_backup": "Backup erstellen",
+      "create_backup_description": "Aktuelle Konfiguration vor Import sichern",
+      "advanced_options": "Erweiterte Optionen",
+      "advanced_title": "Erweiterte Einstellungen",
+      "import_only_visible": "Nur sichtbare Stops importieren",
+      "import_only_visible_description": "Versteckte Stops aus der Import-Datei ignorieren",
+      "preserve_positions": "Positionen beibehalten",
+      "preserve_positions_description": "Aktuelle Stop-Reihenfolge beibehalten",
+      "validate_before_import": "Vor Import validieren",
+      "validate_before_import_description": "Datei auf Fehler prüfen bevor Import ausgeführt wird",
+      "summary": "Zusammenfassung",
+      "strategy": "Strategie",
+      "global_settings": "Globale Einstellungen",
+      "backup": "Backup",
+      "only_visible": "Nur sichtbare",
+      "validate": "Validierung"
+    },
+    "conflicts": {
+      "stop_exists": "Stop bereits vorhanden",
+      "position_conflict": "Positions-Konflikt",
+      "setting_conflict": "Einstellungs-Konflikt"
+    }
+  },
+  "common": {
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "cancel": "Abbrechen",
+    "yes": "Ja",
+    "no": "Nein",
+    "enabled": "Aktiviert",
+    "disabled": "Deaktiviert"
+  },
+  "settings": {
+    "dark_mode": "Dunkelmodus",
+    "language": "Sprache",
+    "refresh_interval": "Aktualisierungsintervall",
+    "max_departures": "Max. Abfahrten"
   }
 }
