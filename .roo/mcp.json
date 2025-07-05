@@ -7,7 +7,7 @@
         "brave-search-mcp"
       ],
       "env": {
-        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+        "BRAVE_API_KEY": "${env:BRAVE_API_KEY}"
       },
       "disabled": false,
       "alwaysAllow": [
@@ -83,7 +83,7 @@
         "ghcr.io/github/github-mcp-server"
       ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}",
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_PERSONAL_ACCESS_TOKEN}",
         "GITHUB_TOOLSETS": "",
         "GITHUB_READ_ONLY": ""
       }
