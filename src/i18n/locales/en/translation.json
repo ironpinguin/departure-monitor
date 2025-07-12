@@ -1,5 +1,5 @@
 {
-  "appTitle": "Departure Monitor",
+  "appTitle": "Live Departure Monitor",
   "toggleDarkMode": "Toggle dark mode",
   "errorFetching": "Failed to fetch departures for {{stopName}}",
   "unsupportedCity": "Unsupported city: {{city}}",
@@ -32,7 +32,7 @@
     "lineNumber": "Line {{line}}, transport type {{transportType}}",
     "destination": "Direction {{direction}}",
     "departureWithDelay": "Departure at {{actualTime}}, scheduled {{scheduledTime}}, {{delay}} minutes delay",
-    "departureTime": "Departure at {{time}}",
+    "departureTime": "Live departure at {{time}}",
     "onTime": "On time",
     "delayed": "{{minutes}} minutes delay"
   },
@@ -47,7 +47,7 @@
   "walkingTime": "Walking time: {{minutes}} min",
   "line": "Line",
   "destination": "Destination",
-  "departure": "Departure",
+  "departure": "Live Departure",
   "delay": "Delay",
   "language": "Language",
   "selectLanguage": "Select Language",
@@ -56,7 +56,10 @@
   "close": "Close",
   "city": "City",
   "dashboard": {
-    "addStopsButton": "Add Stops"
+    "addStopsButton": "Add Stops",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "globalSettings": {
     "title": "Global Settings",

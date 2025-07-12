@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import type { Departure, StopConfig } from '../models';
 import StopConfigModal from './StopConfigModal';
 import TruncatedText from './TruncatedText';
+import DepartureMobileCard from './DepartureMobileCard';
 import {
   IconButton,
   useTheme
@@ -10,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { getLineStyle } from '../utils/typeToStyles';
+import { useIsMobile } from '../hooks/useMediaQuery';
 
 interface StopWidgetProps {
   stopConfig: StopConfig;
@@ -32,13 +34,13 @@ const StopWidget: React.FC<StopWidgetProps> = ({
   const tableRef = useRef<HTMLTableElement>(null);
   const theme = useTheme();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
 
   // Generate unique IDs for table headers
   const tableId = `departure-table-${stopConfig.stopId}`;
   const lineHeaderId = `${tableId}-line-header`;
   const destHeaderId = `${tableId}-destination-header`;
   const depHeaderId = `${tableId}-departure-header`;
-  const delayHeaderId = `${tableId}-delay-header`;
 
   const handleOpenConfigModal = () => {
     setIsConfigModalOpen(true);
@@ -62,7 +64,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
     
     const rows = tableRef.current.querySelectorAll('tbody tr');
     const totalRows = rows.length;
-    const totalCols = 4; // line, destination, departure, delay
+    const totalCols = 3; // line, destination, departure
     
     let newRow = rowIndex;
     let newCol = colIndex;
@@ -166,48 +168,16 @@ const StopWidget: React.FC<StopWidgetProps> = ({
   // Limit the number of departures based on the global setting
   const limitedDepartures = filteredDepartures.slice(0, maxDeparturesShown);
 
-  return (
-    <>
-      <div style={{
-        border: `1px solid ${theme.palette.divider}`,
-        borderRadius: 8,
-        padding: '1rem',
-        minWidth: '300px',
-        flex: '1 1 300px',
-        maxWidth: '500px',
-        margin: '0.5rem',
-        backgroundColor: theme.palette.background.paper,
-        color: theme.palette.text.primary
+  // Render mobile card layout
+  const renderMobileLayout = () => (
+    <div>
+      <div style={{ 
+        marginBottom: '1rem',
+        fontSize: '0.9rem',
+        color: theme.palette.text.secondary
       }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'center' }}>
-        <h2 style={{ margin: 0 }}>{stopConfig.name}</h2>
-        <div style={{ display: 'flex' }}>
-          <IconButton
-            size="small"
-            onClick={handleOpenConfigModal}
-            aria-label={t('stopWidget.configure')}
-            sx={{
-              border: `1px solid ${theme.palette.divider}`,
-              marginRight: '8px',
-              padding: '4px'
-            }}
-          >
-            <SettingsIcon fontSize="small" />
-          </IconButton>
-          <IconButton
-            size="small"
-            onClick={onRefresh}
-            aria-label={t('stopWidget.refresh')}
-            sx={{
-              border: `1px solid ${theme.palette.divider}`,
-              padding: '4px'
-            }}
-          >
-            <RefreshIcon fontSize="small" />
-          </IconButton>
-        </div>
+        {t('walkingTime', { minutes: stopConfig.walkingTimeMinutes })}
       </div>
-      <div>{t('walkingTime', { minutes: stopConfig.walkingTimeMinutes })}</div>
       {isLoading ? (
         <div
           style={{ padding: '1rem', textAlign: 'center' }}
@@ -218,14 +188,51 @@ const StopWidget: React.FC<StopWidgetProps> = ({
           {t('stopWidget.loading')}
         </div>
       ) : filteredDepartures.length === 0 ? (
-       <div
-         style={{ padding: '1rem', textAlign: 'center' }}
-         aria-live="polite"
-         role="status"
-       >
-         {t('stopWidget.noDepartures')}
-       </div>
-     ) : (
+        <div
+          style={{ padding: '1rem', textAlign: 'center' }}
+          aria-live="polite"
+          role="status"
+        >
+          {t('stopWidget.noDepartures')}
+        </div>
+      ) : (
+        <div style={{ marginTop: '1rem' }}>
+          {limitedDepartures.map((dep, index) => (
+            <DepartureMobileCard
+              key={`stop-${stopConfig.stopId}-dep-${dep.id}-${dep.scheduledDeparture.getTime()}-${index}`}
+              departure={dep}
+              city={stopConfig.city}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  // Render desktop table layout
+  const renderDesktopLayout = () => (
+    <div>
+      <div style={{ marginBottom: '1rem' }}>
+        {t('walkingTime', { minutes: stopConfig.walkingTimeMinutes })}
+      </div>
+      {isLoading ? (
+        <div
+          style={{ padding: '1rem', textAlign: 'center' }}
+          aria-live="polite"
+          aria-busy="true"
+          role="status"
+        >
+          {t('stopWidget.loading')}
+        </div>
+      ) : filteredDepartures.length === 0 ? (
+        <div
+          style={{ padding: '1rem', textAlign: 'center' }}
+          aria-live="polite"
+          role="status"
+        >
+          {t('stopWidget.noDepartures')}
+        </div>
+      ) : (
         <table
           ref={tableRef}
           id={tableId}
@@ -258,14 +265,6 @@ const StopWidget: React.FC<StopWidgetProps> = ({
                 role="columnheader"
               >
                 {t('departure')}
-              </th>
-              <th
-                id={delayHeaderId}
-                scope="col"
-                style={{ textAlign: 'left', padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}` }}
-                role="columnheader"
-              >
-                {t('delay')}
               </th>
             </tr>
           </thead>
@@ -309,7 +308,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
                   <TruncatedText text={dep.direction} maxLength={25} className="direction-text" />
                 </td>
                 <td
-                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '70px' }}
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '40%', minWidth: '100px' }}
                   headers={depHeaderId}
                   role="gridcell"
                   tabIndex={0}
@@ -317,20 +316,27 @@ const StopWidget: React.FC<StopWidgetProps> = ({
                   aria-label={getTimeDescription(dep)}
                   title={getTimeDescription(dep)}
                 >
-                  {dep.actualDeparture
-                    ? dep.actualDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    : dep.scheduledDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </td>
-                <td
-                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '20%', minWidth: '60px' }}
-                  headers={delayHeaderId}
-                  role="gridcell"
-                  tabIndex={0}
-                  onKeyDown={(e) => handleCellKeyDown(e, index, 3)}
-                  aria-label={getDelayDescription(dep.delayMinutes)}
-                  title={getDelayDescription(dep.delayMinutes)}
-                >
-                  {dep.delayMinutes && dep.delayMinutes > 0 ? `+${dep.delayMinutes}m` : ''}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <div style={{ fontSize: '16px', fontWeight: '500' }}>
+                      {dep.actualDeparture
+                        ? dep.actualDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        : dep.scheduledDeparture.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                    {dep.delayMinutes && dep.delayMinutes != 0 && (
+                      <div
+                        style={{
+                          fontSize: '12px',
+                          color: theme.palette.warning.main,
+                          fontWeight: '500',
+                          marginTop: '2px'
+                        }}
+                        aria-label={getDelayDescription(dep.delayMinutes)}
+                        title={getDelayDescription(dep.delayMinutes)}
+                      >
+                        ({dep.delayMinutes > 0 ? '+' : ''}{dep.delayMinutes}m)
+                      </div>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
@@ -338,13 +344,75 @@ const StopWidget: React.FC<StopWidgetProps> = ({
         </table>
       )}
     </div>
+  );
 
-    <StopConfigModal
-      open={isConfigModalOpen}
-      onClose={handleCloseConfigModal}
-      onSave={handleSaveConfig}
-      initialConfig={stopConfig}
-    />
+  return (
+    <>
+      <div style={{
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: 8,
+        padding: isMobile ? '0.75rem' : '1rem',
+        minWidth: isMobile ? '280px' : '300px',
+        flex: isMobile ? '1 1 280px' : '1 1 300px',
+        maxWidth: isMobile ? '100%' : '500px',
+        margin: isMobile ? '0.25rem' : '0.5rem',
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary
+      }}>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          marginBottom: '0.5rem', 
+          alignItems: 'center',
+          flexWrap: isMobile ? 'wrap' : 'nowrap',
+          gap: isMobile ? '0.5rem' : '0'
+        }}>
+          <h2 style={{ 
+            margin: 0,
+            fontSize: isMobile ? '1.1rem' : '1.2rem',
+            flex: isMobile ? '1 1 100%' : 'auto'
+          }}>
+            {stopConfig.name}
+          </h2>
+          <div style={{ display: 'flex' }}>
+            <IconButton
+              size={isMobile ? "medium" : "small"}
+              onClick={handleOpenConfigModal}
+              aria-label={t('stopWidget.configure')}
+              sx={{
+                border: `1px solid ${theme.palette.divider}`,
+                marginRight: '8px',
+                padding: isMobile ? '8px' : '4px',
+                minWidth: isMobile ? '44px' : 'auto',
+                minHeight: isMobile ? '44px' : 'auto'
+              }}
+            >
+              <SettingsIcon fontSize={isMobile ? "medium" : "small"} />
+            </IconButton>
+            <IconButton
+              size={isMobile ? "medium" : "small"}
+              onClick={onRefresh}
+              aria-label={t('stopWidget.refresh')}
+              sx={{
+                border: `1px solid ${theme.palette.divider}`,
+                padding: isMobile ? '8px' : '4px',
+                minWidth: isMobile ? '44px' : 'auto',
+                minHeight: isMobile ? '44px' : 'auto'
+              }}
+            >
+              <RefreshIcon fontSize={isMobile ? "medium" : "small"} />
+            </IconButton>
+          </div>
+        </div>
+        {isMobile ? renderMobileLayout() : renderDesktopLayout()}
+      </div>
+
+      <StopConfigModal
+        open={isConfigModalOpen}
+        onClose={handleCloseConfigModal}
+        onSave={handleSaveConfig}
+        initialConfig={stopConfig}
+      />
     </>
   );
 };

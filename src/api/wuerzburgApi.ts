@@ -34,9 +34,16 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
     const departures: Departure[] = data.stopEvents.map((event) => {
       const scheduledDeparture = new Date(event.departureTimePlanned);
       const actualDeparture = event.departureTimeEstimated ? new Date(event.departureTimeEstimated) : null;
-      const delayMinutes = actualDeparture ? Math.round((actualDeparture.getTime() - scheduledDeparture.getTime()) / 60000) : null;
       const platform = event.location.properties?.platformName || event.location.properties?.platform || null;
       const transportType = event.transportation.product?.name || 'Unknown';
+
+      let delayMinutes: number | null = null;
+      if (actualDeparture && scheduledDeparture) {
+        delayMinutes = Math.round((actualDeparture.getTime() - scheduledDeparture.getTime()) / 60000);
+        if (delayMinutes === 0) {
+          delayMinutes = null;
+        }
+      }
 
       // Eindeutige ID-Generierung: Kombiniert Stadt-Präfix, Trip-ID und Zeitstempel
       // um Duplikate zu vermeiden, auch bei identischen Trip-IDs zu verschiedenen Zeiten

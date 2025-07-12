@@ -1,5 +1,5 @@
 {
-  "appTitle": "Abfahrtsmonitor",
+  "appTitle": "Live-Abfahrts Monitor",
   "toggleDarkMode": "Dark Mode umschalten",
   "errorFetching": "Fehler beim Abrufen der Abfahrten für {{stopName}}",
   "unsupportedCity": "Nicht unterstützte Stadt: {{city}}",
@@ -32,7 +32,7 @@
     "lineNumber": "Linie {{line}}, Verkehrsmittel {{transportType}}",
     "destination": "Fahrtrichtung {{direction}}",
     "departureWithDelay": "Abfahrt um {{actualTime}}, geplant {{scheduledTime}}, {{delay}} Minuten Verspätung",
-    "departureTime": "Abfahrt um {{time}}",
+    "departureTime": "Live-Abfahrt um {{time}}",
     "onTime": "Pünktlich",
     "delayed": "{{minutes}} Minuten Verspätung"
   },
@@ -47,7 +47,7 @@
   "walkingTime": "Gehzeit: {{minutes}} Min",
   "line": "Linie",
   "destination": "Ziel",
-  "departure": "Abfahrt",
+  "departure": "Live-Abfahrt",
   "delay": "Verspätung",
   "language": "Sprache",
   "selectLanguage": "Sprache auswählen",
@@ -56,7 +56,10 @@
   "close": "Schließen",
   "city": "Stadt",
   "dashboard": {
-    "addStopsButton": "Haltestellen hinzufügen"
+    "addStopsButton": "Haltestellen hinzufügen",
+    "menu": "Menü",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen"
   },
   "globalSettings": {
     "title": "Globale Einstellungen",
