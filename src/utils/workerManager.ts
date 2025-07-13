@@ -123,7 +123,7 @@ class WorkerManager {
   }
 
   /**
-   * Führt eine Worker-Operation aus
+   * Führt eine Worker-Operation aus mit verbessertem Error Handling
    */
   private async executeWorkerOperation<T>(
     type: string,
@@ -131,34 +131,63 @@ class WorkerManager {
     onProgress?: (progress: number) => void
   ): Promise<T> {
     if (!this.worker || !this.isSupported) {
-      throw new Error('Worker nicht verfügbar');
+      throw new Error('Worker nicht verfügbar - Worker-Unterstützung fehlt oder Worker konnte nicht initialisiert werden');
     }
 
     const operationId = this.generateOperationId();
     
-    return new Promise<T>((resolve, reject) => {
-      this.activeOperations.set(operationId, {
-        resolve: (value: { data: unknown; metrics: PerformanceMetrics }) => {
-          resolve(value as T);
-        },
-        reject,
-        onProgress
-      });
-      
-      this.worker!.postMessage({
-        id: operationId,
-        type,
-        payload
-      });
-      
-      // Timeout für Operation
-      setTimeout(() => {
-        if (this.activeOperations.has(operationId)) {
+    try {
+      return await new Promise<T>((resolve, reject) => {
+        // Timeout-Handler
+        const timeoutId = setTimeout(() => {
+          if (this.activeOperations.has(operationId)) {
+            this.activeOperations.delete(operationId);
+            loggers.utils.error('Worker operation timeout', {
+              context: 'workerManager.executeWorkerOperation',
+              operationType: type,
+              operationId,
+              timeoutMs: 30000
+            });
+            reject(new Error(`Worker-Operation Timeout nach 30 Sekunden für ${type}`));
+          }
+        }, 30000);
+        
+        this.activeOperations.set(operationId, {
+          resolve: (value: { data: unknown; metrics: PerformanceMetrics }) => {
+            clearTimeout(timeoutId);
+            resolve(value as T);
+          },
+          reject: (error?: Error | string) => {
+            clearTimeout(timeoutId);
+            const errorObj = error instanceof Error ? error : new Error(String(error));
+            loggers.utils.error('Worker operation failed', {
+              context: 'workerManager.executeWorkerOperation',
+              operationType: type,
+              operationId
+            }, errorObj);
+            reject(errorObj);
+          },
+          onProgress
+        });
+        
+        // Nachricht an Worker senden
+        try {
+          this.worker!.postMessage({
+            id: operationId,
+            type,
+            payload
+          });
+        } catch (postError) {
+          clearTimeout(timeoutId);
           this.activeOperations.delete(operationId);
-          reject(new Error('Worker-Operation Timeout'));
+          reject(new Error(`Fehler beim Senden der Worker-Nachricht: ${postError instanceof Error ? postError.message : 'Unbekannter Fehler'}`));
         }
-      }, 30000); // 30 Sekunden Timeout
-    });
+      });
+    } catch (error) {
+      // Cleanup bei Fehler
+      this.activeOperations.delete(operationId);
+      throw error;
+    }
   }
 
   /**
@@ -529,14 +558,46 @@ class WorkerManager {
   }
 
   /**
-   * Beendet den Worker
+   * Beendet den Worker mit umfassendem Cleanup
    */
-  terminate(): void {
-    if (this.worker) {
-      this.worker.terminate();
+  async terminate(): Promise<void> {
+    try {
+      // Alle aktiven Operationen benachrichtigen
+      if (this.activeOperations.size > 0) {
+        loggers.utils.warn('Terminating worker with active operations', {
+          context: 'workerManager.terminate',
+          activeOperationsCount: this.activeOperations.size
+        });
+        
+        // Alle aktiven Operationen mit Termination-Error ablehnen
+        for (const [, operation] of this.activeOperations.entries()) {
+          operation.reject(new Error('Worker wurde terminiert - Operation abgebrochen'));
+        }
+      }
+      
+      // Worker terminieren
+      if (this.worker) {
+        this.worker.terminate();
+        this.worker = null;
+      }
+      
+      // Cleanup
+      this.activeOperations.clear();
+      this.isSupported = false;
+      
+      loggers.utils.info('Worker successfully terminated', {
+        context: 'workerManager.terminate'
+      });
+    } catch (error) {
+      loggers.utils.error('Error during worker termination', {
+        context: 'workerManager.terminate'
+      }, error instanceof Error ? error : new Error(String(error)));
+      
+      // Forced cleanup auch bei Fehlern
       this.worker = null;
+      this.activeOperations.clear();
+      this.isSupported = false;
     }
-    this.activeOperations.clear();
   }
 }
 

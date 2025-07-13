@@ -68,8 +68,11 @@ export async function downloadConfigFileWithWorker(config: ConfigExport, filenam
     const workerManagerModule = await import('./workerManager');
     const workerManager = workerManagerModule.default;
     
-    // Validierung und Formatierung im Worker
-    const validationResult = await workerManager.validateConfigWithWorker(config);
+    // Parallele Ausführung: Validierung und Export-Generierung
+    const [validationResult, exportResult] = await Promise.all([
+      workerManager.validateConfigWithWorker(config),
+      workerManager.generateExportWithWorker(config)
+    ]);
     
     if (!validationResult.data.isValid) {
       throw new Error(i18n.t('import.utils.export_validation_failed', {
@@ -77,8 +80,6 @@ export async function downloadConfigFileWithWorker(config: ConfigExport, filenam
       }));
     }
     
-    // Export-Generierung im Worker
-    const exportResult = await workerManager.generateExportWithWorker(config);
     const formattedContent = exportResult.data;
     
     // Optimierte Download-Implementierung mit minimaler DOM-Manipulation
@@ -89,29 +90,31 @@ export async function downloadConfigFileWithWorker(config: ConfigExport, filenam
       });
       const url = URL.createObjectURL(blob);
       
-      // Moderne Browser: Direkte URL-Verwendung ohne DOM-Manipulation
-      if (navigator.userAgent.includes('Chrome') || navigator.userAgent.includes('Firefox')) {
-        // Verwende die moderne Download-API ohne DOM-Manipulation
-        const downloadLink = Object.assign(document.createElement('a'), {
-          href: url,
-          download: exportFilename,
-          style: 'display: none'
-        });
-        
-        // Einmaliges Hinzufügen/Entfernen (optimiert)
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-      } else {
-        // Fallback für andere Browser
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = exportFilename;
-        link.click();
+      try {
+        // Moderne Browser: Direkte URL-Verwendung ohne DOM-Manipulation
+        if (navigator.userAgent.includes('Chrome') || navigator.userAgent.includes('Firefox')) {
+          // Verwende die moderne Download-API ohne DOM-Manipulation
+          const downloadLink = Object.assign(document.createElement('a'), {
+            href: url,
+            download: exportFilename,
+            style: 'display: none'
+          });
+          
+          // Einmaliges Hinzufügen/Entfernen (optimiert)
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        } else {
+          // Fallback für andere Browser
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = exportFilename;
+          link.click();
+        }
+      } finally {
+        // URL-Objekt immer freigeben
+        URL.revokeObjectURL(url);
       }
-      
-      // URL-Objekt sofort freigeben
-      URL.revokeObjectURL(url);
     } else {
       // Fallback für ältere Browser
       downloadWithFallback(formattedContent, exportFilename);
@@ -123,7 +126,9 @@ export async function downloadConfigFileWithWorker(config: ConfigExport, filenam
       configVersion: config.schemaVersion
     }, error instanceof Error ? error : new Error(String(error)));
     
-    throw new Error(`Download fehlgeschlagen: ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`);
+    throw new Error(i18n.t('import.utils.download_failed', {
+      error: error instanceof Error ? error.message : i18n.t('import.utils.unknown_error')
+    }));
   }
 }
 

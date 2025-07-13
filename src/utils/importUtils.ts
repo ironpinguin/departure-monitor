@@ -366,16 +366,17 @@ export function createWorkerFileUploadHandler(
     try {
       onProgress?.(0);
       
-      // Datei als Text lesen (minimal main thread impact)
-      const text = await readFileAsText(file);
+      // Parallele Ausführung: Datei lesen und WorkerManager laden
+      const [text, workerManagerModule] = await Promise.all([
+        readFileAsText(file),
+        import('./workerManager')
+      ]);
       
       onProgress?.(10);
       
-      // Import worker manager laden (als default export)
-      const workerManagerModule = await import('./workerManager');
       const workerManager = workerManagerModule.default;
       
-      // Alles im Worker verarbeiten
+      // Parallele Worker-Operationen für bessere Performance
       const parseResult = await workerManager.parseJSONWithWorker(text, (progress) => {
         onProgress?.(10 + progress * 0.3); // 10-40% für Parsing
       });
@@ -401,20 +402,26 @@ export function createWorkerFileUploadHandler(
       onProgress?.(100);
       onSuccess(config);
     } catch (error) {
+      loggers.importExport.error('Worker-based file upload failed', {
+        context: 'importUtils.createWorkerFileUploadHandler',
+        fileName: file.name,
+        fileSize: file.size
+      }, error instanceof Error ? error : new Error(String(error)));
+      
       onError(handleImportError(error));
     }
   };
 }
 
 /**
- * Validiert die Dateistruktur für Import
+ * Validiert die Dateistruktur für Import mit async/await Pattern
  */
-export function validateImportFile(file: File): Promise<{
+export async function validateImportFile(file: File): Promise<{
   isValid: boolean;
   errors: string[];
   warnings: string[];
 }> {
-  return new Promise((resolve) => {
+  try {
     const errors: string[] = [];
     const warnings: string[] = [];
     
@@ -437,38 +444,57 @@ export function validateImportFile(file: File): Promise<{
       warnings.push(i18n.t('import.utils.filename_convention_warning'));
     }
     
-    resolve({
+    return {
       isValid: errors.length === 0,
       errors,
       warnings
-    });
-  });
+    };
+  } catch (error) {
+    loggers.importExport.error('File validation failed', {
+      context: 'importUtils.validateImportFile',
+      fileName: file.name,
+      fileSize: file.size
+    }, error instanceof Error ? error : new Error(String(error)));
+    
+    return {
+      isValid: false,
+      errors: [i18n.t('import.utils.validation_error')],
+      warnings: []
+    };
+  }
 }
 
 // Hilfsfunktionen
 
 /**
- * Liest eine Datei als Text
+ * Liest eine Datei als Text mit async/await Pattern
  */
 async function readFileAsText(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
+  try {
     const reader = new FileReader();
     
-    reader.onload = (event) => {
-      const result = event.target?.result;
-      if (typeof result === 'string') {
-        resolve(result);
-      } else {
+    // Promise-basierte FileReader für async/await Kompatibilität
+    const readPromise = new Promise<string>((resolve, reject) => {
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (typeof result === 'string') {
+          resolve(result);
+        } else {
+          reject(new Error(i18n.t('import.utils.file_read_error')));
+        }
+      };
+      
+      reader.onerror = () => {
         reject(new Error(i18n.t('import.utils.file_read_error')));
-      }
-    };
+      };
+      
+      reader.readAsText(file, 'utf-8');
+    });
     
-    reader.onerror = () => {
-      reject(new Error(i18n.t('import.utils.file_read_error')));
-    };
-    
-    reader.readAsText(file, 'utf-8');
-  });
+    return await readPromise;
+  } catch {
+    throw new Error(i18n.t('import.utils.file_read_error'));
+  }
 }
 
 /**
