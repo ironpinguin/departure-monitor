@@ -23,7 +23,8 @@ import {
   isValidLanguage,
   isValidSchemaVersion,
   isPartialConfigExport,
-  safeTypeAssertion
+  isValidPartialStopConfig,
+  isValidPartialAppConfig
 } from '../types/configExport';
 
 // Security patterns to detect malicious content
@@ -227,11 +228,17 @@ export function validateStopConfig(
     return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
   }
 
-  const stop = safeTypeAssertion(
-    stopConfig,
-    (value): value is Partial<StopConfig> => isValidObject(value),
-    'Invalid stop configuration object'
-  );
+  // Enhanced type validation with proper guards
+  if (!isValidPartialStopConfig(stopConfig)) {
+    errors.push(createValidationError(
+      ERROR_CODES.INVALID_DATA_TYPE,
+      'import.validation.invalid_stop_config_type',
+      'stopConfig'
+    ));
+    return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
+  }
+
+  const stop = stopConfig as Partial<StopConfig>;
 
   // Erforderliche Felder validieren
   const requiredFields = ['id', 'name', 'city', 'stopId', 'walkingTimeMinutes', 'visible', 'position'];
@@ -359,11 +366,23 @@ export function validateSettingsConfig(
     return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
   }
 
-  const config = safeTypeAssertion(
-    settings,
-    (value): value is Partial<AppConfig> => isValidObject(value),
-    'Invalid settings configuration object'
-  );
+  // Enhanced type validation with proper guards
+  if (!isValidPartialAppConfig(settings)) {
+    errors.push(createValidationError(
+      ERROR_CODES.INVALID_DATA_TYPE,
+      'import.validation.invalid_settings_config_type',
+      'settings'
+    ));
+    return {
+      errors,
+      warnings,
+      isValid: false,
+      schemaVersion: 'unknown',
+      isCompatible: false
+    };
+  }
+
+  const config = settings as Partial<AppConfig>;
 
   // Refresh-Intervall validieren
   if (config.refreshIntervalSeconds !== undefined) {
@@ -535,11 +554,17 @@ function validateAppConfig(
     return { errors, warnings };
   }
 
-  const appConfig = safeTypeAssertion(
-    config,
-    (value): value is Partial<AppConfig> => isValidObject(value),
-    'Invalid app configuration object'
-  );
+  // Enhanced type validation with proper guards
+  if (!isValidPartialAppConfig(config)) {
+    errors.push(createValidationError(
+      ERROR_CODES.INVALID_DATA_TYPE,
+      'import.validation.invalid_app_config_type',
+      'config'
+    ));
+    return { errors, warnings };
+  }
+
+  const appConfig = config as Partial<AppConfig>;
 
   // Stops validieren
   if (appConfig.stops) {

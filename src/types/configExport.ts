@@ -222,6 +222,79 @@ export function isValidObject(value: unknown): value is Record<string, unknown> 
 }
 
 /**
+ * Enhanced type guard for partial StopConfig validation
+ */
+export function isValidPartialStopConfig(value: unknown): value is Partial<StopConfig> {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const config = value as Record<string, unknown>;
+  
+  // Check types for present fields
+  const typeChecks = {
+    id: (v: unknown) => typeof v === 'string' && v.length > 0,
+    name: (v: unknown) => typeof v === 'string' && v.length > 0,
+    city: (v: unknown) => typeof v === 'string' && isValidCity(v),
+    stopId: (v: unknown) => typeof v === 'string' && v.length > 0,
+    walkingTimeMinutes: (v: unknown) => typeof v === 'number' && v >= 0,
+    visible: (v: unknown) => typeof v === 'boolean',
+    position: (v: unknown) => typeof v === 'number' && v >= 0
+  };
+  
+  for (const [field, checker] of Object.entries(typeChecks)) {
+    if (field in config && !checker(config[field])) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+/**
+ * Enhanced type guard for partial AppConfig validation
+ */
+export function isValidPartialAppConfig(value: unknown): value is Partial<AppConfig> {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const config = value as Record<string, unknown>;
+  
+  // Check stops array if present
+  if ('stops' in config && config.stops !== undefined) {
+    if (!Array.isArray(config.stops)) {
+      return false;
+    }
+    
+    // Validate each stop with partial validation
+    for (const stop of config.stops) {
+      if (!isValidPartialStopConfig(stop)) {
+        return false;
+      }
+    }
+  }
+  
+  // Check optional fields with proper type validation
+  const optionalFields = {
+    language: (v: unknown) => typeof v === 'string' && isValidLanguage(v),
+    theme: (v: unknown) => typeof v === 'string',
+    refreshInterval: (v: unknown) => typeof v === 'number' && v > 0,
+    showWalkingTime: (v: unknown) => typeof v === 'boolean',
+    maxDepartures: (v: unknown) => typeof v === 'number' && v > 0,
+    compactView: (v: unknown) => typeof v === 'boolean'
+  };
+  
+  for (const [field, checker] of Object.entries(optionalFields)) {
+    if (field in config && config[field] !== undefined && !checker(config[field])) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+/**
  * Type guard to check if a value is a valid string
  */
 export function isValidString(value: unknown): value is string {
@@ -271,7 +344,7 @@ export function isValidTimestamp(value: unknown): value is string {
 }
 
 /**
- * Type guard to check if a value is a valid stop configuration
+ * Enhanced type guard to check if a value is a valid stop configuration
  */
 export function isValidStopConfig(value: unknown): value is import('../models').StopConfig {
   if (!isValidObject(value)) {
@@ -280,28 +353,35 @@ export function isValidStopConfig(value: unknown): value is import('../models').
   
   const stop = value as Record<string, unknown>;
   
-  // Check required fields
+  // Check required fields with null/undefined checks
   const requiredFields = ['id', 'name', 'city', 'stopId', 'walkingTimeMinutes', 'visible', 'position'];
   for (const field of requiredFields) {
-    if (!(field in stop)) {
+    if (!(field in stop) || stop[field] === undefined || stop[field] === null) {
       return false;
     }
   }
   
-  // Type validation
-  if (!isValidString(stop.id)) return false;
-  if (!isValidString(stop.name)) return false;
+  // Enhanced type validation with proper runtime checks
+  if (!isValidString(stop.id) || (stop.id as string).length === 0) return false;
+  if (!isValidString(stop.name) || (stop.name as string).length === 0) return false;
   if (!isValidString(stop.city) || !isValidCity(stop.city)) return false;
-  if (!isValidString(stop.stopId)) return false;
+  if (!isValidString(stop.stopId) || (stop.stopId as string).length === 0) return false;
   if (!isValidNumber(stop.walkingTimeMinutes, VALIDATION_RULES.MIN_WALKING_TIME, VALIDATION_RULES.MAX_WALKING_TIME)) return false;
   if (!isValidBoolean(stop.visible)) return false;
-  if (!isValidNumber(stop.position)) return false;
+  if (!isValidNumber(stop.position, 0)) return false;
+  
+  // Additional security checks to prevent XSS
+  const stringFields = ['id', 'name', 'stopId'];
+  for (const field of stringFields) {
+    const value = stop[field] as string;
+    if (typeof value === 'string' && value.includes('<script>')) return false;
+  }
   
   return true;
 }
 
 /**
- * Type guard to check if a value is a valid app configuration
+ * Enhanced type guard to check if a value is a valid app configuration
  */
 export function isValidAppConfig(value: unknown): value is import('../models').AppConfig {
   if (!isValidObject(value)) {
@@ -310,21 +390,44 @@ export function isValidAppConfig(value: unknown): value is import('../models').A
   
   const config = value as Record<string, unknown>;
   
-  // Check required fields
-  const requiredFields = ['stops', 'refreshIntervalSeconds', 'maxDeparturesShown', 'darkMode', 'language'];
-  for (const field of requiredFields) {
-    if (!(field in config)) {
-      return false;
-    }
+  // Enhanced validation - only require 'stops' as truly required field
+  if (!('stops' in config) || config.stops === undefined || config.stops === null) {
+    return false;
   }
   
-  // Type validation
+  // Enhanced type validation with proper null/undefined checks
   if (!isValidArray(config.stops)) return false;
-  if (!config.stops.every(stop => isValidStopConfig(stop))) return false;
-  if (!isValidNumber(config.refreshIntervalSeconds, VALIDATION_RULES.MIN_REFRESH_INTERVAL, VALIDATION_RULES.MAX_REFRESH_INTERVAL)) return false;
-  if (!isValidNumber(config.maxDeparturesShown, 1, VALIDATION_RULES.MAX_DEPARTURES_SHOWN)) return false;
-  if (!isValidBoolean(config.darkMode)) return false;
-  if (!isValidString(config.language) || !isValidLanguage(config.language)) return false;
+  if (!Array.isArray(config.stops) || !config.stops.every(stop => isValidStopConfig(stop))) return false;
+  
+  // Check optional fields with proper validation
+  if ('refreshIntervalSeconds' in config && config.refreshIntervalSeconds !== undefined) {
+    if (!isValidNumber(config.refreshIntervalSeconds, VALIDATION_RULES.MIN_REFRESH_INTERVAL, VALIDATION_RULES.MAX_REFRESH_INTERVAL)) return false;
+  }
+  
+  if ('maxDeparturesShown' in config && config.maxDeparturesShown !== undefined) {
+    if (!isValidNumber(config.maxDeparturesShown, 1, VALIDATION_RULES.MAX_DEPARTURES_SHOWN)) return false;
+  }
+  
+  if ('darkMode' in config && config.darkMode !== undefined) {
+    if (!isValidBoolean(config.darkMode)) return false;
+  }
+  
+  if ('language' in config && config.language !== undefined) {
+    if (!isValidString(config.language) || !isValidLanguage(config.language)) return false;
+  }
+  
+  // Additional validation for other optional fields
+  if ('theme' in config && config.theme !== undefined) {
+    if (!isValidString(config.theme)) return false;
+  }
+  
+  if ('showWalkingTime' in config && config.showWalkingTime !== undefined) {
+    if (!isValidBoolean(config.showWalkingTime)) return false;
+  }
+  
+  if ('compactView' in config && config.compactView !== undefined) {
+    if (!isValidBoolean(config.compactView)) return false;
+  }
   
   return true;
 }
@@ -530,9 +633,95 @@ export function safeTypeAssertion<T>(
   return value;
 }
 
+// Branded types für kritische Datenstrukturen
+export type ValidatedStopId = string & { readonly __brand: 'ValidatedStopId' };
+export type ValidatedStopName = string & { readonly __brand: 'ValidatedStopName' };
+export type ValidatedCity = string & { readonly __brand: 'ValidatedCity' };
+export type ValidatedSchemaVersion = string & { readonly __brand: 'ValidatedSchemaVersion' };
+
+// Discriminated unions für verschiedene Validierungsresultate
+export type ValidationResultType =
+  | { type: 'success'; data: ConfigExport }
+  | { type: 'error'; errors: ValidationError[]; warnings: ValidationWarning[] }
+  | { type: 'warning'; data: ConfigExport; warnings: ValidationWarning[] };
+
+// Discriminated unions für Import-Operationen
+export type ImportOperationType =
+  | { type: 'full'; replaceExisting: true; data: ConfigExport }
+  | { type: 'merge'; replaceExisting: false; data: Partial<ConfigExport> }
+  | { type: 'selective'; fields: (keyof ConfigExport)[]; data: Partial<ConfigExport> };
+
 // Export-Typen für bessere Typsicherheit
 export type ExportFormat = 'json' | 'compressed';
 export type ImportSource = 'file' | 'url' | 'clipboard';
+
+// Type Guards für branded types
+export function createValidatedStopId(value: string): ValidatedStopId | null {
+  if (!isValidString(value) || value.length === 0 || value.includes('<script>')) {
+    return null;
+  }
+  return value as ValidatedStopId;
+}
+
+export function createValidatedStopName(value: string): ValidatedStopName | null {
+  if (!isValidString(value) || value.length === 0 || value.includes('<script>')) {
+    return null;
+  }
+  return value as ValidatedStopName;
+}
+
+export function createValidatedCity(value: string): ValidatedCity | null {
+  if (!isValidString(value) || !isValidCity(value)) {
+    return null;
+  }
+  return value as ValidatedCity;
+}
+
+export function createValidatedSchemaVersion(value: string): ValidatedSchemaVersion | null {
+  if (!isValidString(value) || !isValidSchemaVersion(value)) {
+    return null;
+  }
+  return value as ValidatedSchemaVersion;
+}
+
+// Enhanced type-safe validation result creators
+export function createSuccessResult(data: ConfigExport): ValidationResultType {
+  return { type: 'success', data };
+}
+
+export function createErrorResult(errors: ValidationError[], warnings: ValidationWarning[] = []): ValidationResultType {
+  return { type: 'error', errors, warnings };
+}
+
+export function createWarningResult(data: ConfigExport, warnings: ValidationWarning[]): ValidationResultType {
+  return { type: 'warning', data, warnings };
+}
+
+// Type guard für ValidationResultType
+export function isValidationResultType(value: unknown): value is ValidationResultType {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const result = value as Record<string, unknown>;
+  
+  if (!('type' in result) || typeof result.type !== 'string') {
+    return false;
+  }
+  
+  switch (result.type) {
+    case 'success':
+      return 'data' in result && isValidConfigExport(result.data);
+    case 'error':
+      return 'errors' in result && Array.isArray(result.errors) &&
+             'warnings' in result && Array.isArray(result.warnings);
+    case 'warning':
+      return 'data' in result && isValidConfigExport(result.data) &&
+             'warnings' in result && Array.isArray(result.warnings);
+    default:
+      return false;
+  }
+}
 
 // Konstanten für Fehlercodes
 export const ERROR_CODES = {
