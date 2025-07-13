@@ -13,6 +13,7 @@ import type {
 import type { AppConfig } from '../models';
 import { SCHEMA_VERSIONS, VALIDATION_RULES } from '../types/configExport';
 import { SchemaVersionManager } from './schemaVersionManager';
+import i18n from '../i18n/i18n';
 
 /**
  * Default-Werte für Export/Import-Optionen
@@ -127,16 +128,19 @@ export function isConfigExportable(config: AppConfig): {
   const reasons: string[] = [];
 
   if (!config.stops || config.stops.length === 0) {
-    reasons.push('Keine Stops zum Exportieren vorhanden');
+    reasons.push(i18n.t('import.utils.no_stops_to_export'));
   }
 
   if (config.stops && config.stops.length > VALIDATION_RULES.MAX_STOPS) {
-    reasons.push(`Zu viele Stops (${config.stops.length}/${VALIDATION_RULES.MAX_STOPS})`);
+    reasons.push(i18n.t('import.utils.too_many_stops', {
+      current: config.stops.length,
+      max: VALIDATION_RULES.MAX_STOPS
+    }));
   }
 
   // Weitere Exportierbarkeits-Checks
   if (config.refreshIntervalSeconds < VALIDATION_RULES.MIN_REFRESH_INTERVAL) {
-    reasons.push('Refresh-Intervall ist zu niedrig');
+    reasons.push(i18n.t('import.utils.refresh_interval_too_low'));
   }
 
   return {
@@ -172,7 +176,9 @@ export function prepareConfigForExport(
   if (excludeInvisibleStops) {
     const visibleStops = processedConfig.stops.filter(stop => stop.visible);
     if (visibleStops.length !== processedConfig.stops.length) {
-      warnings.push(`${processedConfig.stops.length - visibleStops.length} unsichtbare Stops ausgeschlossen`);
+      warnings.push(i18n.t('import.utils.invisible_stops_excluded', {
+        count: processedConfig.stops.length - visibleStops.length
+      }));
       processedConfig = { ...processedConfig, stops: visibleStops };
     }
   }
@@ -215,17 +221,22 @@ export function createExportSummary(configExport: ConfigExport): {
   
   const details = {
     'Schema-Version': configExport.schemaVersion,
-    'Export-Datum': new Date(configExport.exportTimestamp).toLocaleDateString('de-DE'),
+    [i18n.t('import.utils.export_date')]: new Date(configExport.exportTimestamp).toLocaleDateString('de-DE'),
     'Anzahl Stops': config.stops.length,
     'Sichtbare Stops': visibleStops,
     'Städte': cities.join(', '),
     'Sprache': config.language,
     'Refresh-Intervall': `${config.refreshIntervalSeconds}s`,
     'Max. Abfahrten': config.maxDeparturesShown,
-    'Dark Mode': config.darkMode ? 'Ja' : 'Nein'
+    'Dark Mode': config.darkMode ? i18n.t('import.utils.yes') : i18n.t('import.utils.no')
   };
 
-  const summary = `Konfiguration mit ${config.stops.length} Stops (${visibleStops} sichtbar) aus ${cities.length} Stadt${cities.length === 1 ? '' : 'en'}`;
+  const summary = i18n.t('import.utils.config_summary', {
+    stopCount: config.stops.length,
+    visibleCount: visibleStops,
+    cityCount: cities.length,
+    cityPlural: cities.length === 1 ? '' : 'en'
+  });
 
   return { summary, details };
 }
@@ -244,7 +255,7 @@ export function convertConfigToFormat(
       // Für komprimierte Exports würde hier eine Komprimierung implementiert
       return JSON.stringify(configExport);
     default:
-      throw new Error(`Nicht unterstütztes Export-Format: ${format}`);
+      throw new Error(i18n.t('import.utils.unsupported_export_format', { format }));
   }
 }
 
@@ -289,21 +300,21 @@ export function validateImportSource(
   switch (source) {
     case 'file':
       if (!data || typeof data !== 'object') {
-        errors.push('Datei-Inhalt ist ungültig');
+        errors.push(i18n.t('import.utils.file_content_invalid'));
       }
       break;
     case 'url':
       if (!data || typeof data !== 'string') {
-        errors.push('URL ist ungültig');
+        errors.push(i18n.t('import.utils.url_invalid'));
       }
       break;
     case 'clipboard':
       if (!data || typeof data !== 'string') {
-        errors.push('Zwischenablage-Inhalt ist ungültig');
+        errors.push(i18n.t('import.utils.clipboard_content_invalid'));
       }
       break;
     default:
-      errors.push(`Nicht unterstützte Import-Quelle: ${source}`);
+      errors.push(i18n.t('import.utils.unsupported_import_source', { source }));
   }
 
   return {
@@ -352,24 +363,39 @@ export function compareConfigs(
 
   // Stops vergleichen
   if (config1.stops.length !== config2.stops.length) {
-    differences.push(`Unterschiedliche Anzahl Stops: ${config1.stops.length} vs ${config2.stops.length}`);
+    differences.push(i18n.t('import.utils.different_stop_count', {
+      count1: config1.stops.length,
+      count2: config2.stops.length
+    }));
   }
 
   // Einstellungen vergleichen
   if (config1.language !== config2.language) {
-    differences.push(`Unterschiedliche Sprache: ${config1.language} vs ${config2.language}`);
+    differences.push(i18n.t('import.utils.different_language', {
+      lang1: config1.language,
+      lang2: config2.language
+    }));
   }
 
   if (config1.refreshIntervalSeconds !== config2.refreshIntervalSeconds) {
-    differences.push(`Unterschiedliches Refresh-Intervall: ${config1.refreshIntervalSeconds} vs ${config2.refreshIntervalSeconds}`);
+    differences.push(i18n.t('import.utils.different_refresh_interval', {
+      interval1: config1.refreshIntervalSeconds,
+      interval2: config2.refreshIntervalSeconds
+    }));
   }
 
   if (config1.maxDeparturesShown !== config2.maxDeparturesShown) {
-    differences.push(`Unterschiedliche max. Abfahrten: ${config1.maxDeparturesShown} vs ${config2.maxDeparturesShown}`);
+    differences.push(i18n.t('import.utils.different_max_departures', {
+      max1: config1.maxDeparturesShown,
+      max2: config2.maxDeparturesShown
+    }));
   }
 
   if (config1.darkMode !== config2.darkMode) {
-    differences.push(`Unterschiedlicher Dark Mode: ${config1.darkMode} vs ${config2.darkMode}`);
+    differences.push(i18n.t('import.utils.different_dark_mode', {
+      mode1: config1.darkMode,
+      mode2: config2.darkMode
+    }));
   }
 
   return {

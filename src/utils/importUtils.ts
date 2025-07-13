@@ -4,8 +4,9 @@
  */
 
 import type { ConfigExport } from '../types/configExport';
-import { SCHEMA_VERSIONS, isValidSchemaVersion } from '../types/configExport';
+import { isValidSchemaVersion } from '../types/configExport';
 import { loggers } from './logger';
+import i18n from '../i18n/i18n';
 
 // Security constants
 const SECURITY_LIMITS = {
@@ -74,28 +75,30 @@ function checkRateLimit(identifier: string = 'global'): boolean {
 function validateFileSecurity(file: File): void {
   // Rate limiting check
   if (!checkRateLimit(`file-${file.name}`)) {
-    throw new Error('Rate limit exceeded. Please wait before uploading again.');
+    throw new Error(i18n.t('import.utils.rate_limit_exceeded'));
   }
   
   // File size validation (before reading)
   if (file.size > SECURITY_LIMITS.MAX_FILE_SIZE) {
-    throw new Error(`Datei ist zu groß. Maximum: ${SECURITY_LIMITS.MAX_FILE_SIZE / (1024 * 1024)}MB`);
+    throw new Error(i18n.t('import.utils.file_too_large', {
+      maxSize: SECURITY_LIMITS.MAX_FILE_SIZE / (1024 * 1024)
+    }));
   }
   
   // Empty file check
   if (file.size === 0) {
-    throw new Error('Datei ist leer');
+    throw new Error(i18n.t('import.utils.file_empty'));
   }
   
   // Extension validation
   const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
   if (!SECURITY_LIMITS.ALLOWED_EXTENSIONS.includes(fileExtension)) {
-    throw new Error(`Ungültiges Dateiformat. Nur .json-Dateien werden unterstützt.`);
+    throw new Error(i18n.t('import.utils.invalid_file_format'));
   }
   
   // MIME type validation (enhanced)
   if (file.type && !SECURITY_LIMITS.ALLOWED_MIME_TYPES.includes(file.type)) {
-    throw new Error(`Ungültiger MIME-Type: '${file.type}'`);
+    throw new Error(i18n.t('import.utils.invalid_mime_type', { mimeType: file.type }));
   }
   
   // Suspicious filename patterns
@@ -110,7 +113,7 @@ function validateFileSecurity(file: File): void {
   ];
   
   if (suspiciousFilenamePatterns.some(pattern => pattern.test(file.name))) {
-    throw new Error('Suspicious file extension detected');
+    throw new Error(i18n.t('import.utils.suspicious_file_extension'));
   }
 }
 
@@ -121,7 +124,7 @@ function sanitizeAndValidateContent(content: string): string {
   // Check for suspicious patterns
   for (const pattern of SECURITY_LIMITS.SUSPICIOUS_PATTERNS) {
     if (pattern.test(content)) {
-      throw new Error('Suspicious content detected in file');
+      throw new Error(i18n.t('import.utils.suspicious_content'));
     }
   }
   
@@ -129,11 +132,11 @@ function sanitizeAndValidateContent(content: string): string {
   try {
     const parsed = JSON.parse(content);
     if (getObjectDepth(parsed) > SECURITY_LIMITS.MAX_JSON_DEPTH) {
-      throw new Error(`JSON structure too deep (max depth: ${SECURITY_LIMITS.MAX_JSON_DEPTH})`);
+      throw new Error(i18n.t('import.utils.json_too_deep', { maxDepth: SECURITY_LIMITS.MAX_JSON_DEPTH }));
     }
   } catch (error) {
     if (error instanceof SyntaxError) {
-      throw new Error('Invalid JSON syntax');
+      throw new Error(i18n.t('import.utils.invalid_json_syntax'));
     }
     throw error;
   }
@@ -170,7 +173,7 @@ function getObjectDepth(obj: unknown, depth = 0): number {
 function validateConfigSecurity(config: ConfigExport): void {
   // Check stops count
   if (config.config?.stops && config.config.stops.length > SECURITY_LIMITS.MAX_STOPS_COUNT) {
-    throw new Error(`Too many stops (max: ${SECURITY_LIMITS.MAX_STOPS_COUNT})`);
+    throw new Error(i18n.t('import.utils.too_many_stops_security', { maxStops: SECURITY_LIMITS.MAX_STOPS_COUNT }));
   }
   
   // Validate stop IDs for injection attempts
@@ -183,7 +186,7 @@ function validateConfigSecurity(config: ConfigExport): void {
           // Check for suspicious patterns in stop ID
           for (const pattern of SECURITY_LIMITS.SUSPICIOUS_PATTERNS) {
             if (pattern.test(stopId)) {
-              throw new Error(`Suspicious content detected in stop ID: ${stopId}`);
+              throw new Error(i18n.t('import.utils.suspicious_stop_id', { stopId }));
             }
           }
         }
@@ -202,7 +205,7 @@ export async function readConfigFile(file: File): Promise<ConfigExport> {
     
     // Legacy format validation (kept for backwards compatibility)
     if (!validateFileFormat(file)) {
-      throw new Error('Ungültiges Dateiformat. Nur .json-Dateien sind erlaubt.');
+      throw new Error(i18n.t('import.utils.json_only_allowed'));
     }
 
     // Datei als Text lesen
@@ -291,29 +294,29 @@ export function handleImportError(error: unknown): string {
     
     // Spezifische Fehlerbehandlung
     if (message.includes('JSON')) {
-      return 'Datei enthält ungültiges JSON-Format. Bitte überprüfen Sie die Dateistruktur.';
+      return i18n.t('import.utils.invalid_json_format');
     }
     
     if (message.includes('schema')) {
-      return 'Inkompatible Schema-Version. Bitte verwenden Sie eine unterstützte Konfigurationsdatei.';
+      return i18n.t('import.utils.incompatible_schema');
     }
     
     if (message.includes('format')) {
-      return 'Ungültiges Dateiformat. Nur .json-Dateien werden unterstützt.';
+      return i18n.t('import.utils.invalid_file_format');
     }
     
     if (message.includes('size')) {
-      return 'Datei ist zu groß. Maximum: 10MB';
+      return i18n.t('import.utils.file_too_large_simple');
     }
     
     if (message.includes('structure')) {
-      return 'Ungültige Dateistruktur. Die Datei entspricht nicht dem erwarteten Format.';
+      return i18n.t('import.utils.invalid_file_structure');
     }
     
     return message;
   }
   
-  return 'Unbekannter Import-Fehler aufgetreten.';
+  return i18n.t('import.utils.unknown_import_error');
 }
 
 /**
@@ -417,21 +420,21 @@ export function validateImportFile(file: File): Promise<{
     
     // Dateiformat prüfen
     if (!validateFileFormat(file)) {
-      errors.push('Ungültiges Dateiformat');
+      errors.push(i18n.t('import.utils.invalid_file_format_simple'));
     }
     
     // Dateigröße prüfen
     if (file.size === 0) {
-      errors.push('Datei ist leer');
+      errors.push(i18n.t('import.utils.file_empty'));
     } else if (file.size > 10 * 1024 * 1024) {
-      errors.push('Datei ist zu groß (max. 10MB)');
+      errors.push(i18n.t('import.utils.file_too_large_max_10mb'));
     } else if (file.size > 1024 * 1024) {
-      warnings.push('Große Datei (>1MB) - Import kann länger dauern');
+      warnings.push(i18n.t('import.utils.large_file_warning'));
     }
     
     // Dateiname prüfen
     if (!file.name.includes('config')) {
-      warnings.push('Dateiname entspricht nicht der erwarteten Namenskonvention');
+      warnings.push(i18n.t('import.utils.filename_convention_warning'));
     }
     
     resolve({
@@ -456,12 +459,12 @@ async function readFileAsText(file: File): Promise<string> {
       if (typeof result === 'string') {
         resolve(result);
       } else {
-        reject(new Error('Fehler beim Lesen der Datei'));
+        reject(new Error(i18n.t('import.utils.file_read_error')));
       }
     };
     
     reader.onerror = () => {
-      reject(new Error('Fehler beim Lesen der Datei'));
+      reject(new Error(i18n.t('import.utils.file_read_error')));
     };
     
     reader.readAsText(file, 'utf-8');
@@ -476,14 +479,14 @@ function parseConfigJSON(text: string): ConfigExport {
     const parsed = JSON.parse(text);
     
     if (!parsed || typeof parsed !== 'object') {
-      throw new Error('JSON-Struktur ist ungültig');
+      throw new Error(i18n.t('import.utils.invalid_json_structure'));
     }
     
     // Weniger strenge Validierung - nur grundlegende Struktur prüfen
     return parsed as ConfigExport;
   } catch (error) {
     if (error instanceof SyntaxError) {
-      throw new Error('Invalid JSON syntax');
+      throw new Error(i18n.t('import.utils.invalid_json_syntax'));
     }
     throw error;
   }
@@ -494,7 +497,7 @@ function parseConfigJSON(text: string): ConfigExport {
  */
 function validateBasicStructure(config: unknown): void {
   if (!config || typeof config !== 'object') {
-    throw new Error('Ungültige Konfigurationsstruktur');
+    throw new Error(i18n.t('import.utils.invalid_config_structure'));
   }
   
   const configObj = config as Record<string, unknown>;
@@ -503,18 +506,18 @@ function validateBasicStructure(config: unknown): void {
   const requiredFields = ['schemaVersion', 'config', 'metadata'];
   for (const field of requiredFields) {
     if (!(field in configObj)) {
-      throw new Error(`Erforderliches Feld fehlt: ${field}`);
+      throw new Error(i18n.t('import.utils.required_field_missing', { field }));
     }
   }
   
   // Config-Objekt validieren
   if (!configObj.config || typeof configObj.config !== 'object') {
-    throw new Error('Konfigurationsdaten sind ungültig');
+    throw new Error(i18n.t('import.utils.invalid_config_data'));
   }
   
   const innerConfig = configObj.config as Record<string, unknown>;
   if (!Array.isArray(innerConfig.stops)) {
-    throw new Error('Stops-Array ist ungültig');
+    throw new Error(i18n.t('import.utils.invalid_stops_array'));
   }
 }
 
@@ -523,10 +526,7 @@ function validateBasicStructure(config: unknown): void {
  */
 function validateSchemaVersion(config: ConfigExport): void {
   if (!isValidSchemaVersion(config.schemaVersion)) {
-    throw new Error(
-      `Unsupported schema version: ${config.schemaVersion}. ` +
-      `Supported versions: ${SCHEMA_VERSIONS.SUPPORTED.join(', ')}`
-    );
+    throw new Error(i18n.t('import.utils.incompatible_schema'));
   }
 }
 
@@ -536,26 +536,26 @@ function validateSchemaVersion(config: ConfigExport): void {
 function validateConfigStructure(config: ConfigExport): void {
   // Metadata validieren
   if (!config.metadata || typeof config.metadata !== 'object') {
-    throw new Error('Metadaten sind ungültig');
+    throw new Error(i18n.t('import.errors.invalid_metadata'));
   }
   
   // Stop-Anzahl konsistenz prüfen
   if (config.metadata.stopCount !== config.config.stops.length) {
-    throw new Error('Stop-Anzahl ist inkonsistent');
+    throw new Error(i18n.t('import.errors.inconsistent_stop_count'));
   }
   
   // Stops validieren
   for (let i = 0; i < config.config.stops.length; i++) {
     const stop = config.config.stops[i];
     if (!stop || typeof stop !== 'object') {
-      throw new Error(`Stop ${i + 1} ist ungültig`);
+      throw new Error(i18n.t('import.errors.invalid_stop', { index: i + 1 }));
     }
     
     // Erforderliche Stop-Felder prüfen
     const requiredStopFields = ['id', 'name', 'city'];
     for (const field of requiredStopFields) {
       if (!(field in stop)) {
-        throw new Error(`Stop ${i + 1}: Erforderliches Feld fehlt: ${field}`);
+        throw new Error(i18n.t('import.errors.missing_required_field', { index: i + 1, field }));
       }
     }
   }

@@ -182,7 +182,7 @@ export function validateConfigStructure(
   } else {
     errors.push(createValidationError(
       ERROR_CODES.MISSING_REQUIRED_FIELD,
-      'import.validation.config_missing',
+      'import.errors.missing_configuration',
       'config'
     ));
   }

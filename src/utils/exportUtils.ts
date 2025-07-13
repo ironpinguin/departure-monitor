@@ -7,6 +7,7 @@ import type { ConfigExport } from '../types/configExport';
 import { estimateExportSize } from './configExportUtils';
 import { loggers } from './logger';
 import { isValidConfigExport, isValidObject } from '../types/configExport';
+import i18n from '../i18n/i18n';
 
 /**
  * Browser-Download-Funktionalität für JSON-Dateien
@@ -71,7 +72,9 @@ export async function downloadConfigFileWithWorker(config: ConfigExport, filenam
     const validationResult = await workerManager.validateConfigWithWorker(config);
     
     if (!validationResult.data.isValid) {
-      throw new Error(`Export validation failed: ${validationResult.data.errors.join(', ')}`);
+      throw new Error(i18n.t('import.utils.export_validation_failed', {
+        errors: validationResult.data.errors.join(', ')
+      }));
     }
     
     // Export-Generierung im Worker
@@ -271,17 +274,12 @@ function downloadWithFallback(content: string, filename: string): void {
     const newWindow = window.open(dataUri, '_blank');
     
     if (!newWindow) {
-      throw new Error('Popup wurde blockiert');
+      throw new Error('Popup blockiert');
     }
     
     // Zeige Anweisungen für manuellen Download
     setTimeout(() => {
-      alert(
-        'Bitte speichern Sie die Datei manuell:\n' +
-        '1. Rechtsklick auf die Seite\n' +
-        '2. "Speichern unter..." wählen\n' +
-        `3. Dateiname: ${filename}`
-      );
+      alert(`Bitte speichern Sie die Datei manuell:\n1. Rechtsklick auf die Seite\n2. "Speichern unter..." wählen\n3. Dateiname: ${filename}`);
     }, 1000);
   } catch (error) {
     loggers.utils.error('Fallback download failed', {
