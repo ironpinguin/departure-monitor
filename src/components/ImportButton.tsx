@@ -8,6 +8,107 @@ import { useTranslation } from 'react-i18next';
 import { ImportUtils } from '../utils/importUtils';
 import type { ConfigExport } from '../types/configExport';
 
+// Rate limiting for import operations
+const IMPORT_RATE_LIMIT = {
+  MAX_ATTEMPTS: 5,
+  WINDOW_MS: 5 * 60 * 1000, // 5 minutes
+  COOLDOWN_MS: 30 * 1000 // 30 seconds
+};
+
+// Track import attempts
+const importAttempts = new Map<string, { count: number; lastAttempt: number; blocked: boolean }>();
+
+/**
+ * Check if import is rate limited
+ */
+function checkImportRateLimit(identifier: string = 'global'): { allowed: boolean; reason?: string } {
+  const now = Date.now();
+  const attempts = importAttempts.get(identifier);
+  
+  if (!attempts) {
+    importAttempts.set(identifier, { count: 1, lastAttempt: now, blocked: false });
+    return { allowed: true };
+  }
+  
+  // Reset if window passed
+  if (now - attempts.lastAttempt > IMPORT_RATE_LIMIT.WINDOW_MS) {
+    importAttempts.set(identifier, { count: 1, lastAttempt: now, blocked: false });
+    return { allowed: true };
+  }
+  
+  // Check if in cooldown period
+  if (attempts.blocked && now - attempts.lastAttempt < IMPORT_RATE_LIMIT.COOLDOWN_MS) {
+    return { allowed: false, reason: 'Still in cooldown period' };
+  }
+  
+  // Check rate limit
+  if (attempts.count >= IMPORT_RATE_LIMIT.MAX_ATTEMPTS) {
+    attempts.blocked = true;
+    attempts.lastAttempt = now;
+    return { allowed: false, reason: 'Rate limit exceeded' };
+  }
+  
+  attempts.count++;
+  attempts.lastAttempt = now;
+  return { allowed: true };
+}
+
+/**
+ * Enhanced file validation with security checks
+ */
+function validateFileSecurityEnhanced(file: File): { valid: boolean; errors: string[]; warnings: string[] } {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+  
+  // Size validation
+  if (file.size > 10 * 1024 * 1024) { // 10MB
+    errors.push('File size exceeds 10MB limit');
+  }
+  
+  if (file.size === 0) {
+    errors.push('File is empty');
+  }
+  
+  // Extension validation
+  const allowedExtensions = ['.json'];
+  const extension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+  if (!allowedExtensions.includes(extension)) {
+    errors.push(`File extension '${extension}' is not allowed`);
+  }
+  
+  // MIME type validation
+  const allowedMimeTypes = ['application/json', 'text/json', 'text/plain', 'application/octet-stream'];
+  if (file.type && !allowedMimeTypes.includes(file.type)) {
+    errors.push(`MIME type '${file.type}' is not allowed`);
+  }
+  
+  // Suspicious filename patterns
+  const suspiciousPatterns = [
+    /\.(exe|bat|cmd|scr|js|vbs|php)$/i,
+    /[<>:"|?*]/,
+    /^\./,
+    /\s+$/
+  ];
+  
+  for (const pattern of suspiciousPatterns) {
+    if (pattern.test(file.name)) {
+      errors.push('Suspicious filename detected');
+      break;
+    }
+  }
+  
+  // Warnings for large files
+  if (file.size > 1024 * 1024) { // 1MB
+    warnings.push('Large file detected - processing may take longer');
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings
+  };
+}
+
 interface ImportButtonProps {
   /** Callback wenn Import erfolgreich */
   onImportSuccess: (config: ConfigExport) => void;
@@ -49,20 +150,27 @@ export const ImportButton: React.FC<ImportButtonProps> = ({
     setIsUploading(true);
     
     try {
-      // Datei-Validierung
-      const validation = await ImportUtils.validateImportFile(file);
-      if (!validation.isValid) {
-        onImportError(validation.errors.join(', '));
+      // Quick client-side security checks (non-blocking)
+      const rateLimitCheck = checkImportRateLimit(file.name);
+      if (!rateLimitCheck.allowed) {
+        onImportError(`Import blocked: ${rateLimitCheck.reason || 'Rate limit exceeded'}`);
         return;
       }
 
-      // Warnungen anzeigen
-      if (validation.warnings.length > 0) {
-        console.warn('Import-Warnungen:', validation.warnings);
+      // Basic file validation (minimal main thread impact)
+      const basicValidation = validateFileSecurityEnhanced(file);
+      if (!basicValidation.valid) {
+        onImportError(`Security validation failed: ${basicValidation.errors.join(', ')}`);
+        return;
       }
 
-      // Datei verarbeiten
-      const uploadHandler = ImportUtils.createFileUploadHandler(
+      // Show security warnings
+      if (basicValidation.warnings.length > 0) {
+        console.warn('Security warnings:', basicValidation.warnings);
+      }
+
+      // All validation and processing moved to worker
+      const uploadHandler = ImportUtils.createWorkerFileUploadHandler(
         onImportSuccess,
         onImportError,
         onImportProgress

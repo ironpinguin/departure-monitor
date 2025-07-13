@@ -6,6 +6,7 @@
 import React, { Suspense } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
 import { preloadImportComponents } from './LazyComponents';
+import { loggers } from '../utils/logger';
 
 // Lazy-loaded Komponenten
 const ImportConfirmationDialog = React.lazy(() => import('./ImportConfirmationDialog'));
@@ -155,7 +156,11 @@ export class LazyImportErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    console.error('Lazy Import Component Error:', error, errorInfo);
+    loggers.components.error('Lazy import component error occurred', {
+      context: 'LazyImportComponents.ErrorBoundary',
+      componentStack: errorInfo.componentStack,
+      errorBoundary: true
+    }, error);
   }
 
   render(): React.ReactNode {

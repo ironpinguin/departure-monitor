@@ -6,8 +6,9 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigStore } from '../store/configStore';
-import { downloadConfigFile, validateExportData, createExportSummary } from '../utils/exportUtils';
+import { createExportSummary } from '../utils/exportUtils';
 import type { ConfigExport } from '../types/configExport';
+import { loggers } from '../utils/logger';
 
 interface ExportButtonProps {
   /** Zusätzliche CSS-Klassen */
@@ -77,17 +78,13 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
       // Konfiguration exportieren
       const configExport: ConfigExport = exportConfig();
       
-      // Validierung vor Export
-      if (!validateExportData(configExport)) {
-        throw new Error(t('export.validation.failed', 'Export-Validierung fehlgeschlagen'));
-      }
-      
-      // Export-Zusammenfassung erstellen
+      // Export-Zusammenfassung erstellen (vor Worker-Aufruf)
       const summary = createExportSummary(configExport);
       setExportSummary(summary);
       
-      // Download starten
-      await downloadConfigFile(configExport);
+      // Worker-basierter Export mit Validierung
+      const { downloadConfigFileWithWorker } = await import('../utils/exportUtils');
+      await downloadConfigFileWithWorker(configExport);
       
       // Erfolg-Callback
       if (onExportSuccess) {
@@ -136,7 +133,12 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
         });
       }
       
-      console.error('Export-Fehler:', error);
+      loggers.components.error('Export operation failed', {
+        context: 'ExportButton.handleExport',
+        errorMessage,
+        hasCallback: !!onExportError,
+        hasToastSupport: !!(typeof window !== 'undefined' && (window as Window & { showToast?: unknown }).showToast)
+      }, error instanceof Error ? error : new Error(String(error)));
     } finally {
       setIsExporting(false);
     }

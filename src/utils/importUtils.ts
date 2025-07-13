@@ -5,35 +5,230 @@
 
 import type { ConfigExport } from '../types/configExport';
 import { SCHEMA_VERSIONS, isValidSchemaVersion } from '../types/configExport';
+import { loggers } from './logger';
+
+// Security constants
+const SECURITY_LIMITS = {
+  MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB
+  MAX_JSON_DEPTH: 10,
+  MAX_STOPS_COUNT: 100,
+  ALLOWED_MIME_TYPES: [
+    'application/json',
+    'text/json',
+    'text/plain',
+    'application/octet-stream' // for files without proper MIME type
+  ],
+  ALLOWED_EXTENSIONS: ['.json'],
+  SUSPICIOUS_PATTERNS: [
+    /<script/i,
+    /javascript:/i,
+    /eval\s*\(/i,
+    /function\s*\(/i,
+    /constructor/i,
+    /__proto__/i,
+    /prototype/i
+  ]
+};
+
+// Rate limiting
+const RATE_LIMITS = new Map<string, { count: number; lastReset: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_OPERATIONS_PER_MINUTE = 10;
+
+/**
+ * Rate-Limiting prüfen
+ */
+function checkRateLimit(identifier: string = 'global'): boolean {
+  // Disable rate limiting in test environment
+  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+    return true;
+  }
+  
+  const now = Date.now();
+  const limit = RATE_LIMITS.get(identifier);
+  
+  if (!limit) {
+    RATE_LIMITS.set(identifier, { count: 1, lastReset: now });
+    return true;
+  }
+  
+  // Reset if window passed
+  if (now - limit.lastReset > RATE_LIMIT_WINDOW) {
+    limit.count = 1;
+    limit.lastReset = now;
+    return true;
+  }
+  
+  // Check if limit exceeded
+  if (limit.count >= MAX_OPERATIONS_PER_MINUTE) {
+    return false;
+  }
+  
+  limit.count++;
+  return true;
+}
+
+/**
+ * Erweiterte Sicherheitsvalidierung für Dateien
+ */
+function validateFileSecurity(file: File): void {
+  // Rate limiting check
+  if (!checkRateLimit(`file-${file.name}`)) {
+    throw new Error('Rate limit exceeded. Please wait before uploading again.');
+  }
+  
+  // File size validation (before reading)
+  if (file.size > SECURITY_LIMITS.MAX_FILE_SIZE) {
+    throw new Error(`Datei ist zu groß. Maximum: ${SECURITY_LIMITS.MAX_FILE_SIZE / (1024 * 1024)}MB`);
+  }
+  
+  // Empty file check
+  if (file.size === 0) {
+    throw new Error('Datei ist leer');
+  }
+  
+  // Extension validation
+  const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+  if (!SECURITY_LIMITS.ALLOWED_EXTENSIONS.includes(fileExtension)) {
+    throw new Error(`Ungültiges Dateiformat. Nur .json-Dateien werden unterstützt.`);
+  }
+  
+  // MIME type validation (enhanced)
+  if (file.type && !SECURITY_LIMITS.ALLOWED_MIME_TYPES.includes(file.type)) {
+    throw new Error(`Ungültiger MIME-Type: '${file.type}'`);
+  }
+  
+  // Suspicious filename patterns
+  const suspiciousFilenamePatterns = [
+    /\.exe$/i,
+    /\.bat$/i,
+    /\.cmd$/i,
+    /\.scr$/i,
+    /\.js$/i,
+    /\.vbs$/i,
+    /\.php$/i
+  ];
+  
+  if (suspiciousFilenamePatterns.some(pattern => pattern.test(file.name))) {
+    throw new Error('Suspicious file extension detected');
+  }
+}
+
+/**
+ * Sanitize und validate JSON content
+ */
+function sanitizeAndValidateContent(content: string): string {
+  // Check for suspicious patterns
+  for (const pattern of SECURITY_LIMITS.SUSPICIOUS_PATTERNS) {
+    if (pattern.test(content)) {
+      throw new Error('Suspicious content detected in file');
+    }
+  }
+  
+  // Validate JSON depth
+  try {
+    const parsed = JSON.parse(content);
+    if (getObjectDepth(parsed) > SECURITY_LIMITS.MAX_JSON_DEPTH) {
+      throw new Error(`JSON structure too deep (max depth: ${SECURITY_LIMITS.MAX_JSON_DEPTH})`);
+    }
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      throw new Error('Invalid JSON syntax');
+    }
+    throw error;
+  }
+  
+  return content;
+}
+
+/**
+ * Calculate object depth
+ */
+function getObjectDepth(obj: unknown, depth = 0): number {
+  if (depth > SECURITY_LIMITS.MAX_JSON_DEPTH) {
+    return depth;
+  }
+  
+  if (obj === null || typeof obj !== 'object') {
+    return depth;
+  }
+  
+  let maxDepth = depth;
+  for (const key in obj as Record<string, unknown>) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const currentDepth = getObjectDepth((obj as Record<string, unknown>)[key], depth + 1);
+      maxDepth = Math.max(maxDepth, currentDepth);
+    }
+  }
+  
+  return maxDepth;
+}
+
+/**
+ * Validate config security after parsing
+ */
+function validateConfigSecurity(config: ConfigExport): void {
+  // Check stops count
+  if (config.config?.stops && config.config.stops.length > SECURITY_LIMITS.MAX_STOPS_COUNT) {
+    throw new Error(`Too many stops (max: ${SECURITY_LIMITS.MAX_STOPS_COUNT})`);
+  }
+  
+  // Validate stop IDs for injection attempts
+  if (config.config?.stops) {
+    for (let i = 0; i < config.config.stops.length; i++) {
+      const stop = config.config.stops[i];
+      if (stop && typeof stop === 'object' && 'id' in stop) {
+        const stopId = stop.id;
+        if (typeof stopId === 'string') {
+          // Check for suspicious patterns in stop ID
+          for (const pattern of SECURITY_LIMITS.SUSPICIOUS_PATTERNS) {
+            if (pattern.test(stopId)) {
+              throw new Error(`Suspicious content detected in stop ID: ${stopId}`);
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 /**
  * Liest und parst eine Config-Datei
  */
 export async function readConfigFile(file: File): Promise<ConfigExport> {
   try {
-    // Dateiformat validieren
+    // Enhanced security validation
+    validateFileSecurity(file);
+    
+    // Legacy format validation (kept for backwards compatibility)
     if (!validateFileFormat(file)) {
       throw new Error('Ungültiges Dateiformat. Nur .json-Dateien sind erlaubt.');
-    }
-
-    // Dateigröße prüfen (max 10MB)
-    const maxSizeBytes = 10 * 1024 * 1024;
-    if (file.size > maxSizeBytes) {
-      throw new Error('Datei ist zu groß. Maximum: 10MB');
     }
 
     // Datei als Text lesen
     const text = await readFileAsText(file);
     
+    // Sanitize and validate content
+    const sanitizedContent = sanitizeAndValidateContent(text);
+    
     // JSON parsen
-    const config = parseConfigJSON(text);
+    const config = parseConfigJSON(sanitizedContent);
     
     // Grundlegende Validierung
     validateBasicStructure(config);
     
+    // Additional security checks
+    validateConfigSecurity(config);
+    
     return config;
   } catch (error) {
-    console.error('Fehler beim Lesen der Config-Datei:', error);
+    loggers.importExport.error('Config file reading failed', {
+      context: 'importUtils.readConfigFile',
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type
+    }, error instanceof Error ? error : new Error(String(error)));
+    
     throw new Error(handleImportError(error));
   }
 }
@@ -76,7 +271,13 @@ export async function processImportFile(file: File): Promise<ConfigExport> {
     
     return normalizedConfig;
   } catch (error) {
-    console.error('Fehler beim Verarbeiten der Import-Datei:', error);
+    loggers.importExport.error('Import file processing failed', {
+      context: 'importUtils.processImportFile',
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type
+    }, error instanceof Error ? error : new Error(String(error)));
+    
     throw new Error(handleImportError(error));
   }
 }
@@ -141,6 +342,58 @@ export function createFileUploadHandler(
       
       // Datei verarbeiten
       const config = await processImportFile(file);
+      
+      onProgress?.(100);
+      onSuccess(config);
+    } catch (error) {
+      onError(handleImportError(error));
+    }
+  };
+}
+
+/**
+ * Erstellt einen Worker-basierten Datei-Upload-Handler für Performance-Optimierung
+ */
+export function createWorkerFileUploadHandler(
+  onSuccess: (config: ConfigExport) => void,
+  onError: (error: string) => void,
+  onProgress?: (progress: number) => void
+): (file: File) => Promise<void> {
+  return async (file: File) => {
+    try {
+      onProgress?.(0);
+      
+      // Datei als Text lesen (minimal main thread impact)
+      const text = await readFileAsText(file);
+      
+      onProgress?.(10);
+      
+      // Import worker manager laden (als default export)
+      const workerManagerModule = await import('./workerManager');
+      const workerManager = workerManagerModule.default;
+      
+      // Alles im Worker verarbeiten
+      const parseResult = await workerManager.parseJSONWithWorker(text, (progress) => {
+        onProgress?.(10 + progress * 0.3); // 10-40% für Parsing
+      });
+      const config = parseResult.data;
+      
+      onProgress?.(40);
+      
+      // Validierung im Worker
+      const validationResult = await workerManager.validateConfigWithWorker(config, (progress) => {
+        onProgress?.(40 + progress * 0.5); // 40-90% für Validierung
+      });
+      
+      if (!validationResult.data.isValid) {
+        onError(validationResult.data.errors.join(', '));
+        return;
+      }
+      
+      // Warnungen anzeigen
+      if (validationResult.data.warnings.length > 0) {
+        console.warn('Import-Warnungen:', validationResult.data.warnings);
+      }
       
       onProgress?.(100);
       onSuccess(config);
@@ -226,10 +479,11 @@ function parseConfigJSON(text: string): ConfigExport {
       throw new Error('JSON-Struktur ist ungültig');
     }
     
+    // Weniger strenge Validierung - nur grundlegende Struktur prüfen
     return parsed as ConfigExport;
   } catch (error) {
     if (error instanceof SyntaxError) {
-      throw new Error('JSON-Syntax ist ungültig: ' + error.message);
+      throw new Error('Invalid JSON syntax');
     }
     throw error;
   }
@@ -344,5 +598,6 @@ export const ImportUtils = {
   handleImportError,
   supportsFileUpload,
   createFileUploadHandler,
+  createWorkerFileUploadHandler,
   validateImportFile
 };

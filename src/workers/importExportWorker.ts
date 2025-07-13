@@ -34,7 +34,17 @@ interface PerformanceMetrics {
   memoryUsage?: number;
   processingTime?: number;
   chunkCount?: number;
+  peakMemoryUsage?: number;
 }
+
+// Security and Performance Limits
+const SECURITY_LIMITS = {
+  MAX_MEMORY_USAGE: 50 * 1024 * 1024, // 50MB
+  MAX_PROCESSING_TIME: 30 * 1000, // 30 seconds
+  MAX_CHUNK_COUNT: 100,
+  MEMORY_CHECK_INTERVAL: 1000, // 1 second
+  MAX_CONCURRENT_OPERATIONS: 3
+};
 
 // Worker-Kontext
 const ctx = self as unknown as Worker;
@@ -45,17 +55,99 @@ const activeOperations = new Map<string, PerformanceMetrics>();
 // Chunk-Größe für große Dateien (1MB)
 const CHUNK_SIZE = 1024 * 1024;
 
+// Memory monitoring
+let memoryCheckInterval: ReturnType<typeof setInterval> | null = null;
+let peakMemoryUsage = 0;
+
+/**
+ * Start memory monitoring
+ */
+function startMemoryMonitoring(): void {
+  if (memoryCheckInterval) return;
+  
+  memoryCheckInterval = setInterval(() => {
+    const currentMemory = getMemoryUsage();
+    if (currentMemory > peakMemoryUsage) {
+      peakMemoryUsage = currentMemory;
+    }
+    
+    // Check if memory limit is exceeded
+    if (currentMemory > SECURITY_LIMITS.MAX_MEMORY_USAGE) {
+      // Terminate operations that exceed memory limit
+      for (const [operationId, metrics] of activeOperations.entries()) {
+        if (metrics.memoryUsage && metrics.memoryUsage > SECURITY_LIMITS.MAX_MEMORY_USAGE * 0.8) {
+          terminateOperation(operationId, 'Memory limit exceeded');
+        }
+      }
+    }
+  }, SECURITY_LIMITS.MEMORY_CHECK_INTERVAL);
+}
+
+/**
+ * Stop memory monitoring
+ */
+function stopMemoryMonitoring(): void {
+  if (memoryCheckInterval) {
+    clearInterval(memoryCheckInterval);
+    memoryCheckInterval = null;
+  }
+}
+
+/**
+ * Terminate operation due to security violation
+ */
+function terminateOperation(operationId: string, reason: string): void {
+  const response: WorkerResponse = {
+    id: operationId,
+    success: false,
+    error: `Operation terminated: ${reason}`
+  };
+  
+  ctx.postMessage(response);
+  activeOperations.delete(operationId);
+}
+
+/**
+ * Check operation limits before starting
+ */
+function checkOperationLimits(): void {
+  // Check concurrent operations limit
+  if (activeOperations.size >= SECURITY_LIMITS.MAX_CONCURRENT_OPERATIONS) {
+    throw new Error('Too many concurrent operations');
+  }
+  
+  // Check memory usage
+  const currentMemory = getMemoryUsage();
+  if (currentMemory > SECURITY_LIMITS.MAX_MEMORY_USAGE * 0.9) {
+    throw new Error('Memory usage too high to start new operation');
+  }
+}
+
 
 ctx.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
   const { id, type, payload } = event.data;
   
   try {
+    // Security: Check operation limits before starting
+    checkOperationLimits();
+    
+    // Start memory monitoring if not already running
+    if (activeOperations.size === 0) {
+      startMemoryMonitoring();
+    }
+    
     // Performance-Tracking starten
     const metrics: PerformanceMetrics = {
       startTime: performance.now(),
-      memoryUsage: getMemoryUsage()
+      memoryUsage: getMemoryUsage(),
+      peakMemoryUsage: peakMemoryUsage
     };
     activeOperations.set(id, metrics);
+    
+    // Check processing time limit
+    const timeoutId = setTimeout(() => {
+      terminateOperation(id, 'Processing time limit exceeded');
+    }, SECURITY_LIMITS.MAX_PROCESSING_TIME);
     
     let result;
     
@@ -88,6 +180,9 @@ ctx.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
         throw new Error(`Unbekannter Worker-Operationstyp: ${type}`);
     }
     
+    // Clear timeout
+    clearTimeout(timeoutId);
+    
     // Performance-Metriken finalisieren
     const finalMetrics = finalizeMetrics(id);
     
@@ -115,6 +210,11 @@ ctx.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
   } finally {
     // Cleanup
     activeOperations.delete(id);
+    
+    // Stop memory monitoring if no more active operations
+    if (activeOperations.size === 0) {
+      stopMemoryMonitoring();
+    }
     
     // Garbage Collection triggern
     if (typeof globalThis.gc === 'function') {

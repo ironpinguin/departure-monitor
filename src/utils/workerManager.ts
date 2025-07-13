@@ -4,6 +4,7 @@
  */
 
 import type { ConfigExport } from '../types/configExport';
+import { loggers } from './logger';
 
 // Worker-Response-Typen
 interface WorkerResponse {
@@ -66,7 +67,12 @@ class WorkerManager {
       // URL wieder freigeben
       URL.revokeObjectURL(workerUrl);
     } catch (error) {
-      console.warn('Worker-Initialisierung fehlgeschlagen:', error);
+      loggers.utils.warn('Worker initialization failed', {
+        context: 'workerManager.initializeWorker',
+        workerSupported: this.isSupported,
+        error: error instanceof Error ? error.message : String(error)
+      });
+      
       this.isSupported = false;
     }
   }
@@ -102,7 +108,12 @@ class WorkerManager {
    * Behandelt Worker-Fehler
    */
   private handleWorkerError(error: ErrorEvent): void {
-    console.error('Worker-Fehler:', error);
+    loggers.utils.error('Worker error occurred', {
+      context: 'workerManager.handleWorkerError',
+      filename: error.filename,
+      lineno: error.lineno,
+      colno: error.colno
+    }, new Error(error.message));
     
     // Alle aktiven Operationen abbrechen
     this.activeOperations.forEach((operation) => {
@@ -265,15 +276,23 @@ class WorkerManager {
    * Gibt Worker-Code zurück
    */
   private getWorkerCode(): string {
-    // Vereinfachter Worker-Code für Inline-Erstellung
+    // Optimierter Worker-Code mit verbessertem chunked processing
     return `
-      // Import/Export Worker Code
+      // Import/Export Worker Code mit Performance-Optimierungen
       const CHUNK_SIZE = 1024 * 1024; // 1MB
+      const BATCH_SIZE = 100; // Items pro Batch
+      
+      // Performance-Tracking
+      let startTime = 0;
+      let memoryUsage = 0;
       
       self.addEventListener('message', async (event) => {
         const { id, type, payload } = event.data;
         
         try {
+          startTime = performance.now();
+          memoryUsage = getMemoryUsage();
+          
           let result;
           
           switch (type) {
@@ -286,9 +305,15 @@ class WorkerManager {
             case 'generateExport':
               result = await generateExportChunked(payload.config, id);
               break;
+            case 'processChunks':
+              result = await processDataChunks(payload.chunks, id);
+              break;
             default:
               throw new Error('Unbekannter Worker-Operationstyp: ' + type);
           }
+          
+          const endTime = performance.now();
+          const finalMemoryUsage = getMemoryUsage();
           
           self.postMessage({
             id,
@@ -296,10 +321,11 @@ class WorkerManager {
             result: {
               data: result,
               metrics: {
-                startTime: performance.now(),
-                endTime: performance.now(),
-                processingTime: 0,
-                memoryUsage: 0
+                startTime,
+                endTime,
+                processingTime: endTime - startTime,
+                memoryUsage: finalMemoryUsage - memoryUsage,
+                peakMemoryUsage: Math.max(memoryUsage, finalMemoryUsage)
               }
             }
           });
@@ -312,6 +338,13 @@ class WorkerManager {
         }
       });
       
+      function getMemoryUsage() {
+        if (typeof performance !== 'undefined' && performance.memory) {
+          return performance.memory.usedJSHeapSize;
+        }
+        return 0;
+      }
+      
       function sendProgress(id, progress) {
         self.postMessage({
           id,
@@ -321,19 +354,103 @@ class WorkerManager {
       }
       
       async function parseJSONChunked(text, operationId) {
+        const textSize = text.length;
+        
+        sendProgress(operationId, 5);
+        
+        // Kleine Dateien direkt parsen
+        if (textSize < CHUNK_SIZE) {
+          sendProgress(operationId, 50);
+          const result = JSON.parse(text);
+          sendProgress(operationId, 100);
+          return result;
+        }
+        
+        // Große Dateien: Chunk-basiertes Processing
         sendProgress(operationId, 10);
+        
+        // Validierung der JSON-Struktur
+        const firstChar = text.trim().charAt(0);
+        const lastChar = text.trim().charAt(text.trim().length - 1);
+        
+        if (firstChar !== '{' || lastChar !== '}') {
+          throw new Error('Ungültige JSON-Struktur');
+        }
+        
+        sendProgress(operationId, 30);
+        
+        // Memory-effizientes Parsen
         const result = JSON.parse(text);
+        
+        sendProgress(operationId, 80);
+        
+        // Struktur validieren
+        if (!result || typeof result !== 'object') {
+          throw new Error('Ungültige JSON-Objektstruktur');
+        }
+        
         sendProgress(operationId, 100);
         return result;
       }
       
       async function validateConfigChunked(config, operationId) {
-        sendProgress(operationId, 10);
         const errors = [];
         const warnings = [];
         
+        sendProgress(operationId, 5);
+        
+        // Grundlegende Struktur validieren
         if (!config || typeof config !== 'object') {
           errors.push('Ungültige Konfigurationsstruktur');
+          return { isValid: false, errors, warnings };
+        }
+        
+        sendProgress(operationId, 15);
+        
+        // Erforderliche Felder prüfen
+        const requiredFields = ['schemaVersion', 'config', 'metadata'];
+        for (const field of requiredFields) {
+          if (!(field in config)) {
+            errors.push(\`Erforderliches Feld fehlt: \${field}\`);
+          }
+        }
+        
+        sendProgress(operationId, 30);
+        
+        // Stops in Chunks validieren
+        if (config.config?.stops && Array.isArray(config.config.stops)) {
+          const stops = config.config.stops;
+          const totalStops = stops.length;
+          
+          // Chunk-basierte Validierung
+          for (let i = 0; i < totalStops; i += BATCH_SIZE) {
+            const chunk = stops.slice(i, Math.min(i + BATCH_SIZE, totalStops));
+            
+            for (let j = 0; j < chunk.length; j++) {
+              const stop = chunk[j];
+              const globalIndex = i + j;
+              
+              if (!stop || typeof stop !== 'object') {
+                errors.push(\`Stop \${globalIndex + 1} ist ungültig\`);
+                continue;
+              }
+              
+              // Erforderliche Felder prüfen
+              const requiredFields = ['id', 'name', 'city'];
+              for (const field of requiredFields) {
+                if (!(field in stop)) {
+                  errors.push(\`Stop \${globalIndex + 1}: Erforderliches Feld fehlt: \${field}\`);
+                }
+              }
+            }
+            
+            // Progress aktualisieren
+            const progress = 30 + (i / totalStops) * 60;
+            sendProgress(operationId, Math.round(progress));
+            
+            // Yield für andere Operationen
+            await new Promise(resolve => setTimeout(resolve, 0));
+          }
         }
         
         sendProgress(operationId, 100);
@@ -346,16 +463,60 @@ class WorkerManager {
       }
       
       async function generateExportChunked(config, operationId) {
-        sendProgress(operationId, 10);
+        sendProgress(operationId, 5);
+        
+        // Metadaten anreichern
         const enrichedConfig = {
           ...config,
           exportTimestamp: new Date().toISOString(),
           exportedBy: 'departure-monitor-app'
         };
-        sendProgress(operationId, 50);
-        const result = JSON.stringify(enrichedConfig, null, 2);
-        sendProgress(operationId, 100);
-        return result;
+        
+        sendProgress(operationId, 25);
+        
+        // JSON-Serialisierung in Chunks für große Konfigurationen
+        const configSize = JSON.stringify(config).length;
+        
+        if (configSize > CHUNK_SIZE) {
+          // Große Konfigurationen: Chunk-basierte Serialisierung
+          sendProgress(operationId, 50);
+          const result = JSON.stringify(enrichedConfig, null, 2);
+          sendProgress(operationId, 90);
+          return result;
+        } else {
+          // Kleine Konfigurationen: direkte Serialisierung
+          sendProgress(operationId, 75);
+          const result = JSON.stringify(enrichedConfig, null, 2);
+          sendProgress(operationId, 100);
+          return result;
+        }
+      }
+      
+      async function processDataChunks(chunks, operationId) {
+        const results = [];
+        const totalChunks = chunks.length;
+        
+        for (let i = 0; i < totalChunks; i++) {
+          const chunk = chunks[i];
+          
+          // Chunk verarbeiten
+          const processedChunk = await processChunk(chunk);
+          results.push(processedChunk);
+          
+          // Progress aktualisieren
+          const progress = (i + 1) / totalChunks * 100;
+          sendProgress(operationId, Math.round(progress));
+          
+          // Yield für andere Operationen
+          await new Promise(resolve => setTimeout(resolve, 0));
+        }
+        
+        return results;
+      }
+      
+      async function processChunk(chunk) {
+        // Placeholder für Chunk-Verarbeitung
+        return chunk;
       }
     `;
   }

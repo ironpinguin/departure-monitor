@@ -212,6 +212,324 @@ export const isValidSchemaVersion = (version: string): boolean => {
   return (SCHEMA_VERSIONS.SUPPORTED as readonly string[]).includes(version);
 };
 
+// Comprehensive Type Guard Functions for Runtime Type Safety
+
+/**
+ * Type guard to check if a value is a valid object
+ */
+export function isValidObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+/**
+ * Type guard to check if a value is a valid string
+ */
+export function isValidString(value: unknown): value is string {
+  return typeof value === 'string' && value.length > 0;
+}
+
+/**
+ * Type guard to check if a value is a valid number within range
+ */
+export function isValidNumber(value: unknown, min?: number, max?: number): value is number {
+  if (typeof value !== 'number' || isNaN(value)) {
+    return false;
+  }
+  if (min !== undefined && value < min) {
+    return false;
+  }
+  if (max !== undefined && value > max) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Type guard to check if a value is a valid boolean
+ */
+export function isValidBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}
+
+/**
+ * Type guard to check if a value is a valid array
+ */
+export function isValidArray(value: unknown): value is unknown[] {
+  return Array.isArray(value);
+}
+
+/**
+ * Type guard to check if a value is a valid ISO timestamp
+ */
+export function isValidTimestamp(value: unknown): value is string {
+  if (!isValidString(value)) {
+    return false;
+  }
+  
+  const date = new Date(value);
+  return !isNaN(date.getTime()) && date.toISOString() === value;
+}
+
+/**
+ * Type guard to check if a value is a valid stop configuration
+ */
+export function isValidStopConfig(value: unknown): value is import('../models').StopConfig {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const stop = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['id', 'name', 'city', 'stopId', 'walkingTimeMinutes', 'visible', 'position'];
+  for (const field of requiredFields) {
+    if (!(field in stop)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidString(stop.id)) return false;
+  if (!isValidString(stop.name)) return false;
+  if (!isValidString(stop.city) || !isValidCity(stop.city)) return false;
+  if (!isValidString(stop.stopId)) return false;
+  if (!isValidNumber(stop.walkingTimeMinutes, VALIDATION_RULES.MIN_WALKING_TIME, VALIDATION_RULES.MAX_WALKING_TIME)) return false;
+  if (!isValidBoolean(stop.visible)) return false;
+  if (!isValidNumber(stop.position)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is a valid app configuration
+ */
+export function isValidAppConfig(value: unknown): value is import('../models').AppConfig {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const config = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['stops', 'refreshIntervalSeconds', 'maxDeparturesShown', 'darkMode', 'language'];
+  for (const field of requiredFields) {
+    if (!(field in config)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidArray(config.stops)) return false;
+  if (!config.stops.every(stop => isValidStopConfig(stop))) return false;
+  if (!isValidNumber(config.refreshIntervalSeconds, VALIDATION_RULES.MIN_REFRESH_INTERVAL, VALIDATION_RULES.MAX_REFRESH_INTERVAL)) return false;
+  if (!isValidNumber(config.maxDeparturesShown, 1, VALIDATION_RULES.MAX_DEPARTURES_SHOWN)) return false;
+  if (!isValidBoolean(config.darkMode)) return false;
+  if (!isValidString(config.language) || !isValidLanguage(config.language)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is valid metadata
+ */
+export function isValidMetadata(value: unknown): value is ConfigExport['metadata'] {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const metadata = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['stopCount', 'language', 'source'];
+  for (const field of requiredFields) {
+    if (!(field in metadata)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidNumber(metadata.stopCount, 0)) return false;
+  if (!isValidString(metadata.language)) return false;
+  if (!isValidString(metadata.source)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is valid export settings
+ */
+export function isValidExportSettings(value: unknown): value is ConfigExport['exportSettings'] {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const settings = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['includeUserSettings', 'includeStopPositions', 'includeVisibilitySettings'];
+  for (const field of requiredFields) {
+    if (!(field in settings)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidBoolean(settings.includeUserSettings)) return false;
+  if (!isValidBoolean(settings.includeStopPositions)) return false;
+  if (!isValidBoolean(settings.includeVisibilitySettings)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is a valid config export
+ */
+export function isValidConfigExport(value: unknown): value is ConfigExport {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const config = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['schemaVersion', 'exportTimestamp', 'exportedBy', 'metadata', 'config', 'exportSettings'];
+  for (const field of requiredFields) {
+    if (!(field in config)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidString(config.schemaVersion) || !isValidSchemaVersion(config.schemaVersion)) return false;
+  if (!isValidTimestamp(config.exportTimestamp)) return false;
+  if (!isValidString(config.exportedBy)) return false;
+  if (!isValidMetadata(config.metadata)) return false;
+  if (!isValidAppConfig(config.config)) return false;
+  if (!isValidExportSettings(config.exportSettings)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is a partial config export (for imports)
+ */
+export function isPartialConfigExport(value: unknown): value is Partial<ConfigExport> {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const config = value as Record<string, unknown>;
+  
+  // At least schemaVersion should be present
+  if (!('schemaVersion' in config)) {
+    return false;
+  }
+  
+  // Optional validation for present fields
+  if ('schemaVersion' in config && !isValidString(config.schemaVersion)) return false;
+  if ('exportTimestamp' in config && !isValidTimestamp(config.exportTimestamp)) return false;
+  if ('exportedBy' in config && !isValidString(config.exportedBy)) return false;
+  if ('metadata' in config && !isValidMetadata(config.metadata)) return false;
+  if ('config' in config && !isValidAppConfig(config.config)) return false;
+  if ('exportSettings' in config && !isValidExportSettings(config.exportSettings)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is a valid validation result
+ */
+export function isValidValidationResult(value: unknown): value is ValidationResult {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const result = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['isValid', 'errors', 'warnings', 'schemaVersion', 'isCompatible'];
+  for (const field of requiredFields) {
+    if (!(field in result)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidBoolean(result.isValid)) return false;
+  if (!isValidArray(result.errors)) return false;
+  if (!isValidArray(result.warnings)) return false;
+  if (!isValidString(result.schemaVersion)) return false;
+  if (!isValidBoolean(result.isCompatible)) return false;
+  
+  return true;
+}
+
+/**
+ * Type guard to check if a value is a valid import result
+ */
+export function isValidImportResult(value: unknown): value is ImportResult {
+  if (!isValidObject(value)) {
+    return false;
+  }
+  
+  const result = value as Record<string, unknown>;
+  
+  // Check required fields
+  const requiredFields = ['success', 'importedConfig', 'importedStopsCount', 'validation', 'messages'];
+  for (const field of requiredFields) {
+    if (!(field in result)) {
+      return false;
+    }
+  }
+  
+  // Type validation
+  if (!isValidBoolean(result.success)) return false;
+  if (result.importedConfig !== null && !isValidAppConfig(result.importedConfig)) return false;
+  if (!isValidNumber(result.importedStopsCount, 0)) return false;
+  if (!isValidValidationResult(result.validation)) return false;
+  if (!isValidArray(result.messages)) return false;
+  
+  return true;
+}
+
+/**
+ * Safe JSON parser with type checking
+ */
+export function safeJSONParse<T>(
+  jsonString: string,
+  typeGuard: (value: unknown) => value is T,
+  errorMessage?: string
+): T {
+  try {
+    const parsed = JSON.parse(jsonString);
+    
+    if (!typeGuard(parsed)) {
+      throw new Error(errorMessage || 'Parsed JSON does not match expected type');
+    }
+    
+    return parsed;
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      throw new Error(`Invalid JSON syntax: ${error.message}`);
+    }
+    throw error;
+  }
+}
+
+/**
+ * Safe type assertion with runtime checking
+ */
+export function safeTypeAssertion<T>(
+  value: unknown,
+  typeGuard: (value: unknown) => value is T,
+  errorMessage?: string
+): T {
+  if (!typeGuard(value)) {
+    throw new Error(errorMessage || 'Value does not match expected type');
+  }
+  return value;
+}
+
 // Export-Typen für bessere Typsicherheit
 export type ExportFormat = 'json' | 'compressed';
 export type ImportSource = 'file' | 'url' | 'clipboard';

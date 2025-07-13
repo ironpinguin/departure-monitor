@@ -285,11 +285,11 @@ const App: React.FC = () => {
             </Typography>
             
             {/* Settings icon */}
-            <Tooltip title={t('settings')}>
+            <Tooltip title={t('settings.title')}>
               <IconButton
                 color="inherit"
                 onClick={() => setConfigOpen(true)}
-                aria-label={t('settings')}
+                aria-label={t('settings.title')}
                 aria-describedby="settings-help"
               >
                 <SettingsIcon />

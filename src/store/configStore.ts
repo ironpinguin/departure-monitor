@@ -10,6 +10,8 @@ import type {
 } from '../types/configExport';
 import { validateConfigStructure, createImportPreview } from '../utils/configValidation';
 import { createConfigExport, createImportOptions, createValidationContext } from '../utils/configExportUtils';
+import { loggers } from '../utils/logger';
+import { isValidConfigExport, isValidObject } from '../types/configExport';
 
 interface ConfigState extends AppConfig {
   // Bestehende Setter
@@ -84,6 +86,48 @@ export const useConfigStore = create<ConfigState>()(
         const messages: string[] = [];
         
         try {
+          // Enhanced Security: Additional checks before import with proper type guards
+          if (!isValidConfigExport(config)) {
+            return {
+              success: false,
+              importedConfig: null,
+              importedStopsCount: 0,
+              validation: {
+                isValid: false,
+                errors: [{
+                  code: 'INVALID_CONFIG',
+                  message: 'Invalid configuration object - does not match ConfigExport schema',
+                  severity: 'critical' as const
+                }],
+                warnings: [],
+                schemaVersion: isValidObject(config) ? String((config as Record<string, unknown>).schemaVersion) : 'unknown',
+                isCompatible: false
+              },
+              messages: ['import.validation.invalid_config_object']
+            };
+          }
+
+          // Security: Validate stops count doesn't exceed limits
+          if (config.config?.stops && config.config.stops.length > 100) {
+            return {
+              success: false,
+              importedConfig: null,
+              importedStopsCount: 0,
+              validation: {
+                isValid: false,
+                errors: [{
+                  code: 'TOO_MANY_STOPS',
+                  message: 'Configuration contains too many stops (max: 100)',
+                  severity: 'error' as const
+                }],
+                warnings: [],
+                schemaVersion: config.schemaVersion || 'unknown',
+                isCompatible: false
+              },
+              messages: ['import.validation.too_many_stops']
+            };
+          }
+
           // Validierung vor Import
           if (importOptions.validateBeforeImport) {
             const validation = get().validateConfig(config);
@@ -93,7 +137,7 @@ export const useConfigStore = create<ConfigState>()(
                 importedConfig: null,
                 importedStopsCount: 0,
                 validation,
-                messages: ['Import abgebrochen: Validierungsfehler gefunden']
+                messages: ['import.validation.import_cancelled']
               };
             }
           }
@@ -102,7 +146,7 @@ export const useConfigStore = create<ConfigState>()(
           let backup;
           if (importOptions.createBackup) {
             backup = get().createBackup();
-            messages.push('Backup der aktuellen Konfiguration erstellt');
+            messages.push('import.validation.backup_created');
           }
           
           // Merge-Strategie anwenden
@@ -135,10 +179,10 @@ export const useConfigStore = create<ConfigState>()(
           get()._setState(newConfig);
           
           const importedStopsCount = config.config.stops.length;
-          messages.push(`${importedStopsCount} Stops erfolgreich importiert`);
+          messages.push(`import.validation.stops_imported`);
           
           if (importOptions.importGlobalSettings) {
-            messages.push('Globale Einstellungen übernommen');
+            messages.push('import.validation.global_settings_applied');
           }
           
           return {
@@ -152,7 +196,12 @@ export const useConfigStore = create<ConfigState>()(
           
         } catch (error) {
           // Rollback bei Fehler
-          console.error('Import-Fehler:', error);
+          loggers.configStore.error('Import operation failed', {
+            context: 'configStore.importConfig',
+            configSchemaVersion: config.schemaVersion,
+            errorCode: 'IMPORT_ERROR'
+          }, error instanceof Error ? error : new Error(String(error)));
+          
           return {
             success: false,
             importedConfig: null,
@@ -161,14 +210,14 @@ export const useConfigStore = create<ConfigState>()(
               isValid: false,
               errors: [{
                 code: 'IMPORT_ERROR',
-                message: error instanceof Error ? error.message : 'Unbekannter Import-Fehler',
+                message: error instanceof Error ? error.message : 'import.validation.unknown_import_error',
                 severity: 'critical' as const
               }],
               warnings: [],
               schemaVersion: config.schemaVersion,
               isCompatible: false
             },
-            messages: ['Import fehlgeschlagen: ' + (error instanceof Error ? error.message : 'Unbekannter Fehler')]
+            messages: ['import.validation.import_failed']
           };
         }
       },
@@ -244,7 +293,7 @@ export const useConfigStore = create<ConfigState>()(
           get()._setState(backup.config);
           return true;
         } catch (error) {
-          console.error('Restore-Fehler:', error);
+          console.error('import.errors.restore_error:', error);
           return false;
         }
       },

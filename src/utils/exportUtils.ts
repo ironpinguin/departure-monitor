@@ -5,15 +5,18 @@
 
 import type { ConfigExport } from '../types/configExport';
 import { estimateExportSize } from './configExportUtils';
+import { loggers } from './logger';
+import { isValidConfigExport, isValidObject } from '../types/configExport';
 
 /**
  * Browser-Download-Funktionalität für JSON-Dateien
  * Erstellt einen Download-Link und löst den Download automatisch aus
  */
 export function downloadConfigFile(config: ConfigExport, filename?: string): void {
+  // Dateiname generieren falls nicht angegeben
+  const exportFilename = filename || generateExportFilename(config);
+  
   try {
-    // Dateiname generieren falls nicht angegeben
-    const exportFilename = filename || generateExportFilename(config);
     
     // Konfiguration für Download formatieren
     const formattedContent = formatConfigForDownload(config);
@@ -43,7 +46,80 @@ export function downloadConfigFile(config: ConfigExport, filename?: string): voi
       downloadWithFallback(formattedContent, exportFilename);
     }
   } catch (error) {
-    console.error('Download-Fehler:', error);
+    loggers.utils.error('Download operation failed', {
+      context: 'exportUtils.downloadConfigFile',
+      filename: exportFilename,
+      usedFallback: !window.URL?.createObjectURL
+    }, error instanceof Error ? error : new Error(String(error)));
+    
+    throw new Error(`Download fehlgeschlagen: ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`);
+  }
+}
+
+/**
+ * Optimierter Worker-basierter Download mit minimaler DOM-Manipulation
+ */
+export async function downloadConfigFileWithWorker(config: ConfigExport, filename?: string): Promise<void> {
+  const exportFilename = filename || generateExportFilename(config);
+  
+  try {
+    // Worker-Manager laden
+    const workerManagerModule = await import('./workerManager');
+    const workerManager = workerManagerModule.default;
+    
+    // Validierung und Formatierung im Worker
+    const validationResult = await workerManager.validateConfigWithWorker(config);
+    
+    if (!validationResult.data.isValid) {
+      throw new Error(`Export validation failed: ${validationResult.data.errors.join(', ')}`);
+    }
+    
+    // Export-Generierung im Worker
+    const exportResult = await workerManager.generateExportWithWorker(config);
+    const formattedContent = exportResult.data;
+    
+    // Optimierte Download-Implementierung mit minimaler DOM-Manipulation
+    if (supportsDownloadAPI()) {
+      // Blob und URL erstellen
+      const blob = new Blob([formattedContent], {
+        type: 'application/json;charset=utf-8'
+      });
+      const url = URL.createObjectURL(blob);
+      
+      // Moderne Browser: Direkte URL-Verwendung ohne DOM-Manipulation
+      if (navigator.userAgent.includes('Chrome') || navigator.userAgent.includes('Firefox')) {
+        // Verwende die moderne Download-API ohne DOM-Manipulation
+        const downloadLink = Object.assign(document.createElement('a'), {
+          href: url,
+          download: exportFilename,
+          style: 'display: none'
+        });
+        
+        // Einmaliges Hinzufügen/Entfernen (optimiert)
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      } else {
+        // Fallback für andere Browser
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = exportFilename;
+        link.click();
+      }
+      
+      // URL-Objekt sofort freigeben
+      URL.revokeObjectURL(url);
+    } else {
+      // Fallback für ältere Browser
+      downloadWithFallback(formattedContent, exportFilename);
+    }
+  } catch (error) {
+    loggers.utils.error('Worker-based download operation failed', {
+      context: 'exportUtils.downloadConfigFileWithWorker',
+      filename: exportFilename,
+      configVersion: config.schemaVersion
+    }, error instanceof Error ? error : new Error(String(error)));
+    
     throw new Error(`Download fehlgeschlagen: ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`);
   }
 }
@@ -80,32 +156,31 @@ export function formatConfigForDownload(config: ConfigExport): string {
     // JSON mit Pretty-Print formatieren
     return JSON.stringify(enrichedConfig, null, 2);
   } catch (error) {
-    console.error('Formatierungsfehler:', error);
+    loggers.utils.error('Config formatting failed', {
+      context: 'exportUtils.formatConfigForDownload',
+      configVersion: config.schemaVersion
+    }, error instanceof Error ? error : new Error(String(error)));
+    
     throw new Error(`Formatierung fehlgeschlagen: ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`);
   }
 }
 
 /**
- * Validiert Export-Daten vor dem Download
+ * Validiert Export-Daten vor dem Download mit umfassenden Type-Guards
  */
 export function validateExportData(config: ConfigExport): boolean {
   try {
-    // Grundlegende Struktur prüfen
-    if (!config || typeof config !== 'object') {
+    // Umfassende Type-Guard-Validierung
+    if (!isValidConfigExport(config)) {
+      loggers.utils.warn('Invalid config export structure', {
+        context: 'exportUtils.validateExportData',
+        configVersion: isValidObject(config) ? (config as Record<string, unknown>).schemaVersion : 'unknown'
+      });
       return false;
     }
     
-    // Erforderliche Felder prüfen
-    const requiredFields = ['schemaVersion', 'exportTimestamp', 'config', 'metadata'];
-    for (const field of requiredFields) {
-      if (!(field in config)) {
-        console.warn(`Fehlendes Feld: ${field}`);
-        return false;
-      }
-    }
-    
-    // Konfiguration validieren
-    if (!config.config || typeof config.config !== 'object') {
+    // Zusätzliche Validierung für Export-spezifische Anforderungen
+    if (!config.config || !isValidObject(config.config)) {
       return false;
     }
     
@@ -121,7 +196,11 @@ export function validateExportData(config: ConfigExport): boolean {
     
     // Stop-Anzahl konsistenz prüfen
     if (config.metadata.stopCount !== config.config.stops.length) {
-      console.warn('Stop-Anzahl inkonsistent');
+      loggers.utils.warn('Stop count inconsistency detected', {
+        context: 'exportUtils.validateExportData',
+        metadataStopCount: config.metadata.stopCount,
+        actualStopCount: config.config.stops.length
+      });
       return false;
     }
     
@@ -130,7 +209,11 @@ export function validateExportData(config: ConfigExport): boolean {
     
     return true;
   } catch (error) {
-    console.error('Validierungsfehler:', error);
+    loggers.utils.error('Export data validation failed', {
+      context: 'exportUtils.validateExportData',
+      configVersion: config.schemaVersion
+    }, error instanceof Error ? error : new Error(String(error)));
+    
     return false;
   }
 }
@@ -201,7 +284,12 @@ function downloadWithFallback(content: string, filename: string): void {
       );
     }, 1000);
   } catch (error) {
-    console.error('Fallback-Download fehlgeschlagen:', error);
+    loggers.utils.error('Fallback download failed', {
+      context: 'exportUtils.downloadWithFallback',
+      filename,
+      contentLength: content.length
+    }, error instanceof Error ? error : new Error(String(error)));
+    
     throw new Error('Download in diesem Browser nicht unterstützt');
   }
 }
@@ -284,6 +372,7 @@ export function testExportFunctionality(): {
  */
 export const ExportUtils = {
   downloadConfigFile,
+  downloadConfigFileWithWorker,
   generateExportFilename,
   formatConfigForDownload,
   validateExportData,

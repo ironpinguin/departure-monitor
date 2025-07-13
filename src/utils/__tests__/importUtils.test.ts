@@ -557,3 +557,394 @@ describe('importUtils', () => {
     });
   });
 });
+
+  describe('Advanced Corrupt JSON Edge Cases', () => {
+    it('should handle malformed JSON with invalid syntax', async () => {
+      const malformedJsonCases = [
+        '{"test": }',
+        '{"test": "value" "missing": "comma"}',
+        '{"test": [1, 2, 3,]}',
+        '{"test": "unclosed string',
+        '{test: "missing quotes on key"}',
+        '{"test": /* comment */ "value"}',
+        '{"test": 123.45.67}',
+        '{"test": 1e1e1}'
+      ];
+
+      for (const malformedJson of malformedJsonCases) {
+        const file = new File([malformedJson], 'config.json', { 
+          type: 'application/json' 
+        });
+        
+        global.FileReader = class MockFileReader {
+          onload: ((event: { target: { result: string } }) => void) | null = null;
+          onerror: (() => void) | null = null;
+          result: string | null = null;
+          
+          readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+            setTimeout(() => {
+              this.result = malformedJson;
+              this.onload?.({ target: { result: this.result } });
+            }, 0);
+          }
+        } as unknown as typeof FileReader;
+        
+        await expect(readConfigFile(file)).rejects.toThrow();
+      }
+    });
+
+    it('should handle JSON with non-UTF8 characters', async () => {
+      const invalidUtf8Content = '{"test": "\\uD800\\uD800"}'; // Invalid surrogate pair
+      
+      const file = new File([invalidUtf8Content], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = invalidUtf8Content;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle JSON with binary data corruption', async () => {
+      const corruptedBinaryData = '\uFFFD\uFFFE\u0000\u0001{"test": "value"}';
+      
+      const file = new File([corruptedBinaryData], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = corruptedBinaryData;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle JSON with extremely deep nesting', async () => {
+      let deeplyNestedJson = '{"level": ';
+      for (let i = 0; i < 1000; i++) {
+        deeplyNestedJson += '{"nested": ';
+      }
+      deeplyNestedJson += '"value"';
+      for (let i = 0; i < 1000; i++) {
+        deeplyNestedJson += '}';
+      }
+      deeplyNestedJson += '}';
+      
+      const file = new File([deeplyNestedJson], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = deeplyNestedJson;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle JSON with prototype pollution attempts', async () => {
+      const maliciousJson = '{"__proto__": {"isAdmin": true}, "constructor": {"prototype": {"isAdmin": true}}}';
+      
+      const file = new File([maliciousJson], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = maliciousJson;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle truncated JSON files', async () => {
+      const truncatedJson = '{"schemaVersion": "1.0.0", "config": {"stops": [{"id": "test", "name": "'; // Truncated mid-string
+      
+      const file = new File([truncatedJson], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = truncatedJson;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle JSON with mixed encoding issues', async () => {
+      // Simulate a file with mixed encoding that results in invalid characters
+      const mixedEncodingContent = '{"test": "' + String.fromCharCode(0xFFFD) + '"}';
+      
+      const file = new File([mixedEncodingContent], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = mixedEncodingContent;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle JSON with null bytes in strings', async () => {
+      const jsonWithNullBytes = '{"test": "value\\u0000with\\u0000null\\u0000bytes"}';
+      
+      const file = new File([jsonWithNullBytes], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = jsonWithNullBytes;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+
+    it('should handle JSON with control characters', async () => {
+      const jsonWithControlChars = '{"test": "value\u0001\u0002\u0003\u0004"}';
+      
+      const file = new File([jsonWithControlChars], 'config.json', { 
+        type: 'application/json' 
+      });
+      
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.result = jsonWithControlChars;
+            this.onload?.({ target: { result: this.result } });
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+    });
+  });
+
+  describe('Large File and Memory Tests', () => {
+    it('should handle extremely large JSON files', async () => {
+      const largeJsonContent = JSON.stringify({
+        schemaVersion: '1.0.0',
+        config: {
+          stops: Array.from({ length: 10000 }, (_, i) => ({
+            id: `stop-${i}`,
+            name: `Stop ${i}`,
+            city: 'wue',
+            stopId: `WUE${i}`,
+            walkingTimeMinutes: 5,
+            visible: true,
+            position: i
+          })),
+          darkMode: false,
+          refreshIntervalSeconds: 30,
+          maxDeparturesShown: 10,
+          language: 'de'
+        }
+      });
+      
+      const largeFile = new File([largeJsonContent], 'large-config.json', { 
+        type: 'application/json' 
+      });
+      
+      // Mock FileReader to simulate memory exhaustion
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: (() => void) | null = null;
+        result: string | null = null;
+        
+        readAsText(_file: File) { // eslint-disable-line @typescript-eslint/no-unused-vars
+          setTimeout(() => {
+            this.onerror?.();
+          }, 0);
+        }
+      } as unknown as typeof FileReader;
+      
+      await expect(readConfigFile(largeFile)).rejects.toThrow();
+    });
+
+    it('should handle memory exhaustion during file read', async () => {
+      const file = new File(['{}'], 'config.json', {
+        type: 'application/json'
+      });
+      
+      // Use the enhanced FileReader mock with memory error simulation
+      interface MockFileReaderConstructor {
+        shouldSimulateMemoryError: boolean;
+      }
+      
+      (global.FileReader as unknown as MockFileReaderConstructor).shouldSimulateMemoryError = true;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+      
+      // Clean up
+      (global.FileReader as unknown as MockFileReaderConstructor).shouldSimulateMemoryError = false;
+    });
+
+    it('should handle timeout during file read', async () => {
+      const file = new File(['{}'], 'config.json', {
+        type: 'application/json'
+      });
+      
+      // Use the enhanced FileReader mock with timeout simulation
+      interface MockFileReaderConstructor {
+        shouldTimeout: boolean;
+        timeoutDuration: number;
+      }
+      
+      const mockFileReader = global.FileReader as unknown as MockFileReaderConstructor;
+      mockFileReader.shouldTimeout = true;
+      mockFileReader.timeoutDuration = 100;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+      
+      // Clean up
+      mockFileReader.shouldTimeout = false;
+    });
+
+    it('should handle corrupted file content with enhanced mock', async () => {
+      const file = new File(['{}'], 'config.json', {
+        type: 'application/json'
+      });
+      
+      // Use the enhanced FileReader mock with corrupted file simulation
+      interface MockFileReaderConstructor {
+        shouldSimulateCorruptedFile: boolean;
+      }
+      
+      (global.FileReader as unknown as MockFileReaderConstructor).shouldSimulateCorruptedFile = true;
+      
+      await expect(readConfigFile(file)).rejects.toThrow();
+      
+      // Clean up
+      (global.FileReader as unknown as MockFileReaderConstructor).shouldSimulateCorruptedFile = false;
+    });
+
+    it('should handle file read progress events', async () => {
+      const file = new File(['{}'], 'config.json', {
+        type: 'application/json'
+      });
+      
+      const testConfig = JSON.stringify({
+        schemaVersion: '1.0.0',
+        exportTimestamp: '2024-01-01T00:00:00.000Z',
+        exportedBy: 'test-suite',
+        metadata: {
+          stopCount: 0,
+          language: 'de',
+          source: 'test'
+        },
+        config: {
+          stops: [],
+          darkMode: false,
+          refreshIntervalSeconds: 30,
+          maxDeparturesShown: 10,
+          language: 'de'
+        },
+        exportSettings: {
+          includeUserSettings: true,
+          includeStopPositions: true,
+          includeVisibilitySettings: true
+        }
+      });
+      
+      // Mock FileReader to simulate progress events
+      global.FileReader = class MockFileReader {
+        onload: ((event: { target: { result: string } }) => void) | null = null;
+        onerror: ((event: { target: { error: Error } }) => void) | null = null;
+        onprogress: ((event: { loaded: number; total: number }) => void) | null = null;
+        result: string | null = null;
+        error: Error | null = null;
+        readyState: number = 0;
+        
+        readAsText() {
+          this.readyState = 1; // LOADING
+          
+          // Simulate progress events
+          let loaded = 0;
+          const total = file.size;
+          const progressInterval = setInterval(() => {
+            loaded = Math.min(loaded + Math.random() * (total / 2), total);
+            this.onprogress?.({ loaded, total });
+            
+            if (loaded >= total) {
+              clearInterval(progressInterval);
+              this.result = testConfig;
+              this.readyState = 2; // DONE
+              this.onload?.({ target: { result: this.result } });
+            }
+          }, 5);
+        }
+      } as unknown as typeof FileReader;
+      
+      const result = await readConfigFile(file);
+      
+      expect(result.schemaVersion).toBe('1.0.0');
+      expect(result.config.stops).toHaveLength(0);
+    });
+  });

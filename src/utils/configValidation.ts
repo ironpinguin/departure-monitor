@@ -3,26 +3,112 @@
  * Enthält alle Funktionen zur Validierung von Konfigurationen
  */
 
-import type { 
-  ConfigExport, 
-  ValidationResult, 
-  ValidationError, 
-  ValidationWarning, 
+import type {
+  ConfigExport,
+  ValidationResult,
+  ValidationError,
+  ValidationWarning,
   ValidationContext,
   ConfigExportInput,
   ImportConflict,
   ImportPreview
 } from '../types/configExport';
 import type { AppConfig, StopConfig } from '../models';
-import { 
-  SCHEMA_VERSIONS, 
-  VALIDATION_RULES, 
-  ERROR_CODES, 
+import {
+  SCHEMA_VERSIONS,
+  VALIDATION_RULES,
+  ERROR_CODES,
   WARNING_CODES,
   isValidCity,
   isValidLanguage,
-  isValidSchemaVersion
+  isValidSchemaVersion,
+  isPartialConfigExport,
+  safeTypeAssertion
 } from '../types/configExport';
+
+// Security patterns to detect malicious content
+const SECURITY_PATTERNS = {
+  XSS_PATTERNS: [
+    /<script[^>]*>.*?<\/script>/gi,
+    /javascript:/gi,
+    /vbscript:/gi,
+    /data:text\/html/gi,
+    /on\w+\s*=/gi
+  ],
+  INJECTION_PATTERNS: [
+    /eval\s*\(/gi,
+    /Function\s*\(/gi,
+    /constructor/gi,
+    /__proto__/gi,
+    /prototype\.constructor/gi
+  ],
+  SUSPICIOUS_PROTOCOLS: [
+    /file:\/\//gi,
+    /ftp:\/\//gi,
+    /ldap:\/\//gi
+  ]
+};
+
+/**
+ * Enhanced security validation for import data
+ */
+function validateContentSecurity(data: unknown, path = 'root'): ValidationError[] {
+  const errors: ValidationError[] = [];
+  
+  if (typeof data === 'string') {
+    // Check for XSS patterns
+    for (const pattern of SECURITY_PATTERNS.XSS_PATTERNS) {
+      if (pattern.test(data)) {
+        errors.push(createValidationError(
+          ERROR_CODES.INVALID_DATA_TYPE,
+          'import.validation.xss_pattern_detected',
+          path,
+          data.substring(0, 50)
+        ));
+        break;
+      }
+    }
+    
+    // Check for injection patterns
+    for (const pattern of SECURITY_PATTERNS.INJECTION_PATTERNS) {
+      if (pattern.test(data)) {
+        errors.push(createValidationError(
+          ERROR_CODES.INVALID_DATA_TYPE,
+          'import.validation.injection_pattern_detected',
+          path,
+          data.substring(0, 50)
+        ));
+        break;
+      }
+    }
+    
+    // Check for suspicious protocols
+    for (const pattern of SECURITY_PATTERNS.SUSPICIOUS_PROTOCOLS) {
+      if (pattern.test(data)) {
+        errors.push(createValidationError(
+          ERROR_CODES.INVALID_DATA_TYPE,
+          'import.validation.suspicious_protocol_detected',
+          path,
+          data.substring(0, 50)
+        ));
+        break;
+      }
+    }
+  } else if (Array.isArray(data)) {
+    data.forEach((item, index) => {
+      errors.push(...validateContentSecurity(item, `${path}[${index}]`));
+    });
+  } else if (data && typeof data === 'object') {
+    Object.entries(data).forEach(([key, value]) => {
+      // Check key for suspicious patterns
+      errors.push(...validateContentSecurity(key, `${path}.${key}[key]`));
+      // Check value
+      errors.push(...validateContentSecurity(value, `${path}.${key}`));
+    });
+  }
+  
+  return errors;
+}
 
 /**
  * Hauptvalidierungsfunktion für exportierte Konfigurationen
@@ -38,7 +124,7 @@ export function validateConfigStructure(
   if (!isValidObject(input)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_SCHEMA,
-      'Die Eingabe ist kein gültiges Objekt',
+      'import.validation.invalid_object',
       'root'
     ));
     return {
@@ -50,7 +136,36 @@ export function validateConfigStructure(
     };
   }
 
-  const configExport = input as Partial<ConfigExport>;
+  if (!isPartialConfigExport(input)) {
+    errors.push(createValidationError(
+      ERROR_CODES.INVALID_SCHEMA,
+      'import.validation.invalid_config_export_format',
+      'root'
+    ));
+    return {
+      isValid: false,
+      errors,
+      warnings,
+      schemaVersion: 'unknown',
+      isCompatible: false
+    };
+  }
+
+  const configExport = input;
+
+  // Enhanced Security: Content validation
+  const securityErrors = validateContentSecurity(configExport);
+  if (securityErrors.length > 0) {
+    errors.push(...securityErrors);
+    // Early return for security violations
+    return {
+      isValid: false,
+      errors,
+      warnings,
+      schemaVersion: configExport.schemaVersion || 'unknown',
+      isCompatible: false
+    };
+  }
 
   // Schema-Version validieren
   const schemaValidation = validateSchemaVersion(configExport.schemaVersion);
@@ -67,7 +182,7 @@ export function validateConfigStructure(
   } else {
     errors.push(createValidationError(
       ERROR_CODES.MISSING_REQUIRED_FIELD,
-      'Konfiguration fehlt',
+      'import.validation.config_missing',
       'config'
     ));
   }
@@ -106,13 +221,17 @@ export function validateStopConfig(
   if (!isValidObject(stopConfig)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_STOP_CONFIG,
-      'Stop-Konfiguration ist kein gültiges Objekt',
+      'import.validation.invalid_stop_config',
       'stopConfig'
     ));
     return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
   }
 
-  const stop = stopConfig as Partial<StopConfig>;
+  const stop = safeTypeAssertion(
+    stopConfig,
+    (value): value is Partial<StopConfig> => isValidObject(value),
+    'Invalid stop configuration object'
+  );
 
   // Erforderliche Felder validieren
   const requiredFields = ['id', 'name', 'city', 'stopId', 'walkingTimeMinutes', 'visible', 'position'];
@@ -120,7 +239,7 @@ export function validateStopConfig(
     if (!(field in stop) || stop[field as keyof StopConfig] === undefined) {
       errors.push(createValidationError(
         ERROR_CODES.MISSING_REQUIRED_FIELD,
-        `Erforderliches Feld '${field}' fehlt`,
+        'import.validation.required_field_missing',
         `stopConfig.${field}`
       ));
     }
@@ -130,7 +249,7 @@ export function validateStopConfig(
   if (stop.id !== undefined && typeof stop.id !== 'string') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Stop-ID muss ein String sein',
+      'import.validation.stop_id_must_be_string',
       'stopConfig.id',
       stop.id,
       'string'
@@ -140,7 +259,7 @@ export function validateStopConfig(
   if (stop.name !== undefined && typeof stop.name !== 'string') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Stop-Name muss ein String sein',
+      'import.validation.stop_name_must_be_string',
       'stopConfig.name',
       stop.name,
       'string'
@@ -150,7 +269,7 @@ export function validateStopConfig(
   if (stop.city !== undefined && !isValidCity(stop.city)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'City muss "wue" oder "muc" sein',
+      'import.validation.city_must_be_valid',
       'stopConfig.city',
       stop.city,
       'wue | muc'
@@ -160,7 +279,7 @@ export function validateStopConfig(
   if (stop.stopId !== undefined && typeof stop.stopId !== 'string') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Stop-ID muss ein String sein',
+      'import.validation.stop_id_must_be_string',
       'stopConfig.stopId',
       stop.stopId,
       'string'
@@ -168,12 +287,12 @@ export function validateStopConfig(
   }
 
   if (stop.walkingTimeMinutes !== undefined) {
-    if (typeof stop.walkingTimeMinutes !== 'number' || 
-        stop.walkingTimeMinutes < VALIDATION_RULES.MIN_WALKING_TIME || 
+    if (typeof stop.walkingTimeMinutes !== 'number' ||
+        stop.walkingTimeMinutes < VALIDATION_RULES.MIN_WALKING_TIME ||
         stop.walkingTimeMinutes > VALIDATION_RULES.MAX_WALKING_TIME) {
       errors.push(createValidationError(
         ERROR_CODES.VALUE_OUT_OF_RANGE,
-        `Gehzeit muss zwischen ${VALIDATION_RULES.MIN_WALKING_TIME} und ${VALIDATION_RULES.MAX_WALKING_TIME} Minuten liegen`,
+        'import.validation.walking_time_out_of_range',
         'stopConfig.walkingTimeMinutes',
         stop.walkingTimeMinutes,
         `${VALIDATION_RULES.MIN_WALKING_TIME}-${VALIDATION_RULES.MAX_WALKING_TIME}`
@@ -184,7 +303,7 @@ export function validateStopConfig(
   if (stop.visible !== undefined && typeof stop.visible !== 'boolean') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Visible muss ein Boolean sein',
+      'import.validation.visible_must_be_boolean',
       'stopConfig.visible',
       stop.visible,
       'boolean'
@@ -194,7 +313,7 @@ export function validateStopConfig(
   if (stop.position !== undefined && typeof stop.position !== 'number') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Position muss eine Zahl sein',
+      'import.validation.position_must_be_number',
       'stopConfig.position',
       stop.position,
       'number'
@@ -205,10 +324,10 @@ export function validateStopConfig(
   if (stop.walkingTimeMinutes !== undefined && stop.walkingTimeMinutes > 30) {
     warnings.push(createValidationWarning(
       WARNING_CODES.UNUSUAL_CONFIGURATION,
-      'Gehzeit über 30 Minuten ist ungewöhnlich',
+      'import.validation.walking_time_unusual',
       'stopConfig.walkingTimeMinutes',
       stop.walkingTimeMinutes,
-      'Überprüfen Sie die Gehzeit'
+      'import.validation.check_walking_time'
     ));
   }
 
@@ -234,13 +353,17 @@ export function validateSettingsConfig(
   if (!isValidObject(settings)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_SETTINGS,
-      'Einstellungen sind kein gültiges Objekt',
+      'import.validation.settings_invalid_object',
       'settings'
     ));
     return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
   }
 
-  const config = settings as Partial<AppConfig>;
+  const config = safeTypeAssertion(
+    settings,
+    (value): value is Partial<AppConfig> => isValidObject(value),
+    'Invalid settings configuration object'
+  );
 
   // Refresh-Intervall validieren
   if (config.refreshIntervalSeconds !== undefined) {
@@ -249,7 +372,7 @@ export function validateSettingsConfig(
         config.refreshIntervalSeconds > VALIDATION_RULES.MAX_REFRESH_INTERVAL) {
       errors.push(createValidationError(
         ERROR_CODES.VALUE_OUT_OF_RANGE,
-        `Refresh-Intervall muss zwischen ${VALIDATION_RULES.MIN_REFRESH_INTERVAL} und ${VALIDATION_RULES.MAX_REFRESH_INTERVAL} Sekunden liegen`,
+        'import.validation.refresh_interval_out_of_range',
         'settings.refreshIntervalSeconds',
         config.refreshIntervalSeconds,
         `${VALIDATION_RULES.MIN_REFRESH_INTERVAL}-${VALIDATION_RULES.MAX_REFRESH_INTERVAL}`
@@ -264,7 +387,7 @@ export function validateSettingsConfig(
         config.maxDeparturesShown > VALIDATION_RULES.MAX_DEPARTURES_SHOWN) {
       errors.push(createValidationError(
         ERROR_CODES.VALUE_OUT_OF_RANGE,
-        `Maximale Abfahrten muss zwischen 1 und ${VALIDATION_RULES.MAX_DEPARTURES_SHOWN} liegen`,
+        'import.validation.max_departures_out_of_range',
         'settings.maxDeparturesShown',
         config.maxDeparturesShown,
         `1-${VALIDATION_RULES.MAX_DEPARTURES_SHOWN}`
@@ -276,7 +399,7 @@ export function validateSettingsConfig(
   if (config.language !== undefined && !isValidLanguage(config.language)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Ungültige Sprache',
+      'import.validation.invalid_language',
       'settings.language',
       config.language,
       VALIDATION_RULES.SUPPORTED_LANGUAGES.join(' | ')
@@ -287,7 +410,7 @@ export function validateSettingsConfig(
   if (config.darkMode !== undefined && typeof config.darkMode !== 'boolean') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
-      'Dark Mode muss ein Boolean sein',
+      'import.validation.dark_mode_must_be_boolean',
       'settings.darkMode',
       config.darkMode,
       'boolean'
@@ -298,20 +421,20 @@ export function validateSettingsConfig(
   if (config.refreshIntervalSeconds !== undefined && config.refreshIntervalSeconds < 30) {
     warnings.push(createValidationWarning(
       WARNING_CODES.PERFORMANCE_IMPACT,
-      'Kurze Refresh-Intervalle können die Performance beeinträchtigen',
+      'import.validation.short_refresh_interval_warning',
       'settings.refreshIntervalSeconds',
       config.refreshIntervalSeconds,
-      'Verwenden Sie mindestens 30 Sekunden'
+      'import.validation.use_minimum_seconds'
     ));
   }
 
   if (config.maxDeparturesShown !== undefined && config.maxDeparturesShown > 20) {
     warnings.push(createValidationWarning(
       WARNING_CODES.PERFORMANCE_IMPACT,
-      'Viele Abfahrten können die Performance beeinträchtigen',
+      'import.validation.many_departures_warning',
       'settings.maxDeparturesShown',
       config.maxDeparturesShown,
-      'Verwenden Sie maximal 20 Abfahrten'
+      'import.validation.use_maximum_departures'
     ));
   }
 
@@ -353,9 +476,9 @@ export function createImportPreview(
     if (existingStop && existingStop.position !== stop.position) {
       conflicts.push({
         type: 'position_conflict',
-        description: `Stop "${stop.name}" hat eine andere Position`,
+        description: 'import.validation.stop_position_conflict',
         stopId: stop.id,
-        suggestedResolution: 'Position der importierten Konfiguration verwenden',
+        suggestedResolution: 'import.validation.use_imported_position',
         severity: 'low'
       });
     }
@@ -406,20 +529,24 @@ function validateAppConfig(
   if (!isValidObject(config)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_SCHEMA,
-      'App-Konfiguration ist kein gültiges Objekt',
+      'import.validation.app_config_invalid_object',
       'config'
     ));
     return { errors, warnings };
   }
 
-  const appConfig = config as Partial<AppConfig>;
+  const appConfig = safeTypeAssertion(
+    config,
+    (value): value is Partial<AppConfig> => isValidObject(value),
+    'Invalid app configuration object'
+  );
 
   // Stops validieren
   if (appConfig.stops) {
     if (!Array.isArray(appConfig.stops)) {
       errors.push(createValidationError(
         ERROR_CODES.INVALID_DATA_TYPE,
-        'Stops muss ein Array sein',
+        'import.validation.stops_must_be_array',
         'config.stops',
         appConfig.stops,
         'Array'
@@ -428,7 +555,7 @@ function validateAppConfig(
       if (appConfig.stops.length > VALIDATION_RULES.MAX_STOPS) {
         errors.push(createValidationError(
           ERROR_CODES.VALUE_OUT_OF_RANGE,
-          `Zu viele Stops (max. ${VALIDATION_RULES.MAX_STOPS})`,
+          'import.validation.too_many_stops',
           'config.stops',
           appConfig.stops.length,
           `max. ${VALIDATION_RULES.MAX_STOPS}`
@@ -444,7 +571,7 @@ function validateAppConfig(
             if (stopIds.has(stopId)) {
               errors.push(createValidationError(
                 ERROR_CODES.DUPLICATE_STOP,
-                `Doppelte Stop-ID: ${stopId}`,
+                'import.validation.duplicate_stop_id',
                 `config.stops[${index}].id`,
                 stopId
               ));
@@ -488,7 +615,7 @@ function validateSchemaVersion(
   if (typeof version !== 'string') {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_SCHEMA,
-      'Schema-Version muss ein String sein',
+      'import.validation.schema_version_must_be_string',
       'schemaVersion',
       version,
       'string'
@@ -499,7 +626,7 @@ function validateSchemaVersion(
   if (!isValidSchemaVersion(version)) {
     errors.push(createValidationError(
       ERROR_CODES.UNSUPPORTED_VERSION,
-      `Nicht unterstützte Schema-Version: ${version}`,
+      'import.validation.unsupported_schema_version',
       'schemaVersion',
       version,
       SCHEMA_VERSIONS.SUPPORTED.join(' | ')
@@ -512,10 +639,10 @@ function validateSchemaVersion(
   if (!isCompatible) {
     warnings.push(createValidationWarning(
       WARNING_CODES.COMPATIBILITY_ISSUE,
-      `Schema-Version ${version} ist nicht die aktuelle Version ${SCHEMA_VERSIONS.CURRENT}`,
+      'import.validation.schema_version_outdated',
       'schemaVersion',
       version,
-      'Aktualisieren Sie die Konfiguration'
+      'import.validation.update_configuration'
     ));
   }
 
@@ -534,7 +661,7 @@ function validateMetadata(
   if (!isValidObject(metadata)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_SCHEMA,
-      'Metadaten sind kein gültiges Objekt',
+      'import.validation.metadata_invalid_object',
       'metadata'
     ));
     return { errors, warnings };
@@ -557,10 +684,10 @@ function validateExportSettings(
   if (!isValidObject(exportSettings)) {
     warnings.push(createValidationWarning(
       WARNING_CODES.DEPRECATED_FIELD,
-      'Export-Einstellungen fehlen oder sind ungültig',
+      'import.validation.export_settings_missing',
       'exportSettings',
       exportSettings,
-      'Verwenden Sie Standard-Export-Einstellungen'
+      'import.validation.use_default_export_settings'
     ));
   }
 
@@ -634,10 +761,10 @@ export function validateSchemaCompatibility(
   if (!isCompatible && migrationRequired) {
     warnings.push(createValidationWarning(
       WARNING_CODES.COMPATIBILITY_ISSUE,
-      `Schema-Migration von ${sourceVersion} zu ${targetVersion} erforderlich`,
+      'import.validation.schema_migration_required',
       'schemaVersion',
       sourceVersion,
-      'Führen Sie eine Schema-Migration durch'
+      'import.validation.perform_schema_migration'
     ));
   }
 
