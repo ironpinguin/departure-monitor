@@ -1,0 +1,1 @@
+Benutze immer pnpm anstelle von npm

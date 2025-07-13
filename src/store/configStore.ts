@@ -293,7 +293,11 @@ export const useConfigStore = create<ConfigState>()(
           get()._setState(backup.config);
           return true;
         } catch (error) {
-          console.error('import.errors.restore_error:', error);
+          loggers.configStore.error('Backup restore operation failed', {
+            context: 'configStore.restoreFromBackup',
+            backupTimestamp: backup.timestamp,
+            errorCode: 'RESTORE_ERROR'
+          }, error instanceof Error ? error : new Error(String(error)));
           return false;
         }
       },
