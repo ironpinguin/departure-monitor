@@ -172,21 +172,23 @@ export function prepareConfigForExport(
     validateBeforeExport = true
   } = options;
 
-  // Unsichtbare Stops ausschließen
+  // Unsichtbare Stops ausschließen - mit Null-Checks
   if (excludeInvisibleStops) {
-    const visibleStops = processedConfig.stops.filter(stop => stop.visible);
-    if (visibleStops.length !== processedConfig.stops.length) {
+    const visibleStops = (processedConfig.stops || [])
+      .filter(stop => stop != null && stop.visible);
+    if (visibleStops.length !== (processedConfig.stops || []).length) {
       warnings.push(i18n.t('import.utils.invisible_stops_excluded', {
-        count: processedConfig.stops.length - visibleStops.length
+        count: (processedConfig.stops || []).length - visibleStops.length
       }));
       processedConfig = { ...processedConfig, stops: visibleStops };
     }
   }
 
-  // Positionen normalisieren
+  // Positionen normalisieren - mit Null-Checks
   if (normalizePositions) {
-    const normalizedStops = processedConfig.stops
-      .sort((a, b) => a.position - b.position)
+    const normalizedStops = (processedConfig.stops || [])
+      .filter(stop => stop != null) // Null-stops ausfiltern
+      .sort((a, b) => (a.position || 0) - (b.position || 0)) // Null-safe position comparison
       .map((stop, index) => ({
         ...stop,
         position: index

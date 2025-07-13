@@ -565,25 +565,43 @@ function validateConfigStructure(config: ConfigExport): void {
  * Normalisiert Import-Daten
  */
 function normalizeImportData(config: ConfigExport): ConfigExport {
+  // Null-safe access für config
+  if (!config || typeof config !== 'object') {
+    throw new Error('Invalid config object provided to normalizeImportData');
+  }
+
+  // Null-safe access für config.config
+  if (!config.config || typeof config.config !== 'object') {
+    throw new Error('Invalid config.config object in normalizeImportData');
+  }
+
+  // Null-safe access für stops array
+  const stops = Array.isArray(config.config.stops) ? config.config.stops : [];
+  
+  // Null-safe access für metadata
+  const metadata = config.metadata || {};
+
   return {
     ...config,
     // Zeitstempel aktualisieren
     exportTimestamp: config.exportTimestamp || new Date().toISOString(),
     // Metadaten sicherstellen
     metadata: {
-      ...config.metadata,
-      stopCount: config.config.stops.length,
-      language: config.config.language || 'en',
-      source: config.metadata.source || 'unknown'
+      ...metadata,
+      stopCount: stops.length,
+      language: config.config?.language || 'en',
+      source: metadata.source || 'unknown'
     },
     // Stops normalisieren
     config: {
       ...config.config,
-      stops: config.config.stops.map((stop, index) => ({
-        ...stop,
-        position: stop.position ?? index,
-        visible: stop.visible ?? true
-      }))
+      stops: stops
+        .filter(stop => stop != null) // Null/undefined stops filtern
+        .map((stop, index) => ({
+          ...stop,
+          position: stop?.position ?? index,
+          visible: stop?.visible ?? true
+        }))
     }
   };
 }

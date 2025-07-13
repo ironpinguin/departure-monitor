@@ -481,17 +481,28 @@ export function createImportPreview(
     settingsChanged: 0
   };
 
-  // Stops analysieren
-  const existingStopIds = new Set(currentConfig.stops.map(s => s.id));
-  const newStops = configExport.config.stops.filter(s => !existingStopIds.has(s.id));
-  const updatedStops = configExport.config.stops.filter(s => existingStopIds.has(s.id));
+  // Stops analysieren - mit Null-Safe-Operationen
+  const currentStops = Array.isArray(currentConfig?.stops) ? currentConfig.stops : [];
+  const importedStops = Array.isArray(configExport?.config?.stops) ? configExport.config.stops : [];
+  
+  // Null-safe ID-Mapping
+  const existingStopIds = new Set(
+    currentStops
+      .filter(s => s?.id != null) // Null/undefined IDs ausfiltern
+      .map(s => s.id)
+  );
+  
+  const newStops = importedStops.filter(s => s?.id != null && !existingStopIds.has(s.id));
+  const updatedStops = importedStops.filter(s => s?.id != null && existingStopIds.has(s.id));
 
   estimatedChanges.stopsAdded = newStops.length;
   estimatedChanges.stopsUpdated = updatedStops.length;
 
-  // Konflikte identifizieren
+  // Konflikte identifizieren - mit Null-Checks
   updatedStops.forEach(stop => {
-    const existingStop = currentConfig.stops.find(s => s.id === stop.id);
+    if (!stop?.id) return; // Skip stops without valid ID
+    
+    const existingStop = currentStops.find(s => s?.id === stop.id);
     if (existingStop && existingStop.position !== stop.position) {
       conflicts.push({
         type: 'position_conflict',
@@ -591,8 +602,9 @@ function validateAppConfig(
       if (context.options.checkDuplicates) {
         const stopIds = new Set<string>();
         appConfig.stops.forEach((stop, index) => {
-          if (typeof stop === 'object' && stop !== null && 'id' in stop) {
-            const stopId = (stop as { id: string }).id;
+          // Null-safe check für stop und stop.id
+          if (typeof stop === 'object' && stop !== null && 'id' in stop && stop.id != null) {
+            const stopId = String(stop.id); // Sicherstellen, dass es ein String ist
             if (stopIds.has(stopId)) {
               errors.push(createValidationError(
                 ERROR_CODES.DUPLICATE_STOP,
@@ -608,6 +620,17 @@ function validateAppConfig(
 
       // Einzelne Stops validieren
       appConfig.stops.forEach((stop, index) => {
+        // Null-safe check für stop
+        if (stop == null) {
+          errors.push(createValidationError(
+            ERROR_CODES.INVALID_STOP_CONFIG,
+            'import.validation.null_stop_found',
+            `config.stops[${index}]`,
+            stop
+          ));
+          return;
+        }
+        
         const stopValidation = validateStopConfig(stop, context);
         stopValidation.errors.forEach(error => {
           errors.push({

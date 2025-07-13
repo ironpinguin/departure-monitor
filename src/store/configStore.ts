@@ -245,18 +245,43 @@ export const useConfigStore = create<ConfigState>()(
       
       // Merge-Logik für Stops
       mergeStops: (existingStops: StopConfig[], importedStops: StopConfig[], strategy: 'replace' | 'merge' = 'merge'): StopConfig[] => {
+        // Null/undefined checks für Input-Parameter
+        if (!Array.isArray(existingStops)) {
+          loggers.configStore.warn('mergeStops: existingStops is not an array', { existingStops });
+          existingStops = [];
+        }
+        
+        if (!Array.isArray(importedStops)) {
+          loggers.configStore.warn('mergeStops: importedStops is not an array', { importedStops });
+          return existingStops;
+        }
+
         if (strategy === 'replace') {
-          return importedStops.map((stop, index) => ({
-            ...stop,
-            position: index
-          }));
+          return importedStops
+            .filter(stop => stop != null) // Null-safe filtering
+            .map((stop, index) => ({
+              ...stop,
+              position: index
+            }));
         }
         
         // Merge-Strategie: Intelligente Zusammenführung
         const merged = [...existingStops];
         
         importedStops.forEach(importedStop => {
-          const existingIndex = merged.findIndex(s => s.id === importedStop.id);
+          // Kritische Null-Checks für importedStop
+          if (!importedStop || typeof importedStop !== 'object') {
+            loggers.configStore.warn('mergeStops: Invalid importedStop detected', { importedStop });
+            return; // Skip invalid stops
+          }
+          
+          // Null-safe ID-Vergleich
+          if (!importedStop.id) {
+            loggers.configStore.warn('mergeStops: importedStop missing ID', { importedStop });
+            return; // Skip stops without ID
+          }
+          
+          const existingIndex = merged.findIndex(s => s?.id === importedStop.id);
           
           if (existingIndex >= 0) {
             // Stop existiert bereits - Update mit importierten Daten
@@ -264,7 +289,7 @@ export const useConfigStore = create<ConfigState>()(
               ...merged[existingIndex],
               ...importedStop,
               // Position beibehalten es sei denn explizit überschrieben
-              position: merged[existingIndex].position
+              position: merged[existingIndex]?.position ?? merged.length
             };
           } else {
             // Neuer Stop - am Ende hinzufügen
