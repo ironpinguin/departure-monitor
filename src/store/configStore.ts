@@ -35,6 +35,15 @@ interface ConfigState extends AppConfig {
   // Interne Hilfsfunktionen
   _getState: () => AppConfig;
   _setState: (config: AppConfig) => void;
+  
+  // Extracted import helper functions for reduced complexity
+  _validateImportPreConditions: (config: ConfigExport, importOptions: ImportOptions) => ImportResult | null;
+  _createBackupIfRequested: (importOptions: ImportOptions) => { timestamp: string; config: AppConfig } | undefined;
+  _processMergeStrategy: (currentState: AppConfig, config: ConfigExport, importOptions: ImportOptions) => StopConfig[];
+  _buildNewConfiguration: (currentState: AppConfig, config: ConfigExport, mergedStops: StopConfig[], importOptions: ImportOptions) => AppConfig;
+  _buildSuccessResult: (config: ConfigExport, newConfig: AppConfig, backup: { timestamp: string; config: AppConfig } | undefined, importOptions: ImportOptions) => ImportResult;
+  _handleImportError: (error: unknown, config: ConfigExport) => ImportResult;
+  _createValidationErrorResult: (code: string, message: string, config: ConfigExport) => ImportResult;
 }
 
 // Load initial state from localStorage if available
@@ -79,147 +88,183 @@ export const useConfigStore = create<ConfigState>()(
         });
       },
       
-      // Import-Funktionalität
+      // Import-Funktionalität - Refactored for reduced complexity
       importConfig: async (config: ConfigExport, options: Partial<ImportOptions> = {}): Promise<ImportResult> => {
         const importOptions = createImportOptions(options);
         const currentState = get()._getState();
-        const messages: string[] = [];
+        
+        // Early validation - extract complex validation logic
+        const validationResult = get()._validateImportPreConditions(config, importOptions);
+        if (validationResult) {
+          return validationResult;
+        }
         
         try {
-          // Enhanced Security: Additional checks before import with proper type guards
-          if (!isValidConfigExport(config)) {
-            return {
-              success: false,
-              importedConfig: null,
-              importedStopsCount: 0,
-              validation: {
-                isValid: false,
-                errors: [{
-                  code: 'INVALID_CONFIG',
-                  message: 'Invalid configuration object - does not match ConfigExport schema',
-                  severity: 'critical' as const
-                }],
-                warnings: [],
-                schemaVersion: isValidObject(config) ? String((config as Record<string, unknown>).schemaVersion) : 'unknown',
-                isCompatible: false
-              },
-              messages: ['import.validation.invalid_config_object']
-            };
-          }
-
-          // Security: Validate stops count doesn't exceed limits
-          if (config.config?.stops && config.config.stops.length > 100) {
-            return {
-              success: false,
-              importedConfig: null,
-              importedStopsCount: 0,
-              validation: {
-                isValid: false,
-                errors: [{
-                  code: 'TOO_MANY_STOPS',
-                  message: 'Configuration contains too many stops (max: 100)',
-                  severity: 'error' as const
-                }],
-                warnings: [],
-                schemaVersion: config.schemaVersion || 'unknown',
-                isCompatible: false
-              },
-              messages: ['import.validation.too_many_stops']
-            };
-          }
-
-          // Validierung vor Import
-          if (importOptions.validateBeforeImport) {
-            const validation = get().validateConfig(config);
-            if (!validation.isValid) {
-              return {
-                success: false,
-                importedConfig: null,
-                importedStopsCount: 0,
-                validation,
-                messages: ['import.validation.import_cancelled']
-              };
-            }
-          }
+          // Process import with extracted helper functions
+          const backup = get()._createBackupIfRequested(importOptions);
+          const mergedStops = get()._processMergeStrategy(currentState, config, importOptions);
+          const newConfig = get()._buildNewConfiguration(currentState, config, mergedStops, importOptions);
           
-          // Backup erstellen
-          let backup;
-          if (importOptions.createBackup) {
-            backup = get().createBackup();
-            messages.push('import.validation.backup_created');
-          }
-          
-          // Merge-Strategie anwenden
-          const mergedStops = get().mergeStops(
-            currentState.stops,
-            config.config.stops,
-            importOptions.overwriteExisting ? 'replace' : 'merge'
-          );
-          
-          // Neue Konfiguration zusammenstellen
-          const newConfig: AppConfig = {
-            stops: importOptions.importOnlyVisible
-              ? mergedStops.filter(stop => stop.visible)
-              : mergedStops,
-            darkMode: importOptions.importGlobalSettings ? config.config.darkMode : currentState.darkMode,
-            refreshIntervalSeconds: importOptions.importGlobalSettings ? config.config.refreshIntervalSeconds : currentState.refreshIntervalSeconds,
-            maxDeparturesShown: importOptions.importGlobalSettings ? config.config.maxDeparturesShown : currentState.maxDeparturesShown,
-            language: importOptions.importGlobalSettings ? config.config.language : currentState.language,
-          };
-          
-          // Stop-Positionen beibehalten wenn gewünscht
-          if (importOptions.preserveStopPositions) {
-            newConfig.stops = newConfig.stops.map((stop, index) => ({
-              ...stop,
-              position: index
-            }));
-          }
-          
-          // Konfiguration anwenden
+          // Apply configuration
           get()._setState(newConfig);
           
-          const importedStopsCount = config.config.stops.length;
-          messages.push(`import.validation.stops_imported`);
-          
-          if (importOptions.importGlobalSettings) {
-            messages.push('import.validation.global_settings_applied');
-          }
-          
-          return {
-            success: true,
-            importedConfig: newConfig,
-            importedStopsCount,
-            validation: get().validateConfig(config),
-            backup,
-            messages
-          };
+          // Build success result
+          return get()._buildSuccessResult(config, newConfig, backup, importOptions);
           
         } catch (error) {
-          // Rollback bei Fehler
-          loggers.configStore.error('Import operation failed', {
-            context: 'configStore.importConfig',
-            configSchemaVersion: config.schemaVersion,
-            errorCode: 'IMPORT_ERROR'
-          }, error instanceof Error ? error : new Error(String(error)));
-          
-          return {
-            success: false,
-            importedConfig: null,
-            importedStopsCount: 0,
-            validation: {
-              isValid: false,
-              errors: [{
-                code: 'IMPORT_ERROR',
-                message: error instanceof Error ? error.message : 'import.validation.unknown_import_error',
-                severity: 'critical' as const
-              }],
-              warnings: [],
-              schemaVersion: config.schemaVersion,
-              isCompatible: false
-            },
-            messages: ['import.validation.import_failed']
-          };
+          return get()._handleImportError(error, config);
         }
+      },
+      
+      // Extracted validation logic for better maintainability
+      _validateImportPreConditions: (config: ConfigExport, importOptions: ImportOptions) => {
+        // Type validation with early return
+        if (!isValidConfigExport(config)) {
+          return get()._createValidationErrorResult(
+            'INVALID_CONFIG',
+            'Invalid configuration object - does not match ConfigExport schema',
+            config
+          );
+        }
+        
+        // Security validation with early return
+        if (config.config?.stops && config.config.stops.length > 100) {
+          return get()._createValidationErrorResult(
+            'TOO_MANY_STOPS',
+            'Configuration contains too many stops (max: 100)',
+            config
+          );
+        }
+        
+        // Pre-import validation with early return
+        if (importOptions.validateBeforeImport) {
+          const validation = get().validateConfig(config);
+          if (!validation.isValid) {
+            return {
+              success: false,
+              importedConfig: null,
+              importedStopsCount: 0,
+              validation,
+              messages: ['import.validation.import_cancelled']
+            };
+          }
+        }
+        
+        // Return null for success case (no error)
+        return null;
+      },
+      
+      // Extracted backup creation logic
+      _createBackupIfRequested: (importOptions: ImportOptions) => {
+        if (!importOptions.createBackup) {
+          return undefined;
+        }
+        return get().createBackup();
+      },
+      
+      // Extracted merge strategy logic
+      _processMergeStrategy: (currentState: AppConfig, config: ConfigExport, importOptions: ImportOptions) => {
+        return get().mergeStops(
+          currentState.stops,
+          config.config.stops,
+          importOptions.overwriteExisting ? 'replace' : 'merge'
+        );
+      },
+      
+      // Extracted configuration building logic
+      _buildNewConfiguration: (currentState: AppConfig, config: ConfigExport, mergedStops: StopConfig[], importOptions: ImportOptions): AppConfig => {
+        let finalStops = importOptions.importOnlyVisible
+          ? mergedStops.filter(stop => stop.visible)
+          : mergedStops;
+          
+        // Apply position preservation if requested
+        if (importOptions.preserveStopPositions) {
+          finalStops = finalStops.map((stop, index) => ({
+            ...stop,
+            position: index
+          }));
+        }
+        
+        return {
+          stops: finalStops,
+          darkMode: importOptions.importGlobalSettings ? config.config.darkMode : currentState.darkMode,
+          refreshIntervalSeconds: importOptions.importGlobalSettings ? config.config.refreshIntervalSeconds : currentState.refreshIntervalSeconds,
+          maxDeparturesShown: importOptions.importGlobalSettings ? config.config.maxDeparturesShown : currentState.maxDeparturesShown,
+          language: importOptions.importGlobalSettings ? config.config.language : currentState.language,
+        };
+      },
+      
+      // Extracted success result building
+      _buildSuccessResult: (config: ConfigExport, newConfig: AppConfig, backup: { timestamp: string; config: AppConfig } | undefined, importOptions: ImportOptions) => {
+        const messages: string[] = [];
+        const importedStopsCount = config.config.stops.length;
+        
+        messages.push('import.validation.stops_imported');
+        
+        if (backup) {
+          messages.push('import.validation.backup_created');
+        }
+        
+        if (importOptions.importGlobalSettings) {
+          messages.push('import.validation.global_settings_applied');
+        }
+        
+        return {
+          success: true,
+          importedConfig: newConfig,
+          importedStopsCount,
+          validation: get().validateConfig(config),
+          backup,
+          messages
+        };
+      },
+      
+      // Extracted error handling logic
+      _handleImportError: (error: unknown, config: ConfigExport) => {
+        loggers.configStore.error('Import operation failed', {
+          context: 'configStore.importConfig',
+          configSchemaVersion: config.schemaVersion,
+          errorCode: 'IMPORT_ERROR'
+        }, error instanceof Error ? error : new Error(String(error)));
+        
+        return {
+          success: false,
+          importedConfig: null,
+          importedStopsCount: 0,
+          validation: {
+            isValid: false,
+            errors: [{
+              code: 'IMPORT_ERROR',
+              message: error instanceof Error ? error.message : 'import.validation.unknown_import_error',
+              severity: 'critical' as const
+            }],
+            warnings: [],
+            schemaVersion: config.schemaVersion,
+            isCompatible: false
+          },
+          messages: ['import.validation.import_failed']
+        };
+      },
+      
+      // Extracted validation error result creation
+      _createValidationErrorResult: (code: string, message: string, config: ConfigExport) => {
+        return {
+          success: false,
+          importedConfig: null,
+          importedStopsCount: 0,
+          validation: {
+            isValid: false,
+            errors: [{
+              code,
+              message,
+              severity: 'error' as const
+            }],
+            warnings: [],
+            schemaVersion: isValidObject(config) ? String((config as Record<string, unknown>).schemaVersion) : 'unknown',
+            isCompatible: false
+          },
+          messages: [`import.validation.${code.toLowerCase()}`]
+        };
       },
       
       // Validierungs-Funktionalität

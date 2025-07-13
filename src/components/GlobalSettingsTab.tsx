@@ -80,9 +80,7 @@ const GlobalSettingsTab: React.FC<GlobalSettingsTabProps> = ({
       const configExport: ConfigExport = exportConfig();
       
       // Validierung vor Export
-      if (!validateExportData(configExport)) {
-        throw new Error(t('export.validation.failed', 'Export-Validierung fehlgeschlagen'));
-      }
+      validateExportData(configExport);
       
       // Export-Zusammenfassung erstellen
       const summary = createExportSummary(configExport);

@@ -226,13 +226,66 @@ const originalCreateElement = document.createElement;
 if (!vi.isMockFunction(document.createElement)) {
   document.createElement = vi.fn((tagName: string) => {
     if (tagName === 'a') {
+      // Create a proper style mock with all required properties
+      const styleStorage: Record<string, string> = {
+        display: '',
+        visibility: '',
+        position: '',
+        left: '',
+        top: '',
+        width: '',
+        height: '',
+        color: '',
+        backgroundColor: '',
+        fontSize: '',
+        fontFamily: '',
+        textDecoration: '',
+        border: '',
+        padding: '',
+        margin: '',
+        opacity: '',
+        zIndex: '',
+      };
+      
+      const styleMock = {
+        setProperty: vi.fn(),
+        getPropertyValue: vi.fn((prop: string) => styleStorage[prop] || ''),
+        removeProperty: vi.fn(),
+      };
+      
+      // Make all style properties writable
+      Object.keys(styleStorage).forEach(key => {
+        Object.defineProperty(styleMock, key, {
+          get: () => styleStorage[key],
+          set: (value: string) => {
+            styleStorage[key] = value;
+          },
+          enumerable: true,
+          configurable: true,
+        });
+      });
+      
       return {
         href: '',
         download: '',
-        style: {},
+        style: styleMock,
         click: vi.fn(),
         setAttribute: vi.fn(),
         removeAttribute: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+        innerHTML: '',
+        innerText: '',
+        textContent: '',
+        id: '',
+        className: '',
+        classList: {
+          add: vi.fn(),
+          remove: vi.fn(),
+          contains: vi.fn(),
+          toggle: vi.fn(),
+        },
       } as unknown as HTMLElement;
     }
     return originalCreateElement.call(document, tagName);
@@ -245,6 +298,38 @@ if (!document.body.appendChild) {
 }
 if (!document.body.removeChild) {
   document.body.removeChild = vi.fn();
+}
+
+// Mock für window.open
+if (!window.open) {
+  const mockOpen = vi.fn().mockImplementation((url: string) => {
+    // Simulate popup blocker or other failures
+    if ((mockOpen as unknown as { shouldFail: boolean }).shouldFail) {
+      return null;
+    }
+    
+    // Return a mock window object
+    return {
+      focus: vi.fn(),
+      close: vi.fn(),
+      closed: false,
+      document: {
+        write: vi.fn(),
+        close: vi.fn(),
+      },
+      location: {
+        href: url,
+      },
+    } as unknown as Window;
+  });
+  
+  // Add a property to control failure behavior
+  (mockOpen as unknown as { shouldFail: boolean }).shouldFail = false;
+  
+  Object.defineProperty(window, 'open', {
+    value: mockOpen,
+    writable: true,
+  });
 }
 
 // Performance-Monitor Mock

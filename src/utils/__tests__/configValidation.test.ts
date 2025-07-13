@@ -254,6 +254,106 @@ describe('configValidation', () => {
       const result2 = validateStopConfig(stopWithInvalidCity, mockValidationContext);
       expect(result2.isValid).toBe(false);
     });
+
+    it('should reject stop with extreme boundary values', () => {
+      const extremeStop = {
+        id: 'test-stop',
+        name: 'Test Stop',
+        city: 'wue',
+        stopId: 'WUE12345',
+        walkingTimeMinutes: -1, // Negative value
+        visible: true,
+        position: -5 // Negative position
+      };
+      
+      const result = validateStopConfig(extremeStop, mockValidationContext);
+      
+      expect(result.isValid).toBe(false);
+      expect(result.errors.some(e => e.code === ERROR_CODES.VALUE_OUT_OF_RANGE)).toBe(true);
+    });
+
+    it('should handle stop with maximum valid values', () => {
+      const maxValidStop = {
+        id: 'test-stop',
+        name: 'Test Stop',
+        city: 'wue',
+        stopId: 'WUE12345',
+        walkingTimeMinutes: 60, // Maximum allowed
+        visible: true,
+        position: 999 // Very high but valid position
+      };
+      
+      const result = validateStopConfig(maxValidStop, mockValidationContext);
+      
+      expect(result.isValid).toBe(true);
+      expect(result.warnings.length).toBeGreaterThan(0); // Should warn about high values
+    });
+
+    it('should validate stop with special characters in name', () => {
+      const specialCharStop = {
+        id: 'test-stop',
+        name: 'Test-Stop (Süd) & Hauptbahnhof äöüß 123',
+        city: 'wue',
+        stopId: 'WUE12345',
+        walkingTimeMinutes: 5,
+        visible: true,
+        position: 0
+      };
+      
+      const result = validateStopConfig(specialCharStop, mockValidationContext);
+      
+      expect(result.isValid).toBe(true);
+    });
+
+    it('should handle stop with extremely long name', () => {
+      const longNameStop = {
+        id: 'test-stop',
+        name: 'X'.repeat(500), // Very long name
+        city: 'wue',
+        stopId: 'WUE12345',
+        walkingTimeMinutes: 5,
+        visible: true,
+        position: 0
+      };
+      
+      const result = validateStopConfig(longNameStop, mockValidationContext);
+      
+      expect(result.isValid).toBe(false);
+      expect(result.errors.some(e => e.code === ERROR_CODES.VALUE_OUT_OF_RANGE)).toBe(true);
+    });
+
+    it('should validate stop with SQL injection attempt in fields', () => {
+      const sqlInjectionStop = {
+        id: "'; DROP TABLE stops; --",
+        name: "Test' OR '1'='1",
+        city: 'wue',
+        stopId: 'WUE12345',
+        walkingTimeMinutes: 5,
+        visible: true,
+        position: 0
+      };
+      
+      const result = validateStopConfig(sqlInjectionStop, mockValidationContext);
+      
+      expect(result.isValid).toBe(false);
+      expect(result.errors.some(e => e.code === ERROR_CODES.INVALID_DATA_TYPE)).toBe(true);
+    });
+
+    it('should handle stop with unicode and emoji characters', () => {
+      const unicodeStop = {
+        id: 'test-stop-unicode',
+        name: '🚌 München Hauptbahnhof 🚊',
+        city: 'muc',
+        stopId: 'MUC12345',
+        walkingTimeMinutes: 5,
+        visible: true,
+        position: 0
+      };
+      
+      const result = validateStopConfig(unicodeStop, mockValidationContext);
+      
+      expect(result.isValid).toBe(true); // Should handle unicode gracefully
+    });
   });
 
   describe('validateSettingsConfig', () => {

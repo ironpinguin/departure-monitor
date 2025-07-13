@@ -260,14 +260,12 @@ describe('exportUtils', () => {
 
   describe('validateExportData', () => {
     it('should validate correct export data', () => {
-      const isValid = validateExportData(mockConfigExport);
-      
-      expect(isValid).toBe(true);
+      expect(() => validateExportData(mockConfigExport)).not.toThrow();
     });
 
     it('should reject null/undefined data', () => {
-      expect(validateExportData(null as unknown as ConfigExport)).toBe(false);
-      expect(validateExportData(undefined as unknown as ConfigExport)).toBe(false);
+      expect(() => validateExportData(null as unknown as ConfigExport)).toThrow();
+      expect(() => validateExportData(undefined as unknown as ConfigExport)).toThrow();
     });
 
     it('should reject data with missing required fields', () => {
@@ -276,7 +274,7 @@ describe('exportUtils', () => {
         // Missing other required fields
       } as unknown as ConfigExport;
       
-      expect(validateExportData(incompleteConfig)).toBe(false);
+      expect(() => validateExportData(incompleteConfig)).toThrow();
     });
 
     it('should reject data with invalid stops array', () => {
@@ -288,7 +286,7 @@ describe('exportUtils', () => {
         }
       };
       
-      expect(validateExportData(invalidConfig)).toBe(false);
+      expect(() => validateExportData(invalidConfig)).toThrow();
     });
 
     it('should reject data with inconsistent stop count', () => {
@@ -300,7 +298,7 @@ describe('exportUtils', () => {
         }
       };
       
-      expect(validateExportData(inconsistentConfig)).toBe(false);
+      expect(() => validateExportData(inconsistentConfig)).toThrow();
     });
 
     it('should reject data with invalid JSON structure', () => {
@@ -310,7 +308,7 @@ describe('exportUtils', () => {
       };
       configWithCircularRef.circular = configWithCircularRef;
       
-      expect(validateExportData(configWithCircularRef)).toBe(false);
+      expect(() => validateExportData(configWithCircularRef)).toThrow();
     });
   });
 
@@ -525,6 +523,366 @@ describe('exportUtils', () => {
       
       expect(size.estimatedSizeBytes).toBeGreaterThan(0);
       expect(end - start).toBeLessThan(100); // Should complete within 100ms
+    });
+  });
+  describe('Export Edge Cases and Boundary Testing', () => {
+    it('should handle export with corrupted config data', () => {
+      const corruptedConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: [
+            {
+              id: null, // Corrupted data
+              name: undefined,
+              city: 'invalid',
+              stopId: '',
+              walkingTimeMinutes: 'not-a-number',
+              visible: 'not-boolean',
+              position: -1
+            }
+          ]
+        }
+      } as unknown as ConfigExport;
+      
+      expect(() => {
+        downloadConfigFile(corruptedConfig);
+      }).toThrow('Download fehlgeschlagen');
+    });
+
+    it('should handle export with extremely large configuration', () => {
+      const largeConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: Array.from({ length: 50000 }, (_, i) => ({
+            id: `stop-${i}`,
+            name: `Very Long Stop Name That Takes Up Memory ${i}`.repeat(10),
+            city: 'wue' as const,
+            stopId: `WUE${String(i).padStart(10, '0')}`,
+            walkingTimeMinutes: Math.floor(Math.random() * 60) + 1,
+            visible: true,
+            position: i
+          }))
+        }
+      };
+
+      const startTime = performance.now();
+      const sizeEstimate = estimateFileSize(largeConfig);
+      const endTime = performance.now();
+      
+      expect(sizeEstimate.estimatedSizeBytes).toBeGreaterThan(1024 * 1024); // > 1MB
+      expect(endTime - startTime).toBeLessThan(1000); // Should complete within 1 second
+    });
+
+    it('should handle export with circular references in deep objects', () => {
+      const circularConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          metadata: {}
+        }
+      } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+      
+      // Create circular reference
+      circularConfig.config.metadata.parent = circularConfig;
+      
+      expect(() => {
+        formatConfigForDownload(circularConfig);
+      }).toThrow('Formatierung fehlgeschlagen');
+    });
+
+    it('should handle export with special characters in filenames', () => {
+      const specialCharConfig = {
+        ...mockConfigExport,
+        metadata: {
+          ...mockConfigExport.metadata,
+          source: 'Test<>:"/\\|?*Config'
+        }
+      };
+      
+      const filename = generateExportFilename(specialCharConfig);
+      
+      // Should sanitize special characters
+      expect(filename).not.toMatch(/[<>:"/\\|?*]/);
+      expect(filename).toContain('.json');
+    });
+
+    it('should handle export with unicode characters in data', () => {
+      const unicodeConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: [{
+            id: 'unicode-stop',
+            name: '🚌 München Hbf 🚊 Ñiño café résumé 北京',
+            city: 'muc' as const,
+            stopId: 'MUC🚌123',
+            walkingTimeMinutes: 5,
+            visible: true,
+            position: 0
+          }]
+        }
+      };
+      
+      const formatted = formatConfigForDownload(unicodeConfig);
+      const parsed = JSON.parse(formatted);
+      
+      expect(parsed.config.stops[0].name).toBe('🚌 München Hbf 🚊 Ñiño café résumé 北京');
+    });
+
+    it('should handle export with null and undefined values', () => {
+      const nullConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: [{
+            id: 'test-stop',
+            name: null,
+            city: 'wue' as const,
+            stopId: undefined,
+            walkingTimeMinutes: 5,
+            visible: true,
+            position: 0
+          }]
+        }
+      } as unknown as ConfigExport;
+      
+      expect(() => validateExportData(nullConfig)).toThrow();
+    });
+
+    it('should handle concurrent export operations', async () => {
+      const configs = Array.from({ length: 10 }, (_, i) => ({
+        ...mockConfigExport,
+        metadata: {
+          ...mockConfigExport.metadata,
+          source: `concurrent-test-${i}`
+        }
+      }));
+
+      const exportPromises = configs.map(config =>
+        Promise.resolve().then(() => {
+          const formatted = formatConfigForDownload(config);
+          const summary = createExportSummary(config);
+          return { formatted, summary };
+        })
+      );
+
+      const results = await Promise.all(exportPromises);
+      
+      expect(results).toHaveLength(10);
+      results.forEach((result) => {
+        expect(result.summary.filename).toContain('departure-monitor-config');
+        expect(() => JSON.parse(result.formatted)).not.toThrow();
+      });
+    });
+
+    it('should handle export with extreme timestamp values', () => {
+      const extremeTimestampConfig = {
+        ...mockConfigExport,
+        exportTimestamp: '9999-12-31T23:59:59.999Z' // Far future
+      };
+      
+      const summary = createExportSummary(extremeTimestampConfig);
+      
+      expect(summary.timestamp).toBeDefined();
+      expect(summary.filename).toContain('departure-monitor-config');
+    });
+
+    it('should handle export with invalid JSON structures', () => {
+      const invalidJsonConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          invalidProperty: Symbol('cannot-serialize')
+        }
+      };
+      
+      expect(() => {
+        formatConfigForDownload(invalidJsonConfig);
+      }).toThrow('Formatierung fehlgeschlagen');
+    });
+
+    it('should handle export size estimation for edge cases', () => {
+      // Test with empty config
+      const emptyConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: []
+        }
+      };
+      
+      const emptySize = estimateFileSize(emptyConfig);
+      expect(emptySize.estimatedSizeBytes).toBeGreaterThan(0);
+      expect(emptySize.estimatedSizeHuman).toMatch(/\d+(\.\d+)?\s*(Bytes|KB)/);
+
+      // Test with single character config
+      const minimalConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: [{
+            id: 'a',
+            name: 'b',
+            city: 'wue' as const,
+            stopId: 'c',
+            walkingTimeMinutes: 1,
+            visible: true,
+            position: 0
+          }]
+        }
+      };
+      
+      const minimalSize = estimateFileSize(minimalConfig);
+      expect(minimalSize.estimatedSizeBytes).toBeGreaterThan(emptySize.estimatedSizeBytes);
+    });
+
+    it('should handle browser compatibility edge cases', () => {
+      // Test with missing Blob support
+      const originalBlob = global.Blob;
+      vi.stubGlobal('Blob', undefined);
+      
+      const testResult = testExportFunctionality();
+      
+      expect(testResult.blobSupported).toBe(false);
+      expect(testResult.downloadAPISupported).toBe(false);
+      expect(testResult.errors.length).toBeGreaterThan(0);
+      
+      // Restore
+      vi.stubGlobal('Blob', originalBlob);
+    });
+
+    it('should handle DOM manipulation edge cases', () => {
+      // Mock document.createElement to return minimal element
+      const originalCreateElement = document.createElement;
+      vi.spyOn(document, 'createElement').mockImplementation(() => ({
+        href: '',
+        download: '',
+        style: {},
+        click: vi.fn(),
+        remove: vi.fn()
+      }) as unknown as HTMLElement);
+
+      expect(() => {
+        downloadConfigFile(mockConfigExport);
+      }).not.toThrow();
+
+      // Restore
+      document.createElement = originalCreateElement;
+    });
+
+    it('should handle memory pressure during large exports', () => {
+      // Create a configuration that would use significant memory
+      const memoryIntensiveConfig = {
+        ...mockConfigExport,
+        config: {
+          ...mockAppConfig,
+          stops: Array.from({ length: 10000 }, (_, i) => ({
+            id: `memory-test-stop-${i}`,
+            name: `Memory Test Stop ${i} `.repeat(100), // Very long names
+            city: 'wue' as const,
+            stopId: `WUE${String(i).padStart(10, '0')}`,
+            walkingTimeMinutes: Math.floor(Math.random() * 60) + 1,
+            visible: true,
+            position: i
+          }))
+        }
+      };
+
+      const startMemory = (performance as any)?.memory?.usedJSHeapSize || 0; // eslint-disable-line @typescript-eslint/no-explicit-any
+      const formatted = formatConfigForDownload(memoryIntensiveConfig);
+      const endMemory = (performance as any)?.memory?.usedJSHeapSize || 0; // eslint-disable-line @typescript-eslint/no-explicit-any
+      
+      expect(formatted).toBeDefined();
+      expect(typeof formatted).toBe('string');
+      
+      // Memory usage should be reasonable (less than 100MB increase)
+      if (startMemory > 0 && endMemory > 0) {
+        expect(endMemory - startMemory).toBeLessThan(100 * 1024 * 1024);
+      }
+    });
+
+    it('should handle export validation with malformed data types', () => {
+      const malformedConfig = {
+        ...mockConfigExport,
+        schemaVersion: 123, // Should be string
+        exportTimestamp: new Date(), // Should be string
+        config: {
+          ...mockAppConfig,
+          stops: 'not-an-array', // Should be array
+          darkMode: 'not-boolean', // Should be boolean
+          refreshIntervalSeconds: '30', // Should be number
+          maxDeparturesShown: 'ten' // Should be number
+        }
+      } as unknown as ConfigExport;
+      
+      expect(() => validateExportData(malformedConfig)).toThrow();
+    });
+  });
+
+  describe('Export Performance and Stress Testing', () => {
+    it('should handle rapid consecutive export operations', async () => {
+      const configs = Array.from({ length: 100 }, (_, i) => ({
+        ...mockConfigExport,
+        metadata: { ...mockConfigExport.metadata, source: `rapid-${i}` }
+      }));
+
+      const startTime = performance.now();
+      
+      const results = configs.map(config => {
+        const summary = createExportSummary(config);
+        const size = estimateFileSize(config);
+        return { summary, size };
+      });
+      
+      const endTime = performance.now();
+      
+      expect(results).toHaveLength(100);
+      expect(endTime - startTime).toBeLessThan(1000); // Should complete within 1 second
+      
+      results.forEach(result => {
+        expect(result.summary.filename).toBeDefined();
+        expect(result.size.estimatedSizeBytes).toBeGreaterThan(0);
+      });
+    });
+
+    it('should handle export operations under simulated memory pressure', () => {
+      // Create memory pressure by allocating large objects
+      const memoryPressureObjects: unknown[] = [];
+      
+      for (let i = 0; i < 1000; i++) {
+        memoryPressureObjects.push({
+          data: new Array(10000).fill(`pressure-data-${i}`)
+        });
+      }
+
+      try {
+        const result = formatConfigForDownload(mockConfigExport);
+        expect(result).toBeDefined();
+        expect(() => JSON.parse(result)).not.toThrow();
+      } finally {
+        // Cleanup
+        memoryPressureObjects.length = 0;
+      }
+    });
+
+    it('should handle export filename generation with extreme cases', () => {
+      // Test with very long metadata
+      const longMetadataConfig = {
+        ...mockConfigExport,
+        metadata: {
+          ...mockConfigExport.metadata,
+          source: 'x'.repeat(1000), // Very long source
+          language: 'de'
+        }
+      };
+      
+      const filename = generateExportFilename(longMetadataConfig);
+      
+      // Filename should be reasonable length (filesystem limits)
+      expect(filename.length).toBeLessThan(255);
+      expect(filename).toContain('.json');
     });
   });
 });

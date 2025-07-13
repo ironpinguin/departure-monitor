@@ -237,9 +237,9 @@ export function isValidPartialStopConfig(value: unknown): value is Partial<StopC
     name: (v: unknown) => typeof v === 'string' && v.length > 0,
     city: (v: unknown) => typeof v === 'string' && isValidCity(v),
     stopId: (v: unknown) => typeof v === 'string' && v.length > 0,
-    walkingTimeMinutes: (v: unknown) => typeof v === 'number' && v >= 0,
+    walkingTimeMinutes: (v: unknown) => typeof v === 'number', // Remove range check, let detailed validation handle it
     visible: (v: unknown) => typeof v === 'boolean',
-    position: (v: unknown) => typeof v === 'number' && v >= 0
+    position: (v: unknown) => typeof v === 'number' // Remove range check, let detailed validation handle it
   };
   
   for (const [field, checker] of Object.entries(typeChecks)) {

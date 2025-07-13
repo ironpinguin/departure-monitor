@@ -51,15 +51,6 @@
         "browser_generate_playwright_test"
       ]
     },
-    "puppeteer": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ],
-      "disabled": true,
-      "alwaysAllow": []
-    },
     "blender": {
       "command": "uvx",
       "args": [
@@ -88,19 +79,16 @@
         "GITHUB_READ_ONLY": ""
       }
     },
-    "sequentialthinking": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    },
     "time": {
       "command": "uvx",
       "args": [
         "mcp-server-time",
         "--local-timezone=Europe/Berlin"
       ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
     }
   }
 }

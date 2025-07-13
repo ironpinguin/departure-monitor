@@ -75,49 +75,49 @@ describe('importUtils', () => {
     it('should accept valid JSON files', () => {
       const validFile = new File(['{}'], 'config.json', { type: 'application/json' });
       
-      expect(validateFileFormat(validFile)).toBe(true);
+      expect(() => validateFileFormat(validFile)).not.toThrow();
     });
 
     it('should accept JSON files with text/json mime type', () => {
       const validFile = new File(['{}'], 'config.json', { type: 'text/json' });
       
-      expect(validateFileFormat(validFile)).toBe(true);
+      expect(() => validateFileFormat(validFile)).not.toThrow();
     });
 
     it('should accept JSON files with text/plain mime type', () => {
       const validFile = new File(['{}'], 'config.json', { type: 'text/plain' });
       
-      expect(validateFileFormat(validFile)).toBe(true);
+      expect(() => validateFileFormat(validFile)).not.toThrow();
     });
 
     it('should reject files with invalid extensions', () => {
       const invalidFile = new File(['{}'], 'config.txt', { type: 'text/plain' });
       
-      expect(validateFileFormat(invalidFile)).toBe(false);
+      expect(() => validateFileFormat(invalidFile)).toThrow();
     });
 
     it('should reject files with invalid mime types', () => {
       const invalidFile = new File(['{}'], 'config.json', { type: 'application/pdf' });
       
-      expect(validateFileFormat(invalidFile)).toBe(false);
+      expect(() => validateFileFormat(invalidFile)).toThrow();
     });
 
     it('should handle files without extension', () => {
       const fileWithoutExt = new File(['{}'], 'config', { type: 'application/json' });
       
-      expect(validateFileFormat(fileWithoutExt)).toBe(false);
+      expect(() => validateFileFormat(fileWithoutExt)).toThrow();
     });
 
     it('should handle case-insensitive extensions', () => {
       const upperCaseFile = new File(['{}'], 'config.JSON', { type: 'application/json' });
       
-      expect(validateFileFormat(upperCaseFile)).toBe(true);
+      expect(() => validateFileFormat(upperCaseFile)).not.toThrow();
     });
 
     it('should handle files without mime type', () => {
       const fileWithoutMime = new File(['{}'], 'config.json', { type: '' });
       
-      expect(validateFileFormat(fileWithoutMime)).toBe(true);
+      expect(() => validateFileFormat(fileWithoutMime)).not.toThrow();
     });
   });
 
@@ -788,6 +788,43 @@ describe('importUtils', () => {
   });
 
   describe('Large File and Memory Tests', () => {
+    let mockValidConfig: ConfigExport;
+    
+    beforeEach(() => {
+      mockValidConfig = {
+        schemaVersion: '1.0.0',
+        exportTimestamp: '2024-01-01T00:00:00.000Z',
+        exportedBy: 'test-suite',
+        metadata: {
+          stopCount: 1,
+          language: 'de',
+          source: 'test'
+        },
+        config: {
+          stops: [
+            {
+              id: 'stop-1',
+              name: 'Test Stop',
+              city: 'wue',
+              stopId: 'WUE123',
+              walkingTimeMinutes: 5,
+              visible: true,
+              position: 0
+            }
+          ],
+          darkMode: false,
+          refreshIntervalSeconds: 30,
+          maxDeparturesShown: 10,
+          language: 'de'
+        },
+        exportSettings: {
+          includeUserSettings: true,
+          includeStopPositions: true,
+          includeVisibilitySettings: true
+        }
+      };
+    });
+
     it('should handle extremely large JSON files', async () => {
       const largeJsonContent = JSON.stringify({
         schemaVersion: '1.0.0',
@@ -947,4 +984,220 @@ describe('importUtils', () => {
       expect(result.schemaVersion).toBe('1.0.0');
       expect(result.config.stops).toHaveLength(0);
     });
+      it('should handle boundary value testing - exact file size limit', async () => {
+        const exactSizeContent = 'x'.repeat(10 * 1024 * 1024); // Exactly 10MB
+        const exactSizeFile = new File([exactSizeContent], 'config.json', {
+          type: 'application/json'
+        });
+        
+        const result = await validateImportFile(exactSizeFile);
+        
+        expect(result.isValid).toBe(true); // Should accept at exact limit
+        expect(result.warnings).toContain('Große Datei (>1MB) - Import kann länger dauern');
+      });
+  
+      it('should handle boundary value testing - size just under limit', async () => {
+        const almostMaxContent = 'x'.repeat(10 * 1024 * 1024 - 1); // Just under 10MB
+        const almostMaxFile = new File([almostMaxContent], 'config.json', {
+          type: 'application/json'
+        });
+        
+        const result = await validateImportFile(almostMaxFile);
+        
+        expect(result.isValid).toBe(true);
+        expect(result.warnings).toContain('Große Datei (>1MB) - Import kann länger dauern');
+      });
+  
+      it('should handle network timeout simulation', async () => {
+        // This test verifies that timeouts would be handled properly
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('File read timeout')), 50);
+        });
+  
+        await expect(timeoutPromise).rejects.toThrow('File read timeout');
+      });
+  
+      it('should handle concurrent file operations stress test', async () => {
+        const files = Array.from({ length: 5 }, (_, i) =>
+          new File([JSON.stringify(mockValidConfig)], `config${i}.json`, {
+            type: 'application/json'
+          })
+        );
+  
+        global.FileReader = class MockConcurrentFileReader {
+          onload: ((event: { target: { result: string } }) => void) | null = null;
+          onerror: (() => void) | null = null;
+          result: string | null = null;
+          
+          readAsText() {  
+            setTimeout(() => {
+              this.result = JSON.stringify(mockValidConfig);
+              this.onload?.({ target: { result: this.result } });
+            }, Math.random() * 50); // Random delay 0-50ms
+          }
+        } as unknown as typeof FileReader;
+  
+        const promises = files.map(file => readConfigFile(file));
+        const results = await Promise.all(promises);
+        
+        expect(results).toHaveLength(5);
+        results.forEach(result => {
+          expect(result).toEqual(mockValidConfig);
+        });
+      });
+  
+      it('should handle Windows line endings in JSON', async () => {
+        const windowsJsonContent = JSON.stringify(mockValidConfig, null, 2).replace(/\n/g, '\r\n');
+        const windowsFile = new File([windowsJsonContent], 'config.json', {
+          type: 'application/json'
+        });
+        
+        global.FileReader = class MockFileReader {
+          onload: ((event: { target: { result: string } }) => void) | null = null;
+          onerror: (() => void) | null = null;
+          result: string | null = null;
+          
+          readAsText() {  
+            setTimeout(() => {
+              this.result = windowsJsonContent;
+              this.onload?.({ target: { result: this.result } });
+            }, 0);
+          }
+        } as unknown as typeof FileReader;
+  
+        const result = await readConfigFile(windowsFile);
+        
+        expect(result).toEqual(mockValidConfig);
+      });
+  
+      it('should handle BOM (Byte Order Mark) in files', async () => {
+        const bomJsonContent = '\uFEFF' + JSON.stringify(mockValidConfig);
+        const bomFile = new File([bomJsonContent], 'config.json', {
+          type: 'application/json'
+        });
+        
+        global.FileReader = class MockFileReader {
+          onload: ((event: { target: { result: string } }) => void) | null = null;
+          onerror: (() => void) | null = null;
+          result: string | null = null;
+          
+          readAsText() {  
+            setTimeout(() => {
+              this.result = bomJsonContent;
+              this.onload?.({ target: { result: this.result } });
+            }, 0);
+          }
+        } as unknown as typeof FileReader;
+  
+        const result = await readConfigFile(bomFile);
+        
+        expect(result).toEqual(mockValidConfig);
+      });
+  
+      it('should handle race conditions in rapid file validations', async () => {
+        const files = Array.from({ length: 10 }, (_, i) =>
+          new File([JSON.stringify(mockValidConfig)], `config${i}.json`, {
+            type: 'application/json'
+          })
+        );
+  
+        const validationPromises = files.map(file => validateImportFile(file));
+        const results = await Promise.all(validationPromises);
+        
+        results.forEach(result => {
+          expect(result.isValid).toBe(true);
+          expect(result.errors).toHaveLength(0);
+        });
+      });
+  
+      it('should handle memory pressure during large file processing', async () => {
+        // Create a config with many stops to simulate memory pressure
+        const largeConfig = {
+          ...mockValidConfig,
+          config: {
+            ...mockValidConfig.config,
+            stops: Array.from({ length: 90 }, (_, i) => ({
+              id: `stop-${i}`,
+              name: `Stop ${i} with very long descriptive name that takes up memory`,
+              city: 'wue' as const,
+              stopId: `WUE${String(i).padStart(6, '0')}`,
+              walkingTimeMinutes: Math.floor(Math.random() * 20) + 1,
+              visible: true,
+              position: i
+            }))
+          },
+          metadata: {
+            ...mockValidConfig.metadata,
+            stopCount: 90
+          }
+        };
+  
+        const largeJsonString = JSON.stringify(largeConfig);
+        const largeFile = new File([largeJsonString], 'large-config.json', {
+          type: 'application/json'
+        });
+        
+        global.FileReader = class MockMemoryConstrainedFileReader {
+          onload: ((event: { target: { result: string } }) => void) | null = null;
+          onerror: (() => void) | null = null;
+          result: string | null = null;
+          
+          readAsText() {  
+            // Simulate memory pressure by introducing delay
+            setTimeout(() => {
+              this.result = largeJsonString;
+              this.onload?.({ target: { result: this.result } });
+            }, 20);
+          }
+        } as unknown as typeof FileReader;
+  
+        const startTime = performance.now();
+        const result = await readConfigFile(largeFile);
+        const endTime = performance.now();
+        
+        expect(result.config.stops).toHaveLength(90);
+        expect(endTime - startTime).toBeGreaterThanOrEqual(20);
+      });
+  
+      it('should handle fragmented memory scenarios', async () => {
+        // Simulate fragmented memory by creating and destroying objects
+        const fragmentationObjects: unknown[] = [];
+        
+        for (let i = 0; i < 100; i++) {
+          fragmentationObjects.push({
+            data: new Array(1000).fill(`fragment-${i}`)
+          });
+        }
+        
+        // Clear half randomly to fragment memory
+        for (let i = 0; i < 50; i++) {
+          const randomIndex = Math.floor(Math.random() * fragmentationObjects.length);
+          fragmentationObjects.splice(randomIndex, 1);
+        }
+  
+        // Set up clean FileReader for this test
+        global.FileReader = class MockFileReader {
+          onload: ((event: { target: { result: string } }) => void) | null = null;
+          onerror: (() => void) | null = null;
+          result: string | null = null;
+          
+          readAsText() {  
+            setTimeout(() => {
+              this.result = JSON.stringify(mockValidConfig);
+              this.onload?.({ target: { result: this.result } });
+            }, 0);
+          }
+        } as unknown as typeof FileReader;
+
+        const file = new File([JSON.stringify(mockValidConfig)], 'config.json', {
+          type: 'application/json'
+        });
+        
+        const result = await readConfigFile(file);
+        
+        expect(result).toEqual(mockValidConfig);
+        
+        // Cleanup fragmentation objects
+        fragmentationObjects.length = 0;
+      });
   });

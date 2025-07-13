@@ -321,7 +321,7 @@ describe('Import/Export Concurrency Tests', () => {
 
     it('should handle concurrent export validation', async () => {
       const configs = Array.from({ length: 8 }, (_, i) => {
-        const stopCount = i % 2 === 0 ? 1 : 999; // Some valid, some invalid
+        const stopCount = i % 2 === 0 ? 1 : 15; // Some valid, some with large inconsistencies (15 > 10 threshold)
         return {
           ...mockValidConfig,
           metadata: {
@@ -335,9 +335,16 @@ describe('Import/Export Concurrency Tests', () => {
         };
       });
 
-      // Validate all configs concurrently
+      // Validate all configs concurrently - expecting some to pass, some to fail
       const validationPromises = configs.map(config => 
-        Promise.resolve(validateExportData(config))
+        Promise.resolve().then(() => {
+          try {
+            validateExportData(config);
+            return true;
+          } catch {
+            return false;
+          }
+        })
       );
 
       const results = await Promise.all(validationPromises);
@@ -441,12 +448,19 @@ describe('Import/Export Concurrency Tests', () => {
           });
           operations.push(validateImportFile(file));
         } else {
-          // Export operation
+          // Export operation - use small inconsistency to avoid threshold error
           const config = {
             ...mockValidConfig,
-            metadata: { ...mockValidConfig.metadata, stopCount: i }
+            metadata: { ...mockValidConfig.metadata, stopCount: 1 + (i % 3) } // Small variation (1-3)
           };
-          operations.push(Promise.resolve(validateExportData(config)));
+          operations.push(Promise.resolve().then(() => {
+            try {
+              validateExportData(config);
+              return true;
+            } catch {
+              return false;
+            }
+          }));
         }
       }
 

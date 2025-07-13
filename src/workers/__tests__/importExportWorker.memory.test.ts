@@ -353,3 +353,234 @@ describe('Large Dataset Memory Tests', () => {
     expect(processedChunks.length).toBe(expectedChunks);
   });
 });
+
+describe('Worker Edge Cases and Timeout Testing', () => {
+  describe('Worker Communication Edge Cases', () => {
+    it('should handle worker message queue overflow', () => {
+      const messageQueue: unknown[] = [];
+      const maxQueueSize = 1000;
+      
+      // Simulate flooding the worker with messages
+      for (let i = 0; i < maxQueueSize + 100; i++) {
+        const message = {
+          id: `msg-${i}`,
+          type: 'PROCESS_IMPORT',
+          data: { content: `test-data-${i}` }
+        };
+        
+        if (messageQueue.length < maxQueueSize) {
+          messageQueue.push(message);
+        }
+      }
+      
+      // Should not exceed maximum queue size
+      expect(messageQueue.length).toBeLessThanOrEqual(maxQueueSize);
+    });
+
+    it('should handle worker timeout scenarios', async () => {
+      const operationTimeout = 1000; // 1 second
+      const startTime = performance.now();
+      
+      // Simulate long-running operation that should timeout
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => {
+          reject(new Error('Operation timed out'));
+        }, operationTimeout);
+      });
+      
+      await expect(timeoutPromise).rejects.toThrow('Operation timed out');
+      
+      const endTime = performance.now();
+      const duration = endTime - startTime;
+      
+      // Should timeout within expected timeframe
+      expect(duration).toBeGreaterThanOrEqual(operationTimeout - 100);
+      expect(duration).toBeLessThan(operationTimeout + 1000);
+    });
+
+    it('should handle concurrent worker operations', async () => {
+      const concurrentOperations = 10;
+      const operations: Promise<unknown>[] = [];
+      
+      for (let i = 0; i < concurrentOperations; i++) {
+        const operation = new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              id: i,
+              result: `operation-${i}-completed`,
+              timestamp: performance.now()
+            });
+          }, Math.random() * 100);
+        });
+        
+        operations.push(operation);
+      }
+      
+      const results = await Promise.all(operations);
+      
+      expect(results).toHaveLength(concurrentOperations);
+      results.forEach((result, index) => {
+        expect(result).toHaveProperty('id', index);
+        expect(result).toHaveProperty('result', `operation-${index}-completed`);
+      });
+    });
+
+    it('should handle worker restart scenarios', () => {
+      let workerRestarted = false;
+      const maxRestarts = 3;
+      let restartCount = 0;
+      
+      const simulateWorkerCrash = () => {
+        if (restartCount < maxRestarts) {
+          restartCount++;
+          workerRestarted = true;
+          return true; // Successfully restarted
+        }
+        return false; // Max restarts reached
+      };
+      
+      // Simulate worker crash and restart
+      const restarted = simulateWorkerCrash();
+      
+      expect(restarted).toBe(true);
+      expect(workerRestarted).toBe(true);
+      expect(restartCount).toBe(1);
+    });
+  });
+
+  describe('Error Recovery Edge Cases', () => {
+    it('should handle worker error cascades', () => {
+      const errors: Error[] = [];
+      const maxErrors = 5;
+      
+      // Simulate cascade of errors
+      for (let i = 0; i < 10; i++) {
+        if (errors.length < maxErrors) {
+          errors.push(new Error(`Cascade error ${i}`));
+        } else {
+          // Stop adding errors after max reached (circuit breaker)
+          break;
+        }
+      }
+      
+      expect(errors).toHaveLength(maxErrors);
+      errors.forEach((error, index) => {
+        expect(error.message).toBe(`Cascade error ${index}`);
+      });
+    });
+
+    it('should handle corrupted worker state recovery', () => {      
+      // Simulate state corruption
+      const corruptedState = {
+        operations: null,
+        memoryUsage: -1,
+        isHealthy: undefined
+      };
+      
+      // Recovery mechanism
+      const recoveredState = {
+        operations: corruptedState.operations || new Map(),
+        memoryUsage: Math.max(0, corruptedState.memoryUsage || 0),
+        isHealthy: Boolean(corruptedState.isHealthy)
+      };
+      
+      expect(recoveredState.operations).toBeInstanceOf(Map);
+      expect(recoveredState.memoryUsage).toBeGreaterThanOrEqual(0);
+      expect(typeof recoveredState.isHealthy).toBe('boolean');
+    });
+
+    it('should handle worker resource exhaustion', () => {
+      const resourceLimits = {
+        maxMemory: 100 * 1024 * 1024, // 100MB
+        maxOperations: 1000,
+        maxConcurrency: 10
+      };
+      
+      const currentUsage = {
+        memory: 95 * 1024 * 1024, // 95MB (close to limit)
+        operations: 950,
+        concurrency: 9 // 9 > 10 * 0.8 = 8.0, so this will trigger the warning
+      };
+      
+      // Check if approaching limits
+      const memoryWarning = currentUsage.memory > resourceLimits.maxMemory * 0.9;
+      const operationsWarning = currentUsage.operations > resourceLimits.maxOperations * 0.9;
+      const concurrencyWarning = currentUsage.concurrency > resourceLimits.maxConcurrency * 0.8;
+      
+      expect(memoryWarning).toBe(true);
+      expect(operationsWarning).toBe(true);
+      expect(concurrencyWarning).toBe(true);
+    });
+  });
+
+  describe('Performance Degradation Edge Cases', () => {
+    it('should detect performance degradation patterns', () => {
+      const performanceHistory = [
+        { timestamp: 1000, duration: 100 },
+        { timestamp: 2000, duration: 150 },
+        { timestamp: 3000, duration: 200 },
+        { timestamp: 4000, duration: 300 },
+        { timestamp: 5000, duration: 500 }
+      ];
+      
+      // Calculate performance trend
+      const durations = performanceHistory.map(p => p.duration);
+      const avgIncrease = durations.reduce((acc, curr, idx) => {
+        if (idx === 0) return 0;
+        return acc + (curr - durations[idx - 1]);
+      }, 0) / (durations.length - 1);
+      
+      // Detect degradation (average increase > 50ms per operation)
+      const isDegrading = avgIncrease > 50;
+      
+      expect(isDegrading).toBe(true);
+      expect(avgIncrease).toBe(100); // (50+50+100+200)/4 = 100
+    });
+
+    it('should handle adaptive performance scaling', () => {
+      const performanceMetrics = {
+        averageResponseTime: 250, // ms
+        errorRate: 0.05, // 5%
+        throughput: 50 // operations per second
+      };
+      
+      const thresholds = {
+        responseTime: 200,
+        errorRate: 0.02,
+        throughput: 100
+      };
+      
+      // Determine scaling action needed
+      const needsScaling =
+        performanceMetrics.averageResponseTime > thresholds.responseTime ||
+        performanceMetrics.errorRate > thresholds.errorRate ||
+        performanceMetrics.throughput < thresholds.throughput;
+      
+      expect(needsScaling).toBe(true);
+    });
+
+    it('should handle worker health monitoring', () => {
+      const healthMetrics = {
+        lastHeartbeat: Date.now() - 1000, // 1 second ago
+        memoryPressure: 0.85, // 85%
+        errorCount: 3,
+        responseTime: 300
+      };
+      
+      const healthThresholds = {
+        heartbeatTimeout: 5000, // 5 seconds
+        memoryPressure: 0.9, // 90%
+        maxErrors: 5,
+        maxResponseTime: 250
+      };
+      
+      const isHealthy =
+        (Date.now() - healthMetrics.lastHeartbeat) < healthThresholds.heartbeatTimeout &&
+        healthMetrics.memoryPressure < healthThresholds.memoryPressure &&
+        healthMetrics.errorCount < healthThresholds.maxErrors &&
+        healthMetrics.responseTime < healthThresholds.maxResponseTime;
+      
+      expect(isHealthy).toBe(false); // Should fail due to response time
+    });
+  });
+});

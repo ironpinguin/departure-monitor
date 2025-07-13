@@ -112,29 +112,44 @@ function validateContentSecurity(data: unknown, path = 'root'): ValidationError[
 }
 
 /**
- * Hauptvalidierungsfunktion für exportierte Konfigurationen
+ * Hauptvalidierungsfunktion für exportierte Konfigurationen - Refactored for reduced complexity
  */
 export function validateConfigStructure(
   input: ConfigExportInput,
   context: ValidationContext = getDefaultValidationContext()
 ): ValidationResult {
+  // Basic structure validation with early returns
+  const basicValidationResult = validateBasicStructure(input);
+  if (!basicValidationResult.isValid) {
+    return basicValidationResult;
+  }
+
+  const configExport = input as ConfigExport;
+
+  // Security validation with early return
+  const securityValidationResult = validateSecurityConstraints(configExport);
+  if (!securityValidationResult.isValid) {
+    return securityValidationResult;
+  }
+
+  // Comprehensive validation with extracted functions
+  return performComprehensiveValidation(configExport, context);
+}
+
+/**
+ * Basic structure validation with early returns
+ */
+function validateBasicStructure(input: ConfigExportInput): ValidationResult {
   const errors: ValidationError[] = [];
   const warnings: ValidationWarning[] = [];
 
-  // Grundlegende Struktur-Validierung
   if (!isValidObject(input)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_SCHEMA,
       'import.validation.invalid_object',
       'root'
     ));
-    return {
-      isValid: false,
-      errors,
-      warnings,
-      schemaVersion: 'unknown',
-      isCompatible: false
-    };
+    return createValidationResult(false, errors, warnings, 'unknown', false);
   }
 
   if (!isPartialConfigExport(input)) {
@@ -143,39 +158,50 @@ export function validateConfigStructure(
       'import.validation.invalid_config_export_format',
       'root'
     ));
-    return {
-      isValid: false,
-      errors,
-      warnings,
-      schemaVersion: 'unknown',
-      isCompatible: false
-    };
+    return createValidationResult(false, errors, warnings, 'unknown', false);
   }
 
-  const configExport = input;
+  return createValidationResult(true, errors, warnings, 'unknown', true);
+}
 
-  // Enhanced Security: Content validation
+/**
+ * Security validation with early return
+ */
+function validateSecurityConstraints(configExport: ConfigExport): ValidationResult {
+  const errors: ValidationError[] = [];
+  const warnings: ValidationWarning[] = [];
+
   const securityErrors = validateContentSecurity(configExport);
   if (securityErrors.length > 0) {
     errors.push(...securityErrors);
-    // Early return for security violations
-    return {
-      isValid: false,
+    return createValidationResult(
+      false,
       errors,
       warnings,
-      schemaVersion: configExport.schemaVersion || 'unknown',
-      isCompatible: false
-    };
+      configExport.schemaVersion || 'unknown',
+      false
+    );
   }
 
-  // Schema-Version validieren
+  return createValidationResult(true, errors, warnings, configExport.schemaVersion || 'unknown', true);
+}
+
+/**
+ * Comprehensive validation with extracted helper functions
+ */
+function performComprehensiveValidation(
+  configExport: ConfigExport,
+  context: ValidationContext
+): ValidationResult {
+  const errors: ValidationError[] = [];
+  const warnings: ValidationWarning[] = [];
+
+  // Validate schema version
   const schemaValidation = validateSchemaVersion(configExport.schemaVersion);
-  if (!schemaValidation.isValid) {
-    errors.push(...schemaValidation.errors);
-    warnings.push(...schemaValidation.warnings);
-  }
+  errors.push(...schemaValidation.errors);
+  warnings.push(...schemaValidation.warnings);
 
-  // Hauptkonfiguration validieren
+  // Validate main configuration
   if (configExport.config) {
     const configValidation = validateAppConfig(configExport.config, context);
     errors.push(...configValidation.errors);
@@ -188,33 +214,88 @@ export function validateConfigStructure(
     ));
   }
 
-  // Metadaten validieren
+  // Validate metadata
   const metadataValidation = validateMetadata(configExport.metadata);
   errors.push(...metadataValidation.errors);
   warnings.push(...metadataValidation.warnings);
 
-  // Export-Einstellungen validieren
+  // Validate export settings
   const exportSettingsValidation = validateExportSettings(configExport.exportSettings);
   warnings.push(...exportSettingsValidation.warnings);
 
   const isValid = errors.length === 0;
   const isCompatible = schemaValidation.isCompatible && isValid;
 
+  return createValidationResult(
+    isValid,
+    errors,
+    warnings,
+    configExport.schemaVersion || 'unknown',
+    isCompatible
+  );
+}
+
+/**
+ * Helper function to create validation results consistently
+ */
+function createValidationResult(
+  isValid: boolean,
+  errors: ValidationError[],
+  warnings: ValidationWarning[],
+  schemaVersion: string,
+  isCompatible: boolean
+): ValidationResult {
   return {
     isValid,
     errors,
     warnings,
-    schemaVersion: configExport.schemaVersion || 'unknown',
+    schemaVersion,
     isCompatible
   };
 }
 
 /**
- * Validierung einer einzelnen Stop-Konfiguration
+ * Validierung einer einzelnen Stop-Konfiguration - Refactored for reduced complexity
  */
 export function validateStopConfig(
   stopConfig: unknown,
   context: ValidationContext = getDefaultValidationContext()
+): ValidationResult {
+  const errors: ValidationError[] = [];
+  const warnings: ValidationWarning[] = [];
+
+  // Early validation with guard clauses
+  const basicValidationResult = validateStopConfigBasics(stopConfig, context);
+  if (!basicValidationResult.isValid) {
+    return basicValidationResult;
+  }
+
+  const stop = stopConfig as Partial<StopConfig>;
+
+  // Validate required fields with extracted function
+  errors.push(...validateStopRequiredFields(stop));
+
+  // Validate data types with extracted functions
+  errors.push(...validateStopDataTypes(stop));
+
+  // Validate business rules with extracted function
+  warnings.push(...validateStopBusinessRules(stop));
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+    warnings,
+    schemaVersion: context.schemaVersion,
+    isCompatible: true
+  };
+}
+
+/**
+ * Basic validation with early returns
+ */
+function validateStopConfigBasics(
+  stopConfig: unknown,
+  context: ValidationContext
 ): ValidationResult {
   const errors: ValidationError[] = [];
   const warnings: ValidationWarning[] = [];
@@ -228,7 +309,6 @@ export function validateStopConfig(
     return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
   }
 
-  // Enhanced type validation with proper guards
   if (!isValidPartialStopConfig(stopConfig)) {
     errors.push(createValidationError(
       ERROR_CODES.INVALID_DATA_TYPE,
@@ -238,10 +318,16 @@ export function validateStopConfig(
     return { isValid: false, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: false };
   }
 
-  const stop = stopConfig as Partial<StopConfig>;
+  return { isValid: true, errors, warnings, schemaVersion: context.schemaVersion, isCompatible: true };
+}
 
-  // Erforderliche Felder validieren
+/**
+ * Validate required fields with clear logic
+ */
+function validateStopRequiredFields(stop: Partial<StopConfig>): ValidationError[] {
+  const errors: ValidationError[] = [];
   const requiredFields = ['id', 'name', 'city', 'stopId', 'walkingTimeMinutes', 'visible', 'position'];
+  
   for (const field of requiredFields) {
     if (!(field in stop) || stop[field as keyof StopConfig] === undefined) {
       errors.push(createValidationError(
@@ -251,83 +337,43 @@ export function validateStopConfig(
       ));
     }
   }
+  
+  return errors;
+}
 
-  // Datentypen validieren
-  if (stop.id !== undefined && typeof stop.id !== 'string') {
-    errors.push(createValidationError(
-      ERROR_CODES.INVALID_DATA_TYPE,
-      'import.validation.stop_id_must_be_string',
-      'stopConfig.id',
-      stop.id,
-      'string'
-    ));
-  }
-
-  if (stop.name !== undefined && typeof stop.name !== 'string') {
-    errors.push(createValidationError(
-      ERROR_CODES.INVALID_DATA_TYPE,
-      'import.validation.stop_name_must_be_string',
-      'stopConfig.name',
-      stop.name,
-      'string'
-    ));
-  }
-
-  if (stop.city !== undefined && !isValidCity(stop.city)) {
-    errors.push(createValidationError(
-      ERROR_CODES.INVALID_DATA_TYPE,
-      'import.validation.city_must_be_valid',
-      'stopConfig.city',
-      stop.city,
-      'wue | muc'
-    ));
-  }
-
-  if (stop.stopId !== undefined && typeof stop.stopId !== 'string') {
-    errors.push(createValidationError(
-      ERROR_CODES.INVALID_DATA_TYPE,
-      'import.validation.stop_id_must_be_string',
-      'stopConfig.stopId',
-      stop.stopId,
-      'string'
-    ));
-  }
-
-  if (stop.walkingTimeMinutes !== undefined) {
-    if (typeof stop.walkingTimeMinutes !== 'number' ||
-        stop.walkingTimeMinutes < VALIDATION_RULES.MIN_WALKING_TIME ||
-        stop.walkingTimeMinutes > VALIDATION_RULES.MAX_WALKING_TIME) {
-      errors.push(createValidationError(
-        ERROR_CODES.VALUE_OUT_OF_RANGE,
-        'import.validation.walking_time_out_of_range',
-        'stopConfig.walkingTimeMinutes',
-        stop.walkingTimeMinutes,
-        `${VALIDATION_RULES.MIN_WALKING_TIME}-${VALIDATION_RULES.MAX_WALKING_TIME}`
-      ));
+/**
+ * Validate data types with extracted helper functions
+ */
+function validateStopDataTypes(stop: Partial<StopConfig>): ValidationError[] {
+  const errors: ValidationError[] = [];
+  
+  // Use validation strategies for cleaner code
+  const validationStrategies = [
+    () => validateStringField(stop.id, 'stopConfig.id', 'stop_id_must_be_string'),
+    () => validateStringField(stop.name, 'stopConfig.name', 'stop_name_must_be_string'),
+    () => validateStringField(stop.stopId, 'stopConfig.stopId', 'stop_id_must_be_string'),
+    () => validateCityField(stop.city),
+    () => validateWalkingTimeField(stop.walkingTimeMinutes),
+    () => validateBooleanField(stop.visible, 'stopConfig.visible', 'visible_must_be_boolean'),
+    () => validateNumberField(stop.position, 'stopConfig.position', 'position_must_be_number')
+  ];
+  
+  for (const validate of validationStrategies) {
+    const error = validate();
+    if (error) {
+      errors.push(error);
     }
   }
+  
+  return errors;
+}
 
-  if (stop.visible !== undefined && typeof stop.visible !== 'boolean') {
-    errors.push(createValidationError(
-      ERROR_CODES.INVALID_DATA_TYPE,
-      'import.validation.visible_must_be_boolean',
-      'stopConfig.visible',
-      stop.visible,
-      'boolean'
-    ));
-  }
-
-  if (stop.position !== undefined && typeof stop.position !== 'number') {
-    errors.push(createValidationError(
-      ERROR_CODES.INVALID_DATA_TYPE,
-      'import.validation.position_must_be_number',
-      'stopConfig.position',
-      stop.position,
-      'number'
-    ));
-  }
-
-  // Warnungen für ungewöhnliche Konfigurationen
+/**
+ * Validate business rules
+ */
+function validateStopBusinessRules(stop: Partial<StopConfig>): ValidationWarning[] {
+  const warnings: ValidationWarning[] = [];
+  
   if (stop.walkingTimeMinutes !== undefined && stop.walkingTimeMinutes > 30) {
     warnings.push(createValidationWarning(
       WARNING_CODES.UNUSUAL_CONFIGURATION,
@@ -337,14 +383,145 @@ export function validateStopConfig(
       'import.validation.check_walking_time'
     ));
   }
+  
+  return warnings;
+}
 
-  return {
-    isValid: errors.length === 0,
-    errors,
-    warnings,
-    schemaVersion: context.schemaVersion,
-    isCompatible: true
-  };
+/**
+ * Validation helper functions using Strategy Pattern
+ */
+function validateStringField(
+  value: unknown,
+  field: string,
+  messageKey: string
+): ValidationError | null {
+  if (value !== undefined) {
+    if (typeof value !== 'string') {
+      return createValidationError(
+        ERROR_CODES.INVALID_DATA_TYPE,
+        `import.validation.${messageKey}`,
+        field,
+        value,
+        'string'
+      );
+    }
+    
+    // Special validation for name field - check length
+    if (field === 'stopConfig.name' && value.length > 255) {
+      return createValidationError(
+        ERROR_CODES.VALUE_OUT_OF_RANGE,
+        'import.validation.name_too_long',
+        field,
+        value,
+        'maximum 255 characters'
+      );
+    }
+    
+    // SQL injection detection for stop fields
+    const sqlInjectionPatterns = [
+      /'; DROP TABLE/gi,
+      /' OR '1'='1/gi,
+      /--/g,
+      /\/\*/g,
+      /\*\//g,
+      /union\s+select/gi,
+      /delete\s+from/gi,
+      /insert\s+into/gi,
+      /update\s+set/gi
+    ];
+    
+    if (field.includes('stopConfig.') && (field.includes('id') || field.includes('name'))) {
+      for (const pattern of sqlInjectionPatterns) {
+        if (pattern.test(value)) {
+          return createValidationError(
+            ERROR_CODES.INVALID_DATA_TYPE,
+            'import.validation.sql_injection_detected',
+            field,
+            value,
+            'safe string without SQL injection patterns'
+          );
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function validateCityField(city: unknown): ValidationError | null {
+  if (city !== undefined && typeof city === 'string' && !isValidCity(city)) {
+    return createValidationError(
+      ERROR_CODES.INVALID_DATA_TYPE,
+      'import.validation.city_must_be_valid',
+      'stopConfig.city',
+      city,
+      'wue | muc'
+    );
+  }
+  return null;
+}
+
+function validateWalkingTimeField(walkingTime: unknown): ValidationError | null {
+  if (walkingTime !== undefined) {
+    if (typeof walkingTime !== 'number' ||
+        walkingTime < VALIDATION_RULES.MIN_WALKING_TIME ||
+        walkingTime > VALIDATION_RULES.MAX_WALKING_TIME) {
+      return createValidationError(
+        ERROR_CODES.VALUE_OUT_OF_RANGE,
+        'import.validation.walking_time_out_of_range',
+        'stopConfig.walkingTimeMinutes',
+        walkingTime,
+        `${VALIDATION_RULES.MIN_WALKING_TIME}-${VALIDATION_RULES.MAX_WALKING_TIME}`
+      );
+    }
+  }
+  return null;
+}
+
+function validateBooleanField(
+  value: unknown,
+  field: string,
+  messageKey: string
+): ValidationError | null {
+  if (value !== undefined && typeof value !== 'boolean') {
+    return createValidationError(
+      ERROR_CODES.INVALID_DATA_TYPE,
+      `import.validation.${messageKey}`,
+      field,
+      value,
+      'boolean'
+    );
+  }
+  return null;
+}
+
+function validateNumberField(
+  value: unknown,
+  field: string,
+  messageKey: string
+): ValidationError | null {
+  if (value !== undefined) {
+    if (typeof value !== 'number') {
+      return createValidationError(
+        ERROR_CODES.INVALID_DATA_TYPE,
+        `import.validation.${messageKey}`,
+        field,
+        value,
+        'number'
+      );
+    }
+    
+    // Special validation for position field - must be non-negative
+    if (field === 'stopConfig.position' && value < 0) {
+      return createValidationError(
+        ERROR_CODES.VALUE_OUT_OF_RANGE,
+        'import.validation.position_out_of_range',
+        field,
+        value,
+        '0 or greater'
+      );
+    }
+  }
+  return null;
 }
 
 /**
