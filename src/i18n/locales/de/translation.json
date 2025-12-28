@@ -124,6 +124,7 @@
     },
     "dialog": {
       "title": "Konfiguration importieren",
+      "step": "Schritt",
       "step_preview": "Vorschau",
       "step_options": "Optionen",
       "step_confirm": "Bestätigen",
@@ -135,7 +136,8 @@
       "merge_strategy": "Merge-Strategie",
       "backup_creation": "Backup erstellen",
       "importing": "Importiere...",
-      "import": "Importieren"
+      "import": "Importieren",
+      "progress_aria_label": "Import-Fortschritt"
     },
     "preview": {
       "title": "Import-Vorschau",
@@ -147,22 +149,36 @@
       "language": "Sprache",
       "export_date": "Export-Datum",
       "source": "Quelle",
+      "metadata": "Metadaten",
+      "metadata_subtitle": "Informationen über die Import-Datei",
       "estimated_changes": "Geschätzte Änderungen",
+      "estimated_changes_subtitle": "Erwartete Änderungen an der Konfiguration",
       "stops_added": "Hinzugefügt",
       "stops_updated": "Aktualisiert",
       "stops_removed": "Entfernt",
       "settings_changed": "Einstellungen",
       "global_settings": "Globale Einstellungen",
+      "global_settings_subtitle": "Globale Einstellungen, die übernommen werden",
       "conflicts": "Konflikte",
       "stops": "Stops",
       "showing_of": "{{shown}} von {{total}} angezeigt",
       "visible": "Sichtbar",
       "hidden": "Versteckt",
-      "suggested_resolution": "Vorgeschlagene Lösung"
+      "suggested_resolution": "Vorgeschlagene Lösung",
+      "toggle_card": "Karte {{title}} erweitern/reduzieren",
+      "conflicts_subtitle": "{{count}} Konflikte gefunden",
+      "no_conflicts": "Keine Konflikte erkannt",
+      "stops_subtitle": "{{count}} Stops zur Überprüfung",
+      "view_all": "Alle anzeigen ({{remaining}} weitere)"
     },
     "options": {
       "title": "Import-Optionen",
       "merge_strategy": "Merge-Strategie",
+      "merge_strategy_description": "Wählen Sie, wie importierte Daten mit bestehenden Daten zusammengeführt werden sollen",
+      "basic_options": "Grundlegende Optionen",
+      "basic_options_description": "Wichtige Einstellungen für den Import-Prozess",
+      "advanced_options_description": "Erweiterte Optionen für erfahrene Benutzer",
+      "summary_description": "Übersicht über Ihre gewählten Import-Einstellungen",
       "merge": "Zusammenführen",
       "merge_description": "Neue Stops hinzufügen, bestehende aktualisieren",
       "replace": "Ersetzen",
@@ -185,6 +201,52 @@
       "backup": "Backup",
       "only_visible": "Nur sichtbare",
       "validate": "Validierung"
+    },
+    "progress": {
+      "validation": "Validierung",
+      "validation_description": "Konfigurationsdatei wird überprüft",
+      "backup": "Backup erstellen",
+      "backup_description": "Aktuelle Konfiguration wird gesichert",
+      "import": "Import durchführen",
+      "import_description": "Neue Konfiguration wird angewendet",
+      "finalize": "Abschließen",
+      "finalize_description": "Import wird finalisiert",
+      "seconds": "{{count}} Sekunde",
+      "seconds_plural": "{{count}} Sekunden",
+      "minutes_seconds": "{{minutes}}min {{seconds}}s",
+      "hours_minutes": "{{hours}}h {{minutes}}min",
+      "elapsed": "Verstrichene Zeit",
+      "remaining": "Verbleibende Zeit",
+      "status_error": "Fehler",
+      "status_paused": "Pausiert",
+      "status_active": "Aktiv",
+      "status_completed": "Abgeschlossen",
+      "status_idle": "Bereit",
+      "aria_label": "Fortschrittsanzeige, {{progress}}% abgeschlossen",
+      "title": "Fortschritt",
+      "steps_completed": "{{completed}} von {{total}} Schritten abgeschlossen",
+      "completed": "Abgeschlossen",
+      "active": "Aktiv",
+      "pending": "Ausstehend"
+    },
+    "card": {
+      "toggle_expand": "Karte {{title}} erweitern/reduzieren",
+      "options_count": "{{enabled}} von {{total}} Optionen aktiviert"
+    },
+    "categories": {
+      "settings": "Einstellungen",
+      "safety": "Sicherheit",
+      "filtering": "Filterung",
+      "layout": "Layout",
+      "default": "Allgemein"
+    },
+    "loading": {
+      "dialog": "Lade Import-Dialog...",
+      "confirmation": "Lade Import-Bestätigungsdialog...",
+      "preview": "Lade Import-Vorschau...",
+      "options": "Lade Import-Optionen...",
+      "component_error": "Fehler beim Laden der Komponente",
+      "unknown_error": "Unbekannter Fehler"
     },
     "conflicts": {
       "stop_exists": "Stop bereits vorhanden",

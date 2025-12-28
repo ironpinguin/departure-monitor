@@ -1,11 +1,14 @@
 /**
  * Import-Optionen-Komponente
  * Benutzer-Interface für Merge-Strategien und Import-Optionen
+ * Modernized with card-based layout for better UX
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ImportOptionCard } from './ImportCards/ImportOptionCard';
 import type { ImportOptions } from '../types/configExport';
+import type { ImportOptionItem } from './ImportCards/ImportOptionCard';
 
 interface ImportOptionsComponentProps {
   /** Aktuelle Import-Optionen */
@@ -28,231 +31,221 @@ export const ImportOptionsComponent: React.FC<ImportOptionsComponentProps> = ({
   compact = false
 }) => {
   const { t } = useTranslation();
-  const [showAdvancedOptions, setShowAdvancedOptions] = useState(showAdvanced);
+  const showAdvancedOptions = showAdvanced;
 
-  // Option-Update-Handler
-  const handleOptionChange = useCallback(<K extends keyof ImportOptions>(
-    key: K,
-    value: ImportOptions[K]
-  ) => {
-    const newOptions = { ...options, [key]: value };
+  // Option-Update-Handler mit Radio-Button-Unterstützung
+  const handleOptionChange = useCallback((newOptions: ImportOptions) => {
+    onOptionsChange(newOptions);
+  }, [onOptionsChange]);
+
+  // Spezielle Handler für Radio-Buttons
+  const handleMergeStrategyChange = useCallback((overwriteExisting: boolean) => {
+    const newOptions = { ...options, overwriteExisting };
     onOptionsChange(newOptions);
   }, [options, onOptionsChange]);
 
-  // Toggle für erweiterte Optionen
-  const toggleAdvanced = useCallback(() => {
-    setShowAdvancedOptions(!showAdvancedOptions);
-  }, [showAdvancedOptions]);
+  // Konfigurierte Option-Items für die Cards
+  const basicOptions = useMemo(() => {
+    const opts: ImportOptionItem[] = [
+      {
+        key: 'importGlobalSettings',
+        label: 'import.options.import_global_settings',
+        description: 'import.options.import_global_settings_description',
+        category: 'settings'
+      },
+      {
+        key: 'createBackup',
+        label: 'import.options.create_backup',
+        description: 'import.options.create_backup_description',
+        category: 'safety',
+        required: true
+      }
+    ];
+    return opts;
+  }, []);
+
+  const advancedOptions = useMemo(() => {
+    const opts: ImportOptionItem[] = [
+      {
+        key: 'importOnlyVisible',
+        label: 'import.options.import_only_visible',
+        description: 'import.options.import_only_visible_description',
+        category: 'filtering'
+      },
+      {
+        key: 'preserveStopPositions',
+        label: 'import.options.preserve_positions',
+        description: 'import.options.preserve_positions_description',
+        category: 'layout'
+      },
+      {
+        key: 'validateBeforeImport',
+        label: 'import.options.validate_before_import',
+        description: 'import.options.validate_before_import_description',
+        category: 'safety'
+      }
+    ];
+    return opts;
+  }, []);
 
   return (
     <div className={`import-options ${compact ? 'import-options--compact' : ''} ${className}`}>
-      {/* Grundlegende Optionen */}
-      <div className="import-options__basic">
+      {/* Header */}
+      <div className="import-options__header">
         <h4 className="import-options__title">
           {t('import.options.title')}
         </h4>
+      </div>
 
-        {/* Merge-Strategie */}
-        <div className="import-options__group">
-          <h5 className="import-options__group-title">
-            {t('import.options.merge_strategy')}
-          </h5>
-          <div className="import-options__radio-group">
-            <label className="import-options__radio-option">
-              <input
-                type="radio"
-                name="mergeStrategy"
-                checked={!options.overwriteExisting}
-                onChange={() => handleOptionChange('overwriteExisting', false)}
-              />
-              <span className="import-options__radio-label">
-                {t('import.options.merge')}
-              </span>
-              <span className="import-options__radio-description">
-                {t('import.options.merge_description')}
-              </span>
-            </label>
-            <label className="import-options__radio-option">
-              <input
-                type="radio"
-                name="mergeStrategy"
-                checked={options.overwriteExisting}
-                onChange={() => handleOptionChange('overwriteExisting', true)}
-              />
-              <span className="import-options__radio-label">
-                {t('import.options.replace')}
-              </span>
-              <span className="import-options__radio-description">
-                {t('import.options.replace_description')}
-              </span>
-            </label>
+      {/* Merge-Strategie Card - Spezielle Behandlung für Radio-Buttons */}
+      <div className="import-options__merge-strategy">
+        <div className="import-option-card import-option-card--high">
+          <div className="import-option-card__header">
+            <div className="import-option-card__header-content">
+              <span className="import-option-card__default-icon import-option-card__default-icon--high">⚡</span>
+              <div className="import-option-card__header-text">
+                <h3 className="import-option-card__title">{t('import.options.merge_strategy')}</h3>
+                <p className="import-option-card__description">{t('import.options.merge_strategy_description')}</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Globale Einstellungen */}
-        <div className="import-options__group">
-          <label className="import-options__checkbox-option">
-            <input
-              type="checkbox"
-              checked={options.importGlobalSettings}
-              onChange={(e) => handleOptionChange('importGlobalSettings', e.target.checked)}
-            />
-            <span className="import-options__checkbox-label">
-              {t('import.options.import_global_settings')}
-            </span>
-            <span className="import-options__checkbox-description">
-              {t('import.options.import_global_settings_description')}
-            </span>
-          </label>
-        </div>
-
-        {/* Backup erstellen */}
-        <div className="import-options__group">
-          <label className="import-options__checkbox-option">
-            <input
-              type="checkbox"
-              checked={options.createBackup}
-              onChange={(e) => handleOptionChange('createBackup', e.target.checked)}
-            />
-            <span className="import-options__checkbox-label">
-              {t('import.options.create_backup')}
-            </span>
-            <span className="import-options__checkbox-description">
-              {t('import.options.create_backup_description')}
-            </span>
-          </label>
+          <div className="import-option-card__content">
+            <div className="import-options__radio-group">
+              <label className="import-options__radio-option">
+                <input
+                  type="radio"
+                  name="mergeStrategy"
+                  checked={!options.overwriteExisting}
+                  onChange={() => handleMergeStrategyChange(false)}
+                  aria-describedby="merge-strategy-merge-desc"
+                />
+                <div className="import-options__radio-content">
+                  <span className="import-options__radio-label">
+                    {t('import.options.merge')}
+                  </span>
+                  <span id="merge-strategy-merge-desc" className="import-options__radio-description">
+                    {t('import.options.merge_description')}
+                  </span>
+                </div>
+              </label>
+              <label className="import-options__radio-option">
+                <input
+                  type="radio"
+                  name="mergeStrategy"
+                  checked={options.overwriteExisting}
+                  onChange={() => handleMergeStrategyChange(true)}
+                  aria-describedby="merge-strategy-replace-desc"
+                />
+                <div className="import-options__radio-content">
+                  <span className="import-options__radio-label">
+                    {t('import.options.replace')}
+                  </span>
+                  <span id="merge-strategy-replace-desc" className="import-options__radio-description">
+                    {t('import.options.replace_description')}
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Erweiterte Optionen Toggle */}
-      {!compact && (
-        <div className="import-options__advanced-toggle">
-          <button
-            type="button"
-            className="import-options__toggle-button"
-            onClick={toggleAdvanced}
-            aria-expanded={showAdvancedOptions}
-          >
-            <span className="import-options__toggle-icon">
-              {showAdvancedOptions ? '▼' : '▶'}
-            </span>
-            <span className="import-options__toggle-text">
-              {t('import.options.advanced_options')}
-            </span>
-          </button>
-        </div>
-      )}
+      {/* Grundlegende Optionen Card */}
+      <ImportOptionCard
+        title={t('import.options.basic_options')}
+        description={t('import.options.basic_options_description')}
+        options={basicOptions}
+        currentOptions={options}
+        onOptionsChange={handleOptionChange}
+        priority="high"
+        icon={<span>🔧</span>}
+        compact={compact}
+        className="import-options__basic-card"
+        testId="basic-options-card"
+      />
 
-      {/* Erweiterte Optionen */}
-      {(showAdvancedOptions || compact) && (
-        <div className="import-options__advanced">
-          <div className="import-options__group">
-            <h5 className="import-options__group-title">
-              {t('import.options.advanced_title')}
-            </h5>
-
-            {/* Nur sichtbare Stops importieren */}
-            <label className="import-options__checkbox-option">
-              <input
-                type="checkbox"
-                checked={options.importOnlyVisible}
-                onChange={(e) => handleOptionChange('importOnlyVisible', e.target.checked)}
-              />
-              <span className="import-options__checkbox-label">
-                {t('import.options.import_only_visible')}
-              </span>
-              <span className="import-options__checkbox-description">
-                {t('import.options.import_only_visible_description')}
-              </span>
-            </label>
-
-            {/* Stop-Positionen beibehalten */}
-            <label className="import-options__checkbox-option">
-              <input
-                type="checkbox"
-                checked={options.preserveStopPositions}
-                onChange={(e) => handleOptionChange('preserveStopPositions', e.target.checked)}
-              />
-              <span className="import-options__checkbox-label">
-                {t('import.options.preserve_positions')}
-              </span>
-              <span className="import-options__checkbox-description">
-                {t('import.options.preserve_positions_description')}
-              </span>
-            </label>
-
-            {/* Validierung vor Import */}
-            <label className="import-options__checkbox-option">
-              <input
-                type="checkbox"
-                checked={options.validateBeforeImport}
-                onChange={(e) => handleOptionChange('validateBeforeImport', e.target.checked)}
-              />
-              <span className="import-options__checkbox-label">
-                {t('import.options.validate_before_import')}
-              </span>
-              <span className="import-options__checkbox-description">
-                {t('import.options.validate_before_import_description')}
-              </span>
-            </label>
-          </div>
-        </div>
-      )}
+      {/* Erweiterte Optionen Card */}
+      <ImportOptionCard
+        title={t('import.options.advanced_options')}
+        description={t('import.options.advanced_options_description')}
+        options={advancedOptions}
+        currentOptions={options}
+        onOptionsChange={handleOptionChange}
+        collapsible={!compact}
+        defaultExpanded={showAdvancedOptions || compact}
+        priority="medium"
+        icon={<span>⚙️</span>}
+        compact={compact}
+        className="import-options__advanced-card"
+        testId="advanced-options-card"
+      />
 
       {/* Optionen-Zusammenfassung */}
       {!compact && (
         <div className="import-options__summary">
-          <h5 className="import-options__summary-title">
-            {t('import.options.summary')}
-          </h5>
-          <ul className="import-options__summary-list">
-            <li>
-              <strong>{t('import.options.strategy')}:</strong> {
-                options.overwriteExisting 
-                  ? t('import.options.replace') 
-                  : t('import.options.merge')
-              }
-            </li>
-            <li>
-              <strong>{t('import.options.global_settings')}:</strong> {
-                options.importGlobalSettings 
-                  ? t('common.yes') 
-                  : t('common.no')
-              }
-            </li>
-            <li>
-              <strong>{t('import.options.backup')}:</strong> {
-                options.createBackup 
-                  ? t('common.yes') 
-                  : t('common.no')
-              }
-            </li>
-            {showAdvancedOptions && (
-              <>
-                <li>
-                  <strong>{t('import.options.only_visible')}:</strong> {
-                    options.importOnlyVisible 
-                      ? t('common.yes') 
-                      : t('common.no')
-                  }
-                </li>
-                <li>
-                  <strong>{t('import.options.preserve_positions')}:</strong> {
-                    options.preserveStopPositions 
-                      ? t('common.yes') 
-                      : t('common.no')
-                  }
-                </li>
-                <li>
-                  <strong>{t('import.options.validate')}:</strong> {
-                    options.validateBeforeImport 
-                      ? t('common.yes') 
-                      : t('common.no')
-                  }
-                </li>
-              </>
-            )}
-          </ul>
+          <div className="import-option-card import-option-card--low">
+            <div className="import-option-card__header">
+              <div className="import-option-card__header-content">
+                <span className="import-option-card__default-icon import-option-card__default-icon--low">📋</span>
+                <div className="import-option-card__header-text">
+                  <h3 className="import-option-card__title">{t('import.options.summary')}</h3>
+                  <p className="import-option-card__description">{t('import.options.summary_description')}</p>
+                </div>
+              </div>
+            </div>
+            <div className="import-option-card__content">
+              <div className="import-options__summary-content">
+                <ul className="import-options__summary-list">
+                  <li className="import-options__summary-item">
+                    <strong>{t('import.options.strategy')}:</strong> {
+                      options.overwriteExisting
+                        ? t('import.options.replace')
+                        : t('import.options.merge')
+                    }
+                  </li>
+                  <li className="import-options__summary-item">
+                    <strong>{t('import.options.global_settings')}:</strong> {
+                      options.importGlobalSettings
+                        ? t('common.yes')
+                        : t('common.no')
+                    }
+                  </li>
+                  <li className="import-options__summary-item">
+                    <strong>{t('import.options.backup')}:</strong> {
+                      options.createBackup
+                        ? t('common.yes')
+                        : t('common.no')
+                    }
+                  </li>
+                  {(showAdvancedOptions || compact) && (
+                    <>
+                      <li className="import-options__summary-item">
+                        <strong>{t('import.options.only_visible')}:</strong> {
+                          options.importOnlyVisible
+                            ? t('common.yes')
+                            : t('common.no')
+                        }
+                      </li>
+                      <li className="import-options__summary-item">
+                        <strong>{t('import.options.preserve_positions')}:</strong> {
+                          options.preserveStopPositions
+                            ? t('common.yes')
+                            : t('common.no')
+                        }
+                      </li>
+                      <li className="import-options__summary-item">
+                        <strong>{t('import.options.validate')}:</strong> {
+                          options.validateBeforeImport
+                            ? t('common.yes')
+                            : t('common.no')
+                        }
+                      </li>
+                    </>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

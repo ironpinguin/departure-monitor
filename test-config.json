@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportTimestamp": "2025-01-13T22:15:00.000Z",
+  "exportedBy": "Departure Monitor Test",
+  "metadata": {
+    "stopCount": 3,
+    "language": "de",
+    "source": "test-configuration"
+  },
+  "config": {
+    "stops": [
+      {
+        "id": "test-stop-1",
+        "name": "Hauptbahnhof",
+        "city": "muc",
+        "stopId": "de:09162:1",
+        "walkingTimeMinutes": 5,
+        "visible": true,
+        "position": 1
+      },
+      {
+        "id": "test-stop-2",
+        "name": "Marienplatz",
+        "city": "muc",
+        "stopId": "de:09162:2",
+        "walkingTimeMinutes": 10,
+        "visible": true,
+        "position": 2
+      },
+      {
+        "id": "test-stop-3",
+        "name": "Sendlinger Tor",
+        "city": "muc",
+        "stopId": "de:09162:3",
+        "walkingTimeMinutes": 15,
+        "visible": false,
+        "position": 3
+      }
+    ],
+    "darkMode": false,
+    "refreshIntervalSeconds": 30,
+    "maxDeparturesShown": 10,
+    "language": "de"
+  },
+  "exportSettings": {
+    "includeUserSettings": true,
+    "includeStopPositions": true,
+    "includeVisibilitySettings": true
+  }
+}

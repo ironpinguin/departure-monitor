@@ -1,14 +1,18 @@
 /**
  * Import-Bestätigungsdialog-Komponente
  * Modal-Dialog mit Vorschau und Optionen für den Import-Prozess
+ * Enhanced with progress indicator and improved accessibility
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigStore } from '../store/configStore';
 import ImportPreviewComponent from './ImportPreviewComponent';
 import ImportOptionsComponent from './ImportOptionsComponent';
+import { ImportProgressIndicator } from './ImportDialog/ImportProgressIndicator';
 import type { ConfigExport, ImportOptions, ImportResult } from '../types/configExport';
+import type { ImportProgressStep } from './ImportDialog/ImportProgressIndicator';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface ImportConfirmationDialogProps {
   /** Ob der Dialog geöffnet ist */
@@ -48,6 +52,48 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
     createBackup: true
   });
   const [validationResult, setValidationResult] = useState<ReturnType<typeof validateConfig> | null>(null);
+  const [importProgress, setImportProgress] = useState(0);
+  const [currentImportStep, setCurrentImportStep] = useState(0);
+
+  // Import-Schritte für den Progress Indicator
+  const importSteps = useMemo(() => {
+    const steps: ImportProgressStep[] = [
+      {
+        id: 'validation',
+        label: t('import.progress.validation'),
+        description: t('import.progress.validation_description'),
+        completed: validationResult?.isValid === true,
+        active: currentImportStep === 0,
+        hasError: validationResult?.isValid === false,
+        errorMessage: validationResult?.errors?.[0]?.message
+      },
+      {
+        id: 'backup',
+        label: t('import.progress.backup'),
+        description: t('import.progress.backup_description'),
+        completed: currentImportStep > 1,
+        active: currentImportStep === 1,
+        hasError: false
+      },
+      {
+        id: 'import',
+        label: t('import.progress.import'),
+        description: t('import.progress.import_description'),
+        completed: currentImportStep > 2,
+        active: currentImportStep === 2,
+        hasError: false
+      },
+      {
+        id: 'finalize',
+        label: t('import.progress.finalize'),
+        description: t('import.progress.finalize_description'),
+        completed: currentImportStep > 3,
+        active: currentImportStep === 3,
+        hasError: false
+      }
+    ];
+    return steps;
+  }, [t, validationResult, currentImportStep]);
 
   // Validierung beim Öffnen des Dialogs
   useEffect(() => {
@@ -70,14 +116,36 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
     onClose();
   }, [isImporting, onClose]);
 
-  // Import ausführen
+  // Import ausführen mit Progress-Tracking
   const handleImport = useCallback(async () => {
     if (!config || isImporting) return;
     
     setIsImporting(true);
+    setImportProgress(0);
+    setCurrentImportStep(0);
     
     try {
+      // Schritt 1: Validierung (bereits durchgeführt)
+      setCurrentImportStep(1);
+      setImportProgress(25);
+      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate delay
+      
+      // Schritt 2: Backup (wenn aktiviert)
+      if (importOptions.createBackup) {
+        setCurrentImportStep(2);
+        setImportProgress(50);
+        await new Promise(resolve => setTimeout(resolve, 800)); // Simulate backup time
+      }
+      
+      // Schritt 3: Import durchführen
+      setCurrentImportStep(3);
+      setImportProgress(75);
       const result = await importConfig(config, importOptions);
+      
+      // Schritt 4: Finalisierung
+      setCurrentImportStep(4);
+      setImportProgress(100);
+      await new Promise(resolve => setTimeout(resolve, 300)); // Simulate finalization
       
       if (result.success) {
         onImportSuccess(result);
@@ -89,6 +157,8 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
       onImportError(error instanceof Error ? error.message : 'Unbekannter Import-Fehler');
     } finally {
       setIsImporting(false);
+      setImportProgress(0);
+      setCurrentImportStep(0);
     }
   }, [config, importOptions, isImporting, importConfig, onImportSuccess, onImportError, handleClose]);
 
@@ -148,28 +218,44 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
             disabled={isImporting}
             aria-label={t('common.close')}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <CloseIcon fontSize="large" />
+            <br/>{t('common.cancel')}
           </button>
         </div>
 
-        {/* Schritt-Indikator */}
-        <div className="import-dialog__steps">
-          <div className={`import-dialog__step ${currentStep === 'preview' ? 'import-dialog__step--active' : ''}`}>
-            <span className="import-dialog__step-number">1</span>
-            <span className="import-dialog__step-label">{t('import.dialog.step_preview')}</span>
+        {/* Schritt-Indikator - Verbessert mit Progress Indicator */}
+        {isImporting ? (
+          <ImportProgressIndicator
+            progress={importProgress}
+            steps={importSteps}
+            currentStepIndex={currentImportStep}
+            isActive={isImporting}
+            showDetails={true}
+            showTimeEstimates={true}
+            showSteps={true}
+            variant="linear"
+            size="medium"
+            animated={true}
+            theme="primary"
+            testId="import-progress"
+            ariaLabel={t('import.dialog.progress_aria_label')}
+          />
+        ) : (
+          <div className="import-dialog__steps">
+            <div className={`import-dialog__step ${currentStep === 'preview' ? 'import-dialog__step--active' : ''}`}>
+              <span className="import-dialog__step-number">{t('import.dialog.step')} 1: </span>
+              <span className="import-dialog__step-label">{t('import.dialog.step_preview')}</span>
+            </div>
+            <div className={`import-dialog__step ${currentStep === 'options' ? 'import-dialog__step--active' : ''}`}>
+              <span className="import-dialog__step-number">{t('import.dialog.step')} 2: </span>
+              <span className="import-dialog__step-label">{t('import.dialog.step_options')}</span>
+            </div>
+            <div className={`import-dialog__step ${currentStep === 'confirm' ? 'import-dialog__step--active' : ''}`}>
+              <span className="import-dialog__step-number">{t('import.dialog.step')} 3: </span>
+              <span className="import-dialog__step-label">{t('import.dialog.step_confirm')}</span>
+            </div>
           </div>
-          <div className={`import-dialog__step ${currentStep === 'options' ? 'import-dialog__step--active' : ''}`}>
-            <span className="import-dialog__step-number">2</span>
-            <span className="import-dialog__step-label">{t('import.dialog.step_options')}</span>
-          </div>
-          <div className={`import-dialog__step ${currentStep === 'confirm' ? 'import-dialog__step--active' : ''}`}>
-            <span className="import-dialog__step-number">3</span>
-            <span className="import-dialog__step-label">{t('import.dialog.step_confirm')}</span>
-          </div>
-        </div>
+        )}
 
         {/* Inhalt */}
         <div className="import-dialog__content">

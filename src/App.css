@@ -72,6 +72,10 @@ h2 {
   white-space: nowrap;
 }
 
+.import-dialog__step--active {
+  font-weight: bold;
+}
+
 .truncated-text-tooltip {
   animation: fadeIn 0.2s ease-in-out;
 }

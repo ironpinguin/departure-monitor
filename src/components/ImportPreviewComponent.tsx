@@ -1,11 +1,13 @@
 /**
  * Import-Vorschau-Komponente
  * Detaillierte Vorschau der zu importierenden Daten mit Konflikten und Änderungen
+ * Modernized with card-based progressive disclosure layout
  */
 
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { ImportConflict, ConfigExport } from '../types/configExport';
+import { PreviewCard, ConflictPreviewCard, StopPreviewCard } from './ImportCards/PreviewCard';
+import type { ConfigExport } from '../types/configExport';
 import { useConfigStore } from '../store/configStore';
 
 interface ImportPreviewComponentProps {
@@ -33,23 +35,21 @@ export const ImportPreviewComponent: React.FC<ImportPreviewComponentProps> = ({
     return previewImport(config);
   }, [config, previewImport]);
 
-  // Sortierte Konflikte nach Schweregrad
-  const sortedConflicts = useMemo(() => {
-    return [...preview.conflicts].sort((a, b) => {
-      const severityOrder = { high: 3, medium: 2, low: 1 };
-      return severityOrder[b.severity] - severityOrder[a.severity];
-    });
-  }, [preview.conflicts]);
-
-  // Anzeige-Stops (begrenzt)
-  const displayStops = useMemo(() => {
-    return preview.stops.slice(0, maxStopsShown);
-  }, [preview.stops, maxStopsShown]);
-
   // Zähler für verschiedene Änderungstypen
   const changeCounts = preview.estimatedChanges;
-  const hasChanges = changeCounts.stopsAdded > 0 || changeCounts.stopsUpdated > 0 || 
+  const hasChanges = changeCounts.stopsAdded > 0 || changeCounts.stopsUpdated > 0 ||
                     changeCounts.stopsRemoved > 0 || changeCounts.settingsChanged > 0;
+
+  // Stops für die StopPreviewCard formatieren
+  const formattedStops = useMemo(() => {
+    return preview.stops.map(stop => ({
+      id: stop.id,
+      name: stop.name,
+      city: stop.city,
+      stopId: stop.stopId,
+      visible: stop.visible
+    }));
+  }, [preview.stops]);
 
   return (
     <div className={`import-preview ${compact ? 'import-preview--compact' : ''} ${className}`}>
@@ -70,36 +70,51 @@ export const ImportPreviewComponent: React.FC<ImportPreviewComponentProps> = ({
         </div>
       </div>
 
-      {/* Metadaten */}
-      <div className="import-preview__metadata">
-        <div className="import-preview__metadata-item">
-          <span className="import-preview__label">{t('import.preview.schema_version')}:</span>
-          <span className="import-preview__value">{config.schemaVersion}</span>
-        </div>
-        <div className="import-preview__metadata-item">
-          <span className="import-preview__label">{t('import.preview.language')}:</span>
-          <span className="import-preview__value">{config.config.language}</span>
-        </div>
-        <div className="import-preview__metadata-item">
-          <span className="import-preview__label">{t('import.preview.export_date')}:</span>
-          <span className="import-preview__value">
-            {new Date(config.exportTimestamp).toLocaleDateString()}
-          </span>
-        </div>
-        {config.metadata.source && (
+      {/* Metadaten Card */}
+      <PreviewCard
+        title={t('import.preview.metadata')}
+        subtitle={t('import.preview.metadata_subtitle')}
+        type="info"
+        defaultExpanded={true}
+        collapsible={false}
+        compact={compact}
+        testId="metadata-card"
+      >
+        <div className="import-preview__metadata">
           <div className="import-preview__metadata-item">
-            <span className="import-preview__label">{t('import.preview.source')}:</span>
-            <span className="import-preview__value">{config.metadata.source}</span>
+            <span className="import-preview__label">{t('import.preview.schema_version')}:</span>
+            <span className="import-preview__value">{config.schemaVersion}</span>
           </div>
-        )}
-      </div>
+          <div className="import-preview__metadata-item">
+            <span className="import-preview__label">{t('import.preview.language')}:</span>
+            <span className="import-preview__value">{config.metadata.language}</span>
+          </div>
+          <div className="import-preview__metadata-item">
+            <span className="import-preview__label">{t('import.preview.export_date')}:</span>
+            <span className="import-preview__value">
+              {new Date(config.exportTimestamp).toLocaleDateString()}
+            </span>
+          </div>
+          {config.metadata.source && (
+            <div className="import-preview__metadata-item">
+              <span className="import-preview__label">{t('import.preview.source')}:</span>
+              <span className="import-preview__value">{config.metadata.source}</span>
+            </div>
+          )}
+        </div>
+      </PreviewCard>
 
-      {/* Geschätzte Änderungen */}
+      {/* Geschätzte Änderungen Card */}
       {hasChanges && (
-        <div className="import-preview__changes">
-          <h4 className="import-preview__section-title">
-            {t('import.preview.estimated_changes')}
-          </h4>
+        <PreviewCard
+          title={t('import.preview.estimated_changes')}
+          subtitle={t('import.preview.estimated_changes_subtitle')}
+          type="warning"
+          defaultExpanded={true}
+          collapsible={!compact}
+          compact={compact}
+          testId="changes-card"
+        >
           <div className="import-preview__changes-grid">
             {changeCounts.stopsAdded > 0 && (
               <div className="import-preview__change-item import-preview__change-item--added">
@@ -130,15 +145,20 @@ export const ImportPreviewComponent: React.FC<ImportPreviewComponentProps> = ({
               </div>
             )}
           </div>
-        </div>
+        </PreviewCard>
       )}
 
-      {/* Globale Einstellungen Änderungen */}
+      {/* Globale Einstellungen Card */}
       {Object.keys(preview.globalSettingsChanges).length > 0 && (
-        <div className="import-preview__settings">
-          <h4 className="import-preview__section-title">
-            {t('import.preview.global_settings')}
-          </h4>
+        <PreviewCard
+          title={t('import.preview.global_settings')}
+          subtitle={t('import.preview.global_settings_subtitle')}
+          type="info"
+          defaultExpanded={false}
+          collapsible={!compact}
+          compact={compact}
+          testId="global-settings-card"
+        >
           <div className="import-preview__settings-list">
             {preview.globalSettingsChanges.darkMode !== undefined && (
               <div className="import-preview__setting-item">
@@ -173,108 +193,26 @@ export const ImportPreviewComponent: React.FC<ImportPreviewComponentProps> = ({
               </div>
             )}
           </div>
-        </div>
+        </PreviewCard>
       )}
 
-      {/* Konflikte */}
-      {sortedConflicts.length > 0 && (
-        <div className="import-preview__conflicts">
-          <h4 className="import-preview__section-title">
-            {t('import.preview.conflicts')}
-          </h4>
-          <div className="import-preview__conflicts-list">
-            {sortedConflicts.map((conflict, index) => (
-              <ConflictItem key={index} conflict={conflict} />
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Konflikte Card */}
+      <ConflictPreviewCard conflicts={preview.conflicts} />
 
-      {/* Stops-Vorschau */}
-      {!compact && displayStops.length > 0 && (
-        <div className="import-preview__stops">
-          <h4 className="import-preview__section-title">
-            {t('import.preview.stops')}
-            {preview.stops.length > maxStopsShown && (
-              <span className="import-preview__stops-count">
-                {t('import.preview.showing_of', { 
-                  shown: maxStopsShown, 
-                  total: preview.stops.length 
-                })}
-              </span>
-            )}
-          </h4>
-          <div className="import-preview__stops-list">
-            {displayStops.map((stop) => (
-              <div key={stop.id} className="import-preview__stop-item">
-                <div className="import-preview__stop-info">
-                  <span className="import-preview__stop-name">{stop.name}</span>
-                  <span className="import-preview__stop-details">
-                    {stop.city.toUpperCase()} • {stop.stopId}
-                  </span>
-                </div>
-                <div className="import-preview__stop-status">
-                  {stop.visible ? (
-                    <span className="import-preview__stop-visible">
-                      {t('import.preview.visible')}
-                    </span>
-                  ) : (
-                    <span className="import-preview__stop-hidden">
-                      {t('import.preview.hidden')}
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Stops Card */}
+      {!compact && formattedStops.length > 0 && (
+        <StopPreviewCard
+          stops={formattedStops}
+          maxDisplay={maxStopsShown}
+          onViewAll={() => {
+            // Callback für "Alle anzeigen" könnte hier implementiert werden
+            console.log('View all stops requested');
+          }}
+        />
       )}
     </div>
   );
 };
 
-// Konflikt-Item-Komponente
-const ConflictItem: React.FC<{ conflict: ImportConflict }> = ({ conflict }) => {
-  const { t } = useTranslation();
-
-  const getSeverityIcon = (severity: ImportConflict['severity']) => {
-    switch (severity) {
-      case 'high': return '🔴';
-      case 'medium': return '🟡';
-      case 'low': return '🟢';
-      default: return '⚪';
-    }
-  };
-
-  const getSeverityClass = (severity: ImportConflict['severity']) => {
-    return `import-preview__conflict-item--${severity}`;
-  };
-
-  return (
-    <div className={`import-preview__conflict-item ${getSeverityClass(conflict.severity)}`}>
-      <div className="import-preview__conflict-header">
-        <span className="import-preview__conflict-icon">
-          {getSeverityIcon(conflict.severity)}
-        </span>
-        <span className="import-preview__conflict-type">
-          {t(`import.conflicts.${conflict.type}`)}
-        </span>
-        {conflict.stopId && (
-          <span className="import-preview__conflict-stop-id">
-            {conflict.stopId}
-          </span>
-        )}
-      </div>
-      <div className="import-preview__conflict-description">
-        {conflict.description}
-      </div>
-      {conflict.suggestedResolution && (
-        <div className="import-preview__conflict-resolution">
-          <strong>{t('import.preview.suggested_resolution')}:</strong> {conflict.suggestedResolution}
-        </div>
-      )}
-    </div>
-  );
-};
 
 export default ImportPreviewComponent;

@@ -124,6 +124,7 @@
     },
     "dialog": {
       "title": "Import Configuration",
+      "step": "Step",
       "step_preview": "Preview",
       "step_options": "Options",
       "step_confirm": "Confirm",
@@ -135,7 +136,8 @@
       "merge_strategy": "Merge strategy",
       "backup_creation": "Create backup",
       "importing": "Importing...",
-      "import": "Import"
+      "import": "Import",
+      "progress_aria_label": "Import progress"
     },
     "preview": {
       "title": "Import Preview",
@@ -147,22 +149,36 @@
       "language": "Language",
       "export_date": "Export Date",
       "source": "Source",
+      "metadata": "Metadata",
+      "metadata_subtitle": "Information about the import file",
       "estimated_changes": "Estimated Changes",
+      "estimated_changes_subtitle": "Expected changes to the configuration",
       "stops_added": "Added",
       "stops_updated": "Updated",
       "stops_removed": "Removed",
       "settings_changed": "Settings",
       "global_settings": "Global Settings",
+      "global_settings_subtitle": "Global settings that will be applied",
       "conflicts": "Conflicts",
       "stops": "Stops",
       "showing_of": "Showing {{shown}} of {{total}}",
       "visible": "Visible",
       "hidden": "Hidden",
-      "suggested_resolution": "Suggested Resolution"
+      "suggested_resolution": "Suggested Resolution",
+      "toggle_card": "Expand/collapse {{title}} card",
+      "conflicts_subtitle": "{{count}} conflicts found",
+      "no_conflicts": "No conflicts detected",
+      "stops_subtitle": "{{count}} stops for review",
+      "view_all": "View all ({{remaining}} more)"
     },
     "options": {
       "title": "Import Options",
       "merge_strategy": "Merge Strategy",
+      "merge_strategy_description": "Choose how imported data should be merged with existing data",
+      "basic_options": "Basic Options",
+      "basic_options_description": "Essential settings for the import process",
+      "advanced_options_description": "Advanced options for experienced users",
+      "summary_description": "Overview of your selected import settings",
       "merge": "Merge",
       "merge_description": "Add new stops, update existing ones",
       "replace": "Replace",
@@ -185,6 +201,52 @@
       "backup": "Backup",
       "only_visible": "Only visible",
       "validate": "Validation"
+    },
+    "progress": {
+      "validation": "Validation",
+      "validation_description": "Configuration file is being validated",
+      "backup": "Create Backup",
+      "backup_description": "Current configuration is being backed up",
+      "import": "Performing Import",
+      "import_description": "New configuration is being applied",
+      "finalize": "Finalize",
+      "finalize_description": "Import is being finalized",
+      "seconds": "{{count}} second",
+      "seconds_plural": "{{count}} seconds",
+      "minutes_seconds": "{{minutes}}min {{seconds}}s",
+      "hours_minutes": "{{hours}}h {{minutes}}min",
+      "elapsed": "Elapsed time",
+      "remaining": "Remaining time",
+      "status_error": "Error",
+      "status_paused": "Paused",
+      "status_active": "Active",
+      "status_completed": "Completed",
+      "status_idle": "Ready",
+      "aria_label": "Progress indicator, {{progress}}% complete",
+      "title": "Progress",
+      "steps_completed": "{{completed}} of {{total}} steps completed",
+      "completed": "Completed",
+      "active": "Active",
+      "pending": "Pending"
+    },
+    "card": {
+      "toggle_expand": "Expand/collapse {{title}} card",
+      "options_count": "{{enabled}} of {{total}} options enabled"
+    },
+    "categories": {
+      "settings": "Settings",
+      "safety": "Safety",
+      "filtering": "Filtering",
+      "layout": "Layout",
+      "default": "General"
+    },
+    "loading": {
+      "dialog": "Loading import dialog...",
+      "confirmation": "Loading import confirmation dialog...",
+      "preview": "Loading import preview...",
+      "options": "Loading import options...",
+      "component_error": "Error loading component",
+      "unknown_error": "Unknown error"
     },
     "conflicts": {
       "stop_exists": "Stop already exists",
