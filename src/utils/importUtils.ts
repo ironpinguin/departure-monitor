@@ -534,7 +534,7 @@ async function validateConfigWithWorker(
   
   // Handle warnings
   if (validationResult.data.warnings.length > 0) {
-    console.warn('Import-Warnungen:', validationResult.data.warnings);
+    loggers.importExport.warn('Import validation warnings', { warnings: validationResult.data.warnings });
   }
 }
 

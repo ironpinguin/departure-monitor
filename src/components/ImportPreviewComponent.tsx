@@ -196,7 +196,6 @@ export const ImportPreviewComponent: React.FC<ImportPreviewComponentProps> = ({
           maxDisplay={maxStopsShown}
           onViewAll={() => {
             // Callback für "Alle anzeigen" könnte hier implementiert werden
-            console.log('View all stops requested');
           }}
         />
       )}

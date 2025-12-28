@@ -18,6 +18,7 @@ import { downloadConfigFile, validateExportData, createExportSummary } from '../
 import ImportButton from './ImportButton';
 import ImportConfirmationDialog from './ImportConfirmationDialog';
 import type { ConfigExport, ImportResult } from '../types/configExport';
+import { loggers } from '../utils/logger';
 
 interface GlobalSettingsTabProps {
   refreshIntervalSeconds: number;
@@ -103,8 +104,8 @@ const GlobalSettingsTab: React.FC<GlobalSettingsTabProps> = ({
         message: t('export.error.message', 'Export fehlgeschlagen'),
         details: errorMessage
       });
-      
-      console.error('Export-Fehler:', error);
+
+      loggers.components.error('Export error', { errorMessage }, error as Error);
     } finally {
       setIsExporting(false);
     }

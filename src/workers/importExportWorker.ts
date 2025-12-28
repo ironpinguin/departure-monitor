@@ -4,6 +4,7 @@
  */
 
 import type { ConfigExport } from '../types/configExport';
+import { loggers } from '../utils/logger';
 
 // Worker-Message-Typen
 interface WorkerMessage {
@@ -336,9 +337,9 @@ function performMemoryCleanup(isEmergency: boolean = false): void {
     
     const afterCleanup = getMemoryUsage();
     const freedMemory = beforeCleanup - afterCleanup;
-    
+
     // Log cleanup results
-    console.log(`Memory cleanup completed: ${isEmergency ? 'EMERGENCY' : 'ROUTINE'}`, {
+    loggers.importExport.info(`Memory cleanup completed: ${isEmergency ? 'EMERGENCY' : 'ROUTINE'}`, {
       before: beforeCleanup,
       after: afterCleanup,
       freed: freedMemory,
@@ -346,9 +347,9 @@ function performMemoryCleanup(isEmergency: boolean = false): void {
       cleanupCount: memoryState.cleanupCount,
       emergencyCleanupCount: memoryState.emergencyCleanupCount
     });
-    
+
   } catch (error) {
-    console.error('Memory cleanup failed:', error);
+    loggers.importExport.error('Memory cleanup failed', {}, error as Error);
   }
 }
 
@@ -429,7 +430,7 @@ function setupAdaptiveCleanup(): void {
  * Handle emergency memory pressure
  */
 function handleEmergencyMemoryPressure(usage: number): void {
-  console.error('EMERGENCY: Memory usage critical!', {
+  loggers.importExport.error('EMERGENCY: Memory usage critical!', {
     usage,
     threshold: MEMORY_LIMITS.EMERGENCY_THRESHOLD,
     heapLimit: getHeapSizeLimit()
@@ -458,7 +459,7 @@ function handleEmergencyMemoryPressure(usage: number): void {
  * Handle critical memory pressure
  */
 function handleCriticalMemoryPressure(usage: number): void {
-  console.warn('CRITICAL: Memory usage very high!', {
+  loggers.importExport.warn('CRITICAL: Memory usage very high!', {
     usage,
     threshold: MEMORY_LIMITS.CRITICAL_THRESHOLD
   });
@@ -481,7 +482,7 @@ function handleCriticalMemoryPressure(usage: number): void {
  * Handle high memory pressure
  */
 function handleHighMemoryPressure(usage: number): void {
-  console.warn('HIGH: Memory usage elevated', {
+  loggers.importExport.warn('HIGH: Memory usage elevated', {
     usage,
     threshold: MEMORY_LIMITS.HIGH_THRESHOLD,
     trend: getMemoryTrend()
@@ -498,7 +499,7 @@ function handleHighMemoryPressure(usage: number): void {
  * Handle moderate memory pressure
  */
 function handleModerateMemoryPressure(usage: number): void {
-  console.info('MODERATE: Memory usage increased', {
+  loggers.importExport.info('MODERATE: Memory usage increased', {
     usage,
     threshold: MEMORY_LIMITS.MODERATE_THRESHOLD,
     trend: getMemoryTrend()
@@ -790,7 +791,7 @@ async function parseJSONChunked(text: string, operationId: string): Promise<Conf
     
     // Check if parsing caused memory spike
     if (afterParsing - beforeParsing > MEMORY_LIMITS.MODERATE_THRESHOLD) {
-      console.warn('JSON parsing caused memory spike', {
+      loggers.importExport.warn('JSON parsing caused memory spike', {
         before: beforeParsing,
         after: afterParsing,
         spike: afterParsing - beforeParsing
@@ -981,7 +982,7 @@ async function generateExportChunked(config: ConfigExport, operationId: string):
   
   // Check for memory spike during serialization
   if (afterSerialization - beforeSerialization > MEMORY_LIMITS.MODERATE_THRESHOLD) {
-    console.warn('Export serialization caused memory spike', {
+    loggers.importExport.warn('Export serialization caused memory spike', {
       before: beforeSerialization,
       after: afterSerialization,
       spike: afterSerialization - beforeSerialization

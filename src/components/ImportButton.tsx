@@ -7,6 +7,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImportUtils } from '../utils/importUtils';
 import type { ConfigExport } from '../types/configExport';
+import { loggers } from '../utils/logger';
 
 // Rate limiting for import operations
 const IMPORT_RATE_LIMIT = {
@@ -166,7 +167,7 @@ export const ImportButton: React.FC<ImportButtonProps> = ({
 
       // Show security warnings
       if (basicValidation.warnings.length > 0) {
-        console.warn('Security warnings:', basicValidation.warnings);
+        loggers.components.warn('Security warnings', { warnings: basicValidation.warnings });
       }
 
       // All validation and processing moved to worker
