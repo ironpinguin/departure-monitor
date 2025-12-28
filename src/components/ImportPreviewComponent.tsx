@@ -53,21 +53,11 @@ export const ImportPreviewComponent: React.FC<ImportPreviewComponentProps> = ({
 
   return (
     <div className={`import-preview ${compact ? 'import-preview--compact' : ''} ${className}`}>
-      {/* Header mit Zusammenfassung */}
+      {/* Header */}
       <div className="import-preview__header">
         <h3 className="import-preview__title">
           {t('import.preview.title')}
         </h3>
-        <div className="import-preview__summary">
-          <span className="import-preview__count">
-            {t('import.preview.stops_count', { count: preview.stopCount })}
-          </span>
-          {preview.conflicts.length > 0 && (
-            <span className="import-preview__conflicts">
-              {t('import.preview.conflicts_count', { count: preview.conflicts.length })}
-            </span>
-          )}
-        </div>
       </div>
 
       {/* Metadaten Card */}

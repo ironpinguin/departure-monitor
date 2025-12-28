@@ -12,7 +12,10 @@ import ImportOptionsComponent from './ImportOptionsComponent';
 import { ImportProgressIndicator } from './ImportDialog/ImportProgressIndicator';
 import type { ConfigExport, ImportOptions, ImportResult } from '../types/configExport';
 import type { ImportProgressStep } from './ImportDialog/ImportProgressIndicator';
-import CloseIcon from '@mui/icons-material/Close';
+import { Tabs, Tab, Box } from '@mui/material';
+import PreviewIcon from '@mui/icons-material/Visibility';
+import SettingsIcon from '@mui/icons-material/Settings';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 interface ImportConfirmationDialogProps {
   /** Ob der Dialog geöffnet ist */
@@ -168,6 +171,31 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
     setCurrentStep(step);
   }, [isImporting]);
 
+  // Tab-Index zu Step Mapping
+  const stepToTabIndex = useCallback((step: typeof currentStep): number => {
+    switch (step) {
+      case 'preview': return 0;
+      case 'options': return 1;
+      case 'confirm': return 2;
+      default: return 0;
+    }
+  }, []);
+
+  const tabIndexToStep = useCallback((index: number): typeof currentStep => {
+    switch (index) {
+      case 0: return 'preview';
+      case 1: return 'options';
+      case 2: return 'confirm';
+      default: return 'preview';
+    }
+  }, []);
+
+  const handleTabChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
+    if (isImporting) return;
+    const newStep = tabIndexToStep(newValue);
+    setCurrentStep(newStep);
+  }, [isImporting, tabIndexToStep]);
+
   const canProceed = useCallback(() => {
     if (!config || !validationResult) return false;
     
@@ -211,19 +239,9 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
           <h2 id="import-dialog-title" className="import-dialog__title">
             {t('import.dialog.title')}
           </h2>
-          <button
-            type="button"
-            className="import-dialog__close"
-            onClick={handleClose}
-            disabled={isImporting}
-            aria-label={t('common.close')}
-          >
-            <CloseIcon fontSize="large" />
-            <br/>{t('common.cancel')}
-          </button>
         </div>
 
-        {/* Schritt-Indikator - Verbessert mit Progress Indicator */}
+        {/* Tab-Navigation oder Progress Indicator */}
         {isImporting ? (
           <ImportProgressIndicator
             progress={importProgress}
@@ -241,20 +259,37 @@ export const ImportConfirmationDialog: React.FC<ImportConfirmationDialogProps> =
             ariaLabel={t('import.dialog.progress_aria_label')}
           />
         ) : (
-          <div className="import-dialog__steps">
-            <div className={`import-dialog__step ${currentStep === 'preview' ? 'import-dialog__step--active' : ''}`}>
-              <span className="import-dialog__step-number">{t('import.dialog.step')} 1: </span>
-              <span className="import-dialog__step-label">{t('import.dialog.step_preview')}</span>
-            </div>
-            <div className={`import-dialog__step ${currentStep === 'options' ? 'import-dialog__step--active' : ''}`}>
-              <span className="import-dialog__step-number">{t('import.dialog.step')} 2: </span>
-              <span className="import-dialog__step-label">{t('import.dialog.step_options')}</span>
-            </div>
-            <div className={`import-dialog__step ${currentStep === 'confirm' ? 'import-dialog__step--active' : ''}`}>
-              <span className="import-dialog__step-number">{t('import.dialog.step')} 3: </span>
-              <span className="import-dialog__step-label">{t('import.dialog.step_confirm')}</span>
-            </div>
-          </div>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={stepToTabIndex(currentStep)}
+              onChange={handleTabChange}
+              aria-label={t('import.dialog.title')}
+              variant="fullWidth"
+              centered
+            >
+              <Tab
+                icon={<PreviewIcon />}
+                iconPosition="start"
+                label={t('import.dialog.step_preview')}
+                id="import-tab-0"
+                aria-controls="import-tabpanel-0"
+              />
+              <Tab
+                icon={<SettingsIcon />}
+                iconPosition="start"
+                label={t('import.dialog.step_options')}
+                id="import-tab-1"
+                aria-controls="import-tabpanel-1"
+              />
+              <Tab
+                icon={<CheckCircleIcon />}
+                iconPosition="start"
+                label={t('import.dialog.step_confirm')}
+                id="import-tab-2"
+                aria-controls="import-tabpanel-2"
+              />
+            </Tabs>
+          </Box>
         )}
 
         {/* Inhalt */}
