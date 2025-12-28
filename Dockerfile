@@ -1,7 +1,7 @@
 # Multi-stage build for departure-monitor application
 
 # Build stage
-FROM node:slim AS build
+FROM node AS build
 
 WORKDIR /app
 
