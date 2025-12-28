@@ -52,8 +52,6 @@ const StopWidget: React.FC<StopWidgetProps> = ({
     // Save the updated configuration
     if (onConfigure) {
       onConfigure(updatedConfig);
-    } else {
-      console.log('Saving config:', updatedConfig);
     }
     setIsConfigModalOpen(false);
   };

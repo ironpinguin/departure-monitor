@@ -1,13 +1,15 @@
 # Multi-stage build for departure-monitor application
 
 # Build stage
-FROM node:slim AS build
+FROM node:24-slim AS build
 
 WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package.json pnpm-lock.yaml ./
-RUN corepack use pnpm@latest-10 && corepack enable pnpm
+RUN npm install --global corepack@latest && \
+  corepack use pnpm@latest-10 && \
+  corepack enable pnpm
 RUN pnpm install --frozen-lockfile
 
 # Copy source code

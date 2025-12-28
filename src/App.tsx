@@ -28,6 +28,7 @@ import ConfigModal from './components/ConfigModal';
 import { useConfigStore } from './store/configStore';
 import type { Departure, StopConfig } from './models';
 import { fetchMuenchenDepartures } from './api/muenchenApi';
+import { logger } from './utils/logger';
 import { fetchWuerzburgDepartures } from './api/wuerzburgApi';
 
 import './App.css';
@@ -59,7 +60,7 @@ const App: React.FC = () => {
   useEffect(() => {
    const updateTime = lastUpdateTime;
    if (updateTime) {
-    console.log(`Init --- Last update time: ${updateTime.toLocaleTimeString()}`);
+    logger.debug('Last update time', { updateTime: updateTime.toLocaleTimeString() });
    }
   }, [lastUpdateTime]);
   
@@ -77,24 +78,22 @@ const App: React.FC = () => {
         try {
           departures = await fetchWuerzburgDepartures(stop.stopId);
         } catch (err) {
-          console.error(`Error fetching departures for Würzburg stop ${stop.name}:`, err);
+          logger.error('Error fetching departures for Würzburg stop', { stopName: stop.name }, err as Error);
           // Set empty departures but don't treat as a global error
           departures = [];
-          // Show error in console but continue execution
-          console.error(t('errorFetchingWuerzburg', { stopName: stop.name }));
         }
       } else {
         throw new Error(t('unsupportedCity', { city: stop.city }));
       }
-      
+
       setDeparturesMap(prev => ({
         ...prev,
         [stop.id]: departures || [] // Ensure we always have an array even if undefined
       }));
-      
+
       setError(null);
     } catch (err) {
-      console.error(t('errorFetchingDepartures', { stopName: stop.name }), err);
+      logger.error('Error fetching departures', { stopName: stop.name }, err as Error);
       setError(t('errorFetching', { stopName: stop.name }));
     } finally {
       setLoading(prev => ({ ...prev, [stop.id]: false }));
@@ -285,11 +284,11 @@ const App: React.FC = () => {
             </Typography>
             
             {/* Settings icon */}
-            <Tooltip title={t('settings')}>
+            <Tooltip title={t('settings.title')}>
               <IconButton
                 color="inherit"
                 onClick={() => setConfigOpen(true)}
-                aria-label={t('settings')}
+                aria-label={t('settings.title')}
                 aria-describedby="settings-help"
               >
                 <SettingsIcon />

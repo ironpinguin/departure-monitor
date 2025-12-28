@@ -1,4 +1,5 @@
 import type { Departure, WUEResponse } from '../models/index';
+import { loggers } from '../utils/logger';
 
 const VERSION = "10.6.21.17";
 
@@ -11,23 +12,22 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
     
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Error response body:', errorText);
+      loggers.api.error('Error response body', { errorText, status: response.status, statusText: response.statusText });
       throw new Error(`Failed to fetch Würzburg departures: ${response.status} ${response.statusText}`);
     }
-    
+
     const text = await response.text();
-    
+
     let data: WUEResponse;
     try {
       data = JSON.parse(text) as WUEResponse;
     } catch (parseError) {
-      console.error('JSON parsing error:', parseError);
-      console.error('Raw response text:', text.substring(0, 200) + '...');
+      loggers.api.error('JSON parsing error', { rawResponsePreview: text.substring(0, 200) }, parseError as Error);
       throw new Error('Failed to parse API response as JSON');
     }
-    
+
     if (!data.stopEvents || !Array.isArray(data.stopEvents)) {
-      console.error('Invalid response structure:', data);
+      loggers.api.error('Invalid response structure', { data });
       return [];
     }
 
@@ -55,7 +55,7 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
 
     return departures;
   } catch (error) {
-    console.error('Error fetching Würzburg departures:', error);
+    loggers.api.error('Error fetching Würzburg departures', {}, error as Error);
     // Rethrow the error to let the component handle it
     throw error;
   }

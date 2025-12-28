@@ -17,7 +17,11 @@
     "release": "pnpm run build:archives",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "node deploy.js"
+    "deploy": "node deploy.js",
+    "test:watch": "vitest",
+    "test": "vitest run",
+    "test:ui": "vitest run --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -35,6 +39,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.0.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
@@ -48,12 +56,13 @@
     "fs-extra": "^11.3.0",
     "globals": "^16.2.0",
     "inquirer": "^9.3.7",
+    "jsdom": "^26.1.0",
     "tar": "^7.4.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite": "^6.3.5",
-    "wait-on": "^7.2.0",
-    "@types/node": "^22.0.0"
+    "vitest": "^3.2.4",
+    "wait-on": "^7.2.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

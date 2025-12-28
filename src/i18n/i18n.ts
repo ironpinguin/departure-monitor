@@ -20,7 +20,8 @@ i18n
         translation: deTranslation
       }
     },
-    fallbackLng: 'en',
+    lng: 'de', // Explicitly set the language to German
+    fallbackLng: 'de',
     interpolation: {
       escapeValue: false // not needed for react as it escapes by default
     },
