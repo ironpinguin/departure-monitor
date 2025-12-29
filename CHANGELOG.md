@@ -25,6 +25,86 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 -
 
+## [3.0.0] - 2025-12-29
+
+### Added
+- **Import/Export Functionality** - Complete configuration backup and restore system
+  - Export current configuration to JSON files with full data integrity
+  - Import configurations with conflict resolution and merge strategies
+  - Progressive disclosure UI with card-based dialog components
+  - Real-time validation and preview of import changes
+  - Performance-optimized with Web Worker processing
+  - Comprehensive error handling and structured logging
+  - Memory pressure detection with adaptive monitoring
+  - Rate limiting and security checks against XSS attacks
+  - Progress tracking with time estimates and validation feedback
+  - Material-UI tabs for modern step navigation
+  - Full internationalization support (German/English)
+  - Extensive test coverage with 21 memory management tests
+- **Mobile-First Responsive Design** - Touch-optimized interface for all screen sizes
+  - Mobile-specific departure card component with touch-friendly targets
+  - Responsive layout switching for stop widgets
+  - Custom media query hooks for breakpoint detection
+  - Multi-row header layout for mobile devices (< 600px)
+  - Single-row layout for tablet/desktop (≥ 600px)
+  - Responsive font sizes and spacing optimizations
+  - Integrated delay information in departure displays
+  - Support for viewports from 320px upwards
+- **Structured Logging System** - Context-aware application monitoring
+  - Logger instances for different modules (api, components, import/export)
+  - Timestamped and structured log output for debugging
+  - Memory usage monitoring and performance metrics
+  - Eliminated all direct console.* calls for consistent logging
+- **Enhanced Developer Experience**
+  - Comprehensive CLAUDE.md documentation with project overview
+  - Python validation scripts for translation consistency
+  - Vitest testing infrastructure with coverage reporting
+  - Extensive documentation for import/export system
+  - Memory management improvement documentation
+
+### Changed
+- **Import/Export UI/UX Improvements**
+  - Replace step indicator list with Material-UI Tabs component
+  - Add icons for better visual recognition (Preview, Settings, CheckCircle)
+  - Remove redundant UI elements for cleaner appearance
+  - Implement card-based progressive disclosure pattern
+  - Add collapsible sections with grouped checkboxes
+  - Enhanced progress indicator with elapsed/remaining time
+- **Mobile Header Layout**
+  - Reorganized controls for better mobile usability
+  - Auto-refresh status text hidden on small screens
+  - Centered app title in dedicated row on mobile
+  - Improved element spacing to prevent overlapping
+- **Translation Updates**
+  - Added 360+ translation keys for import/export functionality
+  - Updated live departure data terminology
+  - Fixed duplicate translation keys in dialog components
+  - 100% synchronization between German and English translations
+- **Dependency Updates**
+  - Updated Vite from 6.3.5 to 6.4.1
+
+### Improved
+- Type safety with branded types and discriminated unions
+- Null/undefined validation with defensive programming patterns
+- Async/await patterns with Promise.all() for parallel operations
+- Resource management with proper cleanup and timeout handling
+- DOM manipulation efficiency through React.memo and useMemo
+- Accessibility with ARIA labels and keyboard navigation
+- BOM handling in JSON parsing for better file compatibility
+
+### Technical
+- Migrated from direct console calls to structured logging system
+- Implemented Web Worker for performance-optimized operations
+- Added comprehensive test suites (memory, concurrency, performance)
+- Enhanced Docker build with full Node image for corepack support
+- Added MCP server configuration updates (context7 integration)
+- Removed unused conventional-commits mode from .roomodes
+- Extensive code refactoring for maintainability and performance
+
+### Breaking Changes
+- **Import/Export Feature**: This is a new major feature that introduces configuration export/import capabilities. While backwards compatible with existing configurations, the new functionality represents a significant architectural enhancement that warrants a major version bump.
+- **Mobile-First Design**: Layout and responsive behavior has been completely redesigned. Custom styling that relied on previous component structure may need adjustments.
+
 ## [2.1.1] - 2025-06-28
 
 ### Added
