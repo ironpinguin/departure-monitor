@@ -225,78 +225,105 @@ const App: React.FC = () => {
       
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <AppBar position="static" role="banner">
-          <Toolbar>
-            {/* Language selector */}
-            <FormControl size="small" sx={{ mr: 2, minWidth: 80 }}>
-              <Select
-                value={language}
-                onChange={(e: SelectChangeEvent) => {
-                  setLanguage(e.target.value);
-                }}
-                sx={{ color: 'white', '& .MuiSelect-icon': { color: 'white' } }}
-                SelectDisplayProps={{ 'aria-label': t('selectLanguage') }}
-              >
-                <MenuItem value="en">{t('english')}</MenuItem>
-                <MenuItem value="de">{t('german')}</MenuItem>
-              </Select>
-            </FormControl>
-            
-            {/* Dark mode toggle */}
-            <Tooltip title={t('toggleDarkMode')}>
-              <Switch
-                checked={darkMode}
-                onChange={() => setDarkMode(!darkMode)}
-                color="default"
-                inputProps={{ 'aria-label': t('toggleDarkMode') }}
-              />
-            </Tooltip>
-            
-            {/* Auto-refresh controls */}
-            <div className="auto-refresh-controls">
-              <Tooltip title={autoRefreshPaused ? t('playAutoRefresh') : t('pauseAutoRefresh')}>
-                <IconButton
-                  color="inherit"
-                  onClick={toggleAutoRefresh}
-                  aria-label={autoRefreshPaused ? t('playAutoRefresh') : t('pauseAutoRefresh')}
-                  size="small"
+          <Toolbar
+            sx={{
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: { xs: 1, sm: 0 },
+              py: { xs: 1, sm: 0.5 },
+              minHeight: { xs: 'auto', sm: 64 }
+            }}
+          >
+            {/* Top row on mobile: Controls */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                width: { xs: '100%', sm: 'auto' },
+                justifyContent: { xs: 'space-between', sm: 'flex-start' }
+              }}
+            >
+              {/* Language selector */}
+              <FormControl size="small" sx={{ minWidth: 80 }}>
+                <Select
+                  value={language}
+                  onChange={(e: SelectChangeEvent) => {
+                    setLanguage(e.target.value);
+                  }}
+                  sx={{ color: 'white', '& .MuiSelect-icon': { color: 'white' } }}
+                  SelectDisplayProps={{ 'aria-label': t('selectLanguage') }}
                 >
-                  {autoRefreshPaused ? <PlayArrowIcon /> : <PauseIcon />}
-                </IconButton>
+                  <MenuItem value="en">{t('english')}</MenuItem>
+                  <MenuItem value="de">{t('german')}</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Dark mode toggle */}
+              <Tooltip title={t('toggleDarkMode')}>
+                <Switch
+                  checked={darkMode}
+                  onChange={() => setDarkMode(!darkMode)}
+                  color="default"
+                  inputProps={{ 'aria-label': t('toggleDarkMode') }}
+                />
               </Tooltip>
-              <span
-                className="auto-refresh-status"
-                aria-live="polite"
-                role="status"
-              >
-                {autoRefreshPaused ? t('autoRefreshDisabled') : t('autoRefreshEnabled')}
-              </span>
-            </div>
-            
-            {/* Centered title */}
+
+              {/* Auto-refresh controls */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Tooltip title={autoRefreshPaused ? t('playAutoRefresh') : t('pauseAutoRefresh')}>
+                  <IconButton
+                    color="inherit"
+                    onClick={toggleAutoRefresh}
+                    aria-label={autoRefreshPaused ? t('playAutoRefresh') : t('pauseAutoRefresh')}
+                    size="small"
+                  >
+                    {autoRefreshPaused ? <PlayArrowIcon /> : <PauseIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Box
+                  component="span"
+                  aria-live="polite"
+                  role="status"
+                  sx={{
+                    display: { xs: 'none', md: 'inline' },
+                    fontSize: '0.875rem'
+                  }}
+                >
+                  {autoRefreshPaused ? t('autoRefreshDisabled') : t('autoRefreshEnabled')}
+                </Box>
+              </Box>
+            </Box>
+
+            {/* Title - centered on desktop, full width on mobile */}
             <Typography
               variant="h6"
               component="h1"
               sx={{
-                mx: 'auto'  // This adds auto margins on both sides, centering the title
+                flexGrow: { xs: 0, sm: 1 },
+                textAlign: { xs: 'center', sm: 'center' },
+                width: { xs: '100%', sm: 'auto' },
+                fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}
             >
               {t('appTitle')}
             </Typography>
-            
+
             {/* Settings icon */}
-            <Tooltip title={t('settings.title')}>
-              <IconButton
-                color="inherit"
-                onClick={() => setConfigOpen(true)}
-                aria-label={t('settings.title')}
-                aria-describedby="settings-help"
-              >
-                <SettingsIcon />
-              </IconButton>
-            </Tooltip>
-            <span id="settings-help" className="sr-only">
-              {t('escapeToClose')}
-            </span>
+            <Box sx={{ ml: { xs: 0, sm: 'auto' } }}>
+              <Tooltip title={t('settings.title')}>
+                <IconButton
+                  color="inherit"
+                  onClick={() => setConfigOpen(true)}
+                  aria-label={t('settings.title')}
+                  aria-describedby="settings-help"
+                >
+                  <SettingsIcon />
+                </IconButton>
+              </Tooltip>
+              <span id="settings-help" className="sr-only">
+                {t('escapeToClose')}
+              </span>
+            </Box>
           </Toolbar>
         </AppBar>
         

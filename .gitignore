@@ -30,3 +30,4 @@ releases/
 out/
 
 .env
+.claude/settings.local.json
