@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm test:*)",
+      "Bash(rg:*)",
+      "Bash(node:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(python3:*)",
+      "mcp__chrome-devtools__*",
+      "Bash(pnpm dev)",
+      "Bash(git add:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh run view:*)"
+    ],
+    "deny": []
+  }
+}
