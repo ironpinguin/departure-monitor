@@ -3,7 +3,7 @@
 import fs from 'fs/promises';
 import { createWriteStream } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import archiver from 'archiver';
 import * as tar from 'tar';
 import chalk from 'chalk';
@@ -217,7 +217,9 @@ async function main() {
 }
 
 // Script ausführen wenn direkt aufgerufen
-if (import.meta.url === `file://${process.argv[1]}`) {
+// pathToFileURL sorgt für korrekte file://-URLs auf allen Plattformen
+// (unter Windows enthält process.argv[1] Backslashes und einen Laufwerksbuchstaben)
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch(error => {
     console.error(chalk.red('Unerwarteter Fehler:'), error);
     process.exit(1);

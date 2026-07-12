@@ -25,6 +25,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 -
 
+## [3.0.1] - 2026-07-12
+
+### Fixed
+- **Munich (MVV) departures** - The MVV API now rejects a missing or
+  non-base64 `lines` parameter with HTTP 400, which stopped all Munich
+  departures from loading. The request now sends a base64-encoded empty
+  filter (`[]`) so all lines are returned again.
+- **Würzburg departures via nginx proxy** - The EFA upstream
+  (`whitelabel.bahnland-bayern.de`) is behind a load balancer that routes
+  TLS connections by SNI. Without `proxy_ssl_server_name on`, nginx omitted
+  SNI and requests landed on a default backend returning `421 Misdirected
+  Request`. Enabled `proxy_ssl_server_name` on both API proxy locations.
+- Removed a duplicate `@types/node` key in `package.json` that produced a
+  build-time warning.
+- **Release archive script on Windows** - `scripts/create-archives.js`
+  compared `import.meta.url` against a hand-built `file://` string, which
+  never matched on Windows (backslashes / drive letter), so `pnpm release`
+  silently produced no archives. Now uses `pathToFileURL` for a correct
+  cross-platform comparison.
+
 ## [3.0.0] - 2025-12-29
 
 ### Added
