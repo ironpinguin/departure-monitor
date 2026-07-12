@@ -98,7 +98,8 @@
     "linesLabel": "Linien an dieser Haltestelle:",
     "linesLoading": "Linien werden geladen…",
     "linesError": "Linien konnten nicht geladen werden",
-    "noLines": "Keine Linien gefunden"
+    "noLines": "Keine Linien gefunden",
+    "outsideMvv": "außerhalb MVV"
   },
   "export": {
     "title": "Konfiguration exportieren",

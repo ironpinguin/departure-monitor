@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import type { BasicStop, Cities, Line } from '../models';
 import { getLinesForStop, searchStops } from '../api/stopSearch';
 import { useDebounce } from '../hooks/useDebounce';
+import { isMvvStop } from '../config/mvvRegions';
 
 const MIN_QUERY_LENGTH = 2;
 
@@ -137,7 +138,16 @@ const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect, savedSto
   // Below the minimum query length, offer the curated "saved" stops instead of
   // hitting the API; once the user types enough, switch to live results.
   const showingSaved = inputValue.trim().length < MIN_QUERY_LENGTH;
-  const displayedOptions = showingSaved ? savedStops : options;
+  // For Munich, the efa.mvv backend returns Bavaria-wide results. We don't hide
+  // stops outside the MVV network, but we sort them to the bottom and render
+  // them de-emphasized so the in-network stops are easy to pick.
+  const flagOutsideMvv = city === 'muc' && !showingSaved;
+  const rawOptions = showingSaved ? savedStops : options;
+  const displayedOptions = flagOutsideMvv
+    ? [...rawOptions].sort(
+        (a, b) => Number(isMvvStop(b.id)) - Number(isMvvStop(a.id))
+      )
+    : rawOptions;
 
   const noOptionsText = showingSaved ? t('stopSearch.hint') : t('stopSearch.noResults');
 
@@ -164,10 +174,20 @@ const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect, savedSto
           const { key, ...optionProps } = props as React.HTMLAttributes<HTMLLIElement> & {
             key: React.Key;
           };
+          const outsideMvv = flagOutsideMvv && !isMvvStop(option.id);
           return (
             <li key={option.id ?? key} {...optionProps}>
-              <Box>
-                <Typography variant="body1">{option.name}</Typography>
+              <Box sx={{ opacity: outsideMvv ? 0.55 : 1, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Typography variant="body1">{option.name}</Typography>
+                  {outsideMvv && (
+                    <Chip
+                      label={t('stopSearch.outsideMvv')}
+                      size="small"
+                      variant="outlined"
+                    />
+                  )}
+                </Box>
                 {option.longName && option.longName !== option.name && (
                   <Typography variant="body2" color="text.secondary">
                     {option.longName}

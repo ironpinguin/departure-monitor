@@ -98,7 +98,8 @@
     "linesLabel": "Lines at this stop:",
     "linesLoading": "Loading lines…",
     "linesError": "Could not load lines",
-    "noLines": "No lines found"
+    "noLines": "No lines found",
+    "outsideMvv": "outside MVV"
   },
   "export": {
     "title": "Export Configuration",
