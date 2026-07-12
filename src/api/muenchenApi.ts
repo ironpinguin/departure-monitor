@@ -1,9 +1,14 @@
 import type { Departure, MUCResponse, MucDeparture } from '../models/index';
 
+// The MVV API expects the `lines` parameter to be a base64-encoded JSON array
+// used to filter by specific lines. An empty array (base64 "W10=") means "no
+// filter" and returns all lines. The API rejects a missing or non-base64 value.
+const LINES_FILTER_ALL = 'W10='; // base64 of "[]"
+
 export async function fetchMuenchenDepartures(stopId: string): Promise<Departure[]> {
   const timestamp = Math.floor(Date.now() / 1000);
   const baseUrl = 'https://www.mvv-muenchen.de/';
-  const url = `${baseUrl}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines`;
+  const url = `${baseUrl}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines=${LINES_FILTER_ALL}`;
 
   const response = await fetch(url);
   if (!response.ok) {
