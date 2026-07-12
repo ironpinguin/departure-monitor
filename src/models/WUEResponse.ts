@@ -205,3 +205,46 @@ export interface WUEResponse {
   /** Stop events (departures/arrivals) */
   stopEvents: StopEvent[];
 }
+
+/**
+ * A single line as returned by an EFA XML_SERVINGLINES_REQUEST (rapidJSON).
+ * Shared by all EFA-based providers (Würzburg, Munich).
+ */
+export interface EFAServingLine {
+  /** Line ID */
+  id: string;
+  /** Full name (e.g. "Bus 14") */
+  name: string;
+  /** Disassembled name */
+  disassembledName?: string;
+  /** Line number (e.g. "14") */
+  number: string;
+  /** Route description (e.g. "Gerbrunn - Würzburg Busbahnhof") */
+  description?: string;
+  /** Product information (transport type) */
+  product?: Product;
+  /** Destination */
+  destination?: Destination;
+}
+
+/**
+ * Response of an EFA XML_STOPFINDER_REQUEST (rapidJSON).
+ */
+export interface EFAStopFinderResponse {
+  /** API version */
+  version?: string;
+  /** System messages */
+  systemMessages?: unknown[];
+  /** Matched locations */
+  locations?: Location[];
+}
+
+/**
+ * Response of an EFA XML_SERVINGLINES_REQUEST (rapidJSON).
+ */
+export interface EFAServingLinesResponse {
+  /** API version */
+  version?: string;
+  /** Serving lines */
+  lines?: EFAServingLine[];
+}

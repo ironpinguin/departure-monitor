@@ -1,16 +1,23 @@
-import type { 
-  Departure, 
-  MUCResponse, 
-  MucDeparture, 
-  BasicStop, 
-  MUCStopResponse, 
-  Line, 
-  MUCLinesResponse, 
-  MUCStop, 
-  MUCLine 
+import type {
+  Departure,
+  MUCResponse,
+  MucDeparture,
+  BasicStop,
+  Line,
+  MUCLinesResponse,
+  MUCLine,
+  EFAStopFinderResponse,
 } from '../models/index';
+import { parseEfaStops } from './efa';
 
 const BASE_URL = 'https://www.mvv-muenchen.de/';
+
+// The legacy stop search (eID=stopFinder on www.mvv-muenchen.de) was removed
+// server-side (returns HTTP 500). Stop search now uses the EFA rapidJSON API on
+// efa.mvv-muenchen.de, which exposes the same schema as Würzburg. efa.mvv sends
+// no CORS headers, so it is reached through the /mvv-efa-api proxy (see
+// vite.config.ts and nginx.conf).
+const EFA_BASE_URL = '/mvv-efa-api/mvv';
 
 // The MVV API expects the `lines` parameter to be a base64-encoded JSON array
 // used to filter by specific lines. An empty array (base64 "W10=") means "no
@@ -23,7 +30,7 @@ function fetchDeparturesUrl(stopId: string): string {
 }
 
 function searchStopUrl(query: string): string {
-  return `${BASE_URL}?eID=stopFinder&query=${query}`;
+  return `${EFA_BASE_URL}/XML_STOPFINDER_REQUEST?coordOutputFormat=WGS84%5Bdd.ddddd%5D&language=de&locationServerActive=1&name_sf=${encodeURIComponent(query)}&outputFormat=rapidJSON&type_sf=any`;
 }
 
 function linesForStopUrl(stopId: string): string {
@@ -82,22 +89,9 @@ export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
   if (!response.ok) {
     throw new Error(`Failed to search for stops with query ${query}: ${response.statusText}`);
   }
-  const data: MUCStopResponse = await response.json();
+  const data: EFAStopFinderResponse = await response.json();
 
-  if (!data.success) {
-    throw new Error(`API error: ${data.message}`);
-  }
-
-  const stops: BasicStop[] = (data.result.filter((stop: MUCStop) => (stop.anyType == 'stop'))).map((stop: MUCStop) => {
-    return {
-        id: stop.id,
-        name: stop.object,
-        city: 'muc',
-        longName: stop.name
-    }
-  });
-
-  return stops;
+  return parseEfaStops(data, 'muc');
 }
 
 

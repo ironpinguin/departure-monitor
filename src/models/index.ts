@@ -45,5 +45,5 @@ export interface Line {
 
 export type { PredefinedStop, PredefinedStopsConfig } from './PredefinedStops';
 export type { MUCResponse, MUCStopResponse, Departure as MucDeparture, Line as MUCLine, MUCLinesResponse, MUCStop } from './MUCResponse';
-export type { WUEResponse } from './WUEResponse';
+export type { WUEResponse, EFAStopFinderResponse, EFAServingLinesResponse, EFAServingLine } from './WUEResponse';
 export type { StylesConfig } from './StopStyles';
