@@ -22,14 +22,22 @@ interface StopSearchProps {
   value: BasicStop | null;
   /** Called when the user selects (or clears) a stop. */
   onSelect: (stop: BasicStop | null) => void;
+  /**
+   * Curated stops offered as "saved" suggestions while the query is empty or
+   * too short. They behave exactly like search results once selected.
+   */
+  savedStops?: BasicStop[];
 }
 
 /**
  * Debounced stop search with autocomplete results and a preview of the lines
  * serving the selected stop. Provider-agnostic: it delegates to the correct
  * city API via `searchStops` / `getLinesForStop`.
+ *
+ * While the query is shorter than `MIN_QUERY_LENGTH`, `savedStops` are shown as
+ * a "saved" group so the previously curated pre-selection stays available.
  */
-const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect }) => {
+const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect, savedStops = [] }) => {
   const { t } = useTranslation();
 
   const [inputValue, setInputValue] = useState('');
@@ -126,8 +134,12 @@ const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect }) => {
     };
   }, [value, city, t]);
 
-  const noOptionsText =
-    debouncedQuery.length < MIN_QUERY_LENGTH ? t('stopSearch.hint') : t('stopSearch.noResults');
+  // Below the minimum query length, offer the curated "saved" stops instead of
+  // hitting the API; once the user types enough, switch to live results.
+  const showingSaved = inputValue.trim().length < MIN_QUERY_LENGTH;
+  const displayedOptions = showingSaved ? savedStops : options;
+
+  const noOptionsText = showingSaved ? t('stopSearch.hint') : t('stopSearch.noResults');
 
   return (
     <Box>
@@ -136,12 +148,14 @@ const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect }) => {
         onChange={(_event, newValue) => onSelect(newValue)}
         inputValue={inputValue}
         onInputChange={(_event, newInputValue) => setInputValue(newInputValue)}
-        options={options}
+        options={displayedOptions}
         loading={loading}
+        openOnFocus
         // The backend already returns filtered results; keep them all.
         filterOptions={(opts) => opts}
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, selected) => option.id === selected.id}
+        groupBy={() => (showingSaved ? t('stopSearch.savedGroup') : t('stopSearch.resultsGroup'))}
         noOptionsText={error ?? noOptionsText}
         renderOption={(props, option) => {
           // Use the stop id as key: many stops share the same short label

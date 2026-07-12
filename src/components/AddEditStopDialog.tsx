@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -43,6 +43,20 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
   const [walkingTimeMinutes, setWalkingTimeMinutes] = useState(5);
   const [visible, setVisible] = useState(true);
   const [position, setPosition] = useState(0);
+
+  // Curated stops for the selected city, offered as "saved" suggestions in the
+  // search field. Deduped by transit stopId (a few predefined entries reuse the
+  // same id under different names).
+  const savedStops = useMemo<BasicStop[]>(() => {
+    const seen = new Set<string>();
+    const result: BasicStop[] = [];
+    for (const stop of PREDEFINED_STOPS[city]) {
+      if (seen.has(stop.stopId)) continue;
+      seen.add(stop.stopId);
+      result.push({ id: stop.stopId, name: stop.name, city, longName: stop.name });
+    }
+    return result;
+  }, [city]);
 
   // Reset form when dialog opens or editingStop changes
   useEffect(() => {
@@ -120,7 +134,12 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
             </Select>
           </FormControl>
 
-          <StopSearch city={city} value={selectedStop} onSelect={setSelectedStop} />
+          <StopSearch
+            city={city}
+            value={selectedStop}
+            onSelect={setSelectedStop}
+            savedStops={savedStops}
+          />
 
           <TextField
             margin="normal"

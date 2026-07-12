@@ -89,6 +89,8 @@
     "label": "Haltestelle suchen",
     "placeholder": "Name der Haltestelle eingeben…",
     "hint": "Mindestens 2 Zeichen eingeben",
+    "savedGroup": "Gespeicherte Haltestellen",
+    "resultsGroup": "Suchergebnisse",
     "noResults": "Keine Haltestellen gefunden",
     "error": "Fehler bei der Suche. Bitte erneut versuchen.",
     "linesLabel": "Linien an dieser Haltestelle:",

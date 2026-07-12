@@ -89,6 +89,8 @@
     "label": "Search stop",
     "placeholder": "Enter a stop name…",
     "hint": "Type at least 2 characters",
+    "savedGroup": "Saved stops",
+    "resultsGroup": "Search results",
     "noResults": "No stops found",
     "error": "Search failed. Please try again.",
     "linesLabel": "Lines at this stop:",
