@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # Keep GitHub Actions pinned in .github/workflows/*.yml up to date.
+  # This is what would have flagged the retired aquasecurity/trivy-action@0.24.0
+  # and the outdated claude-code-action default before they broke CI.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"
+      - "github-actions"
