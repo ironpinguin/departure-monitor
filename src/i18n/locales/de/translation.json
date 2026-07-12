@@ -85,6 +85,17 @@
     "cancel": "Abbrechen",
     "save": "Speichern"
   },
+  "stopSearch": {
+    "label": "Haltestelle suchen",
+    "placeholder": "Name der Haltestelle eingeben…",
+    "hint": "Mindestens 2 Zeichen eingeben",
+    "noResults": "Keine Haltestellen gefunden",
+    "error": "Fehler bei der Suche. Bitte erneut versuchen.",
+    "linesLabel": "Linien an dieser Haltestelle:",
+    "linesLoading": "Linien werden geladen…",
+    "linesError": "Linien konnten nicht geladen werden",
+    "noLines": "Keine Linien gefunden"
+  },
   "export": {
     "title": "Konfiguration exportieren",
     "description": "Exportieren Sie Ihre aktuelle Konfiguration als JSON-Datei zum Backup oder zur Übertragung auf andere Geräte.",

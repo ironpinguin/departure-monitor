@@ -85,6 +85,17 @@
     "cancel": "Cancel",
     "save": "Save"
   },
+  "stopSearch": {
+    "label": "Search stop",
+    "placeholder": "Enter a stop name…",
+    "hint": "Type at least 2 characters",
+    "noResults": "No stops found",
+    "error": "Search failed. Please try again.",
+    "linesLabel": "Lines at this stop:",
+    "linesLoading": "Loading lines…",
+    "linesError": "Could not load lines",
+    "noLines": "No lines found"
+  },
   "export": {
     "title": "Export Configuration",
     "description": "Export your current configuration as a JSON file for backup or transfer to other devices.",
