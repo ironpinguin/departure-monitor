@@ -101,7 +101,10 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
 
     const stopToSave: StopConfig = {
       id: editingStop?.id || `${city}-${Date.now()}`,
-      name: selectedStop.name,
+      // Prefer the fully qualified name (e.g. "Würzburg, Hauptbahnhof") so that
+      // stops sharing the same short label ("Hauptbahnhof") across cities stay
+      // distinguishable on the dashboard. Falls back to the short name.
+      name: selectedStop.longName || selectedStop.name,
       city,
       stopId: selectedStop.id,
       walkingTimeMinutes,
