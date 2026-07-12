@@ -12,7 +12,7 @@ import { parseEfaLines, parseEfaStops } from './efa';
 const VERSION = "10.6.21.17";
 const BASE_URL = '/wuerzburg-api';
 
-const fetchDeparturesUrl = (stopId: string): string => `${BASE_URL}/efa/XML_DM_REQUEST?commonMacro=dm&type_dm=any&name_dm=${stopId}&outputFormat=rapidJSON&mode=direct&useRealtime=1&includeCompleteStopSeq=1&depType=stopEvents&version=${VERSION}`
+const fetchDeparturesUrl = (stopId: string): string => `${BASE_URL}/efa/XML_DM_REQUEST?commonMacro=dm&type_dm=any&name_dm=${encodeURIComponent(stopId)}&outputFormat=rapidJSON&mode=direct&useRealtime=1&includeCompleteStopSeq=1&depType=stopEvents&version=${VERSION}`
 
 const searchStopUrl = (query: string): string => `${BASE_URL}/efa/XML_STOPFINDER_REQUEST?coordOutputFormat=WGS84%5Bdd.ddddd%5D&doNotSearchForStops_sf=1&language=de&locationInfoActive=1&locationServerActive=1&name_sf=${encodeURIComponent(query)}&odvSortingMacro=beg&outputFormat=rapidJSON&serverInfo=1&sl3plusStopFinderMacro=dm&trans_company=wvv&type_sf=any&version=${VERSION}`;
 

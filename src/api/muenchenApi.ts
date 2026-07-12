@@ -26,7 +26,7 @@ const LINES_FILTER_ALL = 'W10='; // base64 of "[]"
 
 function fetchDeparturesUrl(stopId: string): string {
   const timestamp = Math.floor(Date.now() / 1000);
-  return `${BASE_URL}/?eID=departuresFinder&action=get_departures&stop_id=${stopId}&requested_timestamp=${timestamp}&lines=${LINES_FILTER_ALL}`;
+  return `${BASE_URL}/?eID=departuresFinder&action=get_departures&stop_id=${encodeURIComponent(stopId)}&requested_timestamp=${timestamp}&lines=${LINES_FILTER_ALL}`;
 }
 
 function searchStopUrl(query: string): string {
@@ -34,7 +34,7 @@ function searchStopUrl(query: string): string {
 }
 
 function linesForStopUrl(stopId: string): string {
-  return `${BASE_URL}?eID=departuresFinder&action=available_lines&stop_id=${stopId}`;
+  return `${BASE_URL}?eID=departuresFinder&action=available_lines&stop_id=${encodeURIComponent(stopId)}`;
 }
 
 export async function fetchMuenchenDepartures(stopId: string): Promise<Departure[]> {
@@ -95,7 +95,7 @@ export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
 }
 
 
-export async function linesForStop(stopId:string): Promise<Line[]> {
+export async function linesForStop(stopId: string): Promise<Line[]> {
   const response = await fetch(linesForStopUrl(stopId));
   if (!response.ok) {
     throw new Error(`Failed to fetch lines for stopId ${stopId}: ${response.statusText}`);
