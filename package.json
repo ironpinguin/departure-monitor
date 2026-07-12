@@ -17,7 +17,6 @@
     "release": "pnpm run build:archives",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "node deploy.js",
     "test:watch": "vitest",
     "test": "vitest run",
     "test:ui": "vitest run --ui",
@@ -28,8 +27,6 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
-    "express": "^4.21.2",
-    "http-proxy-middleware": "^2.0.10",
     "i18next": "^25.2.1",
     "i18next-browser-languagedetector": "^8.2.0",
     "react": "^19.1.0",
@@ -53,6 +50,7 @@
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "form-data": "^4.0.6",
     "fs-extra": "^11.3.0",
     "globals": "^16.2.0",
     "inquirer": "^9.3.7",
@@ -61,9 +59,8 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite": "^6.4.3",
-    "wait-on": "^7.2.0",
-    "form-data": "^4.0.6",
-    "vitest": "^3.2.6"
+    "vitest": "^3.2.6",
+    "wait-on": "^7.2.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
