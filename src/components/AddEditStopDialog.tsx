@@ -40,6 +40,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
   const { t } = useTranslation();
   const [city, setCity] = useState<'wue' | 'muc'>('muc');
   const [selectedStop, setSelectedStop] = useState<BasicStop | null>(null);
+  const [name, setName] = useState('');
   const [walkingTimeMinutes, setWalkingTimeMinutes] = useState(5);
   const [visible, setVisible] = useState(true);
   const [position, setPosition] = useState(0);
@@ -69,6 +70,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
         city: editingStop.city,
         longName: editingStop.name
       });
+      setName(editingStop.name);
       setWalkingTimeMinutes(editingStop.walkingTimeMinutes);
       setVisible(editingStop.visible);
       setPosition(editingStop.position);
@@ -76,11 +78,21 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
       // Default values for new stop
       setCity('muc');
       setSelectedStop(null);
+      setName('');
       setWalkingTimeMinutes(5);
       setVisible(true);
       setPosition(existingStops.length);
     }
   }, [editingStop, existingStops.length, open]);
+
+  // Prefill the (editable) display name from the selected stop's fully
+  // qualified name so same-named stops across cities stay distinguishable.
+  // The user can still override it before saving.
+  useEffect(() => {
+    if (selectedStop) {
+      setName(selectedStop.longName || selectedStop.name);
+    }
+  }, [selectedStop]);
 
   // When adding a new stop, prefill the walking time from a matching predefined
   // stop (if any) as a convenience. Don't override when editing.
@@ -101,10 +113,11 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
 
     const stopToSave: StopConfig = {
       id: editingStop?.id || `${city}-${Date.now()}`,
-      // Prefer the fully qualified name (e.g. "Würzburg, Hauptbahnhof") so that
-      // stops sharing the same short label ("Hauptbahnhof") across cities stay
-      // distinguishable on the dashboard. Falls back to the short name.
-      name: selectedStop.longName || selectedStop.name,
+      // Use the (editable) display name; it is prefilled with the fully
+      // qualified name (e.g. "Würzburg, Hauptbahnhof") so that stops sharing
+      // the same short label across cities stay distinguishable on the
+      // dashboard. Falls back to the stop's own names if left empty.
+      name: name.trim() || selectedStop.longName || selectedStop.name,
       city,
       stopId: selectedStop.id,
       walkingTimeMinutes,
@@ -142,6 +155,16 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
             value={selectedStop}
             onSelect={setSelectedStop}
             savedStops={savedStops}
+          />
+
+          <TextField
+            margin="normal"
+            label={t('addEditStopDialog.displayName')}
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={!selectedStop}
+            helperText={t('addEditStopDialog.displayNameHelp')}
           />
 
           <TextField
@@ -193,7 +216,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
           onClick={handleSave}
           variant="contained"
           color="primary"
-          disabled={!selectedStop}
+          disabled={!selectedStop || !name.trim()}
         >
           {t('addEditStopDialog.save')}
         </Button>

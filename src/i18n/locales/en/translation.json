@@ -79,6 +79,8 @@
     "deleteStop": "Delete Stop",
     "city": "City",
     "stop": "Stop",
+    "displayName": "Display name",
+    "displayNameHelp": "Shown as the title on the dashboard. Editable to tell same-named stops apart.",
     "walkingTime": "Walking Time (minutes)",
     "position": "Position",
     "visible": "Visible",

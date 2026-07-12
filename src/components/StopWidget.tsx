@@ -367,13 +367,23 @@ const StopWidget: React.FC<StopWidgetProps> = ({
           flexWrap: isMobile ? 'wrap' : 'nowrap',
           gap: isMobile ? '0.5rem' : '0'
         }}>
-          <h2 style={{ 
-            margin: 0,
-            fontSize: isMobile ? '1.1rem' : '1.2rem',
+          <div style={{
+            minWidth: 0,
             flex: isMobile ? '1 1 100%' : 'auto'
           }}>
-            {stopConfig.name}
-          </h2>
+            <h2 style={{
+              margin: 0,
+              fontSize: isMobile ? '1.1rem' : '1.2rem'
+            }}>
+              {stopConfig.name}
+            </h2>
+            <div style={{
+              fontSize: '0.8rem',
+              color: theme.palette.text.secondary
+            }}>
+              {t(`cities.${stopConfig.city}`)}
+            </div>
+          </div>
           <div style={{ display: 'flex' }}>
             <IconButton
               size={isMobile ? "medium" : "small"}

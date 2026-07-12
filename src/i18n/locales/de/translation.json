@@ -79,6 +79,8 @@
     "deleteStop": "Heltestelle entfernen",
     "city": "Stadt",
     "stop": "Haltestelle",
+    "displayName": "Anzeigename",
+    "displayNameHelp": "Wird als Titel im Dashboard angezeigt. Anpassbar, um gleichnamige Haltestellen zu unterscheiden.",
     "walkingTime": "Gehzeit (Minuten)",
     "position": "Position",
     "visible": "Sichtbar",
