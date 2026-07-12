@@ -25,6 +25,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 -
 
+## [3.1.0] - 2026-07-12
+
+### Added
+- **Stop search in the add/edit dialog** - Users can now search for stops by
+  name directly in the add/edit stop dialog for both Munich (MVV) and Würzburg,
+  instead of relying only on predefined stops.
+
+### Removed
+- Dropped the unused `express` and `http-proxy-middleware` runtime dependencies.
+
+### Changed
+- CI maintenance: pinned GitHub Actions and the Claude Code action model,
+  added Dependabot for the github-actions ecosystem, and bumped several
+  action and dev-dependency versions.
+
 ## [3.0.1] - 2026-07-12
 
 ### Fixed
