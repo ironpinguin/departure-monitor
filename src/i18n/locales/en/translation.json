@@ -79,11 +79,26 @@
     "deleteStop": "Delete Stop",
     "city": "City",
     "stop": "Stop",
+    "displayName": "Display name",
+    "displayNameHelp": "Shown as the title on the dashboard. Editable to tell same-named stops apart.",
     "walkingTime": "Walking Time (minutes)",
     "position": "Position",
     "visible": "Visible",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "stopSearch": {
+    "label": "Search stop",
+    "placeholder": "Enter a stop name…",
+    "hint": "Type at least 2 characters",
+    "savedGroup": "Saved stops",
+    "resultsGroup": "Search results",
+    "noResults": "No stops found",
+    "error": "Search failed. Please try again.",
+    "linesLabel": "Lines at this stop:",
+    "linesLoading": "Loading lines…",
+    "linesError": "Could not load lines",
+    "noLines": "No lines found"
   },
   "export": {
     "title": "Export Configuration",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -15,8 +15,9 @@ import {
   Box
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import type { StopConfig } from '../models';
+import type { BasicStop, StopConfig } from '../models';
 import { getPredefinedStops } from '../utils/predefinedStops';
+import StopSearch from './StopSearch';
 
 // Load predefined stops from configuration
 const PREDEFINED_STOPS = getPredefinedStops();
@@ -38,60 +39,87 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
 }) => {
   const { t } = useTranslation();
   const [city, setCity] = useState<'wue' | 'muc'>('muc');
-  const [selectedStopId, setSelectedStopId] = useState('');
+  const [selectedStop, setSelectedStop] = useState<BasicStop | null>(null);
+  const [name, setName] = useState('');
   const [walkingTimeMinutes, setWalkingTimeMinutes] = useState(5);
   const [visible, setVisible] = useState(true);
   const [position, setPosition] = useState(0);
+
+  // Curated stops for the selected city, offered as "saved" suggestions in the
+  // search field. Deduped by transit stopId (a few predefined entries reuse the
+  // same id under different names).
+  const savedStops = useMemo<BasicStop[]>(() => {
+    const seen = new Set<string>();
+    const result: BasicStop[] = [];
+    for (const stop of PREDEFINED_STOPS[city]) {
+      if (seen.has(stop.stopId)) continue;
+      seen.add(stop.stopId);
+      result.push({ id: stop.stopId, name: stop.name, city, longName: stop.name });
+    }
+    return result;
+  }, [city]);
 
   // Reset form when dialog opens or editingStop changes
   useEffect(() => {
     if (editingStop) {
       setCity(editingStop.city);
-      setSelectedStopId(editingStop.stopId);
+      // Reconstruct a BasicStop so the search field is pre-filled when editing.
+      setSelectedStop({
+        id: editingStop.stopId,
+        name: editingStop.name,
+        city: editingStop.city,
+        longName: editingStop.name
+      });
+      setName(editingStop.name);
       setWalkingTimeMinutes(editingStop.walkingTimeMinutes);
       setVisible(editingStop.visible);
       setPosition(editingStop.position);
     } else {
       // Default values for new stop
       setCity('muc');
-      setSelectedStopId('');
+      setSelectedStop(null);
+      setName('');
       setWalkingTimeMinutes(5);
       setVisible(true);
       setPosition(existingStops.length);
     }
   }, [editingStop, existingStops.length, open]);
 
-  // Update walking time when a stop is selected (only when adding a new stop)
+  // Prefill the (editable) display name from the selected stop's fully
+  // qualified name so same-named stops across cities stay distinguishable.
+  // The user can still override it before saving.
   useEffect(() => {
-    // Don't override walking time when editing an existing stop
-    if (editingStop) return;
-    
-    // If a stop is selected, load its predefined walking time
-    if (selectedStopId) {
-      const selectedPredefinedStop = PREDEFINED_STOPS[city].find(
-        stop => stop.stopId === selectedStopId
-      );
-      
-      if (selectedPredefinedStop) {
-        setWalkingTimeMinutes(selectedPredefinedStop.walkingTimeMinutes);
-      }
+    if (selectedStop) {
+      setName(selectedStop.longName || selectedStop.name);
     }
-  }, [selectedStopId, city, editingStop]);
+  }, [selectedStop]);
 
-  const handleSave = () => {
-    if (!selectedStopId) return;
+  // When adding a new stop, prefill the walking time from a matching predefined
+  // stop (if any) as a convenience. Don't override when editing.
+  useEffect(() => {
+    if (editingStop || !selectedStop) return;
 
-    const selectedPredefinedStop = PREDEFINED_STOPS[city].find(
-      stop => stop.stopId === selectedStopId
+    const predefinedMatch = PREDEFINED_STOPS[city].find(
+      stop => stop.stopId === selectedStop.id
     );
 
-    if (!selectedPredefinedStop) return;
+    if (predefinedMatch) {
+      setWalkingTimeMinutes(predefinedMatch.walkingTimeMinutes);
+    }
+  }, [selectedStop, city, editingStop]);
+
+  const handleSave = () => {
+    if (!selectedStop) return;
 
     const stopToSave: StopConfig = {
       id: editingStop?.id || `${city}-${Date.now()}`,
-      name: selectedPredefinedStop.name,
+      // Use the (editable) display name; it is prefilled with the fully
+      // qualified name (e.g. "Würzburg, Hauptbahnhof") so that stops sharing
+      // the same short label across cities stay distinguishable on the
+      // dashboard. Falls back to the stop's own names if left empty.
+      name: name.trim() || selectedStop.longName || selectedStop.name,
       city,
-      stopId: selectedStopId,
+      stopId: selectedStop.id,
       walkingTimeMinutes,
       visible,
       position
@@ -114,7 +142,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
               label={t('addEditStopDialog.city')}
               onChange={(e) => {
                 setCity(e.target.value as 'wue' | 'muc');
-                setSelectedStopId('');
+                setSelectedStop(null);
               }}
             >
               <MenuItem value="wue">{t('cities.wue')}</MenuItem>
@@ -122,27 +150,22 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
             </Select>
           </FormControl>
 
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="stop-select-label">{t('addEditStopDialog.stop')}</InputLabel>
-            <Select
-              labelId="stop-select-label"
-              value={selectedStopId}
-              label={t('addEditStopDialog.stop')}
-              onChange={(e) => {
-                setSelectedStopId(e.target.value);
-              }}
-            >
-              {/*
-                Eindeutige Key-Strategie: Verwendet stop.id statt stop.stopId
-                um React Key-Duplikate zu vermeiden, da mehrere Stops dieselbe stopId haben können
-              */}
-              {PREDEFINED_STOPS[city].map((stop) => (
-                <MenuItem key={stop.id} value={stop.stopId}>
-                  {stop.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <StopSearch
+            city={city}
+            value={selectedStop}
+            onSelect={setSelectedStop}
+            savedStops={savedStops}
+          />
+
+          <TextField
+            margin="normal"
+            label={t('addEditStopDialog.displayName')}
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={!selectedStop}
+            helperText={t('addEditStopDialog.displayNameHelp')}
+          />
 
           <TextField
             margin="normal"
@@ -193,7 +216,7 @@ const AddEditStopDialog: React.FC<AddEditStopDialogProps> = ({
           onClick={handleSave}
           variant="contained"
           color="primary"
-          disabled={!selectedStopId}
+          disabled={!selectedStop || !name.trim()}
         >
           {t('addEditStopDialog.save')}
         </Button>

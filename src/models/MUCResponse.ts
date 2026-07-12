@@ -75,3 +75,39 @@ export interface MUCResponse {
   /** General notifications */
   notifications: Notification[];
 }
+
+export interface MUCStopRef {
+  id: string;
+  gid: string;
+  omc: string;
+  placeID: string;
+  place: string;
+  coords: string;
+}
+
+export interface MUCStop {
+  usage: string;
+  type: string;
+  name: string;
+  stateless: string;
+  anyType: string;
+  sort: string;
+  quality: string;
+  best: string;
+  object: string;
+  mainLoc: string;
+  modes: string;
+  ref: MUCStopRef;
+  id: string;
+}
+
+export interface MUCStopResponse {
+  success: boolean;
+  message: string;
+  result: MUCStop[];
+}
+
+export interface MUCLinesResponse {
+  error: string;
+  lines: Line[];
+}

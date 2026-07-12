@@ -1,14 +1,26 @@
-import type { Departure, WUEResponse } from '../models/index';
+import type {
+  BasicStop,
+  Departure,
+  EFAServingLinesResponse,
+  EFAStopFinderResponse,
+  Line,
+  WUEResponse,
+} from '../models/index';
 import { loggers } from '../utils/logger';
+import { parseEfaLines, parseEfaStops } from './efa';
 
 const VERSION = "10.6.21.17";
+const BASE_URL = '/wuerzburg-api';
+
+const fetchDeparturesUrl = (stopId: string): string => `${BASE_URL}/efa/XML_DM_REQUEST?commonMacro=dm&type_dm=any&name_dm=${encodeURIComponent(stopId)}&outputFormat=rapidJSON&mode=direct&useRealtime=1&includeCompleteStopSeq=1&depType=stopEvents&version=${VERSION}`
+
+const searchStopUrl = (query: string): string => `${BASE_URL}/efa/XML_STOPFINDER_REQUEST?coordOutputFormat=WGS84%5Bdd.ddddd%5D&doNotSearchForStops_sf=1&language=de&locationInfoActive=1&locationServerActive=1&name_sf=${encodeURIComponent(query)}&odvSortingMacro=beg&outputFormat=rapidJSON&serverInfo=1&sl3plusStopFinderMacro=dm&trans_company=wvv&type_sf=any&version=${VERSION}`;
+
+const linesForStopUrl = (stopId: string): string => `${BASE_URL}/efa/XML_SERVINGLINES_REQUEST?deleteAssignedStops_sl=1&language=de&lineReqType=1&lsShowTrainsExplicit=1&mergeDir=true&mode=odv&name_sl=${encodeURIComponent(stopId)}&outputFormat=rapidJSON&serverInfo=1&sl3plusServingLinesMacro=1&type_sl=stop&version=${VERSION}&withoutTrains=0`
 
 export async function fetchWuerzburgDepartures(stopId: string): Promise<Departure[]> {
-  const baseUrl = '/wuerzburg-api';
-  const url = `${baseUrl}/efa/XML_DM_REQUEST?commonMacro=dm&type_dm=any&name_dm=${stopId}&outputFormat=rapidJSON&mode=direct&useRealtime=1&includeCompleteStopSeq=1&depType=stopEvents&version=${VERSION}`;
-
   try {
-    const response = await fetch(url);
+    const response = await fetch(fetchDeparturesUrl(stopId));
     
     if (!response.ok) {
       const errorText = await response.text();
@@ -64,6 +76,37 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
   } catch (error) {
     loggers.api.error('Error fetching Würzburg departures', {}, error as Error);
     // Rethrow the error to let the component handle it
+    throw error;
+  }
+}
+
+
+export async function stopFinderWuerzburg(query: string): Promise<BasicStop[]> {
+  try {
+    const response = await fetch(searchStopUrl(query));
+    if (!response.ok) {
+      throw new Error(`Failed to search for stops with query ${query}: ${response.status} ${response.statusText}`);
+    }
+
+    const data = (await response.json()) as EFAStopFinderResponse;
+    return parseEfaStops(data, 'wue');
+  } catch (error) {
+    loggers.api.error('Error searching Würzburg stops', { query }, error as Error);
+    throw error;
+  }
+}
+
+export async function linesForStop(stopId: string): Promise<Line[]> {
+  try {
+    const response = await fetch(linesForStopUrl(stopId));
+    if (!response.ok) {
+      throw new Error(`Failed to fetch lines for stopId ${stopId}: ${response.status} ${response.statusText}`);
+    }
+
+    const data = (await response.json()) as EFAServingLinesResponse;
+    return parseEfaLines(data);
+  } catch (error) {
+    loggers.api.error('Error fetching Würzburg lines', { stopId }, error as Error);
     throw error;
   }
 }

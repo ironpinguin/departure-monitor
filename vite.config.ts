@@ -11,6 +11,13 @@ export default defineConfig({
         target: 'https://whitelabel.bahnland-bayern.de',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wuerzburg-api/, ''),
+      },
+      // Munich EFA stop search: efa.mvv-muenchen.de sends no CORS headers,
+      // so it must be proxied (unlike www.mvv-muenchen.de which allows *).
+      '/mvv-efa-api': {
+        target: 'https://efa.mvv-muenchen.de',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/mvv-efa-api/, ''),
       }
     }
   },

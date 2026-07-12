@@ -1,0 +1,200 @@
+{
+  "serverInfo": {
+    "controllerVersion": "10.6.24.82",
+    "serverID": "DEF-EFA-BAY03-P",
+    "virtDir": "beg_web",
+    "serverTime": "2025-06-24T09:37:49",
+    "calcTime": 152.398,
+    "logRequestId": "be5d1c7fe40821ce"
+  },
+  "version": "10.6.21.17",
+  "lines": [
+    {
+      "id": "wvv:10014:E:R:25a",
+      "name": "Bus 14",
+      "disassembledName": "14",
+      "number": "14",
+      "description": "Gerbrunn - Würzburg Busbahnhof",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "destination": {
+        "id": "80029081",
+        "name": "Busbahnhof",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE"
+      }
+    },
+    {
+      "id": "wvv:10029:E:R:25a",
+      "name": "Bus 29",
+      "disassembledName": "29",
+      "number": "29",
+      "description": "Hubland Campus Nord - Busbahnhof",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "80029081",
+        "name": "Busbahnhof",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10091:e:H:25a",
+      "name": "Bus 91",
+      "disassembledName": "91",
+      "number": "91",
+      "description": "Würzburg Juliuspromenade - Würzburg Hans-Löffler-Straße",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700173",
+        "name": "Würzburg Hans-Löffler-Straße",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10095:e:H:25a",
+      "name": "Bus 95",
+      "disassembledName": "95",
+      "number": "95",
+      "description": "Juliuspromenade - Frauenland - Hubland",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "3700230",
+        "name": "Würzburg Königsberger Straße",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10114:e:R:25a",
+      "name": "Bus 114",
+      "disassembledName": "114",
+      "number": "114",
+      "description": "Universität Sportzentrum - Busbahnhof",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "80029081",
+        "name": "Busbahnhof",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    },
+    {
+      "id": "wvv:10214:E:R:25a",
+      "name": "Bus 214",
+      "disassembledName": "214",
+      "number": "214",
+      "description": "Fachhochschule - Hubland - Busbahnhof",
+      "product": {
+        "id": 1,
+        "class": 5,
+        "name": "Bus",
+        "iconId": 3
+      },
+      "operator": {
+        "id": "WSB",
+        "name": "Würzburger Straßenbahn GmbH"
+      },
+      "destination": {
+        "id": "80029081",
+        "name": "Busbahnhof",
+        "type": "stop"
+      },
+      "properties": {
+        "tripCode": 0,
+        "timetablePeriod": "Fahrplanwechsel APG 470 zum 01.05.2025",
+        "validity": {
+          "from": "2025-06-08",
+          "to": "2025-12-13"
+        },
+        "lineDisplay": "LINE",
+        "OperatorURL": "wvv.de/mobilitaet"
+      }
+    }
+  ]
+}

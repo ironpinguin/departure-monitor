@@ -79,11 +79,26 @@
     "deleteStop": "Heltestelle entfernen",
     "city": "Stadt",
     "stop": "Haltestelle",
+    "displayName": "Anzeigename",
+    "displayNameHelp": "Wird als Titel im Dashboard angezeigt. Anpassbar, um gleichnamige Haltestellen zu unterscheiden.",
     "walkingTime": "Gehzeit (Minuten)",
     "position": "Position",
     "visible": "Sichtbar",
     "cancel": "Abbrechen",
     "save": "Speichern"
+  },
+  "stopSearch": {
+    "label": "Haltestelle suchen",
+    "placeholder": "Name der Haltestelle eingeben…",
+    "hint": "Mindestens 2 Zeichen eingeben",
+    "savedGroup": "Gespeicherte Haltestellen",
+    "resultsGroup": "Suchergebnisse",
+    "noResults": "Keine Haltestellen gefunden",
+    "error": "Fehler bei der Suche. Bitte erneut versuchen.",
+    "linesLabel": "Linien an dieser Haltestelle:",
+    "linesLoading": "Linien werden geladen…",
+    "linesError": "Linien konnten nicht geladen werden",
+    "noLines": "Keine Linien gefunden"
   },
   "export": {
     "title": "Konfiguration exportieren",

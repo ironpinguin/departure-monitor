@@ -236,7 +236,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
         <table
           ref={tableRef}
           id={tableId}
-          style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}
+          style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem', tableLayout: 'fixed' }}
           aria-label={t('stopWidget.departureTableLabel', { stopName: stopConfig.name })}
           role="table"
         >
@@ -280,7 +280,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
               >
                 <td
                   className="line-number-cell"
-                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '15%', minWidth: '80px' }}
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '92px' }}
                   headers={lineHeaderId}
                   role="gridcell"
                   tabIndex={0}
@@ -289,7 +289,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
                 >
                   <span
                     className="line-number"
-                    style={getLineStyle(dep.line, stopConfig.city, dep.transportType)}
+                    style={{ ...getLineStyle(dep.line, stopConfig.city, dep.transportType), maxWidth: '100%', boxSizing: 'border-box' }}
                     title={t('stopWidget.lineNumber', { line: dep.line, transportType: dep.transportType })}
                   >
                     {dep.line}
@@ -297,7 +297,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
                 </td>
                 <td
                   className="direction-text-cell"
-                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, minWidth: '180px', maxWidth: '250px', width: '45%' }}
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '58%' }}
                   headers={destHeaderId}
                   role="gridcell"
                   tabIndex={0}
@@ -308,7 +308,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
                   <TruncatedText text={dep.direction} maxLength={25} className="direction-text" />
                 </td>
                 <td
-                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '40%', minWidth: '100px' }}
+                  style={{ padding: '0.5rem', borderBottom: `1px solid ${theme.palette.divider}`, width: '42%' }}
                   headers={depHeaderId}
                   role="gridcell"
                   tabIndex={0}
@@ -367,13 +367,23 @@ const StopWidget: React.FC<StopWidgetProps> = ({
           flexWrap: isMobile ? 'wrap' : 'nowrap',
           gap: isMobile ? '0.5rem' : '0'
         }}>
-          <h2 style={{ 
-            margin: 0,
-            fontSize: isMobile ? '1.1rem' : '1.2rem',
+          <div style={{
+            minWidth: 0,
             flex: isMobile ? '1 1 100%' : 'auto'
           }}>
-            {stopConfig.name}
-          </h2>
+            <h2 style={{
+              margin: 0,
+              fontSize: isMobile ? '1.1rem' : '1.2rem'
+            }}>
+              {stopConfig.name}
+            </h2>
+            <div style={{
+              fontSize: '0.8rem',
+              color: theme.palette.text.secondary
+            }}>
+              {t(`cities.${stopConfig.city}`)}
+            </div>
+          </div>
           <div style={{ display: 'flex' }}>
             <IconButton
               size={isMobile ? "medium" : "small"}
