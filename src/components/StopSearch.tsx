@@ -11,6 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import type { BasicStop, Cities, Line } from '../models';
 import { getLinesForStop, searchStops } from '../api/stopSearch';
+import { ProviderUnavailableError } from '../api/errors';
 import { useDebounce } from '../hooks/useDebounce';
 
 const MIN_QUERY_LENGTH = 2;
@@ -87,10 +88,10 @@ const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect, savedSto
       .then((results) => {
         if (active) setOptions(results);
       })
-      .catch(() => {
+      .catch((err: unknown) => {
         if (active) {
           setOptions([]);
-          setError(t('stopSearch.error'));
+          setError(err instanceof ProviderUnavailableError ? t('stopSearch.providerUnavailable') : t('stopSearch.error'));
         }
       })
       .finally(() => {
@@ -119,10 +120,10 @@ const StopSearch: React.FC<StopSearchProps> = ({ city, value, onSelect, savedSto
       .then((result) => {
         if (active) setLines(result);
       })
-      .catch(() => {
+      .catch((err: unknown) => {
         if (active) {
           setLines([]);
-          setLinesError(t('stopSearch.linesError'));
+          setLinesError(err instanceof ProviderUnavailableError ? t('stopSearch.providerUnavailable') : t('stopSearch.linesError'));
         }
       })
       .finally(() => {

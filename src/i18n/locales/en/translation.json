@@ -34,7 +34,8 @@
     "departureWithDelay": "Departure at {{actualTime}}, scheduled {{scheduledTime}}, {{delay}} minutes delay",
     "departureTime": "Live departure at {{time}}",
     "onTime": "On time",
-    "delayed": "{{minutes}} minutes delay"
+    "delayed": "{{minutes}} minutes delay",
+    "providerUnavailable": "Departure data for this city is currently unavailable: the data provider is blocking requests."
   },
   "transportTypes": {
     "bus": "Bus",
@@ -98,7 +99,8 @@
     "linesLabel": "Lines at this stop:",
     "linesLoading": "Loading lines…",
     "linesError": "Could not load lines",
-    "noLines": "No lines found"
+    "noLines": "No lines found",
+    "providerUnavailable": "Stop search for this city is currently unavailable: the data provider is blocking requests."
   },
   "export": {
     "title": "Export Configuration",
