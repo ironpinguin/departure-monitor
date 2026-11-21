@@ -25,6 +25,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 -
 
+## [3.1.1] - 2026-11-21
+
+### Security
+- Resolved all 55 open Dependabot security alerts (1 critical, 26 high), all
+  in transitive dependencies (#57). `pnpm audit` reports no known
+  vulnerabilities.
+
+### Removed
+- Dropped the unused dev dependencies `wait-on`, `concurrently` and
+  `inquirer` (#57).
+
+### Changed
+- Refreshed dependencies within their current major versions, including
+  React 19.3, MUI 7.3, i18next 25.10, vite 6.4.6 and vitest 4.1 (#55, #56, #57).
+- Upgraded `archiver` to v8 and adapted the release archive script to its new
+  API; the archive progress output no longer exceeds 100% (#57).
+- CI: `pnpm test` now runs in the lint-and-test job, the Claude code review is
+  skipped for Dependabot-triggered runs, and several GitHub Actions were bumped
+  (`setup-node` 7, `pnpm/action-setup` 6, `cache` 6, `docker/build-push-action` 7,
+  `docker/login-action` 4) (#49–#54, #57).
+
 ## [3.1.0] - 2026-07-12
 
 ### Added
