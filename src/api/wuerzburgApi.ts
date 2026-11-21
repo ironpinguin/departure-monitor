@@ -7,6 +7,7 @@ import type {
   WUEResponse,
 } from '../models/index';
 import { loggers } from '../utils/logger';
+import { throwIfProviderBlocked } from './errors';
 import { parseEfaLines, parseEfaStops } from './efa';
 
 const VERSION = "10.6.21.17";
@@ -21,7 +22,8 @@ const linesForStopUrl = (stopId: string): string => `${BASE_URL}/efa/XML_SERVING
 export async function fetchWuerzburgDepartures(stopId: string): Promise<Departure[]> {
   try {
     const response = await fetch(fetchDeparturesUrl(stopId));
-    
+    throwIfProviderBlocked(response, 'wue');
+
     if (!response.ok) {
       const errorText = await response.text();
       loggers.api.error('Error response body', { errorText, status: response.status, statusText: response.statusText });
@@ -84,6 +86,7 @@ export async function fetchWuerzburgDepartures(stopId: string): Promise<Departur
 export async function stopFinderWuerzburg(query: string): Promise<BasicStop[]> {
   try {
     const response = await fetch(searchStopUrl(query));
+    throwIfProviderBlocked(response, 'wue');
     if (!response.ok) {
       throw new Error(`Failed to search for stops with query ${query}: ${response.status} ${response.statusText}`);
     }
@@ -99,6 +102,7 @@ export async function stopFinderWuerzburg(query: string): Promise<BasicStop[]> {
 export async function linesForStop(stopId: string): Promise<Line[]> {
   try {
     const response = await fetch(linesForStopUrl(stopId));
+    throwIfProviderBlocked(response, 'wue');
     if (!response.ok) {
       throw new Error(`Failed to fetch lines for stopId ${stopId}: ${response.status} ${response.statusText}`);
     }

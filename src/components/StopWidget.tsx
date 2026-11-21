@@ -17,6 +17,8 @@ interface StopWidgetProps {
   stopConfig: StopConfig;
   departures: Departure[];
   isLoading?: boolean;
+  /** The stop's data provider currently blocks access (see ProviderUnavailableError). */
+  providerUnavailable?: boolean;
   onRefresh: () => void;
   onConfigure?: (updatedConfig: StopConfig) => void;
   maxDeparturesShown: number;
@@ -26,6 +28,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
   stopConfig,
   departures,
   isLoading = false,
+  providerUnavailable = false,
   onRefresh,
   onConfigure,
   maxDeparturesShown
@@ -193,7 +196,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
           aria-live="polite"
           role="status"
         >
-          {t('stopWidget.noDepartures')}
+          {providerUnavailable ? t('stopWidget.providerUnavailable') : t('stopWidget.noDepartures')}
         </div>
       ) : (
         <div style={{ marginTop: '1rem' }}>
@@ -230,7 +233,7 @@ const StopWidget: React.FC<StopWidgetProps> = ({
           aria-live="polite"
           role="status"
         >
-          {t('stopWidget.noDepartures')}
+          {providerUnavailable ? t('stopWidget.providerUnavailable') : t('stopWidget.noDepartures')}
         </div>
       ) : (
         <table

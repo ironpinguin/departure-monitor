@@ -34,7 +34,8 @@
     "departureWithDelay": "Abfahrt um {{actualTime}}, geplant {{scheduledTime}}, {{delay}} Minuten Verspätung",
     "departureTime": "Live-Abfahrt um {{time}}",
     "onTime": "Pünktlich",
-    "delayed": "{{minutes}} Minuten Verspätung"
+    "delayed": "{{minutes}} Minuten Verspätung",
+    "providerUnavailable": "Abfahrtsdaten für diese Stadt sind derzeit nicht verfügbar: Der Datenanbieter blockiert die Anfragen."
   },
   "transportTypes": {
     "bus": "Bus",
@@ -98,7 +99,8 @@
     "linesLabel": "Linien an dieser Haltestelle:",
     "linesLoading": "Linien werden geladen…",
     "linesError": "Linien konnten nicht geladen werden",
-    "noLines": "Keine Linien gefunden"
+    "noLines": "Keine Linien gefunden",
+    "providerUnavailable": "Die Haltestellensuche für diese Stadt ist derzeit nicht verfügbar: Der Datenanbieter blockiert die Anfragen."
   },
   "export": {
     "title": "Konfiguration exportieren",

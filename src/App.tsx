@@ -30,6 +30,7 @@ import type { Departure, StopConfig } from './models';
 import { fetchMuenchenDepartures } from './api/muenchenApi';
 import { logger } from './utils/logger';
 import { fetchWuerzburgDepartures } from './api/wuerzburgApi';
+import { ProviderUnavailableError } from './api/errors';
 
 import './App.css';
 
@@ -37,6 +38,8 @@ const App: React.FC = () => {
   const [configOpen, setConfigOpen] = useState(false);
   const [departuresMap, setDeparturesMap] = useState<Record<string, Departure[]>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
+  // Stops whose data provider currently refuses to serve us (e.g. HTTP 429).
+  const [providerUnavailable, setProviderUnavailable] = useState<Record<string, boolean>>({});
   const [error, setError] = useState<string | null>(null);
   const [autoRefreshPaused, setAutoRefreshPaused] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState<Date | null>(null);
@@ -71,7 +74,8 @@ const App: React.FC = () => {
       setLoading(prev => ({ ...prev, [stop.id]: true }));
       
       let departures: Departure[];
-      
+      let unavailable = false;
+
       if (stop.city === 'muc') {
         departures = await fetchMuenchenDepartures(stop.stopId);
       } else if (stop.city === 'wue') {
@@ -79,8 +83,11 @@ const App: React.FC = () => {
           departures = await fetchWuerzburgDepartures(stop.stopId);
         } catch (err) {
           logger.error('Error fetching departures for Würzburg stop', { stopName: stop.name }, err as Error);
-          // Set empty departures but don't treat as a global error
+          // Set empty departures but don't treat as a global error. If the
+          // provider blocks us, the widget explains that instead of claiming
+          // there are no departures.
           departures = [];
+          unavailable = err instanceof ProviderUnavailableError;
         }
       } else {
         throw new Error(t('unsupportedCity', { city: stop.city }));
@@ -90,6 +97,7 @@ const App: React.FC = () => {
         ...prev,
         [stop.id]: departures || [] // Ensure we always have an array even if undefined
       }));
+      setProviderUnavailable(prev => ({ ...prev, [stop.id]: unavailable }));
 
       setError(null);
     } catch (err) {
@@ -353,6 +361,7 @@ const App: React.FC = () => {
                   stopConfig={stop}
                   departures={departuresMap[stop.id] || []}
                   isLoading={loading[stop.id] || false}
+                  providerUnavailable={providerUnavailable[stop.id] || false}
                   onRefresh={() => handleRefresh(stop.id)}
                   onConfigure={handleConfigure}
                   maxDeparturesShown={maxDeparturesShown}
