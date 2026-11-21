@@ -78,7 +78,7 @@ jobs:
 
       - name: Build Docker image (PR - no push)
         if: github.event_name == 'pull_request'
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -91,7 +91,7 @@ jobs:
 
       - name: Build and push Docker image (Push to main/develop)
         if: github.event_name != 'pull_request'
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
