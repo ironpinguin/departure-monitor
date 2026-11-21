@@ -146,6 +146,9 @@ jobs:
       - name: Run ESLint
         run: pnpm run lint
 
+      - name: Run tests
+        run: pnpm test
+
       - name: Build application
         run: pnpm run build
 
@@ -154,6 +157,7 @@ jobs:
           echo "## ✅ Code Quality Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Linting:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "**Tests:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
           echo "**Build:** ✅ Successful" >> $GITHUB_STEP_SUMMARY
           echo "**Node.js:** \`$(node --version)\`" >> $GITHUB_STEP_SUMMARY
           echo "**PNPM:** \`$(pnpm --version)\`" >> $GITHUB_STEP_SUMMARY
