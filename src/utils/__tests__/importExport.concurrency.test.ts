@@ -252,15 +252,14 @@ describe('Import/Export Concurrency Tests', () => {
         }
       });
       
-      vi.stubGlobal('URL', {
-        createObjectURL: vi.fn(() => 'blob:mock-url'),
-        revokeObjectURL: vi.fn()
+      vi.stubGlobal('URL', class extends URL {
+        static createObjectURL = vi.fn(() => 'blob:mock-url');
+        static revokeObjectURL = vi.fn();
       });
       
-      vi.stubGlobal('Blob', vi.fn(() => ({
-        size: 1024,
-        type: 'application/json'
-      })));
+      vi.stubGlobal('Blob', vi.fn(function () {
+        return { size: 1024, type: 'application/json' };
+      }));
       
       vi.spyOn(document, 'createElement').mockImplementation(() => ({
         href: '',
@@ -384,15 +383,14 @@ describe('Import/Export Concurrency Tests', () => {
         }
       });
       
-      vi.stubGlobal('URL', {
-        createObjectURL: vi.fn(() => 'blob:mock-url'),
-        revokeObjectURL: vi.fn()
+      vi.stubGlobal('URL', class extends URL {
+        static createObjectURL = vi.fn(() => 'blob:mock-url');
+        static revokeObjectURL = vi.fn();
       });
       
-      vi.stubGlobal('Blob', vi.fn(() => ({
-        size: 1024,
-        type: 'application/json'
-      })));
+      vi.stubGlobal('Blob', vi.fn(function () {
+        return { size: 1024, type: 'application/json' };
+      }));
 
       // Mock FileReader for import
       global.FileReader = class MockFileReader {

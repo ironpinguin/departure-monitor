@@ -16,19 +16,18 @@ const mockWorker = {
 };
 
 // Mock Worker constructor
-vi.stubGlobal('Worker', vi.fn(() => mockWorker));
+vi.stubGlobal('Worker', vi.fn(function () { return mockWorker; }));
 
 // Mock URL methods
-vi.stubGlobal('URL', {
-  createObjectURL: vi.fn(() => 'blob:mock-url'),
-  revokeObjectURL: vi.fn()
+vi.stubGlobal('URL', class extends URL {
+  static createObjectURL = vi.fn(() => 'blob:mock-url');
+  static revokeObjectURL = vi.fn();
 });
 
 // Mock Blob
-vi.stubGlobal('Blob', vi.fn(() => ({
-  size: 1024,
-  type: 'application/json'
-})));
+vi.stubGlobal('Blob', vi.fn(function () {
+  return { size: 1024, type: 'application/json' };
+}));
 
 // Mock document methods
 const mockDocument = {
@@ -97,7 +96,7 @@ describe('Performance Optimizations', () => {
         result: '{"schemaVersion": "1.0", "config": {"stops": []}, "metadata": {"stopCount": 0}}'
       };
 
-      vi.stubGlobal('FileReader', vi.fn(() => mockFileReader));
+      vi.stubGlobal('FileReader', vi.fn(function () { return mockFileReader; }));
 
       // Simulate file reading
       setTimeout(() => {
