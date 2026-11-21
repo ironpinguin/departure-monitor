@@ -17,7 +17,10 @@ const BASE_URL = 'https://www.mvv-muenchen.de/';
 // efa.mvv-muenchen.de, which exposes the same schema as Würzburg. efa.mvv sends
 // no CORS headers, so it is reached through the /mvv-efa-api proxy (see
 // vite.config.ts and nginx.conf).
-const EFA_BASE_URL = '/mvv-efa-api/mvv';
+// The `/efa` path is used instead of `/mvv`: both serve the same rapidJSON
+// schema and global stop IDs (de:09162:...), but `/mvv` takes ~13 s per request
+// and ranks results poorly, while `/efa` answers in well under a second.
+const EFA_BASE_URL = '/mvv-efa-api/efa';
 
 // The MVV API expects the `lines` parameter to be a base64-encoded JSON array
 // used to filter by specific lines. An empty array (base64 "W10=") means "no
@@ -30,7 +33,9 @@ function fetchDeparturesUrl(stopId: string): string {
 }
 
 function searchStopUrl(query: string): string {
-  return `${EFA_BASE_URL}/XML_STOPFINDER_REQUEST?coordOutputFormat=WGS84%5Bdd.ddddd%5D&language=de&locationServerActive=1&name_sf=${encodeURIComponent(query)}&outputFormat=rapidJSON&type_sf=any`;
+  // anyObjFilter_sf=2 limits results to stops; without it EFA mostly returns
+  // POIs and streets, which parseEfaStops discards anyway.
+  return `${EFA_BASE_URL}/XML_STOPFINDER_REQUEST?anyObjFilter_sf=2&coordOutputFormat=WGS84%5Bdd.ddddd%5D&language=de&locationServerActive=1&name_sf=${encodeURIComponent(query)}&outputFormat=rapidJSON&type_sf=any`;
 }
 
 function linesForStopUrl(stopId: string): string {
