@@ -1,12 +1,6 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// DOM-Setup für Testing Library
-Object.defineProperty(document, 'body', {
-  value: document.createElement('div'),
-  writable: true,
-});
-
 // Mock für window.URL mit erweiterten Fehlerszenarien
 if (!window.URL) {
   const mockURL = {
