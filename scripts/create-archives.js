@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import { createWriteStream } from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import archiver from 'archiver';
+import { ZipArchive } from 'archiver';
 import * as tar from 'tar';
 import chalk from 'chalk';
 
@@ -76,7 +76,7 @@ class ArchiveCreator {
 
     return new Promise((resolve, reject) => {
       const output = createWriteStream(zipPath);
-      const archive = archiver('zip', {
+      const archive = new ZipArchive({
         zlib: { level: 9 } // Maximale Kompression
       });
 
@@ -94,9 +94,8 @@ class ArchiveCreator {
       });
 
       archive.on('progress', (progress) => {
-        if (totalBytes === 0) {
-          totalBytes = progress.entries.total;
-        }
+        // archiver 8 reports a running total while the directory is walked
+        totalBytes = progress.entries.total;
         processedBytes = progress.entries.processed;
         const percentage = totalBytes > 0 ? Math.round((processedBytes / totalBytes) * 100) : 0;
         process.stdout.write(`\r${chalk.yellow('⏳')} ZIP Progress: ${percentage}% (${processedBytes}/${totalBytes} Dateien)`);

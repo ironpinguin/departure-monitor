@@ -17,7 +17,12 @@ jobs:
     #   github.event.pull_request.user.login == 'external-contributor' ||
     #   github.event.pull_request.user.login == 'new-developer' ||
     #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
-    
+
+    # Dependabot-triggered runs only get Dependabot secrets, so ANTHROPIC_API_KEY
+    # is empty and the review fails. Skip them; pushes by humans to Dependabot
+    # branches still get reviewed because the actor is then the human.
+    if: github.actor != 'dependabot[bot]'
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
