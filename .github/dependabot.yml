@@ -13,3 +13,30 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+
+  # Keep npm dependencies (package.json / pnpm-lock.yaml) up to date.
+  # Minor and patch updates are grouped into one PR per dependency type to
+  # keep the noise down; major updates still get their own PR so breaking
+  # changes can be reviewed individually. Security updates are unaffected.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "javascript"
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
