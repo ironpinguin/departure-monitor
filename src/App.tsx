@@ -77,7 +77,16 @@ const App: React.FC = () => {
       let unavailable = false;
 
       if (stop.city === 'muc') {
-        departures = await fetchMuenchenDepartures(stop.stopId);
+        try {
+          departures = await fetchMuenchenDepartures(stop.stopId);
+        } catch (err) {
+          // A blocked provider is explained in the widget; other errors still
+          // surface through the global error snackbar below.
+          if (!(err instanceof ProviderUnavailableError)) throw err;
+          logger.error('Munich data provider unavailable', { stopName: stop.name }, err);
+          departures = [];
+          unavailable = true;
+        }
       } else if (stop.city === 'wue') {
         try {
           departures = await fetchWuerzburgDepartures(stop.stopId);

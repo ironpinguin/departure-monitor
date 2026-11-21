@@ -7,7 +7,8 @@
  */
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { stopFinderMuenchen } from '../muenchenApi';
+import { ProviderUnavailableError } from '../errors';
+import { fetchMuenchenDepartures, linesForStop, stopFinderMuenchen } from '../muenchenApi';
 
 const okJson = (body: unknown) =>
   Promise.resolve({ ok: true, json: () => Promise.resolve(body) } as Response);
@@ -44,5 +45,31 @@ describe('stopFinderMuenchen', () => {
     await expect(stopFinderMuenchen('Marienplatz')).resolves.toEqual([
       { id: 'de:09162:2', name: 'Marienplatz', city: 'muc', longName: 'München, Marienplatz' },
     ]);
+  });
+});
+
+describe('Munich API when the provider blocks access (HTTP 429)', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const blocked = () =>
+    Promise.resolve({
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      json: () => Promise.reject(new Error('not json')),
+    } as Response);
+
+  it.each([
+    ['fetchMuenchenDepartures', () => fetchMuenchenDepartures('de:09162:2')],
+    ['stopFinderMuenchen', () => stopFinderMuenchen('Marienplatz')],
+    ['linesForStop', () => linesForStop('de:09162:2')],
+  ])('%s throws ProviderUnavailableError', async (_name, call) => {
+    vi.stubGlobal('fetch', vi.fn(blocked));
+
+    const error = await call().catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(ProviderUnavailableError);
+    expect(error).toMatchObject({ city: 'muc', status: 429 });
   });
 });

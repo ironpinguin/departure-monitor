@@ -8,6 +8,7 @@ import type {
   MUCLine,
   EFAStopFinderResponse,
 } from '../models/index';
+import { throwIfProviderBlocked } from './errors';
 import { parseEfaStops } from './efa';
 
 const BASE_URL = 'https://www.mvv-muenchen.de/';
@@ -44,6 +45,7 @@ function linesForStopUrl(stopId: string): string {
 
 export async function fetchMuenchenDepartures(stopId: string): Promise<Departure[]> {
   const response = await fetch(fetchDeparturesUrl(stopId));
+  throwIfProviderBlocked(response, 'muc');
   if (!response.ok) {
     throw new Error(`Failed to fetch departures for stopId ${stopId}: ${response.statusText}`);
   }
@@ -91,6 +93,7 @@ export async function fetchMuenchenDepartures(stopId: string): Promise<Departure
 
 export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
   const response = await fetch(searchStopUrl(query));
+  throwIfProviderBlocked(response, 'muc');
   if (!response.ok) {
     throw new Error(`Failed to search for stops with query ${query}: ${response.statusText}`);
   }
@@ -102,6 +105,7 @@ export async function stopFinderMuenchen(query: string): Promise<BasicStop[]> {
 
 export async function linesForStop(stopId: string): Promise<Line[]> {
   const response = await fetch(linesForStopUrl(stopId));
+  throwIfProviderBlocked(response, 'muc');
   if (!response.ok) {
     throw new Error(`Failed to fetch lines for stopId ${stopId}: ${response.statusText}`);
   }
